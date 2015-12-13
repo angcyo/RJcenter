@@ -13,8 +13,16 @@ buildscript {
 }
 
 allprojects {
+
+    group project.GROUP
+    version project.VERSION_NAME
+
     repositories {
-        jcenter()
+        mavenCentral()
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
     }
 }
 
