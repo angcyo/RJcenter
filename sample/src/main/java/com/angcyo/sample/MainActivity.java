@@ -9,8 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.angcyo.rjcenter.R;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
