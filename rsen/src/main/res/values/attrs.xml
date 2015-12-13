@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HighlightTextView">
+        <attr name="highlight_position" format="integer"/>
+        <attr name="highlight_num" format="integer"/>
+        <attr name="highlight_color" format="color"/>
+    </declare-styleable>
+
+</resources>
