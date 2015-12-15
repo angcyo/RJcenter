@@ -6,30 +6,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0-alpha2'
-
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.5'
-
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.2.0"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
-
-allprojects {
-
-    group project.GROUP
-    version project.VERSION_NAME
-
-    repositories {
-        mavenCentral()
-    }
-
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
-}
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

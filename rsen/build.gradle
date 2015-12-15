@@ -9,23 +9,12 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    lintOptions {
-        quiet true
-        abortOnError false
-    }
-
-    testOptions {
-        unitTests.returnDefaultValues = true
     }
 }
 
@@ -35,6 +24,16 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
 }
 
-apply from: 'https://raw.githubusercontent.com/angcyo/gradle-mvn-push/master/gradle-mvn-push.gradle'  //未成功
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.5'
+
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.2.0"
+    }
+}
+//apply from: 'https://raw.githubusercontent.com/angcyo/gradle-mvn-push/master/gradle-mvn-push.gradle'  //未成功
 
 apply from: 'https://raw.githubusercontent.com/angcyo/gradle-publish/master/bintray.gradle'  //成功
