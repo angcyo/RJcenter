@@ -71,7 +71,7 @@
         app:button_weight="0.3"
         app:error_text="出错啦"
         app:max_value="80000"
-        app:min_value="80"
+        app:min_value="-80"
         app:show_error="false"
         app:sub_step="-10" />
 

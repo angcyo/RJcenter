@@ -209,7 +209,7 @@ public class ControlEditText extends LinearLayout implements View.OnClickListene
             selStart = selEnd = length;
         }
         if (selEnd > length) {
-            selEnd = length;
+            selEnd = selStart;
         }
         editText.setText(text);
         editText.setSelection(selStart, selEnd);
@@ -217,6 +217,8 @@ public class ControlEditText extends LinearLayout implements View.OnClickListene
 
     private void initDefaultData() {
         centerEditText.setText(mMinNum + "");
+        int length = centerEditText.getText().length();
+        centerEditText.setSelection(length, length);
     }
 
     private void init() {
