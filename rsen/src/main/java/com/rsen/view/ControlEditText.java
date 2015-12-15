@@ -216,7 +216,7 @@ public class ControlEditText extends LinearLayout implements View.OnClickListene
     }
 
     private void initDefaultData() {
-        centerEditText.setText(mMinNum + "");
+        centerEditText.setText(String.valueOf(mMinNum));
         int length = centerEditText.getText().length();
         centerEditText.setSelection(length, length);
     }
