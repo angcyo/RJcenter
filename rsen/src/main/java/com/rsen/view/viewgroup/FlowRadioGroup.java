@@ -1,4 +1,4 @@
-package com.angcyo.rsen.view.viewgroup;
+package com.rsen.view.viewgroup;
 
 import android.content.Context;
 import android.os.Parcel;

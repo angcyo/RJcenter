@@ -13,7 +13,7 @@
     tools:context="com.angcyo.sample.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <com.angcyo.rsen.view.viewgroup.FlowRadioGroup
+    <com.rsen.view.viewgroup.FlowRadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -52,14 +52,14 @@
             android:layout_height="wrap_content"
             android:text="程序" />
 
-    </com.angcyo.rsen.view.viewgroup.FlowRadioGroup>
+    </com.rsen.view.viewgroup.FlowRadioGroup>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
-    <com.angcyo.rsen.view.ControlEditText
+    <com.rsen.view.ControlEditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/edit_text"
@@ -82,7 +82,7 @@
         android:layout_centerInParent="true"
         android:minWidth="200dp" />
 
-    <com.angcyo.rsen.view.CircleView
+    <com.rsen.view.CircleView
         android:id="@+id/circle_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

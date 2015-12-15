@@ -1,4 +1,4 @@
-package com.angcyo.rsen.view;
+package com.rsen.view;
 
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;

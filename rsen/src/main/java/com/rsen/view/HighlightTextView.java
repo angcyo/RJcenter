@@ -1,4 +1,4 @@
-package com.angcyo.rsen.view;
+package com.rsen.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

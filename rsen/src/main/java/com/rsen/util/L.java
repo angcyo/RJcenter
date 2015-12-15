@@ -1,4 +1,4 @@
-package com.angcyo.rsen.util;
+package com.rsen.util;
 
 import android.content.Context;
 import android.os.Environment;

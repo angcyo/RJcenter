@@ -1,4 +1,4 @@
-package com.angcyo.rsen.view;
+package com.rsen.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -107,6 +107,7 @@ public class ControlEditText extends LinearLayout implements View.OnClickListene
         typedArray.recycle();
 
         init();
+        initDefaultData();
     }
 
     @SuppressLint("NewApi")
@@ -214,6 +215,10 @@ public class ControlEditText extends LinearLayout implements View.OnClickListene
         editText.setSelection(selStart, selEnd);
     }
 
+    private void initDefaultData() {
+        centerEditText.setText(mMinNum + "");
+    }
+
     private void init() {
         setOrientation(HORIZONTAL);
 
@@ -311,7 +316,12 @@ public class ControlEditText extends LinearLayout implements View.OnClickListene
         safeSetValue(num);
     }
 
-    private void safeSetValue(int value) {
+    /**
+     * Safe set value.
+     *
+     * @param value the value
+     */
+    public void safeSetValue(int value) {
         boolean show = false;
 
         if (value < mMinNum) {
