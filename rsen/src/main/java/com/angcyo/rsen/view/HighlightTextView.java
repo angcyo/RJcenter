@@ -20,14 +20,32 @@ public class HighlightTextView extends AppCompatTextView {
     private int mHighlightColor = Color.RED;//高亮的颜色, 默认红色
     private int mHighlightNum = 1;//高亮字符的数量,默认1个
 
+    /**
+     * Instantiates a new Highlight text view.
+     *
+     * @param context the context
+     */
     public HighlightTextView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Instantiates a new Highlight text view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public HighlightTextView(Context context, AttributeSet attrs) {
         this(context, attrs, android.R.attr.textViewStyle);
     }
 
+    /**
+     * Instantiates a new Highlight text view.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
     public HighlightTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HighlightTextView);
@@ -68,6 +86,11 @@ public class HighlightTextView extends AppCompatTextView {
         setText(builder);
     }
 
+    /**
+     * Sets highlight position.
+     *
+     * @param mHighlightPosition the m highlight position
+     */
     public void setHighlightPosition(int mHighlightPosition) {
         this.mHighlightPosition = mHighlightPosition;
         init();
@@ -78,6 +101,11 @@ public class HighlightTextView extends AppCompatTextView {
         init();
     }
 
+    /**
+     * Sets highlight num.
+     *
+     * @param mHighlightNum the m highlight num
+     */
     public void setHighlightNum(int mHighlightNum) {
         this.mHighlightNum = mHighlightNum;
         init();

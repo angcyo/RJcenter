@@ -31,6 +31,9 @@ public final class L {
      */
     public static final int LEVEL_OFF = Integer.MAX_VALUE;
 
+    /**
+     * The constant TAG_DEBUG.
+     */
     public static final String TAG_DEBUG = "LogUtils";
     private static final String FILE_LOG_DIR = "logs";
 
@@ -44,19 +47,41 @@ public final class L {
         return level >= sLoggingLevel;
     }
 
+    /**
+     * Sets level.
+     *
+     * @param level the level
+     */
     public static void setLevel(int level) {
         sLoggingLevel = level;
     }
 
+    /**
+     * Sets file logging level.
+     *
+     * @param appContext the app context
+     * @param level      the level
+     */
     public static void setFileLoggingLevel(Context appContext, int level) {
         sFileLoggingLevel = level;
         openFileLogger(appContext);
     }
 
+    /**
+     * E.
+     *
+     * @param t the t
+     */
     public static void e(Throwable t) {
         e(TAG_DEBUG, t);
     }
 
+    /**
+     * E.
+     *
+     * @param tag the tag
+     * @param e   the e
+     */
     public static void e(String tag, Throwable e) {
         if (needLog(Log.ERROR)) {
             Log.e(tag, "", e);
@@ -64,96 +89,204 @@ public final class L {
         }
     }
 
+    /**
+     * E.
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void e(String tag, String message) {
         if (needLog(Log.ERROR)) {
             Log.e(tag, message);
         }
     }
 
+    /**
+     * W.
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void w(String tag, String message) {
         if (needLog(Log.WARN)) {
             Log.w(tag, message);
         }
     }
 
+    /**
+     * .
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void i(String tag, String message) {
         if (needLog(Log.INFO)) {
             Log.i(tag, message);
         }
     }
 
+    /**
+     * D.
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void d(String tag, String message) {
         if (needLog(Log.DEBUG)) {
             Log.d(tag, message);
         }
     }
 
+    /**
+     * V.
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void v(String tag, String message) {
         if (needLog(Log.VERBOSE)) {
             Log.v(tag, message);
         }
     }
 
+    /**
+     * V.
+     *
+     * @param format the format
+     * @param args   the args
+     */
     public static void v(String format, Object... args) {
         if (needLog(Log.VERBOSE)) {
             Log.v(TAG_DEBUG, buildMessage(format, args));
         }
     }
 
+    /**
+     * D.
+     *
+     * @param format the format
+     * @param args   the args
+     */
     public static void d(String format, Object... args) {
         if (needLog(Log.DEBUG)) {
             Log.d(TAG_DEBUG, buildMessage(format, args));
         }
     }
 
+    /**
+     * .
+     *
+     * @param format the format
+     * @param args   the args
+     */
     public static void i(String format, Object... args) {
         if (needLog(Log.INFO)) {
             Log.i(TAG_DEBUG, buildMessage(format, args));
         }
     }
 
+    /**
+     * W.
+     *
+     * @param format the format
+     * @param args   the args
+     */
     public static void w(String format, Object... args) {
         if (needLog(Log.WARN)) {
             Log.w(TAG_DEBUG, buildMessage(format, args));
         }
     }
 
+    /**
+     * E.
+     *
+     * @param format the format
+     * @param args   the args
+     */
     public static void e(String format, Object... args) {
         if (needLog(Log.ERROR)) {
             Log.e(TAG_DEBUG, buildMessage(format, args));
         }
     }
 
+    /**
+     * E.
+     *
+     * @param tr     the tr
+     * @param format the format
+     * @param args   the args
+     */
     public static void e(Throwable tr, String format, Object... args) {
         if (needLog(Log.ERROR)) {
             Log.e(TAG_DEBUG, buildMessage(format, args), tr);
         }
     }
 
+    /**
+     * E.
+     *
+     * @param clz     the clz
+     * @param message the message
+     */
     public static void e(Class<?> clz, String message) {
         e(clz.getSimpleName(), message);
     }
 
+    /**
+     * W.
+     *
+     * @param clz     the clz
+     * @param message the message
+     */
     public static void w(Class<?> clz, String message) {
         w(clz.getSimpleName(), message);
     }
 
+    /**
+     * .
+     *
+     * @param clz     the clz
+     * @param message the message
+     */
     public static void i(Class<?> clz, String message) {
         i(clz.getSimpleName(), message);
     }
 
+    /**
+     * D.
+     *
+     * @param clz     the clz
+     * @param message the message
+     */
     public static void d(Class<?> clz, String message) {
         d(clz.getSimpleName(), message);
     }
 
+    /**
+     * V.
+     *
+     * @param clz     the clz
+     * @param message the message
+     */
     public static void v(Class<?> clz, String message) {
         v(clz.getSimpleName(), message);
     }
 
+    /**
+     * E.
+     *
+     * @param clz the clz
+     * @param t   the t
+     */
     public static void e(Class<?> clz, Throwable t) {
         e(clz.getSimpleName(), t);
     }
 
+    /**
+     * E.
+     *
+     * @param message the message
+     */
     public static void e(String message) {
         if (needLog(Log.ERROR)) {
             Log.e(TAG_DEBUG, getMethodInfo(4));
@@ -161,6 +294,11 @@ public final class L {
         }
     }
 
+    /**
+     * W.
+     *
+     * @param message the message
+     */
     public static void w(String message) {
         if (needLog(Log.WARN)) {
             Log.w(TAG_DEBUG, getMethodInfo(4));
@@ -168,6 +306,11 @@ public final class L {
         }
     }
 
+    /**
+     * .
+     *
+     * @param message the message
+     */
     public static void i(String message) {
         if (needLog(Log.INFO)) {
             Log.i(TAG_DEBUG, getMethodInfo(4));
@@ -175,6 +318,11 @@ public final class L {
         }
     }
 
+    /**
+     * D.
+     *
+     * @param message the message
+     */
     public static void d(String message) {
         if (needLog(Log.DEBUG)) {
             Log.d(TAG_DEBUG, getMethodInfo(4));
@@ -182,6 +330,11 @@ public final class L {
         }
     }
 
+    /**
+     * V.
+     *
+     * @param message the message
+     */
     public static void v(String message) {
         if (needLog(Log.VERBOSE)) {
             Log.v(TAG_DEBUG, getMethodInfo(4));
@@ -228,10 +381,20 @@ public final class L {
                 Thread.currentThread().getId(), caller, msg);
     }
 
+    /**
+     * Start trace.
+     *
+     * @param operation the operation
+     */
     public static void startTrace(String operation) {
         sTraceMap.put(operation, System.currentTimeMillis());
     }
 
+    /**
+     * Stop trace.
+     *
+     * @param operation the operation
+     */
     public static void stopTrace(String operation) {
         Long start = sTraceMap.remove(operation);
         if (start != null) {
@@ -241,10 +404,18 @@ public final class L {
         }
     }
 
+    /**
+     * Remove trace.
+     *
+     * @param key the key
+     */
     public static void removeTrace(String key) {
         sTraceMap.remove(key);
     }
 
+    /**
+     * Clear trace.
+     */
     public static void clearTrace() {
         sTraceMap.clear();
         Log.v(TAG_DEBUG, "trace is cleared.");
@@ -253,11 +424,21 @@ public final class L {
 
     /**
      * 写log到文件
+     *
+     * @param tag the tag
+     * @param e   the e
      */
     public static void fe(String tag, Throwable e) {
         fe(tag, "", e);
     }
 
+    /**
+     * Fe.
+     *
+     * @param tag     the tag
+     * @param message the message
+     * @param e       the e
+     */
     public static void fe(String tag, String message, Throwable e) {
         if (needLog(Log.ERROR)) {
             Log.e(tag, "", e);
@@ -270,6 +451,12 @@ public final class L {
         }
     }
 
+    /**
+     * Fe.
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void fe(String tag, String message) {
         if (needLog(Log.ERROR)) {
             Log.e(tag, message);
@@ -281,6 +468,12 @@ public final class L {
         }
     }
 
+    /**
+     * Fw.
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void fw(String tag, String message) {
         if (needLog(Log.WARN)) {
             Log.w(tag, message);
@@ -292,6 +485,12 @@ public final class L {
         }
     }
 
+    /**
+     * Fi.
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void fi(String tag, String message) {
         if (needLog(Log.INFO)) {
             Log.i(tag, message);
@@ -303,6 +502,12 @@ public final class L {
         }
     }
 
+    /**
+     * Fd.
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void fd(String tag, String message) {
         if (needLog(Log.DEBUG)) {
             Log.d(tag, message);
@@ -314,6 +519,12 @@ public final class L {
         }
     }
 
+    /**
+     * Fv.
+     *
+     * @param tag     the tag
+     * @param message the message
+     */
     public static void fv(String tag, String message) {
         if (needLog(Log.VERBOSE)) {
             Log.v(tag, message);
@@ -363,11 +574,21 @@ public final class L {
     }
 
 
+    /**
+     * Clear log files.
+     *
+     * @param context the context
+     */
     public void clearLogFiles(Context context) {
         File logDir = createFileLogDirIfNeeded(context);
         logDir.delete();
     }
 
+    /**
+     * Clear log files async.
+     *
+     * @param context the context
+     */
     public void clearLogFilesAsync(final Context context) {
         new Thread() {
             @Override
@@ -389,6 +610,15 @@ public final class L {
         private final Throwable cause;
         private String date;
 
+        /**
+         * Instantiates a new Log entry.
+         *
+         * @param lvl        the lvl
+         * @param tag        the tag
+         * @param threadName the thread name
+         * @param msg        the msg
+         * @param tr         the tr
+         */
         LogEntry(char lvl, String tag, String threadName, String msg, Throwable tr) {
             this.now = System.currentTimeMillis();
             this.level = lvl;
@@ -450,6 +680,11 @@ public final class L {
             csv.append(sb.toString().replace(';', '-').replace(',', '-').replace('"', '\''));
         }
 
+        /**
+         * Format csv char sequence.
+         *
+         * @return the char sequence
+         */
         public CharSequence formatCsv() {
             final StringBuilder csv = new StringBuilder(256);
             addCsvHeader(csv);
@@ -469,12 +704,18 @@ public final class L {
     }
 
     private static class FileLogger implements Handler.Callback {
+        /**
+         * The constant TAG.
+         */
         public static final String TAG = FileLogger.class.getSimpleName();
         private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd-HH", Locale.US);
         private static final String UTF_8 = "UTF-8";
         private static final int MSG_OPEN = 0;
         private static final int MSG_WRITE = 1;
         private static final int MSG_CLEAR = 2;
+        /**
+         * The constant MAX_FILE_SIZE.
+         */
         public static long MAX_FILE_SIZE = 1024 * 1024 * 10;
         private File mLogDir;
         private File mLogFile;
@@ -483,6 +724,12 @@ public final class L {
         private Handler mAsyncHandler;
         private Writer mWriter;
 
+        /**
+         * Instantiates a new File logger.
+         *
+         * @param logTag the log tag
+         * @param logDir the log dir
+         */
         public FileLogger(String logTag, File logDir) {
             mTag = logTag;
             mLogDir = logDir;
@@ -508,6 +755,9 @@ public final class L {
             return true;
         }
 
+        /**
+         * Close.
+         */
         public void close() {
             Handler handler = mAsyncHandler;
             mAsyncHandler = null;
@@ -520,6 +770,9 @@ public final class L {
             }
         }
 
+        /**
+         * Clear.
+         */
         public void clear() {
             sendClearMessage();
         }
@@ -625,50 +878,119 @@ public final class L {
             }
         }
 
+        /**
+         * D.
+         *
+         * @param tag the tag
+         * @param msg the msg
+         */
         public void d(String tag, String msg) {
             write('d', tag, msg);
         }
 
+        /**
+         * D.
+         *
+         * @param msg the msg
+         */
         public void d(String msg) {
             write('d', msg);
         }
 
+        /**
+         * E.
+         *
+         * @param tag the tag
+         * @param msg the msg
+         * @param tr  the tr
+         */
         public void e(String tag, String msg, Throwable tr) {
             write('e', tag, msg, tr);
         }
 
+        /**
+         * E.
+         *
+         * @param tag the tag
+         * @param msg the msg
+         */
         public void e(String tag, String msg) {
             write('e', tag, msg);
         }
 
+        /**
+         * E.
+         *
+         * @param msg the msg
+         */
         public void e(String msg) {
             write('e', msg);
         }
 
+        /**
+         * .
+         *
+         * @param msg the msg
+         * @param tag the tag
+         */
         public void i(String msg, String tag) {
             write('i', tag, msg);
         }
 
+        /**
+         * .
+         *
+         * @param msg the msg
+         */
         public void i(String msg) {
             write('i', msg);
         }
 
+        /**
+         * V.
+         *
+         * @param msg the msg
+         * @param tag the tag
+         */
         public void v(String msg, String tag) {
             write('v', tag, msg);
         }
 
+        /**
+         * V.
+         *
+         * @param msg the msg
+         */
         public void v(String msg) {
             write('v', msg);
         }
 
+        /**
+         * W.
+         *
+         * @param tag the tag
+         * @param msg the msg
+         * @param tr  the tr
+         */
         public void w(String tag, String msg, Throwable tr) {
             write('w', tag, msg, tr);
         }
 
+        /**
+         * W.
+         *
+         * @param tag the tag
+         * @param msg the msg
+         */
         public void w(String tag, String msg) {
             write('w', tag, msg);
         }
 
+        /**
+         * W.
+         *
+         * @param msg the msg
+         */
         public void w(String msg) {
             write('w', msg);
         }

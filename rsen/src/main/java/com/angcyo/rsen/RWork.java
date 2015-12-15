@@ -18,6 +18,8 @@ public class RWork {
 
     /**
      * 调用此方法,运行在后台线程
+     *
+     * @param task the task
      */
     public static void work(Runnable task) {
         service.execute(task);
@@ -25,6 +27,8 @@ public class RWork {
 
     /**
      * 调用此方法,可以构建后台任务和主线程任务
+     *
+     * @return the builder
      */
     public static Builder on() {
         return new Builder();
@@ -37,11 +41,17 @@ public class RWork {
         service.shutdown();
     }
 
+    /**
+     * The type Builder.
+     */
     public static class Builder {
         private Task bgTask, uiTask;
 
         /**
          * 主线程回调
+         *
+         * @param uiTask the ui task
+         * @return the builder
          */
         public Builder onUi(Task uiTask) {
             this.uiTask = uiTask;
@@ -50,6 +60,9 @@ public class RWork {
 
         /**
          * 后台线程回调
+         *
+         * @param bgTask the bg task
+         * @return the builder
          */
         public Builder onBg(Task bgTask) {
             this.bgTask = bgTask;
@@ -68,9 +81,24 @@ public class RWork {
      * 封装的类
      */
     private static class WorkTask implements Runnable {
-        Task uiTask, bgTask;
+        /**
+         * The Ui task.
+         */
+        Task uiTask, /**
+         * The Bg task.
+         */
+        bgTask;
+        /**
+         * The Handler.
+         */
         Handler handler;
 
+        /**
+         * Instantiates a new Work task.
+         *
+         * @param bgTask the bg task
+         * @param uiTask the ui task
+         */
         public WorkTask(Task bgTask, Task uiTask) {
             this.uiTask = uiTask;
             this.bgTask = bgTask;
@@ -94,6 +122,12 @@ public class RWork {
      */
     public static abstract class Task implements Runnable {
 
+        /**
+         * On task object.
+         *
+         * @param object the object
+         * @return the object
+         */
         public abstract Object onTask(Object object);
 
         @Override
@@ -102,9 +136,21 @@ public class RWork {
     }
 
     private static class UiTask implements Runnable {
+        /**
+         * The Arg.
+         */
         Object arg;
+        /**
+         * The Task.
+         */
         Task task;
 
+        /**
+         * Instantiates a new Ui task.
+         *
+         * @param arg  the arg
+         * @param task the task
+         */
         public UiTask(Object arg, Task task) {
             this.arg = arg;
             this.task = task;
