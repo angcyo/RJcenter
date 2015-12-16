@@ -23,9 +23,9 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.angcyo.rsen.R;
 
@@ -43,7 +43,7 @@ public class ControlEditText extends LinearLayout implements View.OnClickListene
     private static final String TAG_THIS = "this";
     private static int ADD_VALUE = 1;//添加值的步长
     private static int SUB_VALUE = -1;//减去值的步长
-    private Button leftButton, rightButton;//左右2个按钮
+    private TextView leftButton, rightButton;//左右2个按钮
     private EditText centerEditText;//中间的输入框
     private float buttonWeight = 0.2f;//按钮所占的比重
     private float mRadii = 5;//圆角,像素
@@ -227,7 +227,7 @@ public class ControlEditText extends LinearLayout implements View.OnClickListene
         //左按钮
         LayoutParams leftParams = new LayoutParams(0, LayoutParams.MATCH_PARENT);
         leftParams.weight = buttonWeight;
-        leftButton = new Button(getContext());
+        leftButton = new TextView(getContext());
         leftButton.setId(R.id.left_button);
         leftButton.setTag(TAG_LEFT);
         leftButton.setLayoutParams(leftParams);
@@ -239,7 +239,7 @@ public class ControlEditText extends LinearLayout implements View.OnClickListene
         //右按钮
         LayoutParams rightParams = new LayoutParams(0, LayoutParams.MATCH_PARENT);
         rightParams.weight = buttonWeight;
-        rightButton = new Button(getContext());
+        rightButton = new TextView(getContext());
         rightButton.setId(R.id.right_button);
         rightButton.setTag(TAG_RIGHT);
         rightButton.setLayoutParams(rightParams);

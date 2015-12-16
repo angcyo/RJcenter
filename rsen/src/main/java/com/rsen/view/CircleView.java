@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -154,7 +153,7 @@ public class CircleView extends View {
         mAnimator = ValueAnimator.ofObject(new TypeEvaluator<Float>() {
             @Override
             public Float evaluate(float fraction, Float startValue, Float endValue) {
-                Log.d(TAG, "1:: " + fraction + " 2:: " + startValue + " 3:: " + endValue);
+//                Log.d(TAG, "1:: " + fraction + " 2:: " + startValue + " 3:: " + endValue);
                 return fraction * (endValue - startValue);
             }
         }, 0f, 360f);
@@ -178,19 +177,19 @@ public class CircleView extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         startAnimation();
-        Log.e(TAG, "onAttachedToWindow");
+//        Log.e(TAG, "onAttachedToWindow");
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopAnimation();
-        Log.i(TAG, "onDetachedFromWindow");
+//        Log.i(TAG, "onDetachedFromWindow");
     }
 
     @Override
     public void setVisibility(int visibility) {
-        Log.d(TAG, "setVisibility  ::: " + visibility);
+//        Log.d(TAG, "setVisibility  ::: " + visibility);
 
         if (visibility == INVISIBLE || visibility == GONE) {
             stopAnimation();

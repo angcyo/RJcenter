@@ -14,6 +14,7 @@
     tools:showIn="@layout/activity_main">
 
     <com.rsen.view.viewgroup.FlowRadioGroup
+        android:id="@+id/radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -54,6 +55,27 @@
 
     </com.rsen.view.viewgroup.FlowRadioGroup>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/radio_group"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="#3000ff00"
+            android:gravity="center"
+            android:text="+" />
+
+        <Button
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="#3000ff00"
+            android:gravity="center"
+            android:text="+" />
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,7 +83,7 @@
 
     <com.rsen.view.ControlEditText
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_above="@+id/edit_text"
         app:add_step="10"
         app:border_color="@color/colorPrimary"
