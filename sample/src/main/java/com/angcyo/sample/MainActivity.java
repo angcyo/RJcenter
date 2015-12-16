@@ -9,6 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.rsen.util.FileUtil;
+import com.rsen.util.Zip;
+
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                try {
+                    Zip.zip(FileUtil.getSDPath() + "/test");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
