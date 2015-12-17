@@ -34,7 +34,7 @@ public final class L {
     /**
      * The constant TAG_DEBUG.
      */
-    public static final String TAG_DEBUG = "LogUtils";
+    public static final String TAG_DEBUG = "RsenL";
     private static final String FILE_LOG_DIR = "logs";
 
     private static Map<String, Long> sTraceMap = new HashMap<String, Long>();
