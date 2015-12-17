@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.rsen.util.T;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        T.show(MainActivity.this, "onCreate");
     }
 
     @Override
