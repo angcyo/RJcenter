@@ -20,8 +20,10 @@ import rx.Notification;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 L.e("Main thread id:" + Thread.currentThread().getId());
 //                rxDemo();
-                rxDemo2();
+//                rxDemo2();
+                rxDemo3();
             }
         });
 
@@ -153,6 +156,41 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
         ;
+
+        Observable.just("Hello")
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        Log.e("RSenL", "thread id:" + Thread.currentThread().getId());
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.e("RSenL", "call -- " + s);
+                    }
+                });
+    }
+
+    private void rxDemo3() {
+        Observable.just("Hello", "Hi", "Ok", "Rsen")
+                .subscribeOn(Schedulers.io())
+                .map(new Func1<String, String>() {
+                    @Override
+                    public String call(String s) {
+                        Log.e("RSenL", "thread id:" + Thread.currentThread().getId());
+                        return null;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.e("RSenL", "thread id:" + Thread.currentThread().getId());
+                    }
+                });
     }
 
     @Override
