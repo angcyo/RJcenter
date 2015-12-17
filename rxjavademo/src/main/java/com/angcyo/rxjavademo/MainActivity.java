@@ -1,26 +1,15 @@
-package com.angcyo.sample;
+package com.angcyo.rxjavademo;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
-
-import com.rsen.util.FileUtil;
-import com.rsen.util.T;
-import com.rsen.util.Zip;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-
-    View rootLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,50 +18,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
-//                rootLayout.scrollTo(0,500);
-//                testZip();
-
-                T.show(MainActivity.this, SystemClock.elapsedRealtime() + " -- "+ SystemClock.currentThreadTimeMillis());
-
             }
         });
-
-//        testKeyboard();
-    }
-
-    private void testZip() {
-        try {
-            Zip.zip(FileUtil.getSDPath() + "/test");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void testKeyboard() {
-        rootLayout   = findViewById(R.id.root_layout);
-
-        rootLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                int height = rootLayout.getRootView().getHeight() - rootLayout.getHeight();
-                if (height > 100) {//显示键盘了
-                    Log.e("onGlobalLayout", "显示键盘");
-                    rootLayout.scrollTo(0, height);
-                } else {
-                    Log.e("onGlobalLayout", "隐藏键盘");
-
-                    rootLayout.scrollTo(0, 0);
-                }
-            }
-        });
-
     }
 
     @Override

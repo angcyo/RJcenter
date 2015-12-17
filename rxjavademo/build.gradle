@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.angcyo.sample"
+        applicationId "com.angcyo.rxjavademo"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
@@ -20,11 +20,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    //    compile 'com.angcyo:L:1.1.0'
-    //    compile 'com.rsen:rsen:0.0.1'
-    compile project(':rsen')
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
 }
