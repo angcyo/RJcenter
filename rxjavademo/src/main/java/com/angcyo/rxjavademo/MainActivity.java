@@ -44,7 +44,14 @@ public class MainActivity extends AppCompatActivity {
                 L.e("Main thread id:" + Thread.currentThread().getId());
 //                rxDemo();
 //                rxDemo2();
-                rxDemo3();
+//                rxDemo3();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        rxDemo4();
+                    }
+                }).start();
             }
         });
 
@@ -191,6 +198,63 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("RSenL", "thread id:" + Thread.currentThread().getId());
                     }
                 });
+    }
+
+    private void rxDemo4() {
+        Observable.just("a", "b", "c").subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        Log.e("0", "tid:" + Thread.currentThread().getId());
+
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.newThread()).map(new Func1<String, String>() {
+            @Override
+            public String call(String s) {
+                Log.e("1", "tid:" + Thread.currentThread().getId());
+
+                return null;
+            }
+        }).observeOn(AndroidSchedulers.mainThread()).map(new Func1<String, String>() {
+            @Override
+            public String call(String s) {
+                Log.e("2", "tid:" + Thread.currentThread().getId());
+                return null;
+            }
+        }).observeOn(Schedulers.newThread()).map(new Func1<String, String>() {
+            @Override
+            public String call(String s) {
+                Log.e("3", "tid:" + Thread.currentThread().getId());
+                return null;
+            }
+        }).filter(new Func1<String, Boolean>() {
+            @Override
+            public Boolean call(String s) {
+                Log.e("4-filter", "tid:" + Thread.currentThread().getId());
+                return true;
+            }
+        }).take(4)
+                .observeOn(Schedulers.io()).map(new Func1<String, Object>() {
+            @Override
+            public Object call(String s) {
+                Log.e("4", "tid:" + Thread.currentThread().getId());
+                return null;
+            }
+        }).subscribe(new Action1<Object>() {
+            @Override
+            public void call(Object o) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Log.e("5", "tid:" + Thread.currentThread().getId());
+            }
+        });
+
+
     }
 
     @Override
