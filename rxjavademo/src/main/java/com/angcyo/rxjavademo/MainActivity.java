@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                L.e("Main thread id:" + Thread.currentThread().getId());
+                L.e("主线程id:" + Thread.currentThread().getId());
 //                rxDemo();
 //                rxDemo2();
 //                rxDemo3();
@@ -49,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        rxDemo4();
+                        L.e("执行线程id:" + Thread.currentThread().getId());
+
+//                        rxDemo4();
+//                        rxDemo5();
+                        rxDemo6();
+
                     }
                 }).start();
             }
@@ -255,6 +260,91 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void rxDemo5() {
+        Observable.just("t1", "t2", "t3").subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        try {
+                            Log.e("1", "tid:" + Thread.currentThread().getId());
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .doOnEach(new Action1<Notification<? super String>>() {
+                    @Override
+                    public void call(Notification<? super String> notification) {
+                        try {
+                            Log.e("1+" + notification.getValue(), "tid:" + Thread.currentThread().getId());
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .doOnEach(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        try {
+                            Log.e("1-" + s, "tid:" + Thread.currentThread().getId());
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .observeOn(Schedulers.io()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                try {
+                    Log.e("2", "tid:" + Thread.currentThread().getId());
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void rxDemo6() {
+        Observable.just("Up Image").doOnSubscribe(new Action0() {
+            @Override
+            public void call() {
+                try {
+                    Log.e("1", "tid:" + Thread.currentThread().getId());//io线程
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        try {
+                            Log.e("2", "tid:" + Thread.currentThread().getId());//主线程
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     @Override
