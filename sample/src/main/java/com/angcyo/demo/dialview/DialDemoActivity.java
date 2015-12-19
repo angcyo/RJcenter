@@ -16,5 +16,9 @@ public class DialDemoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.dial_demo_layout);
+
+        int n = Integer.MAX_VALUE;
+        n += 100;
+        n = 0;
     }
 }
