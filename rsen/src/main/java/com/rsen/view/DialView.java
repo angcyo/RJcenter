@@ -9,7 +9,6 @@ import android.graphics.RectF;
 import android.support.annotation.ColorInt;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -36,8 +35,9 @@ public class DialView extends View {
     private float mTextOffset = 0.3f;
 
     private int mDialStartDegree = 15;//转盘开始时,旋转的角度
-    private boolean mDialStart = true;
-    private boolean mDialEnd = false;//开始/结束旋转的状态
+    private boolean mDialStart = false;//是否开始了
+    private boolean mDialEnd = true;//是否结束了
+    private Animation animation;
 
 
     public DialView(Context context) {
@@ -88,14 +88,67 @@ public class DialView extends View {
         }
 
         if (!mDialStart && mDialEnd) {
-            Animation animation = new Animation() {
+            animation = new Animation() {
                 @Override
                 protected void applyTransformation(float interpolatedTime, Transformation t) {
                     super.applyTransformation(interpolatedTime, t);
-                    Log.e("tag", "" + interpolatedTime);
+//                    Log.e("tag", "" + interpolatedTime);
+//                    mDialStartDegree += 20;//闪的很快
+//                    postInvalidate();
+
+                    mDialStartDegree += 60 * (1 - interpolatedTime);
+
+//                    if (interpolatedTime < 0.3) {
+//                        mDialStartDegree += 60;//闪的很快
+//                    } else if (interpolatedTime < 0.6) {
+//                        mDialStartDegree += 40;//闪的很快
+//                    }else if (interpolatedTime < 0.8) {
+//                        mDialStartDegree += 20;//闪的很快
+//                    }else if (interpolatedTime < 0.9) {
+//                        mDialStartDegree += 10;//闪的很快
+//                    }else if (interpolatedTime < 1) {
+//                        mDialStartDegree += 2;//闪的很快
+//                    }
+                    invalidate();
                 }
             };
+//            animation.setRepeatCount(Animation.INFINITE);
+            animation.setDuration(6000);
+            startAnimation(animation);
         }
+    }
+
+    public void rotateNumber(int num, long longTime, final Runnable endAction) {
+        //匀速旋转指定的圈数
+        Animation anim = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                super.applyTransformation(interpolatedTime, t);
+                mDialStartDegree += 360 * interpolatedTime;
+                invalidate();
+            }
+        };
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (endAction != null) {
+                    endAction.run();
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        anim.setRepeatCount(num);//圈数就是循环次数
+        anim.setDuration(longTime);//每圈的时间
+        startAnimation(anim);
     }
 
     @Override

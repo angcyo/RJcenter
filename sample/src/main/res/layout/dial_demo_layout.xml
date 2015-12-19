@@ -5,9 +5,17 @@
               android:orientation="vertical">
 
     <com.rsen.view.DialView
+        android:id="@+id/dial_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#204e12f1"
         android:padding="10dp"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="OnClick"
+        android:textAllCaps="false"/>
 
 </LinearLayout>
