@@ -17,11 +17,11 @@ import android.view.View;
  */
 public class DialView extends View {
     @ColorInt
-    private int[] mColors = new int[]{Color.RED, Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GREEN, Color.LTGRAY};//转盘每个块区域对应的颜色
+    private int[] mColors = new int[]{Color.RED, Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GREEN, Color.YELLOW};//转盘每个块区域对应的颜色
 
     private String[] mTexts = new String[]{"一等奖", "二等奖", "三等奖", "二等奖", "一等奖", "三等奖"};//转盘每个块区域对应的文本
     private float mTextSize = 60f;
-    private int[] mRatios = new int[]{1, 2, 3, 2, 1, 3};//转盘每个块区域对应的大小比例
+    private float[] mRatios = new float[]{1, 2, 3, 2, 1, 3};//转盘每个块区域对应的大小比例
 
     private TextPaint mTextPaint;//文本画笔
 
@@ -72,6 +72,73 @@ public class DialView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+//        testDraw(canvas);
+
+//        mTextPaint.setColor(mColors[0]);
+//        Rect dialRect = new Rect();
+//        getDialRect(dialRect);
+//        canvas.drawRect(dialRect, mTextPaint);
+
+        drawDialArea(canvas);
+        drawDialText(canvas);
+    }
+
+    private void drawDialText(Canvas canvas) {
+        //绘制色块上对应的文本
+        canvas.save();
+        Rect dialRect = tranToCenter(canvas);
+
+        canvas.restore();
+    }
+
+    private void drawDialArea(Canvas canvas) {
+        //绘制色块区域
+        canvas.save();
+        Rect dialRect = tranToCenter(canvas);
+
+        RectF rectF = new RectF(-dialRect.width() / 2, -dialRect.height() / 2, dialRect.width() / 2, dialRect.height() / 2);//扇形绘制区域
+        float[] angles = rationsToAngle();
+        float startAngle = 0;
+        for (int i = 0; i < angles.length; i++) {
+            float endAngle = angles[i];
+            mTextPaint.setColor(mColors[i]);
+            canvas.drawArc(rectF, startAngle, endAngle, true, mTextPaint);
+            startAngle += endAngle;
+        }
+
+        canvas.restore();
+    }
+
+    private Rect tranToCenter(Canvas canvas) {
+        Rect dialRect = getDialRect();
+        tranToCenter(canvas, dialRect);
+        return dialRect;
+    }
+
+    private void tranToCenter(Canvas canvas, Rect dialRect) {
+        //讲绘图坐标移至view的中心点
+        canvas.translate(dialRect.centerX(), dialRect.centerY());
+    }
+
+    private float[] rationsToAngle() {
+        //讲色块比例,转换成 角度
+        int sum = 0;
+        int avg = 0;
+        for (float ratio : mRatios) {
+            sum += ratio;
+        }
+        avg = Math.round(360 / sum);
+
+        int len = mRatios.length;
+        float[] angles = new float[len];
+        for (int i = 0; i < len; i++) {
+            angles[i] = mRatios[i] * avg;
+        }
+
+        return angles;
+    }
+
+    private void testDraw(Canvas canvas) {
         Rect textRound = new Rect();
         getTextBounds(mTextPaint, mTexts[0], textRound);
 
@@ -96,6 +163,17 @@ public class DialView extends View {
         mTextPaint.setColor(Color.BLACK);
 
         canvas.drawArc(new RectF(-400, -400, 400, 400), 0, 30, true, mTextPaint);
+    }
+
+    private Rect getDialRect() {
+        int width, height;
+        width = getMeasuredWidth();
+        height = getMeasuredHeight();
+        int paddingLeft = getPaddingLeft();
+        int paddingTop = getPaddingTop();
+        int paddingRight = getPaddingRight();
+        int paddingBottom = getPaddingBottom();
+        return new Rect(paddingLeft, paddingTop, width - paddingRight, height - paddingBottom);
     }
 
 
