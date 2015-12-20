@@ -13,6 +13,8 @@ import com.rsen.view.DialView;
  */
 public class DialDemoActivity extends AppCompatActivity {
 
+    int index = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,10 @@ public class DialDemoActivity extends AppCompatActivity {
 //            }
 //        });
 
-        dialView.rotateNumber(0, 700);
+//        dialView.rotateNumber(0, 700);
+
+//        dialView.start(1);
+        dialView.start(index % 6);
+        index++;
     }
 }

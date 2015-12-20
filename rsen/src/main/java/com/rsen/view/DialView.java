@@ -1,7 +1,5 @@
 package com.rsen.view;
 
-import android.animation.Animator;
-import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,11 +10,8 @@ import android.graphics.RectF;
 import android.support.annotation.ColorInt;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.Transformation;
 
 /**
  * 大转盘
@@ -24,9 +19,11 @@ import android.view.animation.Transformation;
  */
 public class DialView extends View {
     int repeatCount = 0;
-    float degreeStep = 20;//每次重绘,添加的角度
+    float degreeStep;//每次重绘,添加的角度
     long invalidateTime = 20;//每隔多长时间,重绘一次
-    int dialNum = 10;//至少需要转多少圈;
+    int dialNum = 0;//至少需要转多少圈;
+    float startAngle, endAngle, targetAngle;//开始结束,目标的角度
+    private float curDegreeStep = 20;//每次重绘,添加的角度
     @ColorInt
     private int[] mColors = new int[]{Color.RED, Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GREEN, Color.YELLOW};//转盘每个块区域对应的颜色
     private String[] mTexts = new String[]{"一等奖", "二12等奖", "三阿萨德等奖", "四adf等奖", "五12sdf等奖", "六1ff等奖"};//转盘每个块区域对应的文本
@@ -40,7 +37,7 @@ public class DialView extends View {
     //文本绘制偏移比例
     private float mTextOffset = 0.3f;
     private float mDialCurrentDegree = 0f;// 转盘当前的角度,
-    private float mDialOffsetDegree = 0f;// 转盘偏移的角度,用于决定开始时角度
+    private float mDialOffsetDegree = 30f;// 转盘偏移的角度,用于决定开始时角度
     private boolean mDialStart = false;//是否开始了
     private boolean mDialEnd = true;//是否结束了
     private Animation animation;
@@ -85,149 +82,6 @@ public class DialView extends View {
         mTextPaint.setTextSize(mTextSize);
     }
 
-    /**
-     * 需要滚动到那个色块,不受当前是哪个色块的影响
-     */
-    public void startDial(int index) {
-        if (index < 0 || index >= mRatios.length) {
-            throw new IllegalArgumentException("index is nullity");
-        }
-
-        if (!mDialStart && mDialEnd) {
-            animation = new Animation() {
-                @Override
-                protected void applyTransformation(float interpolatedTime, Transformation t) {
-                    super.applyTransformation(interpolatedTime, t);
-//                    Log.e("tag", "" + interpolatedTime);
-//                    mDialCurrentDegree += 20;//闪的很快
-//                    postInvalidate();
-
-                    mDialCurrentDegree += 60 * (1f - interpolatedTime);
-
-//                    if (interpolatedTime < 0.3) {
-//                        mDialCurrentDegree += 60;//闪的很快
-//                    } else if (interpolatedTime < 0.6) {
-//                        mDialCurrentDegree += 40;//闪的很快
-//                    }else if (interpolatedTime < 0.8) {
-//                        mDialCurrentDegree += 20;//闪的很快
-//                    }else if (interpolatedTime < 0.9) {
-//                        mDialCurrentDegree += 10;//闪的很快
-//                    }else if (interpolatedTime < 1) {
-//                        mDialCurrentDegree += 2;//闪的很快
-//                    }
-                    invalidate();
-                }
-            };
-//            animation.setRepeatCount(Animation.INFINITE);
-            animation.setDuration(6000);
-            startAnimation(animation);
-        }
-    }
-
-    public void rotateNumber(int num, long longTime, final Runnable endAction) {
-        if (num < 0) {
-            throw new IllegalArgumentException("num must greater than 0");
-        }
-
-        //匀速旋转指定的圈数
-        Animation anim = new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                super.applyTransformation(interpolatedTime, t);
-                Log.e("tag", "" + interpolatedTime);
-                mDialCurrentDegree = 360f * interpolatedTime;
-                invalidate();
-            }
-        };
-        anim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                if (endAction != null) {
-                    endAction.run();
-                }
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        anim.setRepeatCount(num - 1);//圈数就是循环次数
-        anim.setDuration(longTime);//每圈的时间
-        startAnimation(anim);
-    }
-
-    /**
-     * 旋转指定圈数,每圈旋转需要的时间
-     *
-     * @param num      旋转的圈数
-     * @param longTime 每圈的时间 毫秒单位
-     */
-    public void rotateNumber(int num, long longTime) {
-        if (num < 0) {
-            throw new IllegalArgumentException("num must greater than 0");
-        }
-
-        if (valueAnimator != null) {
-//            valueAnimator.setRepeatCount(repeatCount + 3);
-            valueAnimator.setDuration(1000);
-            return;
-        }
-
-        valueAnimator = ValueAnimator.ofObject(new TypeEvaluator<Float>() {
-            @Override
-            public Float evaluate(float fraction, Float startValue, Float endValue) {
-                return fraction * (endValue - startValue);
-            }
-        }, 0f, 360f);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mDialCurrentDegree = (float) animation.getAnimatedValue();
-                postInvalidate();
-            }
-        });
-        valueAnimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                repeatCount = 0;
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                valueAnimator = null;
-                rotateNumber(1, 10000, null);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                repeatCount = 0;
-                valueAnimator = null;
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-//                if (repeatCount == 2) {
-//                    valueAnimator.setInterpolator(new DecelerateInterpolator());
-//                    valueAnimator.setRepeatCount(1);
-//
-//                }else{
-//                    repeatCount++;
-//                }
-            }
-        });
-        valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-        valueAnimator.setDuration(longTime);
-        valueAnimator.setRepeatCount(10);
-//        valueAnimator.setRepeatCount(num - 1);
-        valueAnimator.start();
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -245,29 +99,74 @@ public class DialView extends View {
     }
 
     public void start(int index) {//从0开始的索引
+        initTargetDegree(index);
+        mDialStart = true;
+        invalidate();
+    }
 
+    public boolean isStart() {
+        return mDialStart;
+    }
+
+    public boolean isEnd() {
+        return mDialEnd;
+    }
+
+    /**
+     * 控制速度,控制结束位置
+     */
+    private void smoothSlow() {
+        float ratio = mDialCurrentDegree / targetAngle;//已经旋转了多少角度的比例
+        if (ratio < 0.5) {
+            degreeStep = curDegreeStep;
+        } else {
+            degreeStep -= 1;
+        }
+
+        if (ratio < 0.5) {
+            degreeStep = Math.max(degreeStep, curDegreeStep);
+        } else if (ratio < 0.8) {
+            degreeStep = Math.max(degreeStep, 5);
+        } else if (ratio < 0.9) {
+            degreeStep = Math.max(degreeStep, 3);
+        } else if (ratio < 2) {
+            degreeStep = Math.max(degreeStep, 1);
+        }
+
+        if ((mDialCurrentDegree + degreeStep) > targetAngle) {
+            degreeStep = 1;
+        }
+
+        if (mDialCurrentDegree >= targetAngle) {
+            mDialStart = false;
+            mDialEnd = true;
+            mDialCurrentDegree %= 360;
+        }
     }
 
     /***
      * 获取目标需要旋转的角度
      */
-    private float getTargetDegree(int index) {
+    private void initTargetDegree(int index) {
 
-        float targetDegree = 0f;
-        float offsetAngle = 360 * dialNum;
+        float offsetAngle = 360 * dialNum + 270;//+270 是让正上方为 指针位置;
+        mDialCurrentDegree = 0;
 
         float startAngle = 0, curAngle = 0;
         for (int i = 0; i < mAngles.length; i++) {
             curAngle = mAngles[i];
+            startAngle += curAngle;
+
             if (index == i) {
                 break;
             }
-            startAngle += curAngle;
         }
 
-        targetDegree = (float) (offsetAngle + startAngle + ((1 - Math.random()) * 0.8 * curAngle));
+        this.startAngle = offsetAngle + 360 - startAngle;
+        this.endAngle = this.startAngle + curAngle;
+        this.targetAngle = (float) (this.startAngle + ((1 - Math.random()) * 0.8 * curAngle) - mDialCurrentDegree - mDialOffsetDegree);
 
-        return targetDegree;
+//        Log.e("tag", "startAngle:" + this.startAngle + "  endAngle:" + this.endAngle + "  targetAngle:" + this.targetAngle);
     }
 
     @Override
@@ -285,12 +184,16 @@ public class DialView extends View {
 
         //开始时有一个角度
         tranToCenter(canvas, mDialRect);
+        mTextPaint.setColor(Color.WHITE);
+        canvas.drawLine(0, -getMeasuredHeight(), 0, getMeasuredHeight(), mTextPaint);
+
         canvas.rotate(mDialOffsetDegree + mDialCurrentDegree);
 
         drawDialArea(canvas);
         drawDialText(canvas);
 
         if (mDialStart) {
+            smoothSlow();
             mDialCurrentDegree += degreeStep;//闪的很快
             postInvalidateDelayed(invalidateTime);//转的很快
         }
@@ -362,33 +265,6 @@ public class DialView extends View {
         }
 
         return angles;
-    }
-
-    private void testDraw(Canvas canvas) {
-        Rect textRound = new Rect();
-        getTextBounds(mTextPaint, mTexts[0], textRound);
-
-        mTextPaint.setColor(mColors[0]);
-        canvas.drawRect(new Rect(100, 100 - textRound.height(), 100 + textRound.width(), 100), mTextPaint);
-
-        canvas.translate(100, 100);
-        canvas.save();
-        canvas.rotate(-45f);
-        mTextPaint.setColor(mColors[4]);
-        canvas.drawText(mTexts[0], 100, 100, mTextPaint);
-
-        mTextPaint.setColor(mColors[1]);
-        canvas.drawCircle(100, 100, 1, mTextPaint);
-
-        mTextPaint.setColor(mColors[2]);
-        canvas.drawRect(new Rect(10, 10, textRound.width(), textRound.height()), mTextPaint);
-
-        canvas.restore();
-//        mTextPaint.setColor(Color.BLACK);
-        canvas.drawRect(new Rect(0, 0, 800, 800), mTextPaint);
-        mTextPaint.setColor(Color.BLACK);
-
-        canvas.drawArc(new RectF(-400, -400, 400, 400), 0, 30, true, mTextPaint);
     }
 
     private Rect getmDialRect() {
