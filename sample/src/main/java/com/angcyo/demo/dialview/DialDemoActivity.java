@@ -3,7 +3,6 @@ package com.angcyo.demo.dialview;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.angcyo.sample.R;
@@ -26,11 +25,13 @@ public class DialDemoActivity extends AppCompatActivity {
         DialView dialView = (DialView) findViewById(R.id.dial_view);
 //        dialView.startDial(2);
 
-        dialView.rotateNumber(2, 1000, new Runnable() {
-            @Override
-            public void run() {
-                Log.e("tag", "end............");
-            }
-        });
+//        dialView.rotateNumber(1, 200, new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.e("tag", "end............");
+//            }
+//        });
+
+        dialView.rotateNumber(0, 2000);
     }
 }

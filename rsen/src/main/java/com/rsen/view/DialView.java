@@ -1,5 +1,8 @@
 package com.rsen.view;
 
+import android.animation.Animator;
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,6 +12,7 @@ import android.graphics.RectF;
 import android.support.annotation.ColorInt;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -34,10 +38,12 @@ public class DialView extends View {
     //文本绘制偏移比例
     private float mTextOffset = 0.3f;
 
-    private int mDialStartDegree = 15;//转盘开始时,旋转的角度
+    private float mDialCurrentDegree = 0f;// 转盘当前的角度,
+    private float mDialOffsetDegree = 15f;// 转盘偏移的角度,用于决定开始时角度
     private boolean mDialStart = false;//是否开始了
     private boolean mDialEnd = true;//是否结束了
     private Animation animation;
+    private ValueAnimator valueAnimator;
 
 
     public DialView(Context context) {
@@ -93,21 +99,21 @@ public class DialView extends View {
                 protected void applyTransformation(float interpolatedTime, Transformation t) {
                     super.applyTransformation(interpolatedTime, t);
 //                    Log.e("tag", "" + interpolatedTime);
-//                    mDialStartDegree += 20;//闪的很快
+//                    mDialCurrentDegree += 20;//闪的很快
 //                    postInvalidate();
 
-                    mDialStartDegree += 60 * (1 - interpolatedTime);
+                    mDialCurrentDegree += 60 * (1f - interpolatedTime);
 
 //                    if (interpolatedTime < 0.3) {
-//                        mDialStartDegree += 60;//闪的很快
+//                        mDialCurrentDegree += 60;//闪的很快
 //                    } else if (interpolatedTime < 0.6) {
-//                        mDialStartDegree += 40;//闪的很快
+//                        mDialCurrentDegree += 40;//闪的很快
 //                    }else if (interpolatedTime < 0.8) {
-//                        mDialStartDegree += 20;//闪的很快
+//                        mDialCurrentDegree += 20;//闪的很快
 //                    }else if (interpolatedTime < 0.9) {
-//                        mDialStartDegree += 10;//闪的很快
+//                        mDialCurrentDegree += 10;//闪的很快
 //                    }else if (interpolatedTime < 1) {
-//                        mDialStartDegree += 2;//闪的很快
+//                        mDialCurrentDegree += 2;//闪的很快
 //                    }
                     invalidate();
                 }
@@ -119,12 +125,17 @@ public class DialView extends View {
     }
 
     public void rotateNumber(int num, long longTime, final Runnable endAction) {
+        if (num < 0) {
+            throw new IllegalArgumentException("num must greater than 0");
+        }
+
         //匀速旋转指定的圈数
         Animation anim = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
                 super.applyTransformation(interpolatedTime, t);
-                mDialStartDegree += 360 * interpolatedTime;
+                Log.e("tag", "" + interpolatedTime);
+                mDialCurrentDegree = 360f * interpolatedTime;
                 invalidate();
             }
         };
@@ -146,9 +157,59 @@ public class DialView extends View {
 
             }
         });
-        anim.setRepeatCount(num);//圈数就是循环次数
+        anim.setRepeatCount(num - 1);//圈数就是循环次数
         anim.setDuration(longTime);//每圈的时间
         startAnimation(anim);
+    }
+
+    public void rotateNumber(int num, long longTime) {
+        if (num < 0) {
+            throw new IllegalArgumentException("num must greater than 0");
+        }
+
+        if (valueAnimator != null) {
+            valueAnimator.setRepeatMode(ValueAnimator.REVERSE);
+            return;
+        }
+
+        valueAnimator = ValueAnimator.ofObject(new TypeEvaluator<Float>() {
+            @Override
+            public Float evaluate(float fraction, Float startValue, Float endValue) {
+                return fraction * (endValue - startValue);
+            }
+        }, 0f, 360f);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mDialCurrentDegree = (float) animation.getAnimatedValue();
+                postInvalidate();
+            }
+        });
+        valueAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        valueAnimator.setInterpolator(null);
+        valueAnimator.setDuration(longTime);
+        valueAnimator.setRepeatCount(num - 1);
+        valueAnimator.start();
     }
 
     @Override
@@ -182,14 +243,13 @@ public class DialView extends View {
 
         //开始时有一个角度
         tranToCenter(canvas, dialRect);
-        canvas.rotate(mDialStartDegree);
-
+        canvas.rotate(mDialOffsetDegree + mDialCurrentDegree);
 
         drawDialArea(canvas);
         drawDialText(canvas);
 
 //        if (mDialStart) {
-//            mDialStartDegree += 20;//闪的很快
+//            mDialCurrentDegree += 20;//闪的很快
 //            postInvalidateDelayed(40);//转的很快
 ////            invalidate();
 //        }
