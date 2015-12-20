@@ -32,6 +32,6 @@ public class DialDemoActivity extends AppCompatActivity {
 //            }
 //        });
 
-        dialView.rotateNumber(0, 2000);
+        dialView.rotateNumber(0, 700);
     }
 }
