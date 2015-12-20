@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
-        android:text="OnClick"
+        android:text="转转转"
         android:textAllCaps="false"/>
 
 </LinearLayout>
