@@ -1,6 +1,5 @@
 package com.rsen.view;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,22 +10,20 @@ import android.support.annotation.ColorInt;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.Animation;
 
 /**
  * 大转盘
  * Created by angcyo on 15-12-18 018 15:09 下午.
  */
 public class DialView extends View {
-    int repeatCount = 0;
     float degreeStep;//每次重绘,添加的角度
     long invalidateTime = 20;//每隔多长时间,重绘一次
-    int dialNum = 0;//至少需要转多少圈;
+    int dialNum = 3;//至少需要转多少圈;
     float startAngle, endAngle, targetAngle;//开始结束,目标的角度
     private float curDegreeStep = 20;//每次重绘,添加的角度
     @ColorInt
     private int[] mColors = new int[]{Color.RED, Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GREEN, Color.YELLOW};//转盘每个块区域对应的颜色
-    private String[] mTexts = new String[]{"一等奖", "二12等奖", "三阿萨德等奖", "四adf等奖", "五12sdf等奖", "六1ff等奖"};//转盘每个块区域对应的文本
+    private String[] mTexts = new String[]{"一等奖", "二等奖", "三等奖", "四等奖", "五等奖", "六等奖"};//转盘每个块区域对应的文本
     private float mTextSize = 60f;
     private float[] mRatios = new float[]{1, 2, 3, 2, 1, 3};//转盘每个块区域对应的大小比例
     private TextPaint mTextPaint;//文本画笔
@@ -40,8 +37,6 @@ public class DialView extends View {
     private float mDialOffsetDegree = 30f;// 转盘偏移的角度,用于决定开始时角度
     private boolean mDialStart = false;//是否开始了
     private boolean mDialEnd = true;//是否结束了
-    private Animation animation;
-    private ValueAnimator valueAnimator;
 
     public DialView(Context context) {
         this(context, null);
@@ -78,7 +73,7 @@ public class DialView extends View {
 
     private void init() {
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
-//        mTextPaint.setTextAlign(Paint.Align.CENTER);
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setTextSize(mTextSize);
     }
 
@@ -99,6 +94,14 @@ public class DialView extends View {
     }
 
     public void start(int index) {//从0开始的索引
+        if (index < 0 || index >= mRatios.length) {
+            throw new IllegalArgumentException("index is invalid");
+        }
+
+        if (mDialStart) {
+            return;
+        }
+
         initTargetDegree(index);
         mDialStart = true;
         invalidate();
@@ -127,8 +130,10 @@ public class DialView extends View {
             degreeStep = Math.max(degreeStep, curDegreeStep);
         } else if (ratio < 0.8) {
             degreeStep = Math.max(degreeStep, 5);
-        } else if (ratio < 0.9) {
+        } else if (ratio < 0.97) {
             degreeStep = Math.max(degreeStep, 3);
+        } else if (ratio < 0.99) {
+            degreeStep = Math.max(degreeStep, 2);
         } else if (ratio < 2) {
             degreeStep = Math.max(degreeStep, 1);
         }
@@ -176,16 +181,17 @@ public class DialView extends View {
 
 //        mTextPaint.setColor(mColors[0]);
 //        Rect mDialRect = new Rect();
-//        getmDialRect(mDialRect);
+//        getDialRect(mDialRect);
 //        canvas.drawRect(mDialRect, mTextPaint);
         //测量一些值
         mAngles = rationsToAngle();
-        mDialRect = getmDialRect();
+        mDialRect = getDialRect();
 
         //开始时有一个角度
         tranToCenter(canvas, mDialRect);
         mTextPaint.setColor(Color.WHITE);
-        canvas.drawLine(0, -getMeasuredHeight(), 0, getMeasuredHeight(), mTextPaint);
+        mTextPaint.setStrokeWidth(5f);
+        canvas.drawLine(0, -getMeasuredHeight(), 0, 0, mTextPaint);
 
         canvas.rotate(mDialOffsetDegree + mDialCurrentDegree);
 
@@ -202,9 +208,8 @@ public class DialView extends View {
     private void drawDialText(Canvas canvas) {
         //绘制色块上对应的文本
         canvas.save();
-//        tranToCenter(canvas, mDialRect);
         mTextPaint.setColor(Color.WHITE);
-        mTextPaint.setTextAlign(Paint.Align.CENTER);//居中绘制文本
+//        mTextPaint.setTextAlign(Paint.Align.CENTER);//居中绘制文本
 
         int radius = mDialRect.width() / 2;//半径
         float textCenterX = radius / 2 + radius / 2 * mTextOffset;//文本偏移之后的横向中心坐标
@@ -239,7 +244,7 @@ public class DialView extends View {
     }
 
     private Rect tranToCenter(Canvas canvas) {
-        Rect dialRect = getmDialRect();
+        Rect dialRect = getDialRect();
         tranToCenter(canvas, dialRect);
         return dialRect;
     }
@@ -267,7 +272,7 @@ public class DialView extends View {
         return angles;
     }
 
-    private Rect getmDialRect() {
+    private Rect getDialRect() {
         //获取转盘可绘制rect
         int width, height;
         width = getMeasuredWidth();
@@ -280,4 +285,54 @@ public class DialView extends View {
     }
 
 
+    /**
+     * 设置每个色块的颜色
+     *
+     * @param colors the colors
+     */
+    public void setColors(@ColorInt int[] colors) {
+        this.mColors = colors;
+    }
+
+    /**
+     * 设置每个色块对应的文本
+     *
+     * @param texts the texts
+     */
+    public void setTexts(String[] texts) {
+        this.mTexts = texts;
+    }
+
+    /**
+     * 设置每个色块大小对应的比例
+     *
+     * @param ratios the ratios
+     */
+    public void setRatios(float[] ratios) {
+        this.mRatios = ratios;
+    }
+
+    /**
+     * 转盘显示偏移的角度
+     *
+     * @param offsetAngle the offset angle
+     */
+    public void setStartOffsetAngle(float offsetAngle) {
+        this.mDialOffsetDegree = offsetAngle;
+    }
+
+    /**
+     * 抽奖开始之后,旋转的圈数
+     *
+     * @param num the num
+     */
+    public void setMinRotateNum(int num) {
+        if (num > 1) {
+            this.dialNum = num - 1;
+        }
+    }
+
+    public String getText(int index) {
+        return mTexts[index];
+    }
 }

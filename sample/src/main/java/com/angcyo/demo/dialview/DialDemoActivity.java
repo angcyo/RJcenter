@@ -1,9 +1,11 @@
 package com.angcyo.demo.dialview;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.angcyo.sample.R;
 import com.rsen.view.DialView;
@@ -14,17 +16,20 @@ import com.rsen.view.DialView;
 public class DialDemoActivity extends AppCompatActivity {
 
     int index = 0;
+    private DialView dialView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.dial_demo_layout);
-
+        dialView = (DialView) findViewById(R.id.dial_view);
+        dialView.setTexts(new String[]{"一等奖", "二等奖", "三等奖", "四等奖", "五等奖", "六等奖", "安慰奖"});
+        dialView.setColors(new int[]{Color.RED, Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GREEN, Color.LTGRAY, Color.MAGENTA});
+        dialView.setRatios(new float[]{1, 1.5f, 1.8f, 2f, 3f, 4f, 6f});
     }
 
     public void onClick(View view) {
-        DialView dialView = (DialView) findViewById(R.id.dial_view);
 //        dialView.startDial(2);
 
 //        dialView.rotateNumber(1, 200, new Runnable() {
@@ -37,7 +42,9 @@ public class DialDemoActivity extends AppCompatActivity {
 //        dialView.rotateNumber(0, 700);
 
 //        dialView.start(1);
-        dialView.start(index % 6);
+        int n = index % 6;
+        ((Button) view).setText("目标-->" + dialView.getText(n));
+        dialView.start(n);
         index++;
     }
 }
