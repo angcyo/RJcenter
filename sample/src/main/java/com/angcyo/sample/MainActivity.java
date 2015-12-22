@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.angcyo.demo.retrofit.RetrofitDemo;
+import com.angcyo.demo.qq.QqDemo;
 import com.rsen.util.FileUtil;
 import com.rsen.util.T;
 import com.rsen.util.Zip;
@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
                 T.show(MainActivity.this, SystemClock.elapsedRealtime() + " -- "+ SystemClock.currentThreadTimeMillis());
 
-                RetrofitDemo.demo();
+//                RetrofitDemo.demo();
+
+                QqDemo.demo();
 
             }
         });

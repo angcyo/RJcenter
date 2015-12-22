@@ -95,10 +95,9 @@ public class DialView extends View {
     }
 
     private void init() {
-        setTextSize(22f);
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 //        mTextPaint.setTextAlign(Paint.Align.CENTER);
-        mTextPaint.setTextSize(mTextSize);
+        setTextSize(22f);
     }
 
     @Override
@@ -255,14 +254,16 @@ public class DialView extends View {
 
     private void drawDialText(Canvas canvas, float angle, String text, Path path) {
         mTextPaint.setColor(mTextColor);
-
+        mTextPaint.setStyle(Paint.Style.FILL);
         int radius = mDialRect.width() / 2;//半径
         float textOffsetY = radius / 2 * mTextOffset;//文本偏移之后的横向中心坐标
-        float textOffsetX = (float) (Math.sin(applyAngleToRadian(angle / 2)) * radius);//文本横向偏移量
-
+        double textOffsetX = Math.sin(applyAngleToRadian(angle / 2)) * (float) radius;//文本横向偏移量
 
         Rect textBound = getTextBounds(mTextPaint, text);
-        canvas.drawTextOnPath(text, path, textOffsetX - textBound.width() / 2, textBound.height() + textOffsetY, mTextPaint);
+//        canvas.drawTextOnPath(text, path, (float) (textOffsetX), textBound.height() + textOffsetY, mTextPaint);
+        canvas.drawTextOnPath(text, path, (float) (textOffsetX - textBound.width() / 2), textBound.height() + textOffsetY, mTextPaint);
+
+//        canvas.drawPath(path, mTextPaint);
     }
 
     private void drawDialText(Canvas canvas) {
@@ -289,12 +290,11 @@ public class DialView extends View {
     private void drawDialArea(Canvas canvas) {
         //绘制色块区域
         canvas.save();
-//        tranToCenter(canvas, mDialRect);
 
         RectF rectF = new RectF(-mDialRect.width() / 2, -mDialRect.height() / 2, mDialRect.width() / 2, mDialRect.height() / 2);//扇形绘制区域
-        float startAngle = 0;
+        float startAngle = 0, endAngle;
         for (int i = 0; i < mAngles.length; i++) {
-            float endAngle = mAngles[i];
+            endAngle = mAngles[i];
             mTextPaint.setColor(mColors[i]);
             canvas.drawArc(rectF, startAngle, endAngle, true, mTextPaint);
             Path path = new Path();
@@ -324,7 +324,7 @@ public class DialView extends View {
         for (float ratio : mRatios) {
             sum += ratio;
         }
-        avg = Math.round(360f / sum);
+        avg = 360f / sum;
 
         int len = mRatios.length;
         float[] angles = new float[len];
@@ -397,6 +397,7 @@ public class DialView extends View {
 
     public void setTextSize(float size) {
         mTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, getResources().getDisplayMetrics());
+        mTextPaint.setTextSize(mTextSize);
     }
 
     /**
