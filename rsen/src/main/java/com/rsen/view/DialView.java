@@ -1,4 +1,4 @@
-package com.huika.hksuper.control.main.view;
+package com.rsen.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -67,7 +67,7 @@ public class DialView extends View {
     }
 
     /**
-     * @see com.huika.hksuper.control.main.view.DialView#getTextBounds(Paint, String, Rect)
+     * @see com.rsen.view.DialView#getTextBounds(Paint, String, Rect)
      */
     public static Rect getTextBounds(Paint paint, String text) {
         Rect textRound = new Rect();
