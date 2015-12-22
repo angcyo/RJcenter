@@ -257,11 +257,13 @@ public class DialView extends View {
         mTextPaint.setStyle(Paint.Style.FILL);
         int radius = mDialRect.width() / 2;//半径
         float textOffsetY = radius / 2 * mTextOffset;//文本偏移之后的横向中心坐标
-        double textOffsetX = Math.sin(applyAngleToRadian(angle / 2)) * (float) radius;//文本横向偏移量
+//        double textOffsetX = Math.sin(applyAngleToRadian(angle / 2)) * (float) radius;//文本横向偏移量
+        float textOffsetX = (float) (2 * Math.PI * radius);//文本横向偏移量
+        textOffsetX = angle * textOffsetX / 360f / 2;
 
         Rect textBound = getTextBounds(mTextPaint, text);
 //        canvas.drawTextOnPath(text, path, (float) (textOffsetX), textBound.height() + textOffsetY, mTextPaint);
-        canvas.drawTextOnPath(text, path, (float) (textOffsetX - textBound.width() / 2), textBound.height() + textOffsetY, mTextPaint);
+        canvas.drawTextOnPath(text, path, (textOffsetX - textBound.width() / 2), textBound.height() + textOffsetY, mTextPaint);
 
 //        canvas.drawPath(path, mTextPaint);
     }
