@@ -1,13 +1,14 @@
-package com.rsen.view;
+package com.huika.hksuper.control.main.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.annotation.ColorInt;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -23,23 +24,23 @@ public class DialView extends View {
     int dialNum = 3;//至少需要转多少圈;
     float startAngle, endAngle, targetAngle;//开始结束,目标的角度
     private float curDegreeStep = 20;//每次重绘,添加的角度
-    @ColorInt
     private int[] mColors = new int[]{Color.RED, Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GREEN, Color.YELLOW};//转盘每个块区域对应的颜色
     private String[] mTexts = new String[]{"一等奖", "二等奖", "三等奖", "四等奖", "五等奖", "六等奖"};//转盘每个块区域对应的文本
     private Bitmap[] mIcons;//转盘每个块区域对应的图标
     private float mTextSize;
-    private float[] mRatios = new float[]{1, 2, 3, 2, 1, 3};//转盘每个块区域对应的大小比例
+    private float[] mRatios = new float[]{1, 1, 1, 1, 1, 1};//转盘每个块区域对应的大小比例
     private TextPaint mTextPaint;//文本画笔
     //转换之后的角度
     private float[] mAngles;
     //可绘制区域
     private Rect mDialRect;
     //文本绘制偏移比例
-    private float mTextOffset = 0.5f;
+    private float mTextOffset = 0.1f;
     private float mDialCurrentDegree = 0f;// 转盘当前的角度,
     private float mDialOffsetDegree = 30f;// 转盘偏移的角度,用于决定开始时角度
     private boolean mDialStart = false;//是否开始了
     private boolean mDialEnd = true;//是否结束了
+    private int mTextColor = Color.WHITE;
 
     public DialView(Context context) {
         this(context, null);
@@ -66,7 +67,7 @@ public class DialView extends View {
     }
 
     /**
-     * @see com.rsen.view.DialView#getTextBounds(Paint, String, Rect)
+     * @see com.huika.hksuper.control.main.view.DialView#getTextBounds(Paint, String, Rect)
      */
     public static Rect getTextBounds(Paint paint, String text) {
         Rect textRound = new Rect();
@@ -74,10 +75,29 @@ public class DialView extends View {
         return textRound;
     }
 
+    public static Bitmap rotateBitmap(Bitmap srcBmp, float degrees) {
+        int width, height;
+        width = srcBmp.getWidth();
+        height = srcBmp.getHeight();
+        Matrix matrix = new Matrix();
+        matrix.reset();
+        matrix.setRotate(degrees, width / 2, height / 2);
+
+        Bitmap ret = Bitmap.createBitmap(srcBmp, 0, 0, width, height, matrix, true);
+        return ret;
+    }
+
+    /**
+     * 角度(0-360) 转换 弧度(0-π)
+     */
+    public static double applyAngleToRadian(double angle) {
+        return (angle * Math.PI) / 180f;
+    }
+
     private void init() {
         setTextSize(22f);
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
-        mTextPaint.setTextAlign(Paint.Align.CENTER);
+//        mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setTextSize(mTextSize);
     }
 
@@ -200,7 +220,7 @@ public class DialView extends View {
         canvas.rotate(mDialOffsetDegree + mDialCurrentDegree);
 
         drawDialArea(canvas);
-        drawDialText(canvas);
+//        drawDialText(canvas);
         drawDialIco(canvas);
 
         if (mDialStart) {
@@ -223,11 +243,26 @@ public class DialView extends View {
             Bitmap bitmap = mIcons[i];
             angle = mAngles[i] / 2;
             canvas.rotate(angle);
-            canvas.drawBitmap(bitmap, getMeasuredWidth() / 6, -bitmap.getHeight() / 2, mTextPaint);
+            canvas.save();
+            canvas.translate(mDialRect.width() / 9, 0);//画布平移,让图片靠外圈显示
+            canvas.drawBitmap(rotateBitmap(bitmap, 90), getMeasuredWidth() / 6, -bitmap.getHeight() / 2, mTextPaint);
+            canvas.restore();
             canvas.rotate(angle);
         }
 
         canvas.restore();
+    }
+
+    private void drawDialText(Canvas canvas, float angle, String text, Path path) {
+        mTextPaint.setColor(mTextColor);
+
+        int radius = mDialRect.width() / 2;//半径
+        float textOffsetY = radius / 2 * mTextOffset;//文本偏移之后的横向中心坐标
+        float textOffsetX = (float) (Math.sin(applyAngleToRadian(angle / 2)) * radius);//文本横向偏移量
+
+
+        Rect textBound = getTextBounds(mTextPaint, text);
+        canvas.drawTextOnPath(text, path, textOffsetX - textBound.width() / 2, textBound.height() + textOffsetY, mTextPaint);
     }
 
     private void drawDialText(Canvas canvas) {
@@ -262,6 +297,9 @@ public class DialView extends View {
             float endAngle = mAngles[i];
             mTextPaint.setColor(mColors[i]);
             canvas.drawArc(rectF, startAngle, endAngle, true, mTextPaint);
+            Path path = new Path();
+            path.addArc(rectF, startAngle, endAngle);
+            drawDialText(canvas, endAngle, mTexts[i], path);
             startAngle += endAngle;
         }
 
@@ -315,7 +353,7 @@ public class DialView extends View {
      *
      * @param colors the colors
      */
-    public void setColors(@ColorInt int[] colors) {
+    public void setColors(int[] colors) {
         this.mColors = colors;
     }
 
@@ -380,5 +418,9 @@ public class DialView extends View {
 
     public int getDialNum() {
         return mRatios.length;
+    }
+
+    public void setTextColor(int textColor) {
+        mTextColor = textColor;
     }
 }
