@@ -41,6 +41,7 @@ public class DialView extends View {
     private boolean mDialStart = false;//是否开始了
     private boolean mDialEnd = true;//是否结束了
     private int mTextColor = Color.WHITE;
+    private Runnable endAction;
 
     public DialView(Context context) {
         this(context, null);
@@ -116,7 +117,7 @@ public class DialView extends View {
         }
     }
 
-    public void start(int index) {//从0开始的索引
+    public void start(int index, Runnable endAction) {//从0开始的索引
         if (index < 0 || index >= mRatios.length) {
             throw new IllegalArgumentException("index is invalid");
         }
@@ -125,6 +126,7 @@ public class DialView extends View {
             return;
         }
 
+        this.endAction = endAction;
         initTargetDegree(index);
         mDialStart = true;
         invalidate();
@@ -169,6 +171,9 @@ public class DialView extends View {
             mDialStart = false;
             mDialEnd = true;
             mDialCurrentDegree %= 360;
+            if (endAction != null) {
+                endAction.run();
+            }
         }
     }
 
