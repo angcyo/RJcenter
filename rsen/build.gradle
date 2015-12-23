@@ -1,14 +1,22 @@
 apply plugin: 'com.android.library'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'angcyo'
+            keyPassword 'angcyo'
+            storeFile file('F:/angcyo/angcyo.jks')
+            storePassword 'angcyo'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
-
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
@@ -16,15 +24,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     lintOptions {
         quiet true
         abortOnError false
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
 }
@@ -41,4 +50,4 @@ buildscript {
 }
 //apply from: 'https://raw.githubusercontent.com/angcyo/gradle-mvn-push/master/gradle-mvn-push.gradle'  //未成功
 
-//apply from: 'https://raw.githubusercontent.com/angcyo/gradle-publish/master/bintray.gradle'  //成功
+apply from: 'https://raw.githubusercontent.com/angcyo/gradle-publish/master/bintray.gradle'  //成功
