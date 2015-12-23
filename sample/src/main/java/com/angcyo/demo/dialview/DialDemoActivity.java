@@ -51,7 +51,7 @@ public class DialDemoActivity extends AppCompatActivity {
 //        dialView.start(1);
         int n = index % dialView.getDialNum();
         ((Button) view).setText("目标--> " + dialView.getText(n));
-        dialView.start(n);
+        dialView.start(n, null);
         index++;
     }
 }

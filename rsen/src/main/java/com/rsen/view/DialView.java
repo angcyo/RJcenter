@@ -117,6 +117,10 @@ public class DialView extends View {
         }
     }
 
+    public void start(int index) {
+        start(index, null);
+    }
+
     public void start(int index, Runnable endAction) {//从0开始的索引
         if (index < 0 || index >= mRatios.length) {
             throw new IllegalArgumentException("index is invalid");
