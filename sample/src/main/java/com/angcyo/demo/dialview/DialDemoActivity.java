@@ -1,6 +1,7 @@
 package com.angcyo.demo.dialview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.angcyo.demo.top.OnePxActivity;
 import com.angcyo.sample.R;
 import com.rsen.view.DialView;
 
@@ -61,8 +63,8 @@ public class DialDemoActivity extends AppCompatActivity {
         dialView.start(n, null);
         index++;
 
-//        startActivity(new Intent(this, OnePxActivity.class));
-        showOnePxWindow();
+        startActivity(new Intent(this, OnePxActivity.class));
+//        showOnePxWindow();
     }
 
     public void showOnePxWindow() {
