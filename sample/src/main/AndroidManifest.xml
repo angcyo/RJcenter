@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
+
 
     <application
         android:allowBackup="true"
@@ -48,6 +50,9 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.angcyo.demo.top.OnePxActivity"
+            android:theme="@style/Dialog" />
     </application>
 
 </manifest>

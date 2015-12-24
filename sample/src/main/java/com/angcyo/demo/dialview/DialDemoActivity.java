@@ -1,13 +1,18 @@
 package com.angcyo.demo.dialview;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.angcyo.sample.R;
 import com.rsen.view.DialView;
@@ -55,5 +60,30 @@ public class DialDemoActivity extends AppCompatActivity {
         ((Button) view).setText("目标--> " + dialView.getText(n));
         dialView.start(n, null);
         index++;
+
+//        startActivity(new Intent(this, OnePxActivity.class));
+        showOnePxWindow();
+    }
+
+    public void showOnePxWindow() {
+        TextView textView = new TextView(this);
+        textView.setText("one px");
+        textView.setBackgroundColor(Color.BLUE);
+
+        WindowManager wm = (WindowManager) getApplication().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        params.type = WindowManager.LayoutParams.TYPE_TOAST;
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+        params.gravity = Gravity.LEFT | Gravity.TOP;
+        params.format = PixelFormat.RGBA_8888;
+        params.width = 1;
+        params.height = 1;
+
+        params.x = 1;
+        params.y = 1;
+
+        wm.addView(textView, params);
     }
 }
