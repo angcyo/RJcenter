@@ -1,1 +1,1 @@
-include ':rsen', ':sample', ':rxjavademo'
+include ':rsen', ':sample', ':rxjavademo', ':javademo'

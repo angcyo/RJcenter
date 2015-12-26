@@ -9,6 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/javademo" />
             <option value="$PROJECT_DIR$/rsen" />
             <option value="$PROJECT_DIR$/rxjavademo" />
             <option value="$PROJECT_DIR$/sample" />
@@ -17,6 +18,7 @@
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/javademo" />
             <option value="$PROJECT_DIR$/rsen" />
             <option value="$PROJECT_DIR$/rxjavademo" />
             <option value="$PROJECT_DIR$/sample" />
