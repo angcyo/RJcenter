@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -23,16 +24,35 @@ public class DialView extends View {
     private static final int col1 = Color.parseColor("#FFF6DB");//很淡的黄色
     private static final int col2 = Color.parseColor("#FFFFFF");//白色
     private static final int col3 = Color.parseColor("#E13F4F");//红色
+    /**
+     * The Degree step.
+     */
     float degreeStep;//每次重绘,添加的角度
+    /**
+     * The Invalidate time.
+     */
     long invalidateTime = 20;//每隔多长时间,重绘一次
+    /**
+     * The Dial num.
+     */
     int dialNum = 3;//至少需要转多少圈;
-    float startAngle, endAngle, targetAngle;//开始结束,目标的角度
+    /**
+     * The Start angle.
+     */
+    float startAngle, /**
+     * The End angle.
+     */
+    endAngle, /**
+     * The Target angle.
+     */
+    targetAngle;//开始结束,目标的角度
     private float curDegreeStep = 20;//每次重绘,添加的角度
     private int[] mColors = new int[]{col1, col2, col1, col2, col1, col2, col1, col2};//转盘每个块区域对应的颜色
     private String[] mTexts = new String[]{"一等奖", "二等奖", "三等奖", "四等奖", "五等奖", "六等奖"};//转盘每个块区域对应的文本
     private Bitmap[] mIcons;//转盘每个块区域对应的图标
     private float mTextSize;
-    private float[] mRatios = new float[]{1, 1, 1, 1, 1, 1};//转盘每个块区域对应的大小比例
+    private float[] mRatios = new float[]{1, 1, 1, 1, 1, 1};//转盘每个块区域对应的大小比例, isMean = false 时,有效
+    private boolean isMean = true;//是否平均分配,色块的区域
     private TextPaint mTextPaint;//文本画笔
     private Paint mPaint;//画笔
     //转换之后的角度
@@ -70,15 +90,36 @@ public class DialView extends View {
     private int paddingTop;
     private int paddingRight;
 
+    //新增 2015-12-29
+    private float icoWidth = 50f;//dp 图标的宽度
+    private float icoHeight = 50f;//dp 图标的高度
 
+    /**
+     * Instantiates a new Dial view.
+     *
+     * @param context the context
+     */
     public DialView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Instantiates a new Dial view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public DialView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    /**
+     * Instantiates a new Dial view.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
     public DialView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
@@ -87,16 +128,28 @@ public class DialView extends View {
 
     /**
      * 测量文本范围
+     *
+     * @param paint  the paint
+     * @param text   the text
+     * @param bounds the bounds
      */
     public static void getTextBounds(Paint paint, String text, Rect bounds) {
-        Rect textRound = new Rect();
-        paint.getTextBounds(text, 0, text.length(), textRound);
-        float width = paint.measureText(text);
+        Rect textRound = new Rect(0, 0, 0, 0);
+        float width = 0f;
+        if (text != null) {
+            paint.getTextBounds(text, 0, text.length(), textRound);
+            width = paint.measureText(text);
+        }
         bounds.set(textRound.left, textRound.top, (int) (textRound.left + width), textRound.bottom);
     }
 
     /**
-     * @see com.rsen.view.DialView#getTextBounds(Paint, String, Rect)
+     * Gets text bounds.
+     *
+     * @param paint the paint
+     * @param text  the text
+     * @return the text bounds
+     * @see DialView#getTextBounds(Paint, String, Rect) getTextBounds(Paint, String, Rect)
      */
     public static Rect getTextBounds(Paint paint, String text) {
         Rect textRound = new Rect();
@@ -104,6 +157,13 @@ public class DialView extends View {
         return textRound;
     }
 
+    /**
+     * Rotate bitmap bitmap.
+     *
+     * @param srcBmp  the src bmp
+     * @param degrees the degrees
+     * @return the bitmap
+     */
     public static Bitmap rotateBitmap(Bitmap srcBmp, float degrees) {
         int width, height;
         width = srcBmp.getWidth();
@@ -118,15 +178,41 @@ public class DialView extends View {
 
     /**
      * 角度(0-360) 转换 弧度(0-π)
+     *
+     * @param angle the angle
+     * @return the double
      */
     public static double applyAngleToRadian(double angle) {
         return (angle * Math.PI) / 180f;
     }
 
+    /**
+     * Px to dp float.
+     *
+     * @param res the res
+     * @param px  the px
+     * @return the float
+     */
     public static float pxToDp(Resources res, float px) {
         float dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, res.getDisplayMetrics());
 
         return dp;
+    }
+
+    public float getIcoWidth() {
+        return icoWidth;
+    }
+
+    public void setIcoWidth(float icoWidth) {
+        this.icoWidth = pxToDp(getResources(), icoWidth);
+    }
+
+    public float getIcoHeight() {
+        return icoHeight;
+    }
+
+    public void setIcoHeight(float icoHeight) {
+        this.icoHeight = pxToDp(getResources(), icoHeight);
     }
 
     private void init() {
@@ -144,6 +230,8 @@ public class DialView extends View {
         setmInnerCircleWidth(mInnerCircleWidth);
         setmLittleCircleRadius(mLittleCircleRadius);
         setmCenterCircleRadius(mCenterCircleRadius);
+        setIcoWidth(icoWidth);
+        setIcoHeight(icoHeight);
     }
 
     @Override
@@ -167,7 +255,17 @@ public class DialView extends View {
         }
     }
 
+    /**
+     * Start.
+     *
+     * @param index     the index
+     * @param endAction the end action
+     */
     public void start(int index, Runnable endAction) {//从0开始的索引
+        if (mRatios == null) {
+            return;
+        }
+
         if (index < 0 || index >= mRatios.length) {
             throw new IllegalArgumentException("index is invalid");
         }
@@ -182,10 +280,20 @@ public class DialView extends View {
         invalidate();
     }
 
+    /**
+     * Is start boolean.
+     *
+     * @return the boolean
+     */
     public boolean isStart() {
         return mDialStart;
     }
 
+    /**
+     * Is end boolean.
+     *
+     * @return the boolean
+     */
     public boolean isEnd() {
         return mDialEnd;
     }
@@ -255,12 +363,6 @@ public class DialView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        testDraw(canvas);
-
-//        mTextPaint.setColor(mColors[0]);
-//        Rect mDialRect = new Rect();
-//        getDialRect(mDialRect);
-//        canvas.drawRect(mDialRect, mTextPaint);
         //测量一些值
         mAngles = rationsToAngle();
         mDialRect = getDialRect();
@@ -317,29 +419,46 @@ public class DialView extends View {
         float angle = 0;//需要旋转的角度
         mPaint.setColor(mLittleCircleCol);
         mPaint.setStyle(Paint.Style.FILL);
-        for (int i = 0; i < mIcons.length; i++) {
-            Bitmap bitmap = mIcons[i];
-            angle = mAngles[i] / 2;
 
-            //绘制中间圈上的小圆
-            canvas.drawCircle(mDialRect.width() / 2 - mOutCircleWidth - mMidCircleWidth / 2, 0, mLittleCircleRadius, mPaint);
+        if (mIcons != null && mAngles != null) {
+            for (int i = 0; i < mIcons.length; i++) {
+                Bitmap bitmap = mIcons[i];
+                angle = mAngles[i] / 2;
 
-            canvas.rotate(angle);
+                //绘制中间圈上的小圆
+                canvas.drawCircle(mDialRect.width() / 2 - mOutCircleWidth - mMidCircleWidth / 2, 0, mLittleCircleRadius, mPaint);
 
-            //绘制中间圈上的小圆
-            canvas.drawCircle(mDialRect.width() / 2 - mOutCircleWidth - mMidCircleWidth / 2, 0, mLittleCircleRadius, mPaint);
+                canvas.rotate(angle);
 
-            canvas.save();
-            canvas.translate(mArcRectF.width() / 2 * mIconOffset, 0);//画布平移,让图片靠外圈显示
-            canvas.drawBitmap(rotateBitmap(bitmap, 90), -bitmap.getWidth() / 2, -bitmap.getHeight() / 2, mPaint);
-            canvas.restore();
-            canvas.rotate(angle);
+                //绘制中间圈上的小圆
+                canvas.drawCircle(mDialRect.width() / 2 - mOutCircleWidth - mMidCircleWidth / 2, 0, mLittleCircleRadius, mPaint);
+
+                canvas.save();
+                canvas.translate(mArcRectF.width() / 2 * mIconOffset, 0);//画布平移,让图片靠外圈显示
+                if (bitmap != null) {
+//                    canvas.drawBitmap(rotateBitmap(bitmap, 90), -bitmap.getWidth() / 2, -bitmap.getHeight() / 2, mPaint);
+                    int bmpWidth, bmpHeight;
+                    bmpWidth = bitmap.getWidth();
+                    bmpHeight = bitmap.getHeight();
+                    Rect src = new Rect(0, 0, bmpWidth, bmpHeight);
+                    float w, h;
+                    w = icoWidth / 2;
+                    h = icoHeight / 2;
+                    RectF det = new RectF(-w, -h, w, h);
+                    canvas.drawBitmap(rotateBitmap(bitmap, 90), src, det, mPaint);
+                }
+                canvas.restore();
+                canvas.rotate(angle);
+            }
         }
 
         canvas.restore();
     }
 
     private void drawDialText(Canvas canvas, float angle, String text, Path path) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
         mTextPaint.setColor(mTextColor);
         mTextPaint.setStyle(Paint.Style.FILL);
         float radius = mArcRectF.width() / 2f;//半径
@@ -347,6 +466,7 @@ public class DialView extends View {
 //        double textOffsetX = Math.sin(applyAngleToRadian(angle / 2)) * (float) radius;//文本横向偏移量
         float textOffsetX = (float) (2 * Math.PI * radius);//圆的周长
         textOffsetX = angle * textOffsetX / 360f / 2f;//多少角度对应多少长度// 文本横向偏移量
+
 
         Rect textBound = getTextBounds(mTextPaint, text);
 //        canvas.drawTextOnPath(text, path, (float) (textOffsetX), textBound.height() + textOffsetY, mTextPaint);
@@ -388,14 +508,19 @@ public class DialView extends View {
                 mDialRect.height() / 2 - allCircleWidth - paddingBottom);//下
         float startAngle = 0, endAngle;
         mPaint.setStyle(Paint.Style.FILL);
-        for (int i = 0; i < mAngles.length; i++) {
-            endAngle = mAngles[i];
-            mPaint.setColor(mColors[i]);
-            canvas.drawArc(mArcRectF, startAngle, endAngle, true, mPaint);
-            Path path = new Path();
-            path.addArc(mArcRectF, startAngle, endAngle);
-            drawDialText(canvas, endAngle, mTexts[i], path);
-            startAngle += endAngle;
+
+        if (mAngles != null) {
+            for (int i = 0; i < mAngles.length; i++) {
+                endAngle = mAngles[i];
+                mPaint.setColor(mColors[i]);
+                canvas.drawArc(mArcRectF, startAngle, endAngle, true, mPaint);
+                Path path = new Path();
+                path.addArc(mArcRectF, startAngle, endAngle);
+                if (mTexts != null && mTexts.length > i) {
+                    drawDialText(canvas, endAngle, mTexts[i], path);
+                }
+                startAngle += endAngle;
+            }
         }
 
         canvas.restore();
@@ -413,6 +538,23 @@ public class DialView extends View {
     }
 
     private float[] rationsToAngle() {
+        float[] angles;
+        int len;
+        if (isMean) {
+            if (mTexts == null) {
+                return null;
+            }
+
+            len = mTexts.length;
+            mRatios = new float[len];
+            for (int i = 0; i < len; i++) {
+                mRatios[i] = 1f;
+            }
+        }
+        if (mRatios == null) {
+            return null;
+        }
+
         //讲色块比例,转换成 角度
         float sum = 0;
         float avg = 0;
@@ -421,13 +563,13 @@ public class DialView extends View {
         }
         avg = 360f / sum;
 
-        int len = mRatios.length;
-        float[] angles = new float[len];
+        len = mRatios.length;
+        angles = new float[len];
         for (int i = 0; i < len; i++) {
             angles[i] = mRatios[i] * avg;
         }
-
         return angles;
+
     }
 
     private Rect getDialRect() {
@@ -458,6 +600,7 @@ public class DialView extends View {
      */
     public void setTexts(String[] texts) {
         this.mTexts = texts;
+        postInvalidate();
     }
 
     /**
@@ -467,6 +610,8 @@ public class DialView extends View {
      */
     public void setRatios(float[] ratios) {
         this.mRatios = ratios;
+        this.isMean = false;
+        postInvalidate();
     }
 
     /**
@@ -489,6 +634,11 @@ public class DialView extends View {
         }
     }
 
+    /**
+     * Sets text size.
+     *
+     * @param size the size
+     */
     public void setTextSize(float size) {
         mTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, getResources().getDisplayMetrics());
         mTextPaint.setTextSize(mTextSize);
@@ -512,73 +662,181 @@ public class DialView extends View {
         mIconOffset = offset;
     }
 
+    /**
+     * Sets icons.
+     *
+     * @param bitmaps the bitmaps
+     */
     public void setIcons(Bitmap[] bitmaps) {
         this.mIcons = bitmaps;
+        postInvalidate();
     }
 
+    /**
+     * Sets icon at.
+     *
+     * @param index the index
+     * @param bmp   the bmp
+     */
+    public void setIconAt(int index, Bitmap bmp) {
+        if (mIcons != null && mIcons.length > index) {
+            mIcons[index] = bmp;
+            postInvalidate();
+        }
+    }
+
+    /**
+     * Gets text.
+     *
+     * @param index the index
+     * @return the text
+     */
     public String getText(int index) {
         return mTexts[index];
     }
 
+    /**
+     * Gets dial num.
+     *
+     * @return the dial num
+     */
     public int getDialNum() {
         return mRatios.length;
     }
 
+    /**
+     * Sets text color.
+     *
+     * @param textColor the text color
+     */
     public void setTextColor(int textColor) {
         mTextColor = textColor;
     }
 
+    /**
+     * Sets out circle col.
+     *
+     * @param mOutCircleCol the m out circle col
+     */
     public void setmOutCircleCol(int mOutCircleCol) {
         this.mOutCircleCol = mOutCircleCol;
     }
 
+    /**
+     * Sets out circle width.
+     *
+     * @param mOutCircleWidth the m out circle width
+     */
     public void setmOutCircleWidth(float mOutCircleWidth) {
         mOutCircleWidth = pxToDp(getResources(), mOutCircleWidth);
         this.mOutCircleWidth = mOutCircleWidth;
     }
 
+    /**
+     * Sets inner circle col.
+     *
+     * @param mInnerCircleCol the m inner circle col
+     */
     public void setmInnerCircleCol(int mInnerCircleCol) {
         this.mInnerCircleCol = mInnerCircleCol;
     }
 
+    /**
+     * Sets inner circle width.
+     *
+     * @param mInnerCircleWidth the m inner circle width
+     */
     public void setmInnerCircleWidth(float mInnerCircleWidth) {
         mInnerCircleWidth = pxToDp(getResources(), mInnerCircleWidth);
         this.mInnerCircleWidth = mInnerCircleWidth;
     }
 
+    /**
+     * Sets mid circle col.
+     *
+     * @param mMidCircleCol the m mid circle col
+     */
     public void setmMidCircleCol(int mMidCircleCol) {
         this.mMidCircleCol = mMidCircleCol;
     }
 
+    /**
+     * Sets mid circle width.
+     *
+     * @param mMidCircleWidth the m mid circle width
+     */
     public void setmMidCircleWidth(float mMidCircleWidth) {
         mMidCircleWidth = pxToDp(getResources(), mMidCircleWidth);
 
         this.mMidCircleWidth = mMidCircleWidth;
     }
 
+    /**
+     * Sets little circle col.
+     *
+     * @param mLittleCircleCol the m little circle col
+     */
     public void setmLittleCircleCol(int mLittleCircleCol) {
         this.mLittleCircleCol = mLittleCircleCol;
     }
 
+    /**
+     * Sets little circle radius.
+     *
+     * @param mLittleCircleRadius the m little circle radius
+     */
     public void setmLittleCircleRadius(float mLittleCircleRadius) {
         mLittleCircleRadius = pxToDp(getResources(), mLittleCircleRadius);
         this.mLittleCircleRadius = mLittleCircleRadius;
     }
 
+    /**
+     * Sets center circle col.
+     *
+     * @param mCenterCircleCol the m center circle col
+     */
     public void setmCenterCircleCol(int mCenterCircleCol) {
         this.mCenterCircleCol = mCenterCircleCol;
     }
 
+    /**
+     * Sets center circle radius.
+     *
+     * @param mCenterCircleRadius the m center circle radius
+     */
     public void setmCenterCircleRadius(float mCenterCircleRadius) {
         mCenterCircleRadius = pxToDp(getResources(), mCenterCircleRadius);
         this.mCenterCircleRadius = mCenterCircleRadius;
     }
 
+    /**
+     * Sets dial degree.
+     *
+     * @param degree the degree
+     */
     public void setDialDegree(int degree) {
         if (!isStart() && isEnd()) {
             mDialOffsetDegree = degree;
             mDialCurrentDegree = 0;
             postInvalidate();
         }
+    }
+
+    /**
+     * Is mean boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isMean() {
+        return isMean;
+    }
+
+    /**
+     * Sets mean.
+     *
+     * @param mean the mean
+     */
+    public void setMean(boolean mean) {
+        isMean = mean;
     }
 }

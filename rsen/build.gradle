@@ -38,6 +38,20 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
 }
 
+task myJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += configurations.compile
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
+}
+
 buildscript {
     repositories {
         jcenter()
