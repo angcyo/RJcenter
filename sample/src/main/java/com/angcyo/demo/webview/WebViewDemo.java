@@ -48,6 +48,7 @@ public class WebViewDemo extends AppCompatActivity {
             public void openFileChooser(ValueCallback<Uri> uploadFile, String acceptType, String capture) {
                 openFileChooser(uploadFile);
             }
+
         });
 
         webView.setWebViewClient(new WebViewClient() {

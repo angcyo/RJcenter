@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
                 QqDemo.demo();
 
+                T1.T2 tt = new T1.T2();
+
             }
         });
 
