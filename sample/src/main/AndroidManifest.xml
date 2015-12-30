@@ -16,9 +16,11 @@
 
 
         <activity
-            android:name="com.angcyo.demo.webview.WebViewDemo"
-            android:label="RJcenter-WebviewDemo"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name="com.angcyo.demo.qq.QqLayoutDemo"
+            android:configChanges="screenSize|keyboard|screenLayout|orientation"
+            android:label="QqLayoutDemo"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
