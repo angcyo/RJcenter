@@ -143,6 +143,10 @@ public class NextScrollView extends RelativeLayout {
      * 检查是否需要处理事件
      */
     private boolean checkHandleEvent() {
+        if (firstView == null || secondView == null) {
+            return false;
+        }
+
         View firstView = this.firstView;
         View secondView = this.secondView;
 
