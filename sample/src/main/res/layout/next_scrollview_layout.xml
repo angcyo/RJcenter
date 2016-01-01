@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.angcyo.view.NextView xmlns:android="http://schemas.android.com/apk/res/android"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:background="#2020de00">
+<com.angcyo.view.NextScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#2020de00">
 
 
     <ScrollView
@@ -73,4 +73,4 @@
     </ScrollView>
 
 
-</com.angcyo.view.NextView>
+</com.angcyo.view.NextScrollView>
