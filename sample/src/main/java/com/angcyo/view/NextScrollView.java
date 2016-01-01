@@ -1,5 +1,7 @@
 package com.angcyo.view;
 
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -15,11 +17,13 @@ import android.widget.ScrollView;
  */
 public class NextScrollView extends RelativeLayout {
 
-    ScrollView upView;
+    ScrollView topView;
     ScrollView bottomView;
     float downY = 0f;
     boolean canScroll = false;
     float moveLength = 0f;
+    ValueAnimator valueAnimator;
+    boolean isRun = false;
 
     public NextScrollView(Context context) {
         super(context);
@@ -41,7 +45,7 @@ public class NextScrollView extends RelativeLayout {
     }
 
     private void init() {
-        upView = (ScrollView) getChildAt(0);
+        topView = (ScrollView) getChildAt(0);
         bottomView = (ScrollView) getChildAt(1);
 
         StackTraceElement thisMethodStack = new Exception().getStackTrace()[0];
@@ -136,35 +140,35 @@ public class NextScrollView extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        StackTraceElement thisMethodStack = new Exception().getStackTrace()[0];
-        log(thisMethodStack.getMethodName());
+//        StackTraceElement thisMethodStack = new Exception().getStackTrace()[0];
+//        log(thisMethodStack.getMethodName());
 
-        upView = (ScrollView) getChildAt(0);
+        topView = (ScrollView) getChildAt(0);
         bottomView = (ScrollView) getChildAt(1);
 
-        log("upView--height:" + upView.getHeight());
-        log("bottomView--height:" + bottomView.getHeight());
+//        log("topView--height:" + topView.getHeight());
+//        log("bottomView--height:" + bottomView.getHeight());
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        StackTraceElement thisMethodStack = new Exception().getStackTrace()[0];
-        log(thisMethodStack.getMethodName());
+//        StackTraceElement thisMethodStack = new Exception().getStackTrace()[0];
+//        log(thisMethodStack.getMethodName());
 
-        log("upView--top:" + upView.getTop());
-        log("bottomView--top:" + bottomView.getTop());
+//        log("topView--top:" + topView.getTop());
+//        log("bottomView--top:" + bottomView.getTop());
 
 
-        upView.layout(0, (int) moveLength,
-                upView.getMeasuredWidth(), (int) (upView.getMeasuredHeight() + moveLength));
-        bottomView.layout(0, (int) (upView.getMeasuredHeight() + moveLength),
-                bottomView.getMeasuredWidth(), (int) (upView.getMeasuredHeight() + bottomView.getMeasuredHeight() + moveLength));
+        topView.layout(0, (int) moveLength,
+                topView.getMeasuredWidth(), (int) (topView.getMeasuredHeight() + moveLength));
+        bottomView.layout(0, (int) (topView.getMeasuredHeight() + moveLength),
+                bottomView.getMeasuredWidth(), (int) (topView.getMeasuredHeight() + bottomView.getMeasuredHeight() + moveLength));
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        log("onInterceptTouchEvent");
+//        log("onInterceptTouchEvent");
 
         return super.onInterceptTouchEvent(ev);
 //        return true;
@@ -172,31 +176,89 @@ public class NextScrollView extends RelativeLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-//        log(upView.getScrollY() + "");
+//        log(topView.getScrollY() + "");
 
         if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
             downY = ev.getY();
+            moveLength = 0;
 
-            if ((upView.getScrollY() + upView.getMeasuredHeight()) == upView.getChildAt(0).getMeasuredHeight() &&
-                    upView.getTop() == 0) {
+            if (((topView.getScrollY() + topView.getMeasuredHeight()) == topView.getChildAt(0).getMeasuredHeight() && topView.getTop() == 0) //已经到了 topView的底部,并且没有在偏移
+                    || (bottomView.getScrollY() == 0 && bottomView.getTop() == topView.getTop())//bottomView已经在顶部, 并且没有在偏移
+                    ) {
                 canScroll = true;
             } else {
                 canScroll = false;
             }
 
-        } else if (ev.getActionMasked() == MotionEvent.ACTION_MOVE && canScroll) {
-            float moveY = ev.getY();
-            moveLength += moveY - downY;
+        }
 
-            log("moveLength:" + moveLength);
+        if (canScroll) {
+            if (ev.getActionMasked() == MotionEvent.ACTION_MOVE) {
+                float moveY = ev.getY();
+                moveLength += moveY - downY;
 
-            requestLayout();
-            downY = moveY;
-            return true;
-        } else if (ev.getActionMasked() == MotionEvent.ACTION_UP) {
-            canScroll = false;
+//                log("moveLength:" + moveLength);
+
+                requestLayout();
+                downY = moveY;
+                return true;
+            } else if (ev.getActionMasked() == MotionEvent.ACTION_UP) {
+                if (Math.abs(moveLength) >= getMeasuredHeight() / 2) {
+//                showBottmView();
+                    smoothTo(moveLength, -topView.getMeasuredHeight());
+                } else {
+//                showUpView();
+                    smoothTo(0f, moveLength);
+                }
+                canScroll = false;
+            }
+
         }
 
         return super.dispatchTouchEvent(ev);
+    }
+
+    private void showUpView() {
+        moveLength = 0;
+        requestLayout();
+    }
+
+    private void showBottomView() {
+        moveLength = -topView.getMeasuredHeight();
+        requestLayout();
+    }
+
+    private void smoothTo(float fromY, float toY) {
+        log("fromY:" + fromY + "  toY:" + toY);
+
+//        fromY = 1000f;
+//        toY = 500f;
+//
+//        if (isRun) {
+//            return;
+//        }
+
+
+        valueAnimator = ValueAnimator.ofObject(new TypeEvaluator<Float>() {
+            @Override
+            public Float evaluate(float fraction, Float startValue, Float endValue) {
+                return (1 - fraction) * (endValue - startValue);
+            }
+
+        }, fromY, toY);
+
+        valueAnimator.setInterpolator(null);
+        valueAnimator.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                moveLength = (float) animation.getAnimatedValue();
+                log("getAnimatedValue:" + animation.getAnimatedValue());
+                requestLayout();
+            }
+        });
+
+        valueAnimator.start();
+//        isRun = true;
     }
 }
