@@ -24,6 +24,10 @@ public class NextScrollView extends RelativeLayout {
     float moveLength = 0f;
     ValueAnimator valueAnimator;
     boolean isRun = false;
+    float eventDownY = 0f;
+    boolean isHandled = false;//是否需要处理事件
+    boolean canScrollToBottom = false;
+    boolean canScrollToUp = false;
 
     public NextScrollView(Context context) {
         super(context);
@@ -146,8 +150,8 @@ public class NextScrollView extends RelativeLayout {
         topView = (ScrollView) getChildAt(0);
         bottomView = (ScrollView) getChildAt(1);
 
-//        log("topView--height:" + topView.getHeight());
-//        log("bottomView--height:" + bottomView.getHeight());
+//        log("topView--viewHeight:" + topView.getHeight());
+//        log("bottomView--viewHeight:" + bottomView.getHeight());
     }
 
     @Override
@@ -179,44 +183,156 @@ public class NextScrollView extends RelativeLayout {
 //        log(topView.getScrollY() + "");
 
         if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
-            downY = ev.getY();
-            moveLength = 0;
+            eventDownY = ev.getY();
+            moveLength = topView.getTop();
 
-            if (((topView.getScrollY() + topView.getMeasuredHeight()) == topView.getChildAt(0).getMeasuredHeight() && topView.getTop() == 0) //已经到了 topView的底部,并且没有在偏移
-                    || (bottomView.getScrollY() == 0 && bottomView.getTop() == topView.getTop())//bottomView已经在顶部, 并且没有在偏移
-                    ) {
-                canScroll = true;
-            } else {
-                canScroll = false;
-            }
-
+//            log("eventDownY:" + eventDownY + " getRawY:" + ev.getRawY());
+            isHandled = checkEventDown();
         }
 
-        if (canScroll) {
+
+        if (isHandled) {
             if (ev.getActionMasked() == MotionEvent.ACTION_MOVE) {
-                float moveY = ev.getY();
-                moveLength += moveY - downY;
+                float eventY = ev.getY();
+                float eventMoveY = eventY - eventDownY;
+                moveLength += eventMoveY;
 
-//                log("moveLength:" + moveLength);
+//                log("eventDownY:" + eventDownY + " eventY:" + eventY);
+//                log("eventMoveY:" + eventMoveY + " moveLength:" + moveLength);
 
-                requestLayout();
-                downY = moveY;
-                return true;
-            } else if (ev.getActionMasked() == MotionEvent.ACTION_UP) {
-                if (Math.abs(moveLength) >= getMeasuredHeight() / 2) {
-//                showBottmView();
-                    smoothTo(moveLength, -topView.getMeasuredHeight());
-                } else {
-//                showUpView();
-                    smoothTo(0f, moveLength);
+                eventDownY = eventY;
+                if (checkEventMove(eventMoveY)) {
+                    requestLayout();
+                    return true;
                 }
-                canScroll = false;
-            }
 
+//                return true;
+//                if (eventMoveY > 0) {//向下滚动
+//                    if (canScrollToUp) {
+//                        requestLayout();
+//                        return true;
+//                    }
+//                } else {//向上滚动
+//                    if (canScrollToBottom) {
+//                        requestLayout();
+//                        return true;
+//                    }
+//                }
+            }
         }
+
+
+        if (ev.getActionMasked() == MotionEvent.ACTION_UP) {
+            if (isHandled) {
+                if (Math.abs(moveLength) >= getMeasuredHeight() / 2) {//滑动大于一半
+                    if (moveLength < 0) {//向上滑,滚动到下一个
+                        smoothTo(moveLength, -topView.getMeasuredHeight());
+                    } else {//滚动到上一个
+                        smoothTo(moveLength, 0);
+                    }
+
+                } else {//滑动小于一半
+                    if (moveLength < 0) {//向上滑,回到上一个底部
+                        smoothTo(moveLength, 0);
+                    } else {//回到下一个顶部
+                        smoothTo(moveLength, -topView.getMeasuredHeight());
+                    }
+                }
+            }
+            isHandled = false;
+        }
+
+
+//        if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
+//            downY = ev.getY();
+//            moveLength = 0;
+//
+//            if (((topView.getScrollY() + topView.getMeasuredHeight()) == topView.getChildAt(0).getMeasuredHeight() && topView.getTop() == 0) //已经到了 topView的底部,并且没有在偏移
+//                    || (bottomView.getScrollY() == 0 && bottomView.getTop() == 0)//bottomView已经在顶部, 并且没有在偏移
+//                    ) {
+//                canScroll = true;
+//            } else {
+//                canScroll = false;
+//            }
+//
+//        }
+//
+//        if (canScroll) {
+//            if (ev.getActionMasked() == MotionEvent.ACTION_MOVE) {
+//                float moveY = ev.getY();
+//                moveLength += moveY - downY;
+//
+////                log("moveLength:" + moveLength);
+//
+//                requestLayout();
+//                downY = moveY;
+//                return true;
+//            } else if (ev.getActionMasked() == MotionEvent.ACTION_UP) {
+//                if (Math.abs(moveLength) >= getMeasuredHeight() / 2) {
+////                showBottmView();
+//                    smoothTo(moveLength, -topView.getMeasuredHeight());
+//                } else {
+////                showUpView();
+//                    smoothTo(0f, moveLength);
+//                }
+//                canScroll = false;
+//            }
+//
+//        }
 
         return super.dispatchTouchEvent(ev);
     }
+
+    /**
+     * 返回是否需要处理事件
+     */
+    private boolean checkEventDown() {
+        ViewGroup topView = this.topView;
+        ViewGroup bottomView = this.bottomView;
+
+        float topViewHeight = topView.getMeasuredHeight();//布局高度
+        float topScrollY = topView.getScrollY();//已经滚动的距离
+        float topViewMaxHeight = topView.getChildAt(0).getMeasuredHeight();//总共可滚动的距离
+
+        float bottomViewTop = bottomView.getTop();//与顶部的距离
+        float bottomScrollY = bottomView.getScrollY();//滚动的距离
+
+        if ((topScrollY + topViewHeight) == topViewMaxHeight) {//说明topView已经在底部
+            log("topView已经在底部--可以滚动下一个");
+            canScrollToBottom = true;
+            canScrollToUp = false;
+        } else if (bottomViewTop == 0 && bottomScrollY == 0) {//说明bottomView已经在顶部
+            log("bottomView已经在顶部--可以滚动上一个");
+            canScrollToUp = true;
+            canScrollToBottom = false;
+        } else {
+            log("无处理");
+            canScrollToBottom = false;
+            canScrollToUp = false;
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 是否需要消耗事件
+     */
+    private boolean checkEventMove(float moveY) {
+        if (moveY > 0) { //意图:向下滑
+            if (topView.getTop() == -getMeasuredHeight() && bottomView.getTop() == 0) {
+                return true;
+            }
+        }
+        if (moveY < 0) {//意图: 向上滑
+            if (topView.getTop() == 0 && bottomView.getTop() == getMeasuredHeight()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     private void showUpView() {
         moveLength = 0;
@@ -242,7 +358,7 @@ public class NextScrollView extends RelativeLayout {
         valueAnimator = ValueAnimator.ofObject(new TypeEvaluator<Float>() {
             @Override
             public Float evaluate(float fraction, Float startValue, Float endValue) {
-                return (1 - fraction) * (endValue - startValue);
+                return startValue + fraction * (endValue - startValue);
             }
 
         }, fromY, toY);
@@ -253,7 +369,7 @@ public class NextScrollView extends RelativeLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 moveLength = (float) animation.getAnimatedValue();
-                log("getAnimatedValue:" + animation.getAnimatedValue());
+//                log("getAnimatedValue:" + animation.getAnimatedValue());
                 requestLayout();
             }
         });
