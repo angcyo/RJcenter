@@ -94,6 +94,8 @@ public class NextScrollView extends RelativeLayout {
                     moveLength += eventMoveY - eventDownY;
                     eventDownY = eventMoveY;
                     offsetTop = moveLength;
+
+                    checkBorder();
                     requestLayout();
 
                     return true;
@@ -104,13 +106,13 @@ public class NextScrollView extends RelativeLayout {
             if (interceptEvent) {
                 if (ev.getActionMasked() == MotionEvent.ACTION_UP) {
                     if (curItem == 1) {
-                        if (Math.abs(moveLength) > viewHeight / 2) {//移动超过了一半
+                        if (Math.abs(moveLength) > viewHeight / 3) {//移动超过了一半
                             smoothTo(2);
                         } else {
                             smoothTo(1);
                         }
                     } else {
-                        if (Math.abs(moveLength + firstViewHeight) > viewHeight / 2) {//移动超过了一半
+                        if (Math.abs(moveLength + firstViewHeight) > viewHeight / 3) {//移动超过了一半
                             smoothTo(1);
                         } else {
                             smoothTo(2);
@@ -123,6 +125,17 @@ public class NextScrollView extends RelativeLayout {
         }
 
         return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * 边界检查
+     */
+    private void checkBorder() {
+        if (offsetTop > 0) {
+            offsetTop = 0;
+        } else if (offsetTop < -firstViewHeight) {
+            offsetTop = -firstViewHeight;
+        }
     }
 
     private void smoothTo(int item) {//1 或者 2

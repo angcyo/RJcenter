@@ -25,6 +25,28 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.angcyo.sample.PullRefreshLayoutActivity"
+            android:label="PullRefreshLayoutActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.angcyo.sample.NextScrollViewActivity"
+            android:label="NextScrollViewActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
 
         <activity
             android:name="com.angcyo.demo.qq.QqLayoutDemo"

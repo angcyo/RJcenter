@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
 //                RetrofitDemo.demo();
 
                 QqDemo.demo();
-
-                T1.T2 tt = new T1.T2();
-
             }
         });
 
