@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.angcyo.view.NextScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="#2020de00">
+<com.rsen.view.viewgroup.NextScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="#2020de00">
 
 
     <ScrollView
@@ -19,24 +19,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="#FF0000"
-                android:text="Button1" />
+                android:text="Button1"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:background="#00FF00"
-                android:text="Button2" />
+                android:text="Button2"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="600dp"
                 android:background="@color/colorPrimary"
-                android:text="Button3" />
+                android:text="Button3"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="继续上滑-->查看更多" />
+                android:text="继续上滑-->查看更多"/>
 
         </LinearLayout>
     </ScrollView>
@@ -55,22 +55,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="#11ff00"
-                android:text="按钮1" />
+                android:text="按钮1"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:background="#20FFF0"
-                android:text="按钮2" />
+                android:text="按钮2"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="1200dp"
                 android:background="#AA00FF"
-                android:text="按钮3" />
+                android:text="按钮3"/>
 
         </LinearLayout>
     </ScrollView>
 
 
-</com.angcyo.view.NextScrollView>
+</com.rsen.view.viewgroup.NextScrollView>

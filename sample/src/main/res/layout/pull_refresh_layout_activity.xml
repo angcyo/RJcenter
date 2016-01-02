@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.angcyo.view.PullRefreshLayout
+    <com.rsen.view.viewgroup.PullRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -61,6 +61,6 @@
             </LinearLayout>
         </ScrollView>
 
-    </com.angcyo.view.PullRefreshLayout>
+    </com.rsen.view.viewgroup.PullRefreshLayout>
 
 </LinearLayout>

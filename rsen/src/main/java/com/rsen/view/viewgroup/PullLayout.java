@@ -1,4 +1,4 @@
-package com.angcyo.view;
+package com.rsen.view.viewgroup;
 
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
@@ -17,33 +17,27 @@ import android.widget.TextView;
 /**
  * Created by angcyo on 16-01-02-002.
  */
-public class PullRefreshLayout extends RelativeLayout {
-
-    public static final int NORMAL = 0x0001;
-    public static final int REFRESH = NORMAL << 1;
-    public static final int FULFILL = NORMAL << 2;
-    public static final int FINISH = NORMAL << 3;
+public class PullLayout extends RelativeLayout {
     View firstView, secondView;
     int offsetTop = 0;
     boolean interceptEvent = false, handleEvent = false;
     int moveLength = 0;
     float downY = 0, moveY = 0;
-    int STATE = NORMAL;
     RelativeLayout backgroundLayout;
     TextView textView1, textView2;
     int viewHeight;
 
-    public PullRefreshLayout(Context context) {
+    public PullLayout(Context context) {
         super(context);
         init();
     }
 
-    public PullRefreshLayout(Context context, AttributeSet attrs) {
+    public PullLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public PullRefreshLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PullLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -74,7 +68,7 @@ public class PullRefreshLayout extends RelativeLayout {
         textView2.setId(android.R.id.text2);
         textView2.setTextColor(Color.parseColor("#6C7173"));
 
-        textView1.setText("下拉刷新");
+        textView1.setText("用于测试的文本");
         textView2.setText("Power By RSen");
         backgroundLayout.addView(textView1);
         backgroundLayout.addView(textView2);
@@ -102,7 +96,7 @@ public class PullRefreshLayout extends RelativeLayout {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         if (firstView != null) {
-            firstView.layout(0, offsetTop - firstView.getMeasuredHeight(), firstView.getMeasuredWidth(), offsetTop + firstView.getMeasuredHeight());
+            firstView.layout(0, 0, firstView.getMeasuredWidth(), firstView.getMeasuredHeight());
         }
         if (secondView != null) {
             secondView.layout(0, offsetTop, secondView.getMeasuredWidth(), offsetTop + secondView.getMeasuredHeight());
@@ -124,24 +118,14 @@ public class PullRefreshLayout extends RelativeLayout {
 
             if (interceptEvent) {
                 moveLength += (moveY - downY) / 3;
+//                moveLength += (moveY - downY) * (viewHeight - offsetTop * 5) / viewHeight;
                 offsetTop = moveLength;
                 downY = moveY;
                 checkBorder();
-                updateState();//更新刷新的状态
                 requestLayout();
 
                 if (ev.getActionMasked() == MotionEvent.ACTION_UP) {
-
-                    if (STATE == FULFILL) {
-                        STATE = REFRESH;
-                        updateState();
-
-                        smoothTo(offsetTop, backgroundLayout.getMeasuredHeight());
-                        startRefresh();//模拟刷新
-                    } else {
-                        smoothTo(offsetTop, 0);
-                    }
-
+                    smoothTo(offsetTop, 0);
                     moveLength = 0;
                     interceptEvent = false;
                 }
@@ -161,50 +145,6 @@ public class PullRefreshLayout extends RelativeLayout {
     private void checkBorder() {
         if (offsetTop < 0) {
             offsetTop = 0;
-        }
-    }
-
-    /**
-     * 模拟刷新
-     */
-    private void startRefresh() {
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                STATE = FINISH;
-                updateState();
-
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        STATE = NORMAL;
-                        smoothTo(offsetTop, 0);
-                    }
-                }, 500);
-            }
-        }, 2000);
-    }
-
-    /**
-     * 升级状态
-     */
-    private void updateState() {
-        if (STATE == REFRESH) {
-            textView1.setText("刷新中...");
-            return;
-        }
-
-        if (STATE == FINISH) {
-            textView1.setText("刷新完成");
-            return;
-        }
-
-        if (offsetTop >= backgroundLayout.getMeasuredHeight()) {
-            textView1.setText("松开刷新");
-            STATE = FULFILL;
-        } else {
-            textView1.setText("下拉刷新");
-            STATE = NORMAL;
         }
     }
 
