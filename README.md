@@ -38,6 +38,7 @@ compile 'com.rsen:rsen:1.1.0'
 
 ##牛人推荐
 **国内:[https://github.com/android-cn/android-dev-cn](https://github.com/android-cn/android-dev-cn)**
+
 昵称 | GitHub | 博客 | 介绍
 :------------- | :------------- | :------------- | :------------- 
 罗升阳 | | [Luoshengyang@csdn](http://blog.csdn.net/Luoshengyang) | Android 源码分析
@@ -77,6 +78,7 @@ androidyue | [androidyue](https://github.com/androidyue) | [技术小黑屋](htt
 Hongyang | [hongyangAndroid](https://github.com/hongyangAndroid)| [Hongyang](http://blog.csdn.net/lmj623565791)| Android
 
 **国外:[https://github.com/android-cn/android-dev-com](https://github.com/android-cn/android-dev-com)**
+
 Avatar  | Github | Blog | Description
 -------------: | :------------- | :------------- | :------------- 
 ![Google Android](https://avatars3.githubusercontent.com/u/1342004?s=80 "Google Android") | https://github.com/google | http://android-developers.blogspot.com/ |  Google Android Developers Blog
