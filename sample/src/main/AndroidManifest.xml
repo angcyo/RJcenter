@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.angcyo.sample"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.angcyo.sample">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
 
-
+    <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,10 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name="com.angcyo.sample.PullLayoutActivity"
-            android:label="PullLayoutActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".ViewRotationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,28 +22,35 @@
         </activity>
 
         <activity
-            android:name="com.angcyo.sample.PullRefreshLayoutActivity"
+            android:name=".PullLayoutActivity"
+            android:label="PullLayoutActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PullRefreshLayoutActivity"
             android:label="PullRefreshLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.angcyo.sample.NextScrollViewActivity"
+            android:name=".NextScrollViewActivity"
             android:label="NextScrollViewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
-
-
         <activity
             android:name="com.angcyo.demo.qq.QqLayoutDemo"
             android:configChanges="screenSize|keyboard|screenLayout|orientation"
@@ -55,28 +58,24 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize">
         </activity>
-
         <activity
             android:name="com.angcyo.demo.dialview.DialDemoActivity"
             android:label="RJcenter-DialDemo"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
             android:name="com.angcyo.demo.qq.QqActivity"
             android:label="RJcenter-QQ"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="RJcenter-Main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
             android:name="com.angcyo.demo.top.OnePxActivity"
             android:theme="@style/Dialog" />
