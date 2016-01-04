@@ -37,7 +37,7 @@ compile 'com.rsen:rsen:1.1.0'
 *&nbsp;&nbsp;乐于分享并且有一些很不错的开源项目的[个人](https://github.com/Trinea/android-open-project#一个人)和[组织](https://github.com/Trinea/android-open-project#二组织)，包括 JakeWharton、Chris Banes、Koushik Dutta 等大牛*  
 
 ##牛人推荐
-**国内:**[https://github.com/android-cn/android-dev-cn](https://github.com/android-cn/android-dev-cn)
+**国内:[https://github.com/android-cn/android-dev-cn](https://github.com/android-cn/android-dev-cn)**
 昵称 | GitHub | 博客 | 介绍
 :------------- | :------------- | :------------- | :------------- 
 罗升阳 | | [Luoshengyang@csdn](http://blog.csdn.net/Luoshengyang) | Android 源码分析
@@ -76,7 +76,7 @@ pedant | [pedant ](https://github.com/pedant) | [书呆子精神院](http://peda
 androidyue | [androidyue](https://github.com/androidyue) | [技术小黑屋](http://droidyue.com/) | Android，Java研究
 Hongyang | [hongyangAndroid](https://github.com/hongyangAndroid)| [Hongyang](http://blog.csdn.net/lmj623565791)| Android
 
-**国外:**[https://github.com/android-cn/android-dev-com](https://github.com/android-cn/android-dev-com)
+**国外:[https://github.com/android-cn/android-dev-com](https://github.com/android-cn/android-dev-com)**
 Avatar  | Github | Blog | Description
 -------------: | :------------- | :------------- | :------------- 
 ![Google Android](https://avatars3.githubusercontent.com/u/1342004?s=80 "Google Android") | https://github.com/google | http://android-developers.blogspot.com/ |  Google Android Developers Blog
