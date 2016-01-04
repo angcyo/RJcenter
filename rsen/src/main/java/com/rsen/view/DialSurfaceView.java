@@ -12,6 +12,8 @@ import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -96,6 +98,7 @@ public class DialSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private float icoHeight = 50f;//dp 图标的高度
     private SurfaceHolder surfaceHolder;
     private Thread drawThread;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     /**
      * Instantiates a new Dial view.
@@ -341,7 +344,7 @@ public class DialSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             mDialEnd = true;
             mDialCurrentDegree %= 360;
             if (endAction != null) {
-                endAction.run();
+                handler.post(endAction);//2016-1-4 ui线程执行
             }
         }
     }
@@ -886,7 +889,7 @@ public class DialSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void run() {
-        while (isCreated) {
+        while (isCreated && isStart()) {
             threadDraw();
         }
         drawThread = null;
