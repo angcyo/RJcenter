@@ -23,7 +23,7 @@ compile 'com.rsen:rsen:1.1.0'
 暂无
 
 ##项目推荐
-##[Android 开源项目分类汇总](https://github.com/Trinea/android-open-project)
+###[Android 开源项目分类汇总](https://github.com/Trinea/android-open-project)
 **目前包括：**
 >[Android 开源项目第一篇——个性化控件(View)篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A7%E4%BB%B6view)  
 *&nbsp;&nbsp;包括[ListView](https://github.com/Trinea/android-open-project#%E4%B8%80listview)、[ActionBar](https://github.com/Trinea/android-open-project#%E4%BA%8Cactionbar)、[Menu](https://github.com/Trinea/android-open-project#%E4%B8%89menu)、[ViewPager](https://github.com/Trinea/android-open-project#%E5%9B%9Bviewpager-gallery)、[Gallery](https://github.com/Trinea/android-open-project#%E5%9B%9Bviewpager-gallery)、[GridView](https://github.com/Trinea/android-open-project#%E4%BA%94gridview)、[ImageView](https://github.com/Trinea/android-open-project#%E5%85%ADimageview)、[ProgressBar](https://github.com/Trinea/android-open-project#%E4%B8%83progressbar)、[TextView](https://github.com/Trinea/android-open-project#%E5%85%ABtextview)、[ScrollView](https://github.com/Trinea/android-open-project#%E4%B9%9Dscrollview)、[TimeView](https://github.com/Trinea/android-open-project#%E5%8D%81timeview)、[TipView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%B8%80tipview)、[FlipView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%BA%8Cflipview)、[ColorPickView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%B8%89colorpickview)、[GraphView](https://github.com/Trinea/android-open-project#%E5%8D%81%E5%9B%9Bgraphview)、[UI Style](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%BA%94ui-style)、[其他](https://github.com/Trinea/android-open-project#十六其他)*  
@@ -35,6 +35,75 @@ compile 'com.rsen:rsen:1.1.0'
 *&nbsp;&nbsp;包括[开发效率工具](https://github.com/Trinea/android-open-project#一开发效率工具)、[开发自测相关](https://github.com/Trinea/android-open-project#二开发自测相关)、[测试工具](https://github.com/Trinea/android-open-project#三测试工具)、[开发及编译环境](https://github.com/Trinea/android-open-project#四开发及编译环境)、[其他](https://github.com/Trinea/android-open-project#五其他)*  
 [Android 开源项目第五篇——优秀个人和团体篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86)  
 *&nbsp;&nbsp;乐于分享并且有一些很不错的开源项目的[个人](https://github.com/Trinea/android-open-project#一个人)和[组织](https://github.com/Trinea/android-open-project#二组织)，包括 JakeWharton、Chris Banes、Koushik Dutta 等大牛*  
+
+###[Android-Next 公共组件库](https://github.com/angcyo/Android-Next)
+这个库是我在日常开发过程中积累下来的一些可复用组件，大部分都在我的工作项目和个人项目中有使用。
+
+最新版本: [![Maven Central](http://img.shields.io/badge/2015.08.04-com.mcxiaoke.next:1.2.0-brightgreen.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mcxiaoke.next%22)
+
+## Gradle集成
+
+```groovy
+    // core 核心库, 格式:jar和aar
+    compile 'com.mcxiaoke.next:core:1.2.+'
+    // task 异步任务库，格式:jar和aar
+    compile 'com.mcxiaoke.next:task:1.2.+'
+    // http HTTP组件, 格式:jar和aar
+    compile 'com.mcxiaoke.next:http:1.2.+'
+    // 异步网络和文件IO组件，替代Volley
+    compile 'com.mcxiaoke.next:ioasync:1.2.+'
+    // 函数操作组件
+    compile 'com.mcxiaoke.next:functions:1.2.+'
+    // ui UI组件, 格式:aar
+    compile 'com.mcxiaoke.next:ui:1.2.+'
+    // recycler EndlessRecyclerView, 格式:aar
+    compile 'com.mcxiaoke.next:recycler:1.2.+'
+    // extra-abc 依赖support-v7 AppCompat 格式:aar
+    compile 'com.mcxiaoke.next:extras-abc:1.2.+'
+    
+```
+
+## 使用指南（2015.08.24更新）
+
+**使用前请阅读对应模块的文档和示例，如果有不清楚的地方，可以看源码，或者向我提问。**
+
+
+
+###[开源框架封装](https://github.com/huangwm1984/AndroidBase)
+自己整理的项目中常用到开发框架和相关Test例子、开发中遇到的问题总结，持续更新中...
+
+1.BaseApplication、BaseActivity、BaseFragment等基类、activity堆栈式管理类以及全局网络通知
+
+2.网络请求框架：OKhttp
+
+3.数据库框架：Ormlite
+
+4.图片异步加载类库：Glide
+
+5.快速绑定控件：Butterknife
+
+6.文件缓存：Disklrucache、SpCache(Sharepreference保存)
+
+7.内存泄漏监测：Leakcanary
+
+8.事件总线：AndroidEventbus
+
+9.Json解析工具：FastJson
+
+10.收集的各种便捷开发的工具类
+
+11.ListView、GridView、RecyclerView快速开发适配器
+
+12.Activity解耦CommonBlock
+
+13.Android 6.0 Permission封装
+
+14.集成BaseBanner控件
+
+15.集成hongyangAndroid的多分辨率终极适配方案AndroidAutoLayout
+
+最后感谢github上大神的开源框架和开源精神 (●'◡'●)ﾉ♥
+
 
 ##牛人推荐
 **国内:[https://github.com/android-cn/android-dev-cn](https://github.com/android-cn/android-dev-cn)**
