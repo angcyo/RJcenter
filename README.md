@@ -22,8 +22,22 @@ compile 'com.rsen:rsen:1.1.0'
 ##使用介绍
 暂无
 
+##项目推荐
+##Android 开源项目分类汇总[https://github.com/Trinea/android-open-project](https://github.com/Trinea/android-open-project)
+**目前包括：**
+>[Android 开源项目第一篇——个性化控件(View)篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A7%E4%BB%B6view)  
+*&nbsp;&nbsp;包括[ListView](https://github.com/Trinea/android-open-project#%E4%B8%80listview)、[ActionBar](https://github.com/Trinea/android-open-project#%E4%BA%8Cactionbar)、[Menu](https://github.com/Trinea/android-open-project#%E4%B8%89menu)、[ViewPager](https://github.com/Trinea/android-open-project#%E5%9B%9Bviewpager-gallery)、[Gallery](https://github.com/Trinea/android-open-project#%E5%9B%9Bviewpager-gallery)、[GridView](https://github.com/Trinea/android-open-project#%E4%BA%94gridview)、[ImageView](https://github.com/Trinea/android-open-project#%E5%85%ADimageview)、[ProgressBar](https://github.com/Trinea/android-open-project#%E4%B8%83progressbar)、[TextView](https://github.com/Trinea/android-open-project#%E5%85%ABtextview)、[ScrollView](https://github.com/Trinea/android-open-project#%E4%B9%9Dscrollview)、[TimeView](https://github.com/Trinea/android-open-project#%E5%8D%81timeview)、[TipView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%B8%80tipview)、[FlipView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%BA%8Cflipview)、[ColorPickView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%B8%89colorpickview)、[GraphView](https://github.com/Trinea/android-open-project#%E5%8D%81%E5%9B%9Bgraphview)、[UI Style](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%BA%94ui-style)、[其他](https://github.com/Trinea/android-open-project#十六其他)*  
+[Android 开源项目第二篇——工具库篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E5%B7%A5%E5%85%B7%E5%BA%93)  
+*&nbsp;&nbsp;包括[依赖注入](https://github.com/Trinea/android-open-project#一依赖注入-di)、[图片缓存](https://github.com/Trinea/android-open-project#二图片缓存)、[网络请求](https://github.com/Trinea/android-open-project#三网络请求)、[数据库 ORM 工具包](https://github.com/Trinea/android-open-project#四数据库-orm-工具包)、[Android 公共库](https://github.com/Trinea/android-open-project#五android-公共库)、[高版本向低版本兼容库](https://github.com/Trinea/android-open-project#六android-高版本向低版本兼容)、[多媒体](https://github.com/Trinea/android-open-project#七多媒体相关)、[事件总线](https://github.com/Trinea/android-open-project#八事件总线订阅者模式)、[传感器](https://github.com/Trinea/android-open-project#九传感器)、[安全](https://github.com/Trinea/android-open-project#十安全)、[插件化](https://github.com/Trinea/android-open-project#十一插件化)、[文件](https://github.com/Trinea/android-open-project#十二文件)、[其他](https://github.com/Trinea/android-open-project#十三其他)*  
+[Android 开源项目第三篇——优秀项目篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86-%E4%BC%98%E7%A7%80%E9%A1%B9%E7%9B%AE)  
+*&nbsp;&nbsp;比较有意思的完整的 Android 项目*  
+[Android 开源项目第四篇——开发及测试工具篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7)  
+*&nbsp;&nbsp;包括[开发效率工具](https://github.com/Trinea/android-open-project#一开发效率工具)、[开发自测相关](https://github.com/Trinea/android-open-project#二开发自测相关)、[测试工具](https://github.com/Trinea/android-open-project#三测试工具)、[开发及编译环境](https://github.com/Trinea/android-open-project#四开发及编译环境)、[其他](https://github.com/Trinea/android-open-project#五其他)*  
+[Android 开源项目第五篇——优秀个人和团体篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86)  
+*&nbsp;&nbsp;乐于分享并且有一些很不错的开源项目的[个人](https://github.com/Trinea/android-open-project#一个人)和[组织](https://github.com/Trinea/android-open-project#二组织)，包括 JakeWharton、Chris Banes、Koushik Dutta 等大牛*  
+
 ##牛人推荐
-###国内:[https://github.com/android-cn/android-dev-cn](https://github.com/android-cn/android-dev-cn)
+**国内:**[https://github.com/android-cn/android-dev-cn](https://github.com/android-cn/android-dev-cn)
 昵称 | GitHub | 博客 | 介绍
 :------------- | :------------- | :------------- | :------------- 
 罗升阳 | | [Luoshengyang@csdn](http://blog.csdn.net/Luoshengyang) | Android 源码分析
@@ -62,7 +76,7 @@ pedant | [pedant ](https://github.com/pedant) | [书呆子精神院](http://peda
 androidyue | [androidyue](https://github.com/androidyue) | [技术小黑屋](http://droidyue.com/) | Android，Java研究
 Hongyang | [hongyangAndroid](https://github.com/hongyangAndroid)| [Hongyang](http://blog.csdn.net/lmj623565791)| Android
 
-###国外:[https://github.com/android-cn/android-dev-com](https://github.com/android-cn/android-dev-com)
+**国外:**[https://github.com/android-cn/android-dev-com](https://github.com/android-cn/android-dev-com)
 Avatar  | Github | Blog | Description
 -------------: | :------------- | :------------- | :------------- 
 ![Google Android](https://avatars3.githubusercontent.com/u/1342004?s=80 "Google Android") | https://github.com/google | http://android-developers.blogspot.com/ |  Google Android Developers Blog
