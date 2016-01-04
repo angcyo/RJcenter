@@ -8,19 +8,23 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
 /**
  * 大转盘
  * Created by angcyo on 15-12-18 018 15:09 下午.
  */
-public class DialView extends View {
+public class DialSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
     private static final int col1 = Color.parseColor("#FFF6DB");//很淡的黄色
     private static final int col2 = Color.parseColor("#FFFFFF");//白色
     private static final int col3 = Color.parseColor("#E13F4F");//红色
@@ -46,6 +50,7 @@ public class DialView extends View {
      * The Target angle.
      */
     targetAngle;//开始结束,目标的角度
+    boolean isCreated = false;
     private float curDegreeStep = 20;//每次重绘,添加的角度
     private int[] mColors = new int[]{col1, col2, col1, col2, col1, col2, col1, col2};//转盘每个块区域对应的颜色
     private String[] mTexts = new String[]{"一等奖", "二等奖", "三等奖", "四等奖", "五等奖", "六等奖"};//转盘每个块区域对应的文本
@@ -71,7 +76,6 @@ public class DialView extends View {
     private boolean mDialEnd = true;//是否结束了
     private int mTextColor = col3;
     private Runnable endAction;
-
     //新增 2015-12-24
     private int mOutCircleCol = Color.parseColor("#D22C1F");//最外圈 颜色
     private float mOutCircleWidth = 6;//dp 最外圈 宽度
@@ -79,27 +83,26 @@ public class DialView extends View {
     private float mInnerCircleWidth = 6;//dp 最内圈 宽度
     private int mMidCircleCol = Color.parseColor("#FFBE03");//中间圈 颜色
     private float mMidCircleWidth = 20;//dp 中间圈 宽度
-
     private int mLittleCircleCol = Color.parseColor("#FEFEFA");//中间圈 上,小圆的 颜色
     private float mLittleCircleRadius = 6;//dp 中间圈 上,小圆的 半径
-
     private int mCenterCircleCol = Color.parseColor("#F3F3F3");//转盘中心圆的颜色
     private float mCenterCircleRadius = 50;//dp 转盘中心圆的半径
     private int paddingBottom;
     private int paddingLeft;
     private int paddingTop;
     private int paddingRight;
-
     //新增 2015-12-29
     private float icoWidth = 50f;//dp 图标的宽度
     private float icoHeight = 50f;//dp 图标的高度
+    private SurfaceHolder surfaceHolder;
+    private Thread drawThread;
 
     /**
      * Instantiates a new Dial view.
      *
      * @param context the context
      */
-    public DialView(Context context) {
+    public DialSurfaceView(Context context) {
         this(context, null);
     }
 
@@ -109,7 +112,7 @@ public class DialView extends View {
      * @param context the context
      * @param attrs   the attrs
      */
-    public DialView(Context context, AttributeSet attrs) {
+    public DialSurfaceView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
@@ -120,7 +123,7 @@ public class DialView extends View {
      * @param attrs        the attrs
      * @param defStyleAttr the def style attr
      */
-    public DialView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DialSurfaceView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init();
@@ -149,7 +152,7 @@ public class DialView extends View {
      * @param paint the paint
      * @param text  the text
      * @return the text bounds
-     * @see DialView#getTextBounds(Paint, String, Rect) DialView#getTextBounds(Paint, String, Rect)
+     * @see DialSurfaceView#getTextBounds(Paint, String, Rect) DialView#getTextBounds(Paint, String, Rect)
      */
     public static Rect getTextBounds(Paint paint, String text) {
         Rect textRound = new Rect();
@@ -216,12 +219,19 @@ public class DialView extends View {
     }
 
     private void init() {
+        surfaceHolder = getHolder();
+        surfaceHolder.addCallback(this);
+        surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
+        this.setZOrderOnTop(true);
+
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mTextPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mTextPaint.setStrokeJoin(Paint.Join.ROUND);
+//        mPaint.setStrokeJoin(Paint.Join.ROUND);
+//        mTextPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setFilterBitmap(true);
+        mTextPaint.setFilterBitmap(true);
 
 //        mTextPaint.setTextAlign(Paint.Align.CENTER);
         setTextSize(22f);
@@ -277,7 +287,8 @@ public class DialView extends View {
         this.endAction = endAction;
         initTargetDegree(index);
         mDialStart = true;
-        invalidate();
+
+        startThreadDraw();
     }
 
     /**
@@ -363,9 +374,9 @@ public class DialView extends View {
 //        Log.e("tag", "startAngle:" + this.startAngle + "  endAngle:" + this.endAngle + "  targetAngle:" + this.targetAngle);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    protected void onDrawing(Canvas canvas) {
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+
         //测量一些值
         mAngles = rationsToAngle();
         mDialRect = getDialRect();
@@ -407,7 +418,12 @@ public class DialView extends View {
         if (mDialStart) {
             smoothSlow();
             mDialCurrentDegree += degreeStep;//闪的很快
-            postInvalidateDelayed(invalidateTime);//转的很快
+//            postInvalidateDelayed(invalidateTime);//转的很快
+            try {
+                Thread.sleep(invalidateTime);
+            } catch (InterruptedException e) {
+            }
+
         }
     }
 
@@ -505,10 +521,10 @@ public class DialView extends View {
 
         float allCircleWidth = mOutCircleWidth + mMidCircleWidth + mInnerCircleWidth;
         //扇形绘制区域
-        mArcRectF = new RectF(-mDialRect.width() / 2 + allCircleWidth, //左
-                -mDialRect.height() / 2 + allCircleWidth,//上
-                mDialRect.width() / 2 - allCircleWidth, //右
-                mDialRect.height() / 2 - allCircleWidth);//下
+        mArcRectF = new RectF(-mDialRect.width() / 2f + allCircleWidth, //左
+                -mDialRect.height() / 2f + allCircleWidth,//上
+                mDialRect.width() / 2f - allCircleWidth, //右
+                mDialRect.height() / 2f - allCircleWidth);//下
         float startAngle = 0, endAngle;
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaint.setStrokeWidth(0f);
@@ -604,7 +620,7 @@ public class DialView extends View {
      */
     public void setTexts(String[] texts) {
         this.mTexts = texts;
-        postInvalidate();
+        threadDraw();
     }
 
     /**
@@ -615,7 +631,7 @@ public class DialView extends View {
     public void setRatios(float[] ratios) {
         this.mRatios = ratios;
         this.isMean = false;
-        postInvalidate();
+        threadDraw();
     }
 
     /**
@@ -673,7 +689,7 @@ public class DialView extends View {
      */
     public void setIcons(Bitmap[] bitmaps) {
         this.mIcons = bitmaps;
-        postInvalidate();
+        threadDraw();
     }
 
     /**
@@ -685,7 +701,7 @@ public class DialView extends View {
     public void setIconAt(int index, Bitmap bmp) {
         if (mIcons != null && mIcons.length > index) {
             mIcons[index] = bmp;
-            postInvalidate();
+            threadDraw();
         }
     }
 
@@ -822,7 +838,7 @@ public class DialView extends View {
         if (!isStart() && isEnd()) {
             mDialOffsetDegree = degree;
             mDialCurrentDegree = 0;
-            postInvalidate();
+            threadDraw();
         }
     }
 
@@ -846,5 +862,57 @@ public class DialView extends View {
 
     public void setInvalidateTime(long invalidateTime) {
         this.invalidateTime = invalidateTime;
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        isCreated = true;
+        threadDraw();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        isCreated = false;
+    }
+
+    private void e(String msg) {
+        Log.e("angcyo", msg + "");
+    }
+
+
+    @Override
+    public void run() {
+        while (isCreated) {
+            threadDraw();
+        }
+        drawThread = null;
+    }
+
+    private synchronized void startThreadDraw() {
+        if (drawThread != null) {
+            return;
+        }
+        drawThread = new Thread(this);
+        drawThread.start();
+    }
+
+    private synchronized void threadDraw() {
+        Canvas canvas = null;
+        synchronized (this) {
+            try {
+                canvas = surfaceHolder.lockCanvas();
+                if (canvas != null) {
+                    onDrawing(canvas);
+                }
+            } finally {
+                if (canvas != null) {
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                }
+            }
+        }
     }
 }

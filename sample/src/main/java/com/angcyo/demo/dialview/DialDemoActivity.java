@@ -1,7 +1,6 @@
 package com.angcyo.demo.dialview;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,8 +14,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.angcyo.demo.top.OnePxActivity;
 import com.angcyo.sample.R;
+import com.rsen.view.DialSurfaceView;
 import com.rsen.view.DialView;
 
 /**
@@ -26,6 +25,7 @@ public class DialDemoActivity extends AppCompatActivity {
 
     int index = 0;
     private DialView dialView;
+    private DialSurfaceView dialSurfaceView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class DialDemoActivity extends AppCompatActivity {
 
         setContentView(R.layout.dial_demo_layout);
         dialView = (DialView) findViewById(R.id.dial_view);
+        dialSurfaceView = (DialSurfaceView) findViewById(R.id.dial_view2);
         dialView.setTexts(new String[]{"一等奖", "二等奖", "三等奖", "四等奖", "五等奖", "六等奖", "安慰奖"});
         dialView.setColors(new int[]{Color.RED, Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GREEN, Color.LTGRAY, Color.MAGENTA});
 //        dialView.setRatios(new float[]{1, 1f, 1f, 1f, 1f, 1f, 1f});
@@ -43,6 +44,11 @@ public class DialDemoActivity extends AppCompatActivity {
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         dialView.setIcons(new Bitmap[]{bitmap, bitmap, bitmap, bitmap, bitmap, bitmap, bitmap});
+
+        dialSurfaceView.setIcons(new Bitmap[]{bitmap, bitmap, bitmap, bitmap, bitmap, bitmap, bitmap});
+        dialSurfaceView.setMean(true);
+        dialSurfaceView.setTexts(new String[]{"一等奖", "二等奖", "三等奖", "四等奖", "五等奖", "六等奖", "安慰奖"});
+        dialSurfaceView.setColors(new int[]{Color.RED, Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GREEN, Color.LTGRAY, Color.MAGENTA});
     }
 
     public void onClick(View view) {
@@ -59,11 +65,13 @@ public class DialDemoActivity extends AppCompatActivity {
 
 //        dialView.start(1);
         int n = index % dialView.getDialNum();
+        ((Button) view).setText("目标--> " + dialSurfaceView.getText(n));
         ((Button) view).setText("目标--> " + dialView.getText(n));
-        dialView.start(n, null);
+        dialSurfaceView.start(n, null);
+//        dialView.start(n, null);
         index++;
 
-        startActivity(new Intent(this, OnePxActivity.class));
+//        startActivity(new Intent(this, OnePxActivity.class));
 //        showOnePxWindow();
     }
 

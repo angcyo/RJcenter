@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.angcyo.sample">
+<manifest package="com.angcyo.sample"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ViewRotationActivity">
+        <activity android:name="com.angcyo.demo.dialview.DialDemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,12 +57,6 @@
             android:label="QqLayoutDemo"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize">
-        </activity>
-        <activity
-            android:name="com.angcyo.demo.dialview.DialDemoActivity"
-            android:label="RJcenter-DialDemo"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name="com.angcyo.demo.qq.QqActivity"
