@@ -35,13 +35,13 @@ compile 'com.rsen:rsen:1.1.0'
 *&nbsp;&nbsp;包括[开发效率工具](https://github.com/Trinea/android-open-project#一开发效率工具)、[开发自测相关](https://github.com/Trinea/android-open-project#二开发自测相关)、[测试工具](https://github.com/Trinea/android-open-project#三测试工具)、[开发及编译环境](https://github.com/Trinea/android-open-project#四开发及编译环境)、[其他](https://github.com/Trinea/android-open-project#五其他)*  
 [Android 开源项目第五篇——优秀个人和团体篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86)  
 *&nbsp;&nbsp;乐于分享并且有一些很不错的开源项目的[个人](https://github.com/Trinea/android-open-project#一个人)和[组织](https://github.com/Trinea/android-open-project#二组织)，包括 JakeWharton、Chris Banes、Koushik Dutta 等大牛*  
-
+---
 ###[Android-Next 公共组件库](https://github.com/angcyo/Android-Next)
 这个库是我在日常开发过程中积累下来的一些可复用组件，大部分都在我的工作项目和个人项目中有使用。
 
 最新版本: [![Maven Central](http://img.shields.io/badge/2015.08.04-com.mcxiaoke.next:1.2.0-brightgreen.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mcxiaoke.next%22)
 
-## Gradle集成
+**Gradle集成**
 
 ```groovy
     // core 核心库, 格式:jar和aar
@@ -63,12 +63,11 @@ compile 'com.rsen:rsen:1.1.0'
     
 ```
 
-## 使用指南（2015.08.24更新）
+**使用指南（2015.08.24更新）**
 
 **使用前请阅读对应模块的文档和示例，如果有不清楚的地方，可以看源码，或者向我提问。**
 
-
-
+---
 ###[开源框架封装](https://github.com/huangwm1984/AndroidBase)
 自己整理的项目中常用到开发框架和相关Test例子、开发中遇到的问题总结，持续更新中...
 
