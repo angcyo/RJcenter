@@ -23,7 +23,7 @@ compile 'com.rsen:rsen:1.1.0'
 暂无
 
 ##项目推荐
-##Android 开源项目分类汇总[https://github.com/Trinea/android-open-project](https://github.com/Trinea/android-open-project)
+##[Android 开源项目分类汇总](https://github.com/Trinea/android-open-project)
 **目前包括：**
 >[Android 开源项目第一篇——个性化控件(View)篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A7%E4%BB%B6view)  
 *&nbsp;&nbsp;包括[ListView](https://github.com/Trinea/android-open-project#%E4%B8%80listview)、[ActionBar](https://github.com/Trinea/android-open-project#%E4%BA%8Cactionbar)、[Menu](https://github.com/Trinea/android-open-project#%E4%B8%89menu)、[ViewPager](https://github.com/Trinea/android-open-project#%E5%9B%9Bviewpager-gallery)、[Gallery](https://github.com/Trinea/android-open-project#%E5%9B%9Bviewpager-gallery)、[GridView](https://github.com/Trinea/android-open-project#%E4%BA%94gridview)、[ImageView](https://github.com/Trinea/android-open-project#%E5%85%ADimageview)、[ProgressBar](https://github.com/Trinea/android-open-project#%E4%B8%83progressbar)、[TextView](https://github.com/Trinea/android-open-project#%E5%85%ABtextview)、[ScrollView](https://github.com/Trinea/android-open-project#%E4%B9%9Dscrollview)、[TimeView](https://github.com/Trinea/android-open-project#%E5%8D%81timeview)、[TipView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%B8%80tipview)、[FlipView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%BA%8Cflipview)、[ColorPickView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%B8%89colorpickview)、[GraphView](https://github.com/Trinea/android-open-project#%E5%8D%81%E5%9B%9Bgraphview)、[UI Style](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%BA%94ui-style)、[其他](https://github.com/Trinea/android-open-project#十六其他)*  
@@ -76,7 +76,7 @@ sunzn | | [sunzn@cnblogs](http://www.cnblogs.com/sunzn) | Android 基础开发�
 pedant | [pedant ](https://github.com/pedant) | [书呆子精神院](http://pedant.cn/) | [SweetAlertDialog](https://github.com/pedant/sweet-alert-dialog)、安全与逆向
 androidyue | [androidyue](https://github.com/androidyue) | [技术小黑屋](http://droidyue.com/) | Android，Java研究
 Hongyang | [hongyangAndroid](https://github.com/hongyangAndroid)| [Hongyang](http://blog.csdn.net/lmj623565791)| Android
-
+---
 **国外:[https://github.com/android-cn/android-dev-com](https://github.com/android-cn/android-dev-com)**
 
 Avatar  | Github | Blog | Description
