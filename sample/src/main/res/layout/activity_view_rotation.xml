@@ -80,5 +80,12 @@
                 android:textAllCaps="false" />
         </LinearLayout>
 
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="reset"
+            android:text="reset"
+            android:textAllCaps="false" />
+
     </LinearLayout>
 </RelativeLayout>

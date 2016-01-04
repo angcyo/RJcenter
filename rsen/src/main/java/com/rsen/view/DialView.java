@@ -149,7 +149,7 @@ public class DialView extends View {
      * @param paint the paint
      * @param text  the text
      * @return the text bounds
-     * @see DialView#getTextBounds(Paint, String, Rect) getTextBounds(Paint, String, Rect)
+     * @see DialView#getTextBounds(Paint, String, Rect) DialView#getTextBounds(Paint, String, Rect)
      */
     public static Rect getTextBounds(Paint paint, String text) {
         Rect textRound = new Rect();
@@ -315,7 +315,7 @@ public class DialView extends View {
             degreeStep = Math.max(degreeStep, 5);
         } else if (ratio < 0.97) {
             degreeStep = Math.max(degreeStep, 3);
-        } else if (ratio < 0.99) {
+        } else if (ratio < 0.98) {
             degreeStep = Math.max(degreeStep, 2);
         } else if (ratio < 2) {
             degreeStep = Math.max(degreeStep, 1);
@@ -355,7 +355,10 @@ public class DialView extends View {
 
         this.startAngle = offsetAngle + 360 - startAngle;
         this.endAngle = this.startAngle + curAngle;
-        this.targetAngle = (float) (this.startAngle + ((1 - Math.random()) * 0.8 * curAngle) - mDialCurrentDegree - mDialOffsetDegree);
+        float offset = 10f;//角度 偏移范围,距离2变的值
+        this.targetAngle = (float) (this.startAngle +
+                curAngle / offset + ((1 - Math.random()) * 0.8 * (curAngle - 2 * curAngle / offset))
+                - mDialCurrentDegree - mDialOffsetDegree);
 
 //        Log.e("tag", "startAngle:" + this.startAngle + "  endAngle:" + this.endAngle + "  targetAngle:" + this.targetAngle);
     }
@@ -507,7 +510,7 @@ public class DialView extends View {
                 mDialRect.width() / 2 - allCircleWidth - paddingRight, //右
                 mDialRect.height() / 2 - allCircleWidth - paddingBottom);//下
         float startAngle = 0, endAngle;
-        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         if (mAngles != null) {
             for (int i = 0; i < mAngles.length; i++) {
@@ -629,7 +632,7 @@ public class DialView extends View {
      * @param num the num
      */
     public void setMinRotateNum(int num) {
-        if (num > 1) {
+        if (num > 0) {
             this.dialNum = num - 1;
         }
     }
@@ -838,5 +841,9 @@ public class DialView extends View {
      */
     public void setMean(boolean mean) {
         isMean = mean;
+    }
+
+    public void setInvalidateTime(long invalidateTime) {
+        this.invalidateTime = invalidateTime;
     }
 }

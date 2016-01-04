@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class NetDialView extends DialView {
 
-    private String[] icoUrl;
-    private Map<String, Integer> awardMap;
+    private String[] icoUrl;//奖项图片
+    private Map<String, Integer> awardMap;//奖项id, 与在转盘上索引对应的关系
 
     public NetDialView(Context context) {
         this(context, null);
@@ -65,10 +65,10 @@ public class NetDialView extends DialView {
         this.awardMap = awardMap;
     }
 
-    public void startWidthAward(String awarded, Runnable endAciton) {
+    public void startWidthAward(String awarded, Runnable endAction) {
         if (awardMap != null) {
             int index = awardMap.get(awarded);
-            start(index, endAciton);
+            start(index, endAction);
         }
     }
 }

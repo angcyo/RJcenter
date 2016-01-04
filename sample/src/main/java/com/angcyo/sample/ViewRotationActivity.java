@@ -41,6 +41,12 @@ public class ViewRotationActivity extends AppCompatActivity {
         target.setRotationY(rotation);
     }
 
+    public void reset(View view) {
+        target.setRotation(0);
+        target.setRotationX(0);
+        target.setRotationY(0);
+    }
+
     private void init() {
         String xs = xV.getText().toString();
         String ys = yV.getText().toString();
