@@ -8,13 +8,16 @@ import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
+import com.cocosw.query.CocoQuery;
+import com.rsen.util.ResUtil;
 import com.rsen.view.DialSurfaceView;
 import com.rsen.view.DialView;
 
@@ -24,8 +27,12 @@ import com.rsen.view.DialView;
 public class DialDemoActivity extends AppCompatActivity {
 
     int index = 0;
+    CocoQuery q;
     private DialView dialView;
     private DialSurfaceView dialSurfaceView;
+    private View target;
+    private TextView xV, yV, rotate;
+    private float x, y, rotation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +59,10 @@ public class DialDemoActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+        setContentView(R.layout.activity_view_rotation);
+        initCreate();
+
+
 //        dialView.startDial(2);
 
 //        dialView.rotateNumber(1, 200, new Runnable() {
@@ -64,12 +75,12 @@ public class DialDemoActivity extends AppCompatActivity {
 //        dialView.rotateNumber(0, 700);
 
 //        dialView.start(1);
-        int n = index % dialView.getDialNum();
-        ((Button) view).setText("目标--> " + dialSurfaceView.getText(n));
-        ((Button) view).setText("目标--> " + dialView.getText(n));
-        dialSurfaceView.start(n, null);
-//        dialView.start(n, null);
-        index++;
+//        int n = index % dialView.getDialNum();
+//        ((Button) view).setText("目标--> " + dialSurfaceView.getText(n));
+//        ((Button) view).setText("目标--> " + dialView.getText(n));
+//        dialSurfaceView.start(n, null);
+////        dialView.start(n, null);
+//        index++;
 
 //        startActivity(new Intent(this, OnePxActivity.class));
 //        showOnePxWindow();
@@ -95,5 +106,70 @@ public class DialDemoActivity extends AppCompatActivity {
         params.y = 1;
 
         wm.addView(textView, params);
+    }
+
+    protected void initCreate() {
+        q = new CocoQuery(this);
+        target = q.id(R.id.target).getView();
+        rotate = (TextView) q.id(R.id.rotate).getView();
+        xV = (TextView) q.id(R.id.x).getView();
+        yV = (TextView) q.id(R.id.y).getView();
+
+    }
+
+    public void setRotation(View view) {
+        init();
+        target.setRotation(rotation);
+    }
+
+    public void setRotationX(View view) {
+        init();
+        target.setRotationX(rotation);
+    }
+
+    public void setRotationY(View view) {
+        init();
+        target.setRotationY(rotation);
+    }
+
+    public void reset(View view) {
+        target.setRotation(0);
+        target.setRotationX(0);
+        target.setRotationY(0);
+    }
+
+    private void init() {
+        String xs = xV.getText().toString();
+        String ys = yV.getText().toString();
+        String rS = rotate.getText().toString();
+        if (TextUtils.isEmpty(xs)) {
+            x = target.getWidth() / 2f;
+        } else {
+            x = dp(Float.valueOf(xs));
+        }
+        if (TextUtils.isEmpty(ys)) {
+            y = target.getHeight() / 2f;
+        } else {
+            y = dp(Float.valueOf(ys));
+        }
+        if (TextUtils.isEmpty(rS)) {
+            rotation = 20f;
+        } else {
+            rotation = Float.valueOf(rS);
+        }
+
+        target.setPivotX(x);
+        target.setPivotY(y);
+
+        e("w:" + target.getWidth() + " h:" + target.getHeight());
+        e("x:" + x + " y:" + y + " r:" + rotation);
+    }
+
+    private float dp(float v) {
+        return ResUtil.pxToDp(getResources(), v);
+    }
+
+    private void e(String msg) {
+        Log.e("angcyo", msg + "");
     }
 }
