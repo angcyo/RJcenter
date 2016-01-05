@@ -225,7 +225,7 @@ public class DialSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
-        this.setZOrderOnTop(true);
+//        this.setZOrderOnTop(true);
 
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -379,6 +379,7 @@ public class DialSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     protected void onDrawing(Canvas canvas) {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.ADD);
 
         //测量一些值
         mAngles = rationsToAngle();
