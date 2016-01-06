@@ -12,21 +12,36 @@
     <com.rsen.view.viewgroup.TagRadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#30333333"
+        android:checkedButton="@+id/radio1"
         android:gravity="center"
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="未使用" />
 
         <RadioButton
+            android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已使用" />
 
         <RadioButton
+            android:id="@+id/radio21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已使用" />
+
+        <RadioButton
+            android:id="@+id/radio22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已使用" />
+
+        <RadioButton
+            android:id="@+id/radio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已过期" />
