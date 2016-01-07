@@ -32,4 +32,29 @@
     <item name="left_button" type="id" />
     <item name="right_button" type="id" />
     <item name="center_edit_text" type="id" />
+
+    <declare-styleable name="TagRadioGroup">
+        <attr name="childWidth" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <attr name="childHeight" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <attr name="childPadding" format="dimension"/>
+        <attr name="childPaddingLeft" format="dimension"/>
+        <attr name="childPaddingRight" format="dimension"/>
+        <attr name="childPaddingTop" format="dimension"/>
+        <attr name="childPaddingBottom" format="dimension"/>
+
+        <attr name="childTextColor" format="color" />
+        <attr name="childTextColorPress" format="color" />
+        <attr name="childBorderWidth" format="dimension" />
+        <attr name="childRound" format="dimension" />
+        <attr name="childCount" format="integer" />
+        <attr name="checkButtonIndex" format="integer" />
+    </declare-styleable>
 </resources>
