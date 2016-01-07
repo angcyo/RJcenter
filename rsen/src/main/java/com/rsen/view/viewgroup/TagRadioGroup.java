@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -94,6 +95,7 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
         Shape roundRectShapeNormal = new RoundRectShape(outRadii, insetOffset, outRadii);
         ShapeDrawable shopDrawableNormal = new ShapeDrawable(roundRectShapeNormal);
         shopDrawableNormal.getPaint().setColor(pressColor);
+        shopDrawableNormal.getPaint().setStyle(Paint.Style.FILL_AND_STROKE);
 
         StateListDrawable bgStateDrawable = new StateListDrawable();//状态shape
         bgStateDrawable.addState(new int[]{android.R.attr.state_pressed}, shopDrawablePress);//按下状态
