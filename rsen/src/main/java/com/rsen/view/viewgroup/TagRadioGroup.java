@@ -86,12 +86,12 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
         RectF inset = new RectF(0, 0, 0, 0);
 
         //按下状态
-        Shape roundRectShape = new RoundRectShape(outRadii, inset, null);//圆角背景
+        Shape roundRectShape = new RoundRectShape(outRadii, inset, outRadii);//圆角背景
         ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
         shopDrawablePress.getPaint().setColor(pressColor);//设置颜色
 
         //正常状态
-        Shape roundRectShapeNormal = new RoundRectShape(outRadii, insetOffset, null);
+        Shape roundRectShapeNormal = new RoundRectShape(outRadii, insetOffset, outRadii);
         ShapeDrawable shopDrawableNormal = new ShapeDrawable(roundRectShapeNormal);
         shopDrawableNormal.getPaint().setColor(pressColor);
 
