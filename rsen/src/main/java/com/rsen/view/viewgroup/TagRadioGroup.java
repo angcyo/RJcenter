@@ -42,6 +42,7 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
     private float round = 6f;//dp 单位
     private int childCount = -1;//自动填充子view的数量
     private String[] childTexts;//填充子view的文本
+    private float childTextSize = -1;//文本大小
     private int checkButtonIndex = 0;//默认选中按钮
     private int curCheckButtonIndex = -1;
     private String curCheckButtonText;
@@ -67,6 +68,7 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
 
         borderWidth = typedArray.getDimension(R.styleable.TagRadioGroup_childBorderWidth, borderWidth);
         round = typedArray.getDimension(R.styleable.TagRadioGroup_childRound, round);
+        childTextSize = typedArray.getDimension(R.styleable.TagRadioGroup_childTextSize, childTextSize);
 
         childCount = typedArray.getInteger(R.styleable.TagRadioGroup_childCount, childCount);
         checkButtonIndex = typedArray.getInteger(R.styleable.TagRadioGroup_checkButtonIndex, checkButtonIndex);
@@ -169,6 +171,11 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
                 RadioButton childView = (RadioButton) view;
                 childView.setButtonDrawable(new ColorDrawable());//去掉系统默认的圆圈
                 childView.setTextColor(textColor());
+
+                if (childTextSize > 0) {
+                    childView.setTextSize(childTextSize);
+                }
+
                 if (padding <= 0) {
                     childView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
                 } else {

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="javademo.javademo">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/javademo/build/libs/javademo.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

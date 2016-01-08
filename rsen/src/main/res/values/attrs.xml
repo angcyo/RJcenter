@@ -49,7 +49,7 @@
         <attr name="childPaddingRight" format="dimension"/>
         <attr name="childPaddingTop" format="dimension"/>
         <attr name="childPaddingBottom" format="dimension"/>
-
+        <attr name="childTextSize" format="dimension"/>
         <attr name="childTextColor" format="color" />
         <attr name="childTextColorPress" format="color" />
         <attr name="childBorderWidth" format="dimension" />

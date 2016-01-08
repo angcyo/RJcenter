@@ -21,7 +21,7 @@ public class TagRadioGroupActivity extends AppCompatActivity {
         tagGroup.setChildCount(6);
         tagGroup.setBorderWidth(4f);
         tagGroup.setRound(30f);
-        tagGroup.setChildTexts(new String[]{"消息", "新闻", "交友", "未读", "提醒"});
+        tagGroup.setChildTexts(new String[]{"消息", "新闻", "交友", "未读", "提醒","很长的文本"});
 
         tagGroup.setListener(new TagRadioGroup.OnCheckListener() {
             @Override
