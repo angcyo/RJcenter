@@ -46,6 +46,66 @@ public class ResUtil {
     /**
      * Generate bg drawable drawable.
      *
+     * @param pressColor   the press color
+     * @param defaultColor the default color
+     * @return the drawable
+     */
+    public static Drawable generateBgDrawable(int pressColor, int defaultColor) {
+        //按下状态
+        Shape roundRectShape = new RoundRectShape(null, null, null);//圆角背景
+        ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
+        shopDrawablePress.getPaint().setColor(pressColor);//设置颜色
+
+        //正常状态
+        ShapeDrawable shopDrawableNormal = new ShapeDrawable(roundRectShape);
+        shopDrawableNormal.getPaint().setColor(defaultColor);
+
+        StateListDrawable bgStateDrawable = new StateListDrawable();//状态shape
+        bgStateDrawable.addState(new int[]{android.R.attr.state_pressed}, shopDrawablePress);//按下状态
+        bgStateDrawable.addState(new int[]{}, shopDrawableNormal);//其他状态
+
+        return bgStateDrawable;
+    }
+
+
+
+    /**
+     * Generate bg drawable drawable.
+     *
+     * @param radii        the radii
+     * @param pressColor   the press color
+     * @param defaultColor the default color
+     * @return the drawable
+     */
+    public static Drawable generateBgDrawable(Resources res, float radii, int pressColor, int defaultColor) {
+
+        radii = pxToDp(res, radii);
+
+        //外环的圆角矩形
+        float[] outRadii = new float[]{radii, radii, radii, radii, radii, radii, radii, radii};//四个角的 圆角幅度,8个可以设置的值,每个角都有2个边 2*4=8个
+
+        //按下状态
+        Shape roundRectShape = new RoundRectShape(outRadii, null, null);//圆角背景
+        ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
+        shopDrawablePress.getPaint().setColor(pressColor);//设置颜色
+
+        //正常状态
+        Shape roundRectShapeNormal = new RoundRectShape(outRadii, null, null);
+        ShapeDrawable shopDrawableNormal = new ShapeDrawable(roundRectShapeNormal);
+        shopDrawableNormal.getPaint().setColor(defaultColor);
+
+        StateListDrawable bgStateDrawable = new StateListDrawable();//状态shape
+        bgStateDrawable.addState(new int[]{android.R.attr.state_pressed}, shopDrawablePress);//按下状态
+        bgStateDrawable.addState(new int[]{}, shopDrawableNormal);//其他状态
+
+        return bgStateDrawable;
+    }
+
+
+
+    /**
+     * Generate bg drawable drawable.
+     *
      * @param radii        the radii
      * @param borderWidth  the border width
      * @param pressColor   the press color

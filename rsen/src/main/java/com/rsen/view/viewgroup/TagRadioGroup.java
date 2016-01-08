@@ -23,6 +23,7 @@ import android.widget.RadioGroup;
 import com.angcyo.rsen.R;
 import com.rsen.util.ResUtil;
 
+
 /**
  * 标签单选按钮组
  * Created by angcyo on 2016-01-06.
@@ -38,8 +39,8 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
     private int paddingTop = 10;
     private int paddingRight = 15;
     private int paddingBottom = 10;
-    private float borderWidth = 4f;//线框的宽度
-    private float round = 6f;//dp 单位
+    private float borderWidth = 2f;//线框的宽度
+    private float round = 8f;//dp 单位
     private int childCount = -1;//自动填充子view的数量
     private String[] childTexts;//填充子view的文本
     private float childTextSize = -1;//文本大小
@@ -189,6 +190,15 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
                 } else {
                     initMidButton(childView);
                 }
+
+                if (checkButtonIndex >= 0 && checkButtonIndex == i) {
+                    childView.setChecked(true);
+                    if (listener != null) {
+                        curCheckButtonIndex = i;
+                        curCheckButtonText = childView.getText().toString();
+                        listener.onCheck(this, childView, curCheckButtonIndex, curCheckButtonText);
+                    }
+                }
             }
         }
     }
@@ -219,13 +229,6 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
             addView(generateChildButton(i), i, new ViewGroup.LayoutParams(childWidth, childHeight));
         }
         initChildButton();
-
-        if (checkButtonIndex > 0) {
-            RadioButton button = (RadioButton) getChildAt(checkButtonIndex);
-            if (button != null) {
-                button.setChecked(true);
-            }
-        }
     }
 
     @Override
@@ -366,8 +369,7 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
         this.round = round;
     }
 
-    @Override
-    public int getChildCount() {
+    public int getChildSetCount() {
         return childCount;
     }
 
