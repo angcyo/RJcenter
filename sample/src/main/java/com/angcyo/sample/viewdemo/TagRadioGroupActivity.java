@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioButton;
 
 import com.angcyo.sample.R;
+import com.rsen.util.ResUtil;
 import com.rsen.util.T;
 import com.rsen.view.viewgroup.TagRadioGroup;
 
@@ -16,6 +17,8 @@ public class TagRadioGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag_radio_group);
+
+        ResUtil.dpToPx(getResources(), 100);
 
         tagGroup = (TagRadioGroup) findViewById(R.id.tag_group);
 

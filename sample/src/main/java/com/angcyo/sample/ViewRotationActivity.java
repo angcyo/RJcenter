@@ -78,7 +78,7 @@ public class ViewRotationActivity extends AppCompatActivity {
     }
 
     private float dp(float v) {
-        return ResUtil.pxToDp(getResources(), v);
+        return ResUtil.dpToPx(getResources(), v);
     }
 
     private void e(String msg) {

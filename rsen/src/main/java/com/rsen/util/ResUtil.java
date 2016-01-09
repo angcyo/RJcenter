@@ -17,17 +17,18 @@ import android.view.View;
  * Created by angcyo on 15-12-31 031 10:52 上午.
  */
 public class ResUtil {
+
     /**
-     * Px to dp float.
+     * Dp to px float.
      *
      * @param res the res
-     * @param px  the px
+     * @param dp  the dp
      * @return the float
      */
-    public static float pxToDp(Resources res, float px) {
-        float dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, res.getDisplayMetrics());
+    public static float dpToPx(Resources res, float dp) {
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.getDisplayMetrics());
 
-        return dp;
+        return px;
     }
 
     /**
@@ -79,7 +80,7 @@ public class ResUtil {
      */
     public static Drawable generateBgDrawable(Resources res, float radii, int pressColor, int defaultColor) {
 
-        radii = pxToDp(res, radii);
+        radii = dpToPx(res, radii);
 
         //外环的圆角矩形
         float[] outRadii = new float[]{radii, radii, radii, radii, radii, radii, radii, radii};//四个角的 圆角幅度,8个可以设置的值,每个角都有2个边 2*4=8个
@@ -114,8 +115,8 @@ public class ResUtil {
      */
     public static Drawable generateBgDrawable(Resources res, float radii, float borderWidth, int pressColor, int defaultColor) {
 
-        radii = pxToDp(res, radii);
-        borderWidth = pxToDp(res, borderWidth);
+        radii = dpToPx(res, radii);
+        borderWidth = dpToPx(res, borderWidth);
 
         //外环的圆角矩形
         float[] outRadii = new float[]{radii, radii, radii, radii, radii, radii, radii, radii};//四个角的 圆角幅度,8个可以设置的值,每个角都有2个边 2*4=8个
