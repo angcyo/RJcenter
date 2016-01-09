@@ -1,4 +1,4 @@
-package com.rsen.view.viewgroup;
+package com.rsen.viewgroup;
 
 import android.content.Context;
 import android.content.res.Resources;

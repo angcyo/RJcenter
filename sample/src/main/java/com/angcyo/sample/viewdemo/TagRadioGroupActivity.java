@@ -7,7 +7,7 @@ import android.widget.RadioButton;
 import com.angcyo.sample.R;
 import com.rsen.util.ResUtil;
 import com.rsen.util.T;
-import com.rsen.view.viewgroup.TagRadioGroup;
+import com.rsen.viewgroup.TagRadioGroup;
 
 public class TagRadioGroupActivity extends AppCompatActivity {
     TagRadioGroup tagGroup;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.angcyo.sample">
+<manifest package="com.angcyo.sample"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
     <application
@@ -14,9 +14,9 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.angcyo.demo.dialview.DialDemoActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity
@@ -24,7 +24,7 @@
             android:label="PullLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -34,7 +34,7 @@
             android:label="PullRefreshLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -44,7 +44,7 @@
             android:label="NextScrollViewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -54,26 +54,35 @@
             android:configChanges="screenSize|keyboard|screenLayout|orientation"
             android:label="QqLayoutDemo"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name="com.angcyo.demo.qq.QqActivity"
             android:label="RJcenter-QQ"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:label="RJcenter-Main"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.angcyo.demo.top.OnePxActivity"
-            android:theme="@style/Dialog" />
-
+            android:theme="@style/Dialog"/>
         <activity android:name=".viewdemo.TagRadioGroupActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".viewdemo.GalleryLayoutActivity"
+            android:label="@string/title_activity_gallery_layout"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>
