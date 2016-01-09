@@ -109,6 +109,7 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
     }
 
     private void init() {
+        setWillNotDraw(false);
         fillChildButton();
         setOnCheckedChangeListener(this);
     }
@@ -384,6 +385,9 @@ public class TagRadioGroup extends RadioGroup implements RadioGroup.OnCheckedCha
 
     public void setChildTexts(String[] childTexts) {
         this.childTexts = childTexts;
+        if (childCount == -1) {
+            childCount = childTexts.length;
+        }
         fillChildButton();
     }
 

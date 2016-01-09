@@ -17,7 +17,6 @@
         android:checkedButton="@+id/radio1"
         android:gravity="center"
         app:childRound="3dp"
-        app:checkButtonIndex="2"
         android:orientation="horizontal">
 
         <RadioButton

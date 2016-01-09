@@ -10,6 +10,7 @@ import com.rsen.view.viewgroup.TagRadioGroup;
 
 public class TagRadioGroupActivity extends AppCompatActivity {
     TagRadioGroup tagGroup;
+    int mInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +19,7 @@ public class TagRadioGroupActivity extends AppCompatActivity {
 
         tagGroup = (TagRadioGroup) findViewById(R.id.tag_group);
 
-        tagGroup.setChildCount(6);
+        tagGroup.setChildCount(10);
         tagGroup.setBorderWidth(4f);
         tagGroup.setRound(30f);
         tagGroup.setChildTexts(new String[]{"消息", "新闻", "交友", "未读", "提醒","很长的文本"});
@@ -30,4 +31,5 @@ public class TagRadioGroupActivity extends AppCompatActivity {
             }
         });
     }
+
 }
