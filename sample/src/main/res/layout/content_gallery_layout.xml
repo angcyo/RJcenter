@@ -5,21 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.angcyo.sample.viewdemo.GalleryLayoutActivity"
     tools:showIn="@layout/activity_gallery_layout">
 
     <com.rsen.viewgroup.GalleryLinearLayout
+        android:id="@+id/layout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ff2211">
+        android:layout_height="100dp">
 
+        <!--android:background="#ff2211"-->
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="#33ff22">
 
@@ -30,7 +27,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="#5a23a5">
 
@@ -41,7 +38,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="140dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="#eeff00">
 
@@ -52,7 +49,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="160dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="#30FFF2">
 
@@ -62,6 +59,171 @@
                 android:text="4"/>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="#3F0FF2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="#30F222">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:background="#F0F122">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:background="#f112F2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="#30FFF2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="#30F111">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="#111FF2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11"/>
+
+        </LinearLayout>
+    </com.rsen.viewgroup.GalleryLinearLayout>
+
+
+    <com.rsen.viewgroup.GalleryLinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/img1"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/img2"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/img3"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:scaleType="fitXY"
+            android:src="@drawable/img4"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:scaleType="fitXY"
+            android:src="@drawable/img5"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/img6"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:scaleType="fitXY"
+            android:src="@drawable/img7"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/img8"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/img9"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/img10"/>
     </com.rsen.viewgroup.GalleryLinearLayout>
 
 </RelativeLayout>
