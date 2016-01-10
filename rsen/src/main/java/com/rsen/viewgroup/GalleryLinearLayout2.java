@@ -2,29 +2,26 @@ package com.rsen.viewgroup;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.OverScroller;
 
 import com.rsen.util.ResUtil;
 
 /**
  * Created by angcyo on 16-01-09-009.
  */
-public class GalleryLinearLayout extends ViewGroup {
+public class GalleryLinearLayout2 extends ViewGroup {
 
     /**
      * 突出显示view的放大倍数, 大于1
      */
-    private float mScale = 1.5f;
+    private float mScale = 1.3f;
 
     /**
      * 布局之间的间隔, dp
      */
-    private float mSpacing = 50;
+    private float mSpacing = 20;
 
     /**
      * 如果高度或者宽度是 WRAP_CONTENT, 那么就是这此属性
@@ -50,19 +47,16 @@ public class GalleryLinearLayout extends ViewGroup {
      * 突出view的位置,默认是第一个
      */
     private int primaryIndex = 0;
-    private OverScroller mScroller;
-    private VelocityTracker mVelocityTracker;
 
-
-    public GalleryLinearLayout(Context context) {
+    public GalleryLinearLayout2(Context context) {
         this(context, null);
     }
 
-    public GalleryLinearLayout(Context context, AttributeSet attrs) {
+    public GalleryLinearLayout2(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public GalleryLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public GalleryLinearLayout2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         defaultSize = (int) ResUtil.dpToPx(getResources(), defaultSize);
@@ -74,13 +68,6 @@ public class GalleryLinearLayout extends ViewGroup {
         setWillNotDraw(true);
         setFocusable(true);
         setClickable(true);
-
-        mScroller = new OverScroller(getContext());
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
     }
 
     @Override
@@ -103,8 +90,8 @@ public class GalleryLinearLayout extends ViewGroup {
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             View childView = getChildAt(i);
-            childView.setLayoutParams(new LayoutParams((int) (widthSize / mScale), heightSize));//强制高度
-            measureChild(childView, MeasureSpec.makeMeasureSpec((int) (widthSize / mScale), widthMode), MeasureSpec.makeMeasureSpec(heightSize, heightMode));
+            childView.setLayoutParams(new LayoutParams(childView.getLayoutParams().width, heightSize));//强制高度
+            measureChild(childView, MeasureSpec.makeMeasureSpec(widthSize, widthMode), MeasureSpec.makeMeasureSpec(heightSize, heightMode));
         }
 
         viewWidth = widthSize;
@@ -117,7 +104,7 @@ public class GalleryLinearLayout extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int count = getChildCount();
-        int left = 0;
+        int left = getLeftOffset();//偏移
         int top = (int) ((viewHeight - viewRawHeight) / 2);
 
         for (int i = 0; i < count; i++) {
@@ -133,67 +120,40 @@ public class GalleryLinearLayout extends ViewGroup {
 
             childView.layout(left, top, left + width, top + height);
             left += width;
+
+
+
         }
-    }
-
-    int mScrollX, mScrollY;
-
-    @Override
-    public void computeScroll() {
-        if (mScroller.computeScrollOffset()) {
-            int oldX = mScrollX;
-            int oldY = mScrollY;
-            int x = mScroller.getCurrX();
-            int y = mScroller.getCurrY();
-
-            scrollTo(x, 0);
-        }
-
+//        scaleView();
     }
 
     private void scaleView() {
         int count = getChildCount();
-        int curScrollX = getScrollX();//滚动为负值, 向右偏移
         for (int i = 0; i < count; i++) {
             View childView = getChildAt(i);
-            int childLeft = childView.getLeft();//
-            int childWidth = childView.getMeasuredWidth();
-            int childNeedOffset = getOffsetToPrimary(i);//越向右,值越小
 
-            float scale;
-            float length = Math.abs(viewWidth / 2 + curScrollX - childLeft-childWidth/2);//离中心的距离
-//            float length = Math.abs(Math.abs(childNeedOffset) - curScrollX);//离中心的距离
-            scale = Math.min(1, length / childWidth);
+            //左边的view
+            if (primaryIndex - 1 == i) {
+                View leftView = getChildAt(primaryIndex-1);
+                if (leftView != null) {
+                    leftView.setScaleX(moveLeftScale);
+                    leftView.setScaleY(moveLeftScale);
+                }
+            }
 
-//            e("index-->" + i + " curScrollX-->" + curScrollX + " childLeft-->" + childLeft + " childWidth-->" +
-//                    childWidth + " childNeedOffset-->" + childNeedOffset + " length-->" + length + " scale-->" + scale);
+            if (primaryIndex == i) {
+                childView.setScaleX(moveScale);
+                childView.setScaleY(moveScale);
+            }
 
-            scale = Math.max(1, mScale * (1 - scale));
-            childView.setScaleX(scale);
-            childView.setScaleY(scale);
-
-//            //左边的view
-//            if (primaryIndex - 1 == i) {
-//                View leftView = getChildAt(primaryIndex - 1);
-//                if (leftView != null) {
-//                    leftView.setScaleX(moveLeftScale);
-//                    leftView.setScaleY(moveLeftScale);
-//                }
-//            }
-//
-//            if (primaryIndex == i) {
-//                childView.setScaleX(moveScale);
-//                childView.setScaleY(moveScale);
-//            }
-//
-//            //右边的view
-//            if (primaryIndex + 1 == i) {
-//                View rightView = getChildAt(primaryIndex + 1);
-//                if (rightView != null) {
-//                    rightView.setScaleX(moveRightScale);
-//                    rightView.setScaleY(moveRightScale);
-//                }
-//            }
+            //右边的view
+            if (primaryIndex+1 == i) {
+                View rightView = getChildAt(primaryIndex+1);
+                if (rightView != null) {
+                    rightView.setScaleX(moveRightScale);
+                    rightView.setScaleY(moveRightScale);
+                }
+            }
         }
 
     }
@@ -242,9 +202,6 @@ public class GalleryLinearLayout extends ViewGroup {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        initVelocityTrackerIfNotExists();
-        mVelocityTracker.addMovement(ev);
-
         if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
             downX = ev.getX();
         }
@@ -259,26 +216,10 @@ public class GalleryLinearLayout extends ViewGroup {
         }
 
         if (ev.getActionMasked() == MotionEvent.ACTION_UP) {
-//            mScroller.startScroll(getScrollX(), 0, -getScrollX(), 0);
             moveLength = 0;
-
-            recycleVelocityTracker();
         }
 
         return super.dispatchTouchEvent(ev);
-    }
-
-    private void initVelocityTrackerIfNotExists() {
-        if (mVelocityTracker == null) {
-            mVelocityTracker = VelocityTracker.obtain();
-        }
-    }
-
-    private void recycleVelocityTracker() {
-        if (mVelocityTracker != null) {
-            mVelocityTracker.recycle();
-            mVelocityTracker = null;
-        }
     }
 
     /**
@@ -294,18 +235,5 @@ public class GalleryLinearLayout extends ViewGroup {
 
         View primaryView = getChildAt(primaryIndex);
         moveScale = moveLength / primaryView.getMeasuredWidth() / 2;
-
-        scrollBy(-(int) offset, 0);
-    }
-
-    @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        super.onScrollChanged(l, t, oldl, oldt);
-//        e("l-->" + l + " t-->" + t + " oldl-->" + oldl + " oldt-->" + oldt);
-        scaleView();
-    }
-
-    private void e(String msg) {
-        Log.e("angcyo", msg + "");
     }
 }
