@@ -21,9 +21,9 @@ public class JavaClass {
 //
 
         RsaClass.demo("15916015262");
-
-
-
+        RsaClass.demo("15916015262");
+        RsaClass.demo("15916015262");
+        RsaClass.demo("15916015262");
 
         end();
     }
