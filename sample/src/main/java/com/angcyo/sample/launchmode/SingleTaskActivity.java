@@ -67,11 +67,6 @@ public class SingleTaskActivity extends AppCompatActivity {
         e("onDestroy");
     }
 
-    public void button2(View view) {
-        startActivity(new Intent(this, SingleActivity2.class));
-    }
-
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -86,5 +81,10 @@ public class SingleTaskActivity extends AppCompatActivity {
 
     private void e(String log) {
         Log.e("angcyo", log);
+    }
+
+
+    public void button2(View view) {
+        startActivity(new Intent(this, SingleActivity2.class));
     }
 }
