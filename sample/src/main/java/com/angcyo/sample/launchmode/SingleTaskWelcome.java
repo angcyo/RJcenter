@@ -10,13 +10,13 @@ import android.view.View;
 
 import com.angcyo.sample.R;
 
-public class SingleActivity4 extends AppCompatActivity {
+public class SingleTaskWelcome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single4);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_single_task_welcome);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -29,13 +29,17 @@ public class SingleActivity4 extends AppCompatActivity {
         });
     }
 
-    public void button5(View view) {
-        startActivity(new Intent(this, SingleTaskActivity.class));
-    }
+    Toolbar toolbar;
 
-    public void buttonExit(View view) {
-        Intent intent = new Intent(this, SingleTaskActivity.class);
-        intent.putExtra("exit", true);
-        startActivity(intent);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        toolbar.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SingleTaskWelcome.this, SingleTaskActivity.class));
+                finish();
+            }
+        }, 2000);
     }
 }

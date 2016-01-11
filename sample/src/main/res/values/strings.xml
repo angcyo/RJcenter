@@ -6,4 +6,5 @@
     <string name="title_activity_single2">SingleActivity2</string>
     <string name="title_activity_single3">SingleActivity3</string>
     <string name="title_activity_single4">SingleActivity4</string>
+    <string name="title_activity_single_task_welcome">SingleTaskWelcome</string>
 </resources>
