@@ -21,4 +21,6 @@
         android:text="angcyo--angcyo angcyo angcyo"
         android:layout_height="wrap_content"/>
 
+    <!--android:background="@drawable/background_selector"-->
+
 </FrameLayout>
