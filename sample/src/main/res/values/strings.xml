@@ -2,4 +2,8 @@
     <string name="app_name">RJcenter</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_gallery_layout">GalleryLayoutActivity</string>
+    <string name="title_activity_single_task">SingleTaskActivity</string>
+    <string name="title_activity_single2">SingleActivity2</string>
+    <string name="title_activity_single3">SingleActivity3</string>
+    <string name="title_activity_single4">SingleActivity4</string>
 </resources>
