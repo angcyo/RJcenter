@@ -23,12 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="button5"
-            android:text="I'm Activity 4"/>
+            android:text="I'm Activity 4"
+            android:textAllCaps="false"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="buttonExit"
-            android:text="Exit Activity"/>
+            android:text="Exit Activity"
+            android:textAllCaps="false"/>
     </LinearLayout>
 </RelativeLayout>

@@ -12,16 +12,18 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.angcyo.sample.launchmode.SingleActivity2"
     tools:showIn="@layout/activity_single2">
+
     <LinearLayout
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
         <Button
             android:layout_width="wrap_content"
-            android:text="LaunchActivity 3"
+            android:layout_height="wrap_content"
             android:onClick="button3"
-            android:layout_height="wrap_content"/>
+            android:text="LaunchActivity 3"
+            android:textAllCaps="false"/>
     </LinearLayout>
 </RelativeLayout>
