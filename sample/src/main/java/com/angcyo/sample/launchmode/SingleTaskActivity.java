@@ -80,7 +80,7 @@ public class SingleTaskActivity extends AppCompatActivity {
 
 
     private void e(String log) {
-        Log.e("angcyo", log);
+        Log.e("angcyo-->main-->" + getTaskId(), log);
     }
 
 

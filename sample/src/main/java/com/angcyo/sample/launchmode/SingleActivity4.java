@@ -80,7 +80,7 @@ public class SingleActivity4 extends AppCompatActivity {
 
 
     private void e(String log) {
-        Log.e("angcyo-->4", log);
+        Log.e("angcyo-->4-->" + getTaskId(), log);
     }
     public void button5(View view) {
         startActivity(new Intent(this, SingleTaskActivity.class));

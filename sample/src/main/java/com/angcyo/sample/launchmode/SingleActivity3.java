@@ -83,7 +83,7 @@ public class SingleActivity3 extends AppCompatActivity {
 
 
     private void e(String log) {
-        Log.e("angcyo-->3", log);
+        Log.e("angcyo-->3-->" + getTaskId(), log);
     }
 
 }

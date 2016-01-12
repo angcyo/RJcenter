@@ -114,11 +114,13 @@
         <activity
             android:name=".launchmode.SingleActivity3"
             android:label="@string/title_activity_single3"
+            android:launchMode="singleInstance"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".launchmode.SingleActivity4"
             android:label="@string/title_activity_single4"
+            android:taskAffinity="com.angcyo"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

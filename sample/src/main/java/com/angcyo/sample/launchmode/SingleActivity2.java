@@ -80,7 +80,7 @@ public class SingleActivity2 extends AppCompatActivity {
 
 
     private void e(String log) {
-        Log.e("angcyo-->2", log);
+        Log.e("angcyo-->2-->" + getTaskId(), log);
     }
 
     public void button3(View view) {
