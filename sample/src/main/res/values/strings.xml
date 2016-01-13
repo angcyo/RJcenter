@@ -7,4 +7,8 @@
     <string name="title_activity_single3">SingleActivity3</string>
     <string name="title_activity_single4">SingleActivity4</string>
     <string name="title_activity_single_task_welcome">SingleTaskWelcome</string>
+    <string name="title_activity_view_pager">ViewPagerActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
