@@ -106,6 +106,9 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         private void e(String log) {
             Log.e("angcyo-->" + index, this.getClass().getSimpleName() + log);
+            Log.e("angcyo-->" + index, this.getClass().getSimpleName() + log);
+            Log.e("angcyo-->" + index, this.getClass().getSimpleName() + log);
+            Log.e("angcyo-->" + index, this.getClass().getSimpleName() + log);
         }
     }
 
