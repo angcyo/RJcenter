@@ -36,7 +36,7 @@ hash.each {
 println "-----------------------------------------------------"
 
 /**声明一个闭包*/
-def excite = {
+excite = {
     word -> return "this is ${word}"
 }
 
@@ -52,7 +52,7 @@ println "-----------------------------------------------------"
 /**创建一个对象*/
 gCl = new GClass()
 gCl.name = "hello groovy"
-result = gCl.add 100,200
+result = gCl.add 100, 200
 println result
 
 println(gCl)
@@ -62,13 +62,81 @@ println gCl2?.toString()
 println gCl2?.name
 println gCl2?.age
 
-/**Groovy调用Java类中的方法*/
-javamain.main("a")
+/**Ta就是java*/
+println gCl2.class
 
-
-result = gCl.add{ab, bc->
-     ab =1
-     bc = 2
+println "-----------------------------------------------------"
+/**函数的声明*/
+def fun1(alv) {
+    for (v in 1..<5) {
+        println v
+    }
 }
-println result
+/**调用*/
+fun1 2
+
+/**函数的闭包声明*/
+def fun2() {
+    println "----fun2------"
+    for (str in "A..z") {
+        println str
+    }
+}
+/**请注意,,这里不能缺少()括号,因为fun2是函数,而不是闭包,只有闭包才可以,直接调用或者 call() 调用*/
+fun2()
+
+/**集合*/
+def range = 0..4
+println range.class
+assert range instanceof List
+/**集合*/
+def range2 = "A..z"
+println range2.class
+assert range2 instanceof String
+
+println excite.class
+println excite
+
+
+println "-----------------------------------------------------"
+bFun = {
+    a, b -> return a + b
+}
+println bFun.call(4, 5)
+println bFun(40, 50)
+println "-----------------------------------------------------"
+println bFun(400, 500).each {
+    a -> println a
+}
+
+println "-----------------------------------------------------"
+/**?问号的使用,可以防止null空指针异常*/
+gCls3 = new GClass2(age: "adf")
+println gCls3?.class
+println gCls3?.name
+println gCls3?.age
+/**任何集合都可以用each闭包输出*/
+gCls3.each {
+    v -> println v
+}
+println gCls3.all().class
+gCls3.all().each {
+    value -> println value
+}
+
+
+println "-----------------------------------------------------"
+/**函数默认最后一行,就是返回值,可以省略return*/
+String fun_s1(){
+    "fun_s1"
+}
+/**也会返回*/
+def fun_s2(){
+    "fun_s2"
+    1
+}
+
+println fun_s1()
+println fun_s2()
+
 

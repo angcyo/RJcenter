@@ -22,4 +22,8 @@ class GClass2 {
     def value(){
         return 200
     }
+
+    def all(){
+        return 1..9
+    }
 }
