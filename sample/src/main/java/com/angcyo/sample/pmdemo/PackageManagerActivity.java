@@ -62,7 +62,7 @@ public class PackageManagerActivity extends AppCompatActivity {
         ActivityInfo[] activities = getPackInfo(PackageManager.GET_ACTIVITIES).activities;
         for (ActivityInfo info : activities) {
             line(builder);
-            builder.append(info.targetActivity);
+            builder.append(info.loadLabel(getPackageManager()));
         }
 
         return builder.toString();
@@ -75,7 +75,7 @@ public class PackageManagerActivity extends AppCompatActivity {
         ServiceInfo[] services = getPackInfo(PackageManager.GET_SERVICES).services;
         for (ServiceInfo info : services) {
             line(builder);
-            builder.append(info.getClass().getName());
+            builder.append(info.loadLabel(getPackageManager()));
         }
 
         return builder.toString();
@@ -89,7 +89,7 @@ public class PackageManagerActivity extends AppCompatActivity {
         ActivityInfo[] receivers = getPackInfo(PackageManager.GET_RECEIVERS).receivers;
         for (ActivityInfo info : receivers) {
             line(builder);
-            builder.append(info.toString());
+            builder.append(info.loadLabel(getPackageManager()));
         }
 
         return builder.toString();

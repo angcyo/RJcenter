@@ -166,6 +166,25 @@
             android:name="com.angcyo.service.MyIntentService"
             android:exported="false">
         </service>
+        <service
+            android:name="com.angcyo.service.MyService1"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+        <service
+            android:name="com.angcyo.service.MyIntentService1"
+            android:exported="false">
+        </service>
+
+        <service
+            android:name="com.angcyo.service.MyService2"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+        <service
+            android:name="com.angcyo.service.MyIntentService2"
+            android:exported="false">
+        </service>
 
         <receiver android:name="com.angcyo.receiver.Receiver1">
             <intent-filter>
