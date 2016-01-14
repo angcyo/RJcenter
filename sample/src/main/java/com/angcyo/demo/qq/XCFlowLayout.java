@@ -121,7 +121,7 @@ public class XCFlowLayout extends ViewGroup {
                 lineWidth = 0;
                 lineHeight = childHeight + lp.topMargin + lp.bottomMargin;
                 //重置view的集合
-                lineViews = new ArrayList();
+                lineViews = new ArrayList<>();
             }
             lineWidth += childWidth + lp.leftMargin + lp.rightMargin;
             lineHeight = Math.max(lineHeight, childHeight + lp.topMargin + lp.bottomMargin);

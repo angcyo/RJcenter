@@ -14,9 +14,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
     <style name="Dialog" parent="@style/Theme.AppCompat.Dialog">
@@ -26,5 +26,10 @@
         <item name="android:windowCloseOnTouchOutside">false</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowFrame">@null</item>
+    </style>
+
+    <style name="SpanTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">50sp</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
     </style>
 </resources>
