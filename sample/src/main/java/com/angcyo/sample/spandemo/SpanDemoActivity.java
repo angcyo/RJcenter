@@ -30,7 +30,6 @@ public class SpanDemoActivity extends AppCompatActivity {
 
     static void e(String log) {
         Log.e("angcyo", log);
-        Log.e("angcyo", log);
     }
 
     @Override
