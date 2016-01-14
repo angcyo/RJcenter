@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.angcyo.sample.R;
@@ -86,5 +87,17 @@ public class SingleTaskActivity extends AppCompatActivity {
 
     public void button2(View view) {
         startActivity(new Intent(this, SingleActivity2.class));
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        e("dispatchTouchEvent " + ev.getActionMasked());
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        e("onTouchEvent "+ event.getActionMasked());
+        return super.onTouchEvent(event);
     }
 }

@@ -1,0 +1,25 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 5
+        versionName "2.0.3"
+    }
+
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_7
+//        targetCompatibility JavaVersion.VERSION_1_7
+//    }
+}
+
+dependencies {
+    compile 'com.android.support:design:23.1.1'
+}
+
+//apply from: '../gradle-mvn-push.gradle'

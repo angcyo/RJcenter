@@ -1,13 +1,18 @@
 package com.angcyo.sample.launchmode;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.angcyo.sample.R;
 
@@ -29,6 +34,8 @@ public class SingleActivity2 extends AppCompatActivity {
             }
         });
         e("onCreate");
+
+//        Slidr.attach(this);
     }
 
     @Override
@@ -41,6 +48,7 @@ public class SingleActivity2 extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         e("onResume");
+
     }
 
     @Override
@@ -87,5 +95,34 @@ public class SingleActivity2 extends AppCompatActivity {
         startActivity(new Intent(this, SingleActivity3.class));
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        e("dispatchTouchEvent " + ev.getActionMasked());
+        return super.dispatchTouchEvent(ev);
+    }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        e("onTouchEvent " + event.getActionMasked());
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        e("onAttachedToWindow");
+
+
+        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+        attributes.width = 500;
+        attributes.height = 500;
+//        attributes.alpha = 0.5f;
+
+        getWindow().setAttributes(attributes);
+
+        getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
+        ((ViewGroup) getWindow().getDecorView()).getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(360,360));
+        ((ViewGroup) getWindow().getDecorView()).getChildAt(0).setX(100);
+        super.onAttachedToWindow();
+
+    }
 }

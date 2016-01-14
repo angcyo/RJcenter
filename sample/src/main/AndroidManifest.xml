@@ -112,28 +112,32 @@
             android:name=".launchmode.SingleActivity2"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_single2"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar.Tran" />
+
+        <!--android:launchMode="singleInstance"-->
+        <!--android:excludeFromRecents="true"-->
         <activity
             android:name=".launchmode.SingleActivity3"
-            android:excludeFromRecents="true"
             android:label="@string/title_activity_single3"
-            android:launchMode="singleInstance"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <!--指定任务的堆栈名 android:taskAffinity="com.angcyo"-->
         <activity
             android:name=".launchmode.SingleActivity4"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_single4"
-            android:taskAffinity="com.angcyo"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <!--不在历史记录中显示 android:excludeFromRecents="true"-->
         <activity
             android:name=".launchmode.SingleTaskWelcome"
-            android:excludeFromRecents="true"
             android:label="@string/title_activity_single_task_welcome"
+            android:excludeFromRecents="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -153,7 +157,7 @@
                 <!--android:label="@string/title_activity_package_manager"-->
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
 

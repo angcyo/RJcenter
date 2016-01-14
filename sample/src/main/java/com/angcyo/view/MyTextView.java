@@ -47,7 +47,7 @@ public class MyTextView extends TextView {
             drawable = getResources().getDrawable(R.drawable.background_selector, getContext().getTheme());
 
         } else {
-            drawable = getResources().getDrawable(R.drawable.background_selector);
+//            drawable = getResources().getDrawable(R.drawable.background_selector);
         }
 
         drawable.setCallback(this);
