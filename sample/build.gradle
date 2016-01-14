@@ -1,19 +1,56 @@
 apply plugin: 'com.android.application'
 
+def oh = { msg ->
+    println(buildTime() + "--> " + msg)
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
-
     defaultConfig {
         applicationId "com.angcyo.sample"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        resValue "string", "build_time", buildTime()
+        resValue "string", "build_host", hostName()
+        resValue "string", "build_revision", revision()
+        resValue "string", "java_version", javaVersion()
+        resValue "string", "os_name", osName()
+    }
+    signingConfigs {
+        config {
+            keyAlias 'angcyo'
+            keyPassword 'angcyo'
+            storeFile file('F:/angcyo/angcyo.jks')
+            storePassword 'angcyo'
+        }
     }
     buildTypes {
+        // minifyEnabled 混淆处理
+        // shrinkResources 去除无用资源
+        // signingConfig 签名
+        // proguardFiles 混淆配置
+        // applicationIdSuffix 增加APP ID的后缀
+        // debuggable 是否保留调试信息
+        // ... ...
         release {
+            manifestPlaceholders = [app_name: "@string/app_name_release"]
+            buildConfigField "String", "buildType", "\"${name}\""
+            applicationIdSuffix ".release"
             minifyEnabled false
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            buildConfigField "String", "buildType", "\"${name}\""
+            manifestPlaceholders = [app_name: "@string/app_name_debug"]
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -26,6 +63,13 @@ android {
         jumboMode = true
         javaMaxHeapSize "2g"
     }
+    getApplicationVariants().all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parent,
+                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}-${getTime()}.apk".toLowerCase())
+        }
+    }
+    //${variant.productFlavors[0].name}
 }
 
 dependencies {
@@ -44,6 +88,8 @@ dependencies {
 }
 
 task javadocs(type: Javadoc) {
+    oh "javadocs  --start"
+
     source = android.sourceSets.main.java.srcDirs
     classpath += configurations.compile
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
@@ -56,6 +102,8 @@ task javadocs(type: Javadoc) {
         links "http://docs.oracle.com/javase/7/docs/api"
         title "HKCloud_Studio"
     }
+
+    oh "javadocs  --end"
 }
 
 tasks.withType(JavaCompile) {
@@ -63,3 +111,37 @@ tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xlint:deprecation"
     options.compilerArgs << "-Xlint:unchecked"
 }
+
+
+
+def getTime() {
+    return new Date().format("yyyy-MM-dd")
+}
+
+def buildTime() {
+    return new Date().format("yyyy-MM-dd HH:mm:ss.sss")
+}
+
+def hostName() {
+    return System.getProperty("user.home").replaceAll("\\\\","\\\\\\\\") + " @ " + System.getProperty("user.name") + " @ " + InetAddress.localHost.hostName
+}
+
+def osName() {
+    return System.getProperty("os.name") + " @ " + System.getProperty("os.version") + " @ " + System.getProperty("sun.cpu.isalist")
+}
+def javaVersion() {
+    return System.getProperty("java.home").replaceAll("\\\\","\\\\\\\\") + " @ " + System.getProperty("java.version")
+}
+
+def revision() {
+    def code = new ByteArrayOutputStream()
+    exec {
+        // 需要配置git.exe 的系统环境变量
+        commandLine 'D:\\Git\\bin\\git.exe', '--version'
+//        commandLine 'cmd'
+        standardOutput = code
+    }
+    return code.toString()
+}
+
+oh "--------------------end"

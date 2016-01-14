@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">RJcenter</string>
+    <string name="app_name_debug">RJcenter_Debug</string>
+    <string name="app_name_release">RJcenter_Release</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_gallery_layout">GalleryLayoutActivity</string>
     <string name="title_activity_single_task">SingleTaskActivity</string>

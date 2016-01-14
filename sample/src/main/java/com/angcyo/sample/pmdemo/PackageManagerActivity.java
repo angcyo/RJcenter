@@ -16,6 +16,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
 
+import com.angcyo.sample.BuildConfig;
 import com.angcyo.sample.R;
 
 public class PackageManagerActivity extends AppCompatActivity {
@@ -43,7 +44,6 @@ public class PackageManagerActivity extends AppCompatActivity {
 
     private void initView() {
         textView = (TextView) findViewById(R.id.text);
-
         String ac = "----------所有的Activitys";
         SpannableStringBuilder acSpanBuilder = new SpannableStringBuilder(ac + getAllActivitys());
         acSpanBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, ac.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -53,8 +53,38 @@ public class PackageManagerActivity extends AppCompatActivity {
         String re = "----------所有的Receivers";
         SpannableStringBuilder reSpanBuilder = new SpannableStringBuilder(re + getAllReceivers());
         reSpanBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, re.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        String bs = "----------编译信息";
+        SpannableStringBuilder bsSpanBuilder = new SpannableStringBuilder(bs + getBuildInfo());
+        bsSpanBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, bs.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        String ot = "----------其他信息";
+        SpannableStringBuilder otSpanBuilder = new SpannableStringBuilder(ot + getOtherInfo());
+        otSpanBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, ot.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
-        textView.setText(acSpanBuilder.append(srSpanBuilder).append(reSpanBuilder));
+        textView.setText(acSpanBuilder.append(srSpanBuilder).append(reSpanBuilder).append(bsSpanBuilder).append(otSpanBuilder));
+    }
+
+    private CharSequence getBuildInfo() {
+        StringBuilder builder = new StringBuilder();
+        line(builder);
+        builder.append("编译时间:" + getString(R.string.build_time));
+        line(builder);
+        builder.append("编译主机:" + getString(R.string.os_name));
+        line(builder);
+        builder.append("编译用户:" + getString(R.string.build_host));
+        line(builder);
+        builder.append("编译类型:" + BuildConfig.buildType);
+        line(builder);
+        return builder.toString();
+    }
+
+    private CharSequence getOtherInfo() {
+        StringBuilder builder = new StringBuilder();
+        line(builder);
+        builder.append("Java版本:" + getString(R.string.java_version));
+        line(builder);
+        builder.append("Git版本:" + getString(R.string.build_revision));
+        line(builder);
+        return builder.toString();
     }
 
     private PackageInfo getPackInfo(int flag) {

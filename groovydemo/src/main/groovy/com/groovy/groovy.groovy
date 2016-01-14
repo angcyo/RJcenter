@@ -139,4 +139,5 @@ def fun_s2(){
 println fun_s1()
 println fun_s2()
 
-
+println "-----------------------------------------------------"
+System.getProperties().list System.out
