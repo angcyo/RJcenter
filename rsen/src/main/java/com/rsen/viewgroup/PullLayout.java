@@ -54,7 +54,7 @@ public class PullLayout extends RelativeLayout {
 
 
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        backgroundLayout.setLayoutParams(layoutParams);
+//        backgroundLayout.setLayoutParams(layoutParams);
 
         textView1.setLayoutParams(new ViewGroup.LayoutParams(layoutParams));
         textView1.setGravity(Gravity.CENTER);
@@ -74,7 +74,7 @@ public class PullLayout extends RelativeLayout {
         backgroundLayout.addView(textView2);
         backgroundLayout.setPadding(0, (int) pxToDp(getResources(), 10), 0, (int) pxToDp(getResources(), 15));
 
-        this.addView(backgroundLayout);
+        this.addViewInLayout(backgroundLayout, -1, layoutParams);
         this.setBackgroundColor(Color.parseColor("#2E3132"));
     }
 
