@@ -1,5 +1,6 @@
 package com.angcyo.sample.launchmode;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,8 +10,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 
 import com.angcyo.sample.R;
+
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 public class SingleTaskActivity extends AppCompatActivity {
 
@@ -30,6 +38,53 @@ public class SingleTaskActivity extends AppCompatActivity {
             }
         });
         e("onCreate");
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onUpdateUI(UpdateUIEvent event) {
+        e(" onUpdateUI ..");
+        ((Button) findViewById(R.id.button2)).setText("onEvent");
+
+//        Window window = getWindow();
+//        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+//        View decorView = window.getDecorView();
+////        attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
+////        attributes.height = 600;
+//        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//
+////        attributes.alpha = 0.5f;
+//
+//        attributes.y = 300;
+//        attributes.x = 300;
+//        attributes.gravity = Gravity.BOTTOM;
+//        getWindow().setAttributes(attributes);
+//
+//        decorView.setBackgroundColor(Color.TRANSPARENT);
+//        ((ViewGroup) decorView).getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(660, 860));
+//        ((ViewGroup) decorView).getChildAt(0).setX(100);
+
+        startScroll();
+    }
+
+    private void startScroll() {
+        Window window = getWindow();
+        final View decorView = ((ViewGroup) window.getDecorView()).getChildAt(0);
+        final float width = decorView.getWidth();
+        decorView.setX(-width);
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 1f);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                e(value + "");
+                decorView.setX(-width + width * value);
+            }
+        });
+
+        valueAnimator.setDuration(400);
+        valueAnimator.start();
     }
 
     @Override
@@ -66,6 +121,7 @@ public class SingleTaskActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         e("onDestroy");
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -79,11 +135,9 @@ public class SingleTaskActivity extends AppCompatActivity {
         }
     }
 
-
     private void e(String log) {
         Log.e("angcyo-->main-->" + getTaskId(), log);
     }
-
 
     public void button2(View view) {
         startActivity(new Intent(this, SingleActivity2.class));
@@ -97,7 +151,11 @@ public class SingleTaskActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        e("onTouchEvent "+ event.getActionMasked());
+        e("onTouchEvent " + event.getActionMasked());
         return super.onTouchEvent(event);
+    }
+
+    public static class UpdateUIEvent {
+
     }
 }

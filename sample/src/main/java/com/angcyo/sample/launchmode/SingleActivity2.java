@@ -2,19 +2,21 @@ package com.angcyo.sample.launchmode;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 
 import com.angcyo.sample.R;
+
+import de.greenrobot.event.EventBus;
 
 public class SingleActivity2 extends AppCompatActivity {
 
@@ -29,8 +31,10 @@ public class SingleActivity2 extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+                EventBus.getDefault().post(new SingleTaskActivity.UpdateUIEvent());
             }
         });
         e("onCreate");
@@ -110,18 +114,22 @@ public class SingleActivity2 extends AppCompatActivity {
     @Override
     public void onAttachedToWindow() {
         e("onAttachedToWindow");
-
-
+        Window window = getWindow();
         WindowManager.LayoutParams attributes = getWindow().getAttributes();
-        attributes.width = 500;
-        attributes.height = 500;
+        View decorView = window.getDecorView();
+        attributes.width = 460;
+        attributes.height = 700;
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
 //        attributes.alpha = 0.5f;
 
+        attributes.y = 100;
+        attributes.gravity = Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM;
         getWindow().setAttributes(attributes);
 
-        getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
-        ((ViewGroup) getWindow().getDecorView()).getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(360,360));
-        ((ViewGroup) getWindow().getDecorView()).getChildAt(0).setX(100);
+//        decorView.setBackgroundColor(Color.TRANSPARENT);
+//        ((ViewGroup)decorView).getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(460,660));
+//        ((ViewGroup)decorView).getChildAt(0).setX(100);
         super.onAttachedToWindow();
 
     }

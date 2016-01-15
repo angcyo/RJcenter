@@ -32,6 +32,14 @@ public class SingleTaskWelcome extends AppCompatActivity {
             }
         });
         e("onCreate");
+
+        rootView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SingleTaskWelcome.this, SingleTaskActivity.class));
+//                finish();
+            }
+        }, 1000);
     }
 
     @Override
@@ -81,13 +89,13 @@ public class SingleTaskWelcome extends AppCompatActivity {
         super.onResume();
         e("onResume");
 
-        rootView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(SingleTaskWelcome.this, SingleTaskActivity.class));
-                finish();
-            }
-        }, 1000);
+//        rootView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                startActivity(new Intent(SingleTaskWelcome.this, SingleTaskActivity.class));
+//                finish();
+//            }
+//        }, 1000);
     }
 
     @Override

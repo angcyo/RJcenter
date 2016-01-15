@@ -98,10 +98,10 @@
         </activity>
         <activity
             android:name=".launchmode.SingleTaskActivity"
-            android:excludeFromRecents="true"
             android:label="@string/title_activity_single_task"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:taskAffinity="com.angcyo"
+            android:theme="@style/AppTheme.NoActionBar.Tran">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -132,7 +132,6 @@
         <activity
             android:name=".launchmode.SingleTaskWelcome"
             android:label="@string/title_activity_single_task_welcome"
-            android:excludeFromRecents="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

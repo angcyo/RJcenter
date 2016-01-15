@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="#3399ff"
     tools:context="com.angcyo.sample.launchmode.SingleTaskActivity">
 
     <android.support.design.widget.AppBarLayout
