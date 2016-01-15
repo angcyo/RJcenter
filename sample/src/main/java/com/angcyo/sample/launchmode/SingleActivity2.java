@@ -40,6 +40,7 @@ public class SingleActivity2 extends AppCompatActivity {
         e("onCreate");
 
 //        Slidr.attach(this);
+//        Slidr.attach(this);
     }
 
     @Override
