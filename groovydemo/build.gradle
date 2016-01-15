@@ -1,6 +1,25 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
 
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/groovy']
+        }
+        java {
+            srcDirs = ['src/java']
+        }
+    }
+    test {
+        groovy {
+            srcDirs = ['test/groovy']
+        }
+        java {
+            srcDirs = ['test/java']
+        }
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'org.codehaus.groovy:groovy:2.4.5'
