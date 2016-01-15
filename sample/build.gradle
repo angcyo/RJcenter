@@ -1,5 +1,41 @@
 apply plugin: 'com.android.application'
 
+description "RJcenter"
+version "1.1.0"
+
+println "------------------------------"
+println project
+println name
+println path
+println description
+println projectDir
+println buildDir
+println group
+println version
+println ant
+println "------------------------------"
+
+//------------------------------
+//        project ':sample'
+//sample
+//:sample
+//RJcenter
+//F:\AsDemo\RJcenter\sample
+//F:\AsDemo\RJcenter\sample\build
+//RJcenter
+//1.1.0
+//org.gradle.api.internal.project.DefaultAntBuilder@6a256fc
+//------------------------------
+
+
+repositories {
+    println "in a closure 1"
+}
+repositories() { println "in a closure 2" }
+repositories({ println "in a closure 3" })
+println "------------------------------"
+
+
 def oh = { msg ->
     println(buildTime() + "--> " + msg)
 }
