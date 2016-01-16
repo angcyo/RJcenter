@@ -1,5 +1,6 @@
 package com.angcyo.sample.viewpagerdemo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -40,6 +41,9 @@ public class ViewPagerActivity extends AppCompatActivity {
             }
         });
         initView();
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        startActivity(intent);
     }
 
     private void initView() {
