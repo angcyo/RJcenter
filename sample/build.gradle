@@ -101,8 +101,14 @@ android {
     }
     getApplicationVariants().all { variant ->
         variant.outputs.each { output ->
+            def time
+            if (!variant.buildType.name.equalsIgnoreCase("debug")) {
+                time = "-" + getTime()
+            } else {
+                time = ""
+            }
             output.outputFile = new File(output.outputFile.parent,
-                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}-${getTime()}.apk".toLowerCase())
+                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}${time}.apk".toLowerCase())
         }
     }
     //${variant.productFlavors[0].name}
