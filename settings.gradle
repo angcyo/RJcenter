@@ -1,1 +1,7 @@
-include ':rsen', ':sample', ':rxjavademo', ':javademo', ':groovydemo',':slidr'
+include ':rsen',':sample'
+//        ':rxjavademo',
+//        ':javademo',
+//        ':groovydemo',
+//        ':slidr'
+
+include ':slidr'
