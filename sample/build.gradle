@@ -111,6 +111,11 @@ android {
                     "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}${time}.apk".toLowerCase())
         }
     }
+    sourceSets{
+        main{
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+        }
+    }
     //${variant.productFlavors[0].name}
 }
 
