@@ -218,7 +218,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             </intent-filter>
         </activity>
         <activity android:name=".intentfilterdemo.IntentFilterActivitySample">
@@ -237,7 +237,20 @@
                 <data android:mimeType="angcyo1/*"/>
                 <data android:mimeType="angcyo2/*"/>
                 <data android:mimeType="angcyo3/*"/>
+            </intent-filter>
+        </activity>
 
+        <provider
+            android:name="com.angcyo.aidl.BookProvider"
+            android:authorities="com.angcyo.sample.provider"
+            android:permission="com.angcyo.provider"
+            android:process=":provider"/>
+
+        <activity android:name=".viewdemo.PathButtonActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>
