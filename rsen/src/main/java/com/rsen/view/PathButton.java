@@ -252,6 +252,8 @@ public class PathButton extends Button {
      */
     private Point addNextPath(Point curPoint) {
 //        e("x-->" + curPoint.x + " y-->" + curPoint.y);
+//        e("x-->" + curPoint.x + " y-->" + curPoint.y);
+//        e("x-->" + curPoint.x + " y-->" + curPoint.y);
 
         Point retPoint = new Point();
         Point startPoint = mStartPoint;
