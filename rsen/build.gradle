@@ -28,8 +28,6 @@ android {
         quiet true
         abortOnError false
     }
-    productFlavors {
-    }
 }
 
 dependencies {
@@ -51,17 +49,17 @@ task myJavadocs(type: Javadoc) {
         links "http://docs.oracle.com/javase/7/docs/api"
     }
 }
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.5'
-
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.2.0"
-    }
-}
+//
+//buildscript {
+//    repositories {
+//        jcenter()
+//    }
+//    dependencies {
+//        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.5'
+//
+//        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.2.0"
+//    }
+//}
 //apply from: 'https://raw.githubusercontent.com/angcyo/gradle-mvn-push/master/gradle-mvn-push.gradle'  //未成功
 
 //apply from: 'https://raw.githubusercontent.com/angcyo/gradle-publish/master/bintray.gradle'  //成功

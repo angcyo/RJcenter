@@ -61,10 +61,12 @@ public class PathButton extends Button {
      * 每次绘制,移动的距离,越大,移动愉快
      */
     int mDrawStep = 10;
+    int mCurDrawStep;
     /**
      * 多少毫秒绘制一次
      */
     int mDrawDelay = 40;
+    int mCurDrawDelay;
     int mMovePathCount = 0x0000;//经过了多少个边, 如果大于0x1111,说明已经绘制了一圈;
 
     /**
@@ -78,6 +80,26 @@ public class PathButton extends Button {
      * <enum name="LEFT" value="8" />
      */
     int mStartGravity = 2;
+
+    /**
+     * 样式, 背景透明,只显示四条边框线
+     */
+    boolean mIsBorderStyle = false;
+    /**
+     * 边框的宽度
+     */
+    float mBorderWidth = 2;//dp
+    /**
+     * 边框的圆角
+     */
+    float mBorderRound = 2;//dp
+
+    @ColorInt
+    int mBorderColor = Color.BLUE;
+    /**
+     * 边框背景
+     */
+    Drawable bgDrawable;
 
     public PathButton(Context context) {
         this(context, null);
@@ -99,6 +121,11 @@ public class PathButton extends Button {
         mDrawDelay = typedArray.getInteger(R.styleable.PathButton_pathDrawDelay, mDrawDelay);
         mStartGravity = typedArray.getInteger(R.styleable.PathButton_pathStartGravity, mStartGravity);
 
+        mIsBorderStyle = typedArray.getBoolean(R.styleable.PathButton_pathBorderStyle, mIsBorderStyle);
+        mBorderWidth = typedArray.getDimension(R.styleable.PathButton_pathBorderWidth, ResUtil.dpToPx(getResources(), mBorderWidth));
+        mBorderRound = typedArray.getDimension(R.styleable.PathButton_pathBorderRound, ResUtil.dpToPx(getResources(), mBorderRound));
+        mBorderColor = typedArray.getColor(R.styleable.PathButton_pathBorderColor, mBorderColor);
+
         typedArray.recycle();
         initView();
     }
@@ -110,6 +137,10 @@ public class PathButton extends Button {
         mPaint.setStrokeWidth(mPathWidth);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);//
         mPaint.setColor(mPathColor);
+        if (mIsBorderStyle) {
+            bgDrawable = ResUtil.generateBgDrawable(mBorderRound, mBorderWidth, mBorderColor);
+            ResUtil.setBgDrawable(this, bgDrawable);
+        }
     }
 
     @Override
@@ -133,8 +164,12 @@ public class PathButton extends Button {
     private void onTouchDown(MotionEvent event, Drawable background) {
         isDown = true;
         isUp = false;
-        mDrawDelay = 40;
-        mDrawStep = 10;
+        mCurDrawDelay = mDrawDelay;
+        mCurDrawStep = mDrawStep;
+
+        if (mIsBorderStyle) {
+            setBackgroundColor(Color.TRANSPARENT);
+        }
 
         resetPath(getStartPoint(mStartGravity));
         if (background != null) {
@@ -156,8 +191,8 @@ public class PathButton extends Button {
         isDown = false;
         isUp = true;
 
-        mDrawDelay = 1;//抬手之后, 快速画完
-        mDrawStep += 2 * mDrawStep;
+        mCurDrawDelay = 0;//抬手之后, 快速画完
+        mCurDrawStep = (mViewHeight + mViewWidth) / 6;
 
         if (background != null) {
             background.setState(new int[]{});
@@ -178,9 +213,10 @@ public class PathButton extends Button {
                 if (isUp) {
                     this.performClick();
                     isUp = false;
+                    ResUtil.setBgDrawable(this, bgDrawable);
                 }
             }
-            postInvalidateDelayed(mDrawDelay);
+            postInvalidateDelayed(mCurDrawDelay);
         }
     }
 
@@ -259,7 +295,7 @@ public class PathButton extends Button {
         int width = mViewWidth;
         int height = mViewHeight;
         int offset = mPathOffset;
-        int step = mDrawStep;
+        int step = mCurDrawStep;
 
         if (curPoint.y == offset) {//上边
             mMovePathCount |= 0x0010;

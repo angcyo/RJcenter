@@ -68,8 +68,6 @@ public class ResUtil {
         return bgStateDrawable;
     }
 
-
-
     /**
      * Generate bg drawable drawable.
      *
@@ -189,6 +187,27 @@ public class ResUtil {
         bgStateDrawable.addState(new int[]{}, shopDrawableNormal);//其他状态
 
         return bgStateDrawable;
+    }
+
+
+    /**
+     * Generate bg drawable drawable.
+     *
+     * @param radii       圆角角度
+     * @param borderWidth 厚度
+     * @param color       颜色
+     * @return the drawable
+     */
+    public static Drawable generateBgDrawable(float radii, float borderWidth, int color) {
+        //外环的圆角矩形
+        float[] radiiF = new float[]{radii, radii, radii, radii, radii, radii, radii, radii};//四个角的 圆角幅度,8个可以设置的值,每个角都有2个边 2*4=8个
+        RectF rectF = new RectF(borderWidth,borderWidth,borderWidth,borderWidth);
+        //按下状态
+        Shape roundRectShape = new RoundRectShape(radiiF, rectF, radiiF);//圆角背景
+        ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
+        shopDrawablePress.getPaint().setColor(color);//设置颜色
+
+        return shopDrawablePress;
     }
 
     @SuppressLint("NewApi")

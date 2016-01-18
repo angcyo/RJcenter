@@ -59,20 +59,25 @@
     </declare-styleable>
 
     <declare-styleable name="PathButton">
-        <attr name="pathOffset" format="dimension" />
-        <attr name="pathWidth" format="dimension" />
-        <attr name="pathColor" format="color" />
-        <attr name="pathDrawDelay" format="integer" />
-        <attr name="pathDrawStep" format="integer" />
+        <attr name="pathOffset" format="dimension"/>
+        <attr name="pathWidth" format="dimension"/>
+        <attr name="pathColor" format="color"/>
+        <attr name="pathDrawDelay" format="integer"/>
+        <attr name="pathDrawStep" format="integer"/>
+        <attr name="pathBorderStyle" format="boolean"/>
+        <attr name="pathBorderWidth" format="dimension"/>
+        <attr name="pathBorderRound" format="dimension"/>
+        <attr name="pathBorderColor" format="color"/>
+
         <attr name="pathStartGravity" format="integer">
-            <enum name="LEFT_TOP" value="1" />
-            <enum name="TOP" value="2" />
-            <enum name="RIGHT_TOP" value="3" />
-            <enum name="RIGHT" value="4" />
-            <enum name="RIGHT_BOTTOM" value="5" />
-            <enum name="BOTTOM" value="6" />
-            <enum name="LEFT_BOTTOM" value="7" />
-            <enum name="LEFT" value="8" />
+            <enum name="LEFT_TOP" value="1"/>
+            <enum name="TOP" value="2"/>
+            <enum name="RIGHT_TOP" value="3"/>
+            <enum name="RIGHT" value="4"/>
+            <enum name="RIGHT_BOTTOM" value="5"/>
+            <enum name="BOTTOM" value="6"/>
+            <enum name="LEFT_BOTTOM" value="7"/>
+            <enum name="LEFT" value="8"/>
         </attr>
     </declare-styleable>
 </resources>
