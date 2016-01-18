@@ -1,6 +1,7 @@
 package com.rsen.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Button;
 
+import com.angcyo.rsen.R;
 import com.rsen.util.ResUtil;
 
 /**
@@ -44,8 +46,9 @@ public class PathButton extends Button {
     /**
      * path 偏移边框的距离
      */
-    float mPathOffset = 2;//
+    int mPathOffset = 4;//
     boolean isDown = false;
+    boolean isUp = false;
     /**
      * 当前绘制到的点坐标
      */
@@ -57,7 +60,24 @@ public class PathButton extends Button {
     /**
      * 每次绘制,移动的距离,越大,移动愉快
      */
-    int mDrawStep = 20;
+    int mDrawStep = 10;
+    /**
+     * 多少毫秒绘制一次
+     */
+    int mDrawDelay = 40;
+    int mMovePathCount = 0x0000;//经过了多少个边, 如果大于0x1111,说明已经绘制了一圈;
+
+    /**
+     * <enum name="LEFT_TOP" value="1" />
+     * <enum name="TOP" value="2" />
+     * <enum name="RIGHT_TOP" value="3" />
+     * <enum name="RIGHT" value="4" />
+     * <enum name="RIGHT_BOTTOM" value="5" />
+     * <enum name="BOTTOM" value="6" />
+     * <enum name="LEFT_BOTTOM" value="7" />
+     * <enum name="LEFT" value="8" />
+     */
+    int mStartGravity = 2;
 
     public PathButton(Context context) {
         this(context, null);
@@ -70,8 +90,16 @@ public class PathButton extends Button {
     public PathButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mPathWidth = ResUtil.dpToPx(getResources(), mPathWidth);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PathButton);
 
+        mPathWidth = typedArray.getDimension(R.styleable.PathButton_pathWidth, ResUtil.dpToPx(getResources(), mPathWidth));
+        mPathOffset = (int) typedArray.getDimension(R.styleable.PathButton_pathOffset, mPathWidth / 2);
+        mPathColor = typedArray.getColor(R.styleable.PathButton_pathColor, mPathColor);
+        mDrawStep = typedArray.getInteger(R.styleable.PathButton_pathDrawStep, mDrawStep);
+        mDrawDelay = typedArray.getInteger(R.styleable.PathButton_pathDrawDelay, mDrawDelay);
+        mStartGravity = typedArray.getInteger(R.styleable.PathButton_pathStartGravity, mStartGravity);
+
+        typedArray.recycle();
         initView();
     }
 
@@ -80,7 +108,7 @@ public class PathButton extends Button {
         mPath = new Path();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStrokeWidth(mPathWidth);
-        mPaint.setStyle(Paint.Style.STROKE);//
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);//
         mPaint.setColor(mPathColor);
     }
 
@@ -104,33 +132,55 @@ public class PathButton extends Button {
 
     private void onTouchDown(MotionEvent event, Drawable background) {
         isDown = true;
+        isUp = false;
+        mDrawDelay = 40;
+        mDrawStep = 10;
 
-        mPath.reset();
-        mStartPoint = mCurPoint = getStartPoint(-1);
-        mPath.moveTo(mStartPoint.x, mStartPoint.y);
-        mPath.lineTo(mCurPoint.x, mCurPoint.y);
-
+        resetPath(getStartPoint(mStartGravity));
         if (background != null) {
             background.setState(new int[]{android.R.attr.state_pressed});
+        } else {
+            invalidate();
         }
+    }
+
+    private void resetPath(Point startPoint) {
+        mPath.reset();
+        mStartPoint = mCurPoint = startPoint;
+        mPath.moveTo(mStartPoint.x, mStartPoint.y);
+        mPath.lineTo(mCurPoint.x, mCurPoint.y);
+        mMovePathCount = 0x0000;
     }
 
     private void onTouchUp(MotionEvent event, Drawable background) {
         isDown = false;
+        isUp = true;
+
+        mDrawDelay = 1;//抬手之后, 快速画完
+        mDrawStep += 2 * mDrawStep;
 
         if (background != null) {
             background.setState(new int[]{});
+        } else {
+            invalidate();
         }
-//        this.performClick();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        Point nextPoint = ;
-//        mPath.lineTo(nextPoint.x, nextPoint.y);
-        if (isDown) {
+        if (isDown || isUp) {
+            mCurPoint = addNextPath(mCurPoint);
             canvas.drawPath(mPath, mPaint);
+
+            if (mCurPoint == mStartPoint) {//起点
+                resetPath(mStartPoint);
+                if (isUp) {
+                    this.performClick();
+                    isUp = false;
+                }
+            }
+            postInvalidateDelayed(mDrawDelay);
         }
     }
 
@@ -147,40 +197,151 @@ public class PathButton extends Button {
     private Point getStartPoint(int gravity) {
         Point point = new Point();
 
-        //默认在上边的中间
-        point.x = mViewWidth / 2;
-        point.y = (int) (0 + mPathOffset);
-
+        /**
+         * <enum name="LEFT_TOP" value="1" />
+         * <enum name="TOP" value="2" />
+         * <enum name="RIGHT_TOP" value="3" />
+         * <enum name="RIGHT" value="4" />
+         * <enum name="RIGHT_BOTTOM" value="5" />
+         * <enum name="BOTTOM" value="6" />
+         * <enum name="LEFT_BOTTOM" value="7" />
+         * <enum name="LEFT" value="8" />
+         */
+        switch (gravity) {
+            case 1:
+                point.x = mPathOffset;
+                point.y = mPathOffset;
+                break;
+            case 2:
+                //默认在上边的中间
+                point.x = mViewWidth / 2;
+                point.y = mPathOffset;
+                break;
+            case 3:
+                point.x = mViewWidth - mPathOffset;
+                point.y = mPathOffset;
+                break;
+            case 4:
+                point.x = mViewWidth - mPathOffset;
+                point.y = mViewHeight / 2;
+                break;
+            case 5:
+                point.x = mViewWidth - mPathOffset;
+                point.y = mViewHeight - mPathOffset;
+                break;
+            case 6:
+                point.x = mViewWidth / 2;
+                point.y = mViewHeight - mPathOffset;
+                break;
+            case 7:
+                point.x = mPathOffset;
+                point.y = mViewHeight - mPathOffset;
+                break;
+            case 8:
+                point.x = mPathOffset;
+                point.y = mViewHeight / 2;
+                break;
+            default:
+                break;
+        }
         return point;
     }
 
     /**
      * 获取下一个path的点坐标
      */
-    private Point getNextPoint(Point curPoint) {
+    private Point addNextPath(Point curPoint) {
+//        e("x-->" + curPoint.x + " y-->" + curPoint.y);
+
         Point retPoint = new Point();
         Point startPoint = mStartPoint;
-        if (startPoint.y == curPoint.y) {//在同一横向上
+        int width = mViewWidth;
+        int height = mViewHeight;
+        int offset = mPathOffset;
+        int step = mDrawStep;
+
+        if (curPoint.y == offset) {//上边
+            mMovePathCount |= 0x0010;
             retPoint.y = curPoint.y;
-            if (startPoint.y > mViewHeight / 2) {//在下边
-                curPoint.x - mDrawStep;//
-            } else {//在上边
-
+            float sub = curPoint.x + step + offset - width;//超出边框的部分
+            if (sub > 0) {//超出边框
+                retPoint.x = width - offset;
+                retPoint.y = (int) (offset + sub);
+                mPath.lineTo(retPoint.x + mPathWidth / 2, curPoint.y);//移动到右上角
+                mPath.moveTo(retPoint.x, curPoint.y);//
+            } else {
+                retPoint.x = curPoint.x + step;//横坐标
             }
-
-        } else {//在同一纵向上
+        } else if (curPoint.y == height - offset) {//下边
+            mMovePathCount |= 0x0001;
+            retPoint.y = curPoint.y;
+            float sub = curPoint.x - step;//超出边框的部分
+            if (sub >= offset) {//未超出边框
+                retPoint.x = (int) sub;//横坐标
+            } else {
+                retPoint.x = offset;//横坐标
+                sub = offset - sub;//超出的距离
+                mPath.lineTo(offset - mPathWidth / 2, curPoint.y);
+                mPath.moveTo(offset, curPoint.y);//移动到左下角
+                retPoint.y = (int) (curPoint.y - Math.abs(sub));
+            }
+        } else if (curPoint.x == offset) {//左边
+            mMovePathCount |= 0x1000;
             retPoint.x = curPoint.x;
-            if (startPoint.x > mViewWidth / 2) {//在右边
-
-            } else {//在左边
-
+            float sub = curPoint.y - step - offset;
+            if (sub > 0) {//未超出
+                retPoint.y = curPoint.y - step;
+            } else {
+                mPath.lineTo(curPoint.x, offset - mPathWidth / 2);//左上角
+                mPath.moveTo(curPoint.x, offset);//
+                retPoint.x = (int) (offset + Math.abs(sub));
+                retPoint.y = offset;
+            }
+        } else if (curPoint.x == width - offset) {//右边
+            mMovePathCount |= 0x0100;
+            retPoint.x = curPoint.x;
+            float sub = curPoint.y + step + offset - height;
+            if (sub > 0) {//超出
+                mPath.lineTo(curPoint.x, height - offset + mPathWidth / 2);//右下角
+                mPath.moveTo(curPoint.x, height - offset);//
+                retPoint.x = (int) (width - offset - sub);
+                retPoint.y = height - offset;
+            } else {
+                retPoint.y = curPoint.y + step;
             }
         }
 
-        //默认在上边的中间
-//        point.x = mViewWidth / 2;
-//        point.y = (int) (0 + mPathOffset);
+        mPath.lineTo(retPoint.x, retPoint.y);
 
+        //是否一圈到了
+        if (mMovePathCount >= 0x1111) {
+            boolean result = false;
+            switch (mStartGravity) {
+                case 1://左上
+                case 2://上
+                case 3://右上
+                case 4://右
+                    if (retPoint.x >= startPoint.x && retPoint.y >= startPoint.y) {
+                        result = true;
+                    }
+                    break;
+                case 5://右下
+                case 6://下
+                case 7://左下
+                case 8://左
+                    if (retPoint.x <= startPoint.x && retPoint.y <= startPoint.y) {
+                        result = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            if (result) {
+                //回到起点
+                return startPoint;
+            }
+        }
         return retPoint;
     }
 
