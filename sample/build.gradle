@@ -108,7 +108,7 @@ android {
                 time = ""
             }
             output.outputFile = new File(output.outputFile.parent,
-                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}${time}.apk".toLowerCase())
+                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}${time}.apk")
         }
     }
     sourceSets{

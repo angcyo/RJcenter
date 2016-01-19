@@ -9,6 +9,8 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -242,6 +244,7 @@ public class CirclePathButton extends Button {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         mPaint.setColor(mPathColor);
         mPaint.setStrokeCap(Paint.Cap.BUTT);
         if (isDown || isUp) {
@@ -283,7 +286,7 @@ public class CirclePathButton extends Button {
                         }
                     }
                     canvas.drawPath(mPathTick, mPaint);
-                    postInvalidateDelayed(0);
+                    postInvalidateDelayed(1);
                 } else {
                     mTickCurIndex = 0;
                     canvas.drawPath(mPathTick, mPaint);
@@ -310,14 +313,20 @@ public class CirclePathButton extends Button {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+
         mViewWidth = w;
         mViewHeight = h;
-        mPathTick.reset();
 
         if (bgDrawable != null) {
             bgDrawable.setBounds(getPaddingLeft(), getPaddingTop(), w - getPaddingRight(), h - getPaddingBottom());
         }
 
+        fillTickPath();
+    }
+
+    /**对勾的path, 一个点一个点的添加*/
+    private void fillTickPath() {
+        mPathTick.reset();
         mTickLeftList = new ArrayList<>();
         mTickRightList = new ArrayList<>();
 
@@ -346,7 +355,7 @@ public class CirclePathButton extends Button {
         nextP.x = startP.x;
         nextP.y = startP.y;
 
-        mTickRightList.add(new PointF(nextP.x, nextP.y + 1));//连接点的地方,填充数据
+//        mTickRightList.add(new PointF(nextP.x, nextP.y + 1));//连接点的地方,填充数据
 
         for (int i = 0; i < (count + count / 2); i++) {
             mTickRightList.add(new PointF(nextP.x, nextP.y));
@@ -436,5 +445,23 @@ public class CirclePathButton extends Button {
 
     public interface OnSelectChanged {
         void onSelectChanged(View view, boolean isSelect);
+    }
+
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        Bundle bundle = (Bundle) state;
+        isSelected = bundle.getBoolean("IS_SELECT");
+//        fillTickPath();
+        isBeginSelecting = isSelected;
+        super.onRestoreInstanceState(bundle.getParcelable("STATE"));
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("IS_SELECT", isSelected);
+        bundle.putParcelable("STATE", super.onSaveInstanceState());
+        return bundle;
     }
 }

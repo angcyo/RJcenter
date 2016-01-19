@@ -40,10 +40,10 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
 
     protected abstract int getItemLayoutId(int viewType);
 
-//    @Override
-//    public void onBindViewHolder(RBaseViewHolder holder, int position) {
-//        onBindView(holder, position, mAllDatas.get(position));
-//    }
+    @Override
+    public void onBindViewHolder(RBaseViewHolder holder, int position) {
+        onBindView(holder, position, mAllDatas.get(position));
+    }
 
     protected abstract void onBindView(RBaseViewHolder holder, int position, T bean);
 
@@ -52,13 +52,17 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
         return mAllDatas == null ? 0 : mAllDatas.size();
     }
 
-    /**在最后的位置插入数据*/
+    /**
+     * 在最后的位置插入数据
+     */
     public void addItemLast(T bean) {
         mAllDatas.add(bean);
         notifyItemInserted(mAllDatas.size() - 1);
     }
 
-    /**重置数据*/
+    /**
+     * 重置数据
+     */
     public void resetData(List<T> datas) {
         this.mAllDatas = datas;
         notifyDataSetChanged();
@@ -67,7 +71,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
     /**
      * 通用ViewHolder
      */
-    public class RBaseViewHolder extends RecyclerView.ViewHolder {
+    public static class RBaseViewHolder extends RecyclerView.ViewHolder {
         public RBaseViewHolder(View itemView) {
             super(itemView);
         }
