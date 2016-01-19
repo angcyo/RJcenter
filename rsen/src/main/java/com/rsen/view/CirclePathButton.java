@@ -20,6 +20,7 @@ import com.angcyo.rsen.R;
 import com.rsen.util.ResUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -72,7 +73,7 @@ public class CirclePathButton extends Button {
     /**
      * 当前开始绘制的角度
      */
-    float mStartAngle = 30;//默认12点钟方向
+    float mStartAngle = -90;//默认12点钟方向
     /**
      * 每次绘制,移动的角度,越大,移动愉快
      */
@@ -118,6 +119,10 @@ public class CirclePathButton extends Button {
      * 当前绘制到了那个点, 对勾 的path
      */
     int mTickCurIndex = 0;
+    /**
+     * 对勾绘制的步长
+     */
+    int mTickStep = 4;
 
     /**
      * 是否到了一圈
@@ -251,7 +256,15 @@ public class CirclePathButton extends Button {
                     resetPath();
                     this.performClick();
                     isUp = false;
+                    mPathTick.reset();
+                    mTickCurIndex = 0;
                     isBeginSelecting = isSelected;
+
+                    if (mIsSelectStyle) {
+                        if (onSelectChanged != null) {
+                            onSelectChanged.onSelectChanged(this, isSelected);
+                        }
+                    }
                 }
             }
 
@@ -263,13 +276,22 @@ public class CirclePathButton extends Button {
         }
 
         if (mIsSelectStyle) {
-            if (isSelected && isBeginSelecting) {
-
+            if (isSelected) {
+                if (isBeginSelecting) {
+                    for (int i = 0; i < mTickStep; i++) {
+                        mTickCurIndex = addNextTickPath(mTickCurIndex);
+                    }
+                    canvas.drawPath(mPathTick, mPaint);
+                    postInvalidateDelayed(0);
+                } else {
+                    mTickCurIndex = 0;
+                    canvas.drawPath(mPathTick, mPaint);
+                }
             } else {
 
             }
         }
-        canvas.drawRect(0, 0, mViewWidth, mViewHeight, mPaint);//测试边框
+//        canvas.drawRect(0, 0, mViewWidth, mViewHeight, mPaint);//测试边框
     }
 
     @Override
@@ -303,30 +325,32 @@ public class CirclePathButton extends Button {
         rectF.centerY();
         float radius = rectF.height() / 2;//半径
         int padding = getPaddingBottom();//注意 只是用xml中的padding属性
-        int offset = 10;//
-        PointF startP = new PointF(padding + offset, padding + radius + offset);
-        PointF endP = new PointF(padding + radius, padding + radius + radius / 2);
+        PointF startP = new PointF(padding + radius, padding + radius + radius / 2);
+//        PointF endP = new PointF(padding + radius, padding + radius + radius / 2);
         PointF nextP = new PointF(startP.x, startP.y);
 
+        int count = 0;
         /*左边的线段*/
         do {
-            mTickLeftList.add(nextP);
-            nextP.x += 1;
-            nextP.y += 1;
-        } while (nextP.x <= endP.x && nextP.y <= endP.y);
+            mTickLeftList.add(new PointF(nextP.x, nextP.y));
+            nextP.x -= 1;
+            nextP.y -= 1;
+            count++;
+        } while (nextP.y >= padding + radius);
 
+        Collections.reverse(mTickLeftList);
 
         /*右边的线段*/
-        startP.x = nextP.x;
-        startP.y = nextP.y;
-        endP.x = padding + radius + radius / 2 + offset;
-        endP.y = padding + radius - offset;
+        nextP.x = startP.x;
+        nextP.y = startP.y;
 
-        do {
-            mTickRightList.add(nextP);
+        mTickRightList.add(new PointF(nextP.x - 1, nextP.y + 1));//连接点的地方,填充数据
+
+        for (int i = 0; i < (count + count / 2); i++) {
+            mTickRightList.add(new PointF(nextP.x, nextP.y));
             nextP.x += 1;
-            nextP.y += 1;
-        } while (nextP.x <= endP.x && nextP.y <= endP.y);
+            nextP.y -= 1;
+        }
     }
 
     /**
@@ -353,6 +377,44 @@ public class CirclePathButton extends Button {
     }
 
     /**
+     * 获取下一个对勾path的点坐标
+     */
+    private int addNextTickPath(int curIndex) {
+        int retIndex = curIndex;
+        if (curIndex == 0) {
+            PointF first = mTickLeftList.get(0);
+            mPathTick.reset();
+            mPathTick.moveTo(first.x - getTickOffset(), first.y);
+        }
+
+        int leftSize = mTickLeftList.size();
+        int rightSize = mTickRightList.size();
+
+        if (curIndex < leftSize) {
+            lineTickPath(mTickLeftList.get(curIndex));
+        } else if (curIndex < (rightSize + leftSize)) {
+            lineTickPath(mTickRightList.get(curIndex - leftSize));
+        } else {
+            isBeginSelecting = false;
+            if (onSelectChanged != null) {
+                onSelectChanged.onSelectChanged(this, true);
+            }
+        }
+        retIndex++;
+        return retIndex;
+    }
+
+    private void lineTickPath(PointF pointF) {
+        mPathTick.lineTo(pointF.x - getTickOffset(), pointF.y);
+        mPathTick.moveTo(pointF.x - getTickOffset(), pointF.y);
+    }
+
+    private int getTickOffset() {
+        int offset = (int) (getDrawRectF().width() / 8);//
+        return offset;
+    }
+
+    /**
      * 去除padding 的 可绘制区域
      */
     private RectF getDrawRectF() {
@@ -364,6 +426,12 @@ public class CirclePathButton extends Button {
 
     public void e(String log) {
         Log.e("angcyo", log);
+    }
+
+    OnSelectChanged onSelectChanged;
+
+    public void setOnSelectChanged(OnSelectChanged onSelectChanged) {
+        this.onSelectChanged = onSelectChanged;
     }
 
     public interface OnSelectChanged {
