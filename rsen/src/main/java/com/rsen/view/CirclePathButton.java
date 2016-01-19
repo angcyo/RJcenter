@@ -96,11 +96,6 @@ public class CirclePathButton extends Button {
     boolean mIsSelectStyle = true;
 
     /**
-     * 边框的宽度
-     */
-    float mBorderWidth = 2;//dp
-
-    /**
      * 边框的颜色
      */
     @ColorInt
@@ -122,7 +117,7 @@ public class CirclePathButton extends Button {
     /**
      * 对勾绘制的步长
      */
-    int mTickStep = 4;
+    int mTickStep = 8;
 
     /**
      * 是否到了一圈
@@ -138,6 +133,7 @@ public class CirclePathButton extends Button {
      * 开始绘制对勾
      */
     boolean isBeginSelecting = false;
+    OnSelectChanged onSelectChanged;
 
     public CirclePathButton(Context context) {
         this(context, null);
@@ -161,7 +157,6 @@ public class CirclePathButton extends Button {
 
         mIsBorderStyle = typedArray.getBoolean(R.styleable.CirclePathButton_circlePathBorderStyle, mIsBorderStyle);
         mIsSelectStyle = typedArray.getBoolean(R.styleable.CirclePathButton_circlePathSelectStyle, mIsSelectStyle);
-        mBorderWidth = typedArray.getDimension(R.styleable.CirclePathButton_circlePathBorderWidth, ResUtil.dpToPx(getResources(), mBorderWidth));
         mBorderColor = typedArray.getColor(R.styleable.CirclePathButton_circlePathBorderColor, mBorderColor);
 
         mStartAngle = typedArray.getFloat(R.styleable.CirclePathButton_circlePathStartAngle, mStartAngle);
@@ -247,6 +242,8 @@ public class CirclePathButton extends Button {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        mPaint.setColor(mPathColor);
+        mPaint.setStrokeCap(Paint.Cap.BUTT);
         if (isDown || isUp) {
             mCurAngle = addNextPath(mCurAngle);
             canvas.drawPath(mPath, mPaint);
@@ -261,7 +258,7 @@ public class CirclePathButton extends Button {
                     isBeginSelecting = isSelected;
 
                     if (mIsSelectStyle) {
-                        if (onSelectChanged != null) {
+                        if (onSelectChanged != null && !isSelected) {
                             onSelectChanged.onSelectChanged(this, isSelected);
                         }
                     }
@@ -277,9 +274,13 @@ public class CirclePathButton extends Button {
 
         if (mIsSelectStyle) {
             if (isSelected) {
+                mPaint.setStrokeCap(Paint.Cap.ROUND);
+                mPaint.setColor(mPathSelectColor);
                 if (isBeginSelecting) {
                     for (int i = 0; i < mTickStep; i++) {
-                        mTickCurIndex = addNextTickPath(mTickCurIndex);
+                        if (isBeginSelecting) {
+                            mTickCurIndex = addNextTickPath(mTickCurIndex);
+                        }
                     }
                     canvas.drawPath(mPathTick, mPaint);
                     postInvalidateDelayed(0);
@@ -313,8 +314,9 @@ public class CirclePathButton extends Button {
         mViewHeight = h;
         mPathTick.reset();
 
-        bgDrawable.setBounds(getPaddingLeft(), getPaddingTop(), w - getPaddingRight(), h - getPaddingBottom());
-
+        if (bgDrawable != null) {
+            bgDrawable.setBounds(getPaddingLeft(), getPaddingTop(), w - getPaddingRight(), h - getPaddingBottom());
+        }
 
         mTickLeftList = new ArrayList<>();
         mTickRightList = new ArrayList<>();
@@ -344,7 +346,7 @@ public class CirclePathButton extends Button {
         nextP.x = startP.x;
         nextP.y = startP.y;
 
-        mTickRightList.add(new PointF(nextP.x - 1, nextP.y + 1));//连接点的地方,填充数据
+        mTickRightList.add(new PointF(nextP.x, nextP.y + 1));//连接点的地方,填充数据
 
         for (int i = 0; i < (count + count / 2); i++) {
             mTickRightList.add(new PointF(nextP.x, nextP.y));
@@ -410,7 +412,7 @@ public class CirclePathButton extends Button {
     }
 
     private int getTickOffset() {
-        int offset = (int) (getDrawRectF().width() / 8);//
+        int offset = (int) (getDrawRectF().width() / 12);//
         return offset;
     }
 
@@ -427,8 +429,6 @@ public class CirclePathButton extends Button {
     public void e(String log) {
         Log.e("angcyo", log);
     }
-
-    OnSelectChanged onSelectChanged;
 
     public void setOnSelectChanged(OnSelectChanged onSelectChanged) {
         this.onSelectChanged = onSelectChanged;

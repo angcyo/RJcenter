@@ -90,7 +90,6 @@
         <attr name="circlePathDrawStep" format="integer"/>
         <attr name="circlePathBorderStyle" format="boolean"/>
         <attr name="circlePathSelectStyle" format="boolean"/>
-        <attr name="circlePathBorderWidth" format="dimension"/>
         <attr name="circlePathBorderColor" format="color"/>
         <attr name="circlePathStartAngle" format="float"/>
     </declare-styleable>

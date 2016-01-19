@@ -100,6 +100,10 @@ public class PathButton extends Button {
      * 边框背景
      */
     Drawable bgDrawable;
+    /**
+     * 原始的背景
+     */
+    Drawable rawBackground;
 
     public PathButton(Context context) {
         this(context, null);
@@ -145,17 +149,16 @@ public class PathButton extends Button {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
-        Drawable background = getBackground();
         int action = event.getAction();
 //        e(new Exception().getStackTrace()[0].getMethodName() + "  --  " + action);
 
         if (action == MotionEvent.ACTION_DOWN) {
-            onTouchDown(event, background);
+            rawBackground = getBackground();
+            onTouchDown(event, rawBackground);
         }
 
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-            onTouchUp(event, background);
+            onTouchUp(event, rawBackground);
         }
 
         return true;
@@ -196,6 +199,7 @@ public class PathButton extends Button {
 
         if (background != null) {
             background.setState(new int[]{});
+            ResUtil.setBgDrawable(this, background);
         } else {
             invalidate();
         }
@@ -213,7 +217,9 @@ public class PathButton extends Button {
                 if (isUp) {
                     this.performClick();
                     isUp = false;
-                    ResUtil.setBgDrawable(this, bgDrawable);
+                    if (mIsBorderStyle) {
+                        ResUtil.setBgDrawable(this, bgDrawable);
+                    }
                 }
             }
             postInvalidateDelayed(mCurDrawDelay);

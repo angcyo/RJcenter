@@ -39,6 +39,16 @@
         <com.rsen.view.PathButton
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:pathColor="@android:color/holo_red_light"
+            app:pathWidth="4dp"
+            android:text="button"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black" />
+
+        <com.rsen.view.PathButton
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:onClick="button"
             android:background="@null"
@@ -76,8 +86,10 @@
             android:textAllCaps="false"
             android:paddingTop="10dp"
             app:circlePathBorderStyle="false"
+            app:circlePathWidth="5dp"
             android:paddingRight="10dp"
             android:paddingBottom="10dp"
+            app:circlePathSelectColor="@color/colorAccent"
             android:paddingLeft="10dp"
             android:textColor="@android:color/white" />
 
@@ -105,7 +117,7 @@
             android:text="Touch Me"
             android:textAllCaps="false"
             app:circlePathSelectStyle="false"
-            app:pathOffset="20dp"
+            app:circlePathWidth="3dp"
             app:pathStartGravity="LEFT_BOTTOM"
             android:padding="2dp"
             app:pathColor="@color/colorAccent"
