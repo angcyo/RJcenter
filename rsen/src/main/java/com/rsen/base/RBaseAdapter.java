@@ -40,10 +40,10 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
 
     protected abstract int getItemLayoutId(int viewType);
 
-    @Override
-    public void onBindViewHolder(RBaseViewHolder holder, int position) {
-        onBindView(holder, position, mAllDatas.get(position));
-    }
+//    @Override
+//    public void onBindViewHolder(RBaseViewHolder holder, int position) {
+//        onBindView(holder, position, mAllDatas.get(position));
+//    }
 
     protected abstract void onBindView(RBaseViewHolder holder, int position, T bean);
 

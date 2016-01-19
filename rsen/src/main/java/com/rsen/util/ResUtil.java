@@ -3,10 +3,12 @@ package com.rsen.util;
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.graphics.drawable.shapes.ArcShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
@@ -99,7 +101,6 @@ public class ResUtil {
 
         return bgStateDrawable;
     }
-
 
 
     /**
@@ -201,12 +202,21 @@ public class ResUtil {
     public static Drawable generateBgDrawable(float radii, float borderWidth, int color) {
         //外环的圆角矩形
         float[] radiiF = new float[]{radii, radii, radii, radii, radii, radii, radii, radii};//四个角的 圆角幅度,8个可以设置的值,每个角都有2个边 2*4=8个
-        RectF rectF = new RectF(borderWidth,borderWidth,borderWidth,borderWidth);
+        RectF rectF = new RectF(borderWidth, borderWidth, borderWidth, borderWidth);
         //按下状态
         Shape roundRectShape = new RoundRectShape(radiiF, rectF, radiiF);//圆角背景
         ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
         shopDrawablePress.getPaint().setColor(color);//设置颜色
 
+        return shopDrawablePress;
+    }
+
+    public static Drawable generateCircleBgDrawable(float width, int color) {
+        Shape arcShape = new ArcShape(0, 360);
+        ShapeDrawable shopDrawablePress = new ShapeDrawable(arcShape);//圆形shape
+        shopDrawablePress.getPaint().setColor(color);//设置颜色
+        shopDrawablePress.getPaint().setStyle(Paint.Style.STROKE);//设置颜色
+        shopDrawablePress.getPaint().setStrokeWidth(width);//设置颜色
         return shopDrawablePress;
     }
 

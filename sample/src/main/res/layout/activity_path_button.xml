@@ -67,16 +67,20 @@
         android:layout_alignParentRight="true"
         android:orientation="vertical">
 
-        <com.rsen.view.PathButton
+        <com.rsen.view.CirclePathButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_selector"
             android:onClick="pathButton"
             android:text="Touch Me"
             android:textAllCaps="false"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
             android:textColor="@android:color/white" />
 
-        <com.rsen.view.PathButton
+        <com.rsen.view.CirclePathButton
             android:layout_marginTop="10dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -84,12 +88,13 @@
             android:onClick="button"
             app:pathColor="@android:color/holo_red_light"
             app:pathWidth="4dp"
+            android:padding="20dp"
             app:pathOffset="10dp"
             android:text="Touch Me"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
-        <com.rsen.view.PathButton
+        <com.rsen.view.CirclePathButton
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
@@ -98,15 +103,17 @@
             android:textAllCaps="false"
             app:pathOffset="20dp"
             app:pathStartGravity="LEFT_BOTTOM"
+            android:padding="2dp"
             app:pathColor="@color/colorAccent"
             android:textColor="@color/colorAccent" />
 
-        <com.rsen.view.PathButton
+        <com.rsen.view.CirclePathButton
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:onClick="button"
             android:text="Touch Me"
+            android:padding="2dp"
             android:background="@null"
             android:textAllCaps="false"
             app:pathStartGravity="RIGHT_TOP"

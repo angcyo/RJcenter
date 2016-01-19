@@ -66,7 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showDialogTip(String tip) {
-        progressFragment = ProgressFragment.newInstance(tip);
+//        progressFragment = ProgressFragment.newInstance(tip);
         progressFragment.show(getSupportFragmentManager(), "dialog_tip");
     }
 

@@ -80,4 +80,18 @@
             <enum name="LEFT" value="8"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="CirclePathButton">
+        <attr name="circlePathOffset" format="dimension"/>
+        <attr name="circlePathWidth" format="dimension"/>
+        <attr name="circlePathColor" format="color"/>
+        <attr name="circlePathSelectColor" format="color"/>
+        <attr name="circlePathDrawDelay" format="integer"/>
+        <attr name="circlePathDrawStep" format="integer"/>
+        <attr name="circlePathBorderStyle" format="boolean"/>
+        <attr name="circlePathSelectStyle" format="boolean"/>
+        <attr name="circlePathBorderWidth" format="dimension"/>
+        <attr name="circlePathBorderColor" format="color"/>
+        <attr name="circlePathStartAngle" format="float"/>
+    </declare-styleable>
 </resources>

@@ -148,7 +148,7 @@ public class PathButton extends Button {
 
         Drawable background = getBackground();
         int action = event.getAction();
-        e(new Exception().getStackTrace()[0].getMethodName() + "  --  " + action);
+//        e(new Exception().getStackTrace()[0].getMethodName() + "  --  " + action);
 
         if (action == MotionEvent.ACTION_DOWN) {
             onTouchDown(event, background);
