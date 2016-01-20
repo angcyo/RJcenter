@@ -1,4 +1,4 @@
-package com.angcyo.sample.viewdraghelperdemo;
+package com.angcyo.sample.ViewDragHelperDemo;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;

@@ -1,4 +1,4 @@
-package com.angcyo.sample.intentfilterdemo;
+package com.angcyo.sample.IntentFilterDemo;
 
 import android.content.Intent;
 import android.net.Uri;

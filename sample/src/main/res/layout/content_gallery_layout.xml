@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.angcyo.sample.viewdemo.GalleryLayoutActivity"
+    tools:context="com.angcyo.sample.ViewDemo.GalleryLayoutActivity"
     tools:showIn="@layout/activity_gallery_layout">
 
     <com.rsen.viewgroup.GalleryLinearLayout

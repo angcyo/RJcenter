@@ -1,4 +1,4 @@
-package com.angcyo.sample.viewdemo;
+package com.angcyo.sample.ViewDemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

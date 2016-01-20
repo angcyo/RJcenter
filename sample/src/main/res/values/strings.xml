@@ -16,4 +16,5 @@
     <string name="title_activity_package_manager">PackageManagerActivity</string>
     <string name="title_activity_span_demo">SpanDemoActivity</string>
     <string name="title_activity_intent_filter">IntentFilterActivity</string>
+    <string name="title_activity_view_switcher_demo">ViewSwitcherDemo</string>
 </resources>

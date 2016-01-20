@@ -1,4 +1,4 @@
-package com.angcyo.sample.pmdemo;
+package com.angcyo.sample.PMDemo;
 
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;

@@ -1,4 +1,4 @@
-package com.angcyo.sample.launchmode;
+package com.angcyo.sample.LaunchMode;
 
 import android.content.Intent;
 import android.os.Bundle;

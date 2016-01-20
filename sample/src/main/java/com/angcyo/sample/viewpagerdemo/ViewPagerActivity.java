@@ -1,4 +1,4 @@
-package com.angcyo.sample.viewpagerdemo;
+package com.angcyo.sample.ViewPagerDemo;
 
 import android.content.Intent;
 import android.graphics.Color;

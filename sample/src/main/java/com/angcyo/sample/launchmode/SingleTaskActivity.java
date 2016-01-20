@@ -1,4 +1,4 @@
-package com.angcyo.sample.launchmode;
+package com.angcyo.sample.LaunchMode;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;

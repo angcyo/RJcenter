@@ -4,8 +4,6 @@ package com.rsen.util;
 import android.os.CountDownTimer;
 import android.widget.Button;
 
-import com.huika.hksuper.R;
-
 /**
  * 倒计时器
  *
@@ -45,12 +43,10 @@ public class TimeCount extends CountDownTimer {
    * 1分钟
    *
    * @param btn 倒计时按钮
-   * @param endStrRid 计时结束时显示胡字符rid
    */
   public TimeCount(Button btn) {
     super(TIME_COUNT, 1000);
     this.btn = btn;
-    this.endStrRid = R.string.register_getcode_hint;
   }
 
   public TimeCount(Button tv_varify, int normalColor, int timingColor) {

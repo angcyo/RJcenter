@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ViewSwitcherDemo.ViewSwitcherDemoActivity"
+    tools:showIn="@layout/activity_view_switcher_demo">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:stretchColumns="0"
+        android:layout_height="wrap_content">
+
+        <TableRow android:padding="10dp">
+
+            <TextSwitcher
+                android:id="@+id/text_switcher">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I'm Text 1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I'm Text 2" />
+            </TextSwitcher>
+
+        </TableRow>
+
+        <TableRow android:padding="10dp">
+
+            <ImageSwitcher
+                android:id="@+id/image_switcher">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/face_800" />
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/face_700_2" />
+            </ImageSwitcher>
+        </TableRow>
+
+        <TableRow android:padding="10dp">
+
+            <TextSwitcher
+                android:id="@+id/text_switcher2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I'm Text 1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I'm Text 2" />
+            </TextSwitcher>
+
+        </TableRow>
+
+        <TableRow android:padding="10dp">
+
+            <ImageSwitcher
+                android:id="@+id/image_switcher2">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/face_800" />
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/face_700_2" />
+            </ImageSwitcher>
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
