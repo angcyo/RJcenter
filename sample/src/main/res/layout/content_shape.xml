@@ -107,6 +107,10 @@
         android:layout_width="wrap_content"
         android:text="Finish"
         android:onClick="button"
+        android:textAllCaps="false"
+        app:pathBorderStyle="true"
+        app:pathBorderColor="@color/colorAccent"
+        app:pathColor="@color/colorAccent"
         android:layout_height="wrap_content"/>
 
 </RelativeLayout>
