@@ -2,16 +2,16 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:shareInterpolator="false">
     <translate
-        android:duration="500"
-        android:fromXDelta="200%"
+        android:duration="300"
+        android:fromXDelta="150%"
         android:toXDelta="0" />
-    <translate
-        android:duration="500"
-        android:fromXDelta="-50%"
-        android:startOffset="500"
-        android:toXDelta="0" />
-    <alpha
-        android:duration="1000"
-        android:fromAlpha="0"
-        android:toAlpha="1" />
+    <!--<translate-->
+        <!--android:duration="500"-->
+        <!--android:fromXDelta="-50%"-->
+        <!--android:startOffset="500"-->
+        <!--android:toXDelta="0" />-->
+    <!--<alpha-->
+        <!--android:duration="300"-->
+        <!--android:fromAlpha="0"-->
+        <!--android:toAlpha="1" />-->
 </set>
