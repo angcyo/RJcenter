@@ -174,6 +174,8 @@ public class CirclePathButton extends Button {
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStrokeWidth(mPathWidth);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStyle(Paint.Style.STROKE);//
         mPaint.setColor(mPathColor);
         if (mIsBorderStyle) {

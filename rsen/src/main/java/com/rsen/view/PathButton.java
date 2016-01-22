@@ -139,6 +139,8 @@ public class PathButton extends Button {
         mPath = new Path();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStrokeWidth(mPathWidth);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);//
         mPaint.setColor(mPathColor);
         if (mIsBorderStyle) {

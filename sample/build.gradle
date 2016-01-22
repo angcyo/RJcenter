@@ -97,7 +97,8 @@ android {
     dexOptions {
         preDexLibraries = false
         jumboMode = true
-        javaMaxHeapSize "2g"
+        incremental true
+        javaMaxHeapSize "4g"
     }
     getApplicationVariants().all { variant ->
         variant.outputs.each { output ->
