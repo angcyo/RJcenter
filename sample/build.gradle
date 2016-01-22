@@ -75,7 +75,7 @@ android {
         release {
             manifestPlaceholders = [app_name: "@string/app_name_release"]
             buildConfigField "String", "buildType", "\"${name}\""
-            applicationIdSuffix ".release"
+//            applicationIdSuffix ".release"
             minifyEnabled false
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -84,7 +84,7 @@ android {
         debug {
             buildConfigField "String", "buildType", "\"${name}\""
             manifestPlaceholders = [app_name: "@string/app_name_debug"]
-            applicationIdSuffix ".debug"
+//            applicationIdSuffix ".debug"
             minifyEnabled false
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

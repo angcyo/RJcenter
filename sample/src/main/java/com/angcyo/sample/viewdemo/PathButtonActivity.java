@@ -18,6 +18,8 @@ public class PathButtonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_path_button);
 
         initView();
+
+//        new Intent().putExtra("", new RemoteViews());
     }
 
     private void initView() {

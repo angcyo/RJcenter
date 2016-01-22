@@ -196,8 +196,14 @@ public class PathButton extends Button {
         isDown = false;
         isUp = true;
 
-        mCurDrawDelay = 0;//抬手之后, 快速画完
-        mCurDrawStep = (mViewHeight + mViewWidth) / 6;
+        mCurDrawDelay = 10;//抬手之后, 快速画完
+//        mCurDrawStep = (mViewHeight + mViewWidth) / 5;
+//        mCurDrawStep = Math.min(mViewHeight, mViewWidth) * 3 / 4;
+
+//        mCurDrawDelay = 1000 / (mViewWidth + mViewHeight) / mCurDrawStep;
+
+        mCurDrawStep = Math.min(mViewHeight, mViewWidth) / mCurDrawDelay;
+
 
         if (background != null) {
             background.setState(new int[]{});
@@ -305,7 +311,7 @@ public class PathButton extends Button {
         int offset = mPathOffset;
         int step = mCurDrawStep;
 
-        if (curPoint.y == offset) {//上边
+        if (curPoint.y == offset && (curPoint.x > offset && curPoint.x < width - offset)) {//上边
             mMovePathCount |= 0x0010;
             retPoint.y = curPoint.y;
             float sub = curPoint.x + step + offset - width;//超出边框的部分
@@ -317,7 +323,7 @@ public class PathButton extends Button {
             } else {
                 retPoint.x = curPoint.x + step;//横坐标
             }
-        } else if (curPoint.y == height - offset) {//下边
+        } else if (curPoint.y == height - offset && (curPoint.x > offset && curPoint.x < width - offset)) {//下边
             mMovePathCount |= 0x0001;
             retPoint.y = curPoint.y;
             float sub = curPoint.x - step;//超出边框的部分
@@ -330,7 +336,7 @@ public class PathButton extends Button {
                 mPath.moveTo(offset, curPoint.y);//移动到左下角
                 retPoint.y = (int) (curPoint.y - Math.abs(sub));
             }
-        } else if (curPoint.x == offset) {//左边
+        } else if (curPoint.x == offset && (curPoint.y > offset && curPoint.y < height - offset)) {//左边
             mMovePathCount |= 0x1000;
             retPoint.x = curPoint.x;
             float sub = curPoint.y - step - offset;
@@ -342,7 +348,7 @@ public class PathButton extends Button {
                 retPoint.x = (int) (offset + Math.abs(sub));
                 retPoint.y = offset;
             }
-        } else if (curPoint.x == width - offset) {//右边
+        } else if (curPoint.x == width - offset && (curPoint.y > offset && curPoint.y < height - offset)) {//右边
             mMovePathCount |= 0x0100;
             retPoint.x = curPoint.x;
             float sub = curPoint.y + step + offset - height;
