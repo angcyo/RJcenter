@@ -17,6 +17,46 @@
 
         <com.rsen.view.PathButton
             android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:text="pathButton"
+            android:textAllCaps="false"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <com.rsen.view.PathButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="pathButton2"
+            android:textAllCaps="false"
+            app:pathStartGravity="RIGHT_BOTTOM"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <com.rsen.view.PathButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="pathButton3"
+            android:textAllCaps="false"
+            app:pathStartGravity="RIGHT_TOP"
+            app:pathWidth="4dp"
+            app:pathColor="@color/colorPrimary"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <com.rsen.view.PathButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="pathButton4"
+            android:textAllCaps="false"
+            app:pathStartGravity="LEFT_BOTTOM"
+            app:pathWidth="4dp"
+            app:pathRound="10dp"
+            app:pathColor="@color/colorPrimary"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <com.rsen.view.PathButton
+            android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/background_selector"
             android:onClick="pathButton"
@@ -30,23 +70,22 @@
             android:layout_height="100dp"
             android:background="@drawable/background_selector"
             android:onClick="button"
-            app:pathColor="@android:color/holo_red_light"
-            app:pathWidth="4dp"
+            android:padding="10dp"
             android:text="button -- > Touch Me"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
-        <com.rsen.view.PathButton
+        <com.rsen.view.PathButton_old
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:pathColor="@android:color/holo_red_light"
-            app:pathWidth="4dp"
+            app:pathOldColor="@android:color/holo_red_light"
+            app:pathOldWidth="4dp"
             android:text="button"
             android:textAllCaps="false"
             android:textColor="@android:color/black" />
 
-        <com.rsen.view.PathButton
+        <com.rsen.view.PathButton_old
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
@@ -54,19 +93,19 @@
             android:background="@null"
             android:text="button -- > Touch Me"
             android:textAllCaps="false"
-            app:pathStartGravity="BOTTOM"
-            app:pathColor="@color/colorAccent"
+            app:pathOldStartGravity="BOTTOM"
+            app:pathOldColor="@color/colorAccent"
             android:textColor="@color/colorAccent" />
 
-        <com.rsen.view.PathButton
+        <com.rsen.view.PathButton_old
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:onClick="button"
             android:text="Touch Me"
             android:textAllCaps="false"
-            app:pathStartGravity="RIGHT"
-            app:pathColor="@color/colorAccent"
+            app:pathOldStartGravity="RIGHT"
+            app:pathOldColor="@color/colorAccent"
             android:textColor="@color/colorAccent" />
 
     </LinearLayout>
@@ -102,7 +141,7 @@
             app:pathColor="@android:color/holo_red_light"
             app:pathWidth="4dp"
             android:padding="20dp"
-            app:pathOffset="10dp"
+            app:circlePathOffset="10dp"
             app:circlePathSelectStyle="false"
             android:text="Touch Me"
             app:circlePathSelectColor="@android:color/holo_red_light"

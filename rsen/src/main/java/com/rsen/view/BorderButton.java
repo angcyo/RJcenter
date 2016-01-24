@@ -46,7 +46,7 @@ public class BorderButton extends Button {
     }
 
     public BorderButton(Context context, AttributeSet attrs) {
-        this(context, attrs, android.R.attr.buttonStyle);
+        this(context, attrs, android.R.attr.buttonStyleSmall);
     }
 
     public BorderButton(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -63,9 +63,7 @@ public class BorderButton extends Button {
         mBorderBgColorPress = typedArray.getColor(R.styleable.BorderButton_borderBtColorBgPress, mBorderBgColorPress);
         mBorderColorPress = typedArray.getColor(R.styleable.BorderButton_borderBtColorPress, mBorderColorPress);
 
-
         typedArray.recycle();
-
         initView();
     }
 
@@ -91,12 +89,13 @@ public class BorderButton extends Button {
         int pressColorBG = mBorderBgColorPress;
         int colorBG = mBorderBgColor;
 
-        //按下状态
+        //按下状态,边框
         float[] outRadii = new float[]{round, round, round, round, round, round, round, round};
         RoundRectShape pressRectShape = new RoundRectShape(outRadii, new RectF(width, width, width, width), outRadii);
         ShapeDrawable pressShape = new ShapeDrawable(pressRectShape);
         pressShape.getPaint().setColor(pressColor);
 
+        //按下背景
         RoundRectShape pressRectShapeBg = new RoundRectShape(outRadii, null, null);
         ShapeDrawable pressShapeBg = new ShapeDrawable(pressRectShapeBg);
         pressShapeBg.getPaint().setColor(pressColorBG);
@@ -106,11 +105,11 @@ public class BorderButton extends Button {
 
         stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, pressDrawable);
 
-        //正常状态
+        //正常状态,边框
         RoundRectShape rectShape = new RoundRectShape(outRadii, new RectF(width, width, width, width), outRadii);
         ShapeDrawable shape = new ShapeDrawable(rectShape);
         shape.getPaint().setColor(color);
-
+        //正常背景
         RoundRectShape rectShapeBg = new RoundRectShape(outRadii, null, null);
         ShapeDrawable shapeBg = new ShapeDrawable(rectShapeBg);
         shapeBg.getPaint().setColor(colorBG);
