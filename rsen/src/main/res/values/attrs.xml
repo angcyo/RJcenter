@@ -102,4 +102,13 @@
         <attr name="lovePathMinSize" format="dimension"/>
         <attr name="lovePathDrawStep" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="BorderButton">
+        <attr name="borderBtWidth" format="dimension"/>
+        <attr name="borderBtRound" format="dimension"/>
+        <attr name="borderBtColor" format="color"/>
+        <attr name="borderBtColorPress" format="color"/>
+        <attr name="borderBtColorBg" format="color"/>
+        <attr name="borderBtColorBgPress" format="color"/>
+    </declare-styleable>
 </resources>

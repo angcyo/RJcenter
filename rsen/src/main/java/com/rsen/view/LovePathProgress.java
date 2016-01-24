@@ -50,6 +50,10 @@ public class LovePathProgress extends View {
 
     public LovePathProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        mMinSize = ResUtil.dpToPx(getResources(), mMinSize);
+        mPathWidth = ResUtil.dpToPx(getResources(), mPathWidth);
+
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.LovePathProgress);
         mPathColor = typedArray.getColor(R.styleable.LovePathProgress_lovePathColor, mPathColor);
         mPathWidth = typedArray.getDimension(R.styleable.LovePathProgress_lovePathWidth, mPathWidth);
@@ -57,15 +61,12 @@ public class LovePathProgress extends View {
         mDrawStep = typedArray.getInt(R.styleable.LovePathProgress_lovePathDrawStep, mDrawStep);
         mDrawPause = typedArray.getInt(R.styleable.LovePathProgress_lovePathPauseTime, mDrawPause);
         mMinSize = typedArray.getDimension(R.styleable.LovePathProgress_lovePathMinSize, mMinSize);
-
+        typedArray.recycle();
         initView();
     }
 
     private void initView() {
         setWillNotDraw(false);
-        mMinSize = ResUtil.dpToPx(getResources(), mMinSize);
-        mPathWidth = ResUtil.dpToPx(getResources(), mPathWidth);
-
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);

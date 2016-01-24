@@ -147,6 +147,25 @@
             android:paddingBottom="5dp"
             android:layout_height="wrap_content"/>
 
+        <com.rsen.view.BorderButton
+            android:layout_width="wrap_content"
+            android:text="Button"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:text="Button"
+            android:layout_height="wrap_content"/>
+
+        <com.rsen.view.BorderButton
+            android:layout_width="wrap_content"
+            android:text="Button"
+            app:borderBtWidth="1dp"
+            app:borderBtColor="@color/colorAccent"
+            app:borderBtColorBgPress="@color/colorAccent"
+            app:borderBtColorPress="@color/colorAccent"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
 </RelativeLayout>
