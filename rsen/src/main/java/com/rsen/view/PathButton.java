@@ -110,7 +110,7 @@ public class PathButton extends Button {
     }
 
     public PathButton(Context context, AttributeSet attrs) {
-        this(context, attrs, android.R.attr.buttonStyle);
+        this(context, attrs, android.support.v7.appcompat.R.attr.buttonStyle);
     }
 
     public PathButton(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -202,7 +202,7 @@ public class PathButton extends Button {
 
 //        mCurDrawDelay = 1000 / (mViewWidth + mViewHeight) / mCurDrawStep;
 
-        mCurDrawStep = Math.min(mViewHeight, mViewWidth) / mCurDrawDelay ;
+        mCurDrawStep = Math.min(mViewHeight, mViewWidth) / mCurDrawDelay;
 
 
         if (background != null) {

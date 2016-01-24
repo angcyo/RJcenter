@@ -152,9 +152,16 @@
             android:text="Button"
             android:layout_height="wrap_content"/>
 
-        <Button
+        <com.rsen.view.BorderButton
             android:layout_width="wrap_content"
             android:text="Button"
+            app:borderBtWidth="1dp"
+            app:borderBtRound="5dp"
+            app:borderBtColor="@color/colorPrimary"
+            app:borderBtColorBg="#40000000"
+            android:layout_margin="5dp"
+            app:borderBtColorBgPress="@color/colorAccent"
+            app:borderBtColorPress="@color/colorAccent"
             android:layout_height="wrap_content"/>
 
         <com.rsen.view.BorderButton
