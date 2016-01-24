@@ -38,7 +38,7 @@ public class PathButton extends BasePathButton {
      */
     int mStartGravity = 2;
     Drawable bgDrawable;
-    float mPathRound = 4;//dp
+    float mPathRound = 4;//dp 圆角
 
     public PathButton(Context context) {
         this(context, null);
