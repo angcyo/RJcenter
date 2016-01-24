@@ -202,7 +202,7 @@ public class PathButton extends Button {
 
 //        mCurDrawDelay = 1000 / (mViewWidth + mViewHeight) / mCurDrawStep;
 
-        mCurDrawStep = Math.min(mViewHeight, mViewWidth) / mCurDrawDelay;
+        mCurDrawStep = Math.min(mViewHeight, mViewWidth) / mCurDrawDelay ;
 
 
         if (background != null) {

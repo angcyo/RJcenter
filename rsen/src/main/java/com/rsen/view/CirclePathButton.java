@@ -66,6 +66,7 @@ public class CirclePathButton extends Button {
      * path 偏移边框的距离
      */
     int mPathOffset = 4;//
+
     boolean isDown = false;
     boolean isUp = false;
     /**

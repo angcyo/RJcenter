@@ -93,4 +93,13 @@
         <attr name="circlePathBorderColor" format="color"/>
         <attr name="circlePathStartAngle" format="float"/>
     </declare-styleable>
+
+    <declare-styleable name="LovePathProgress">
+        <attr name="lovePathColor" format="color"/>
+        <attr name="lovePathWidth" format="dimension"/>
+        <attr name="lovePathDrawDelay" format="integer"/>
+        <attr name="lovePathPauseTime" format="integer"/>
+        <attr name="lovePathMinSize" format="dimension"/>
+        <attr name="lovePathDrawStep" format="integer"/>
+    </declare-styleable>
 </resources>
