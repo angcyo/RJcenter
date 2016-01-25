@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.angcyo.sample"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.angcyo.sample">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
     <application
@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.angcyo.demo.dialview.DialDemoActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -24,7 +24,7 @@
             android:label="PullLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -34,7 +34,7 @@
             android:label="PullRefreshLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -44,7 +44,7 @@
             android:label="NextScrollViewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -54,23 +54,23 @@
             android:configChanges="screenSize|keyboard|screenLayout|orientation"
             android:label="QqLayoutDemo"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.angcyo.demo.qq.QqActivity"
             android:label="RJcenter-QQ"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="RJcenter-Main"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.angcyo.demo.top.OnePxActivity"
-            android:theme="@style/Dialog"/>
+            android:theme="@style/Dialog" />
         <activity android:name=".ViewDemo.TagRadioGroupActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -80,7 +80,7 @@
             android:label="@string/title_activity_gallery_layout"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -91,7 +91,7 @@
             android:label="@string/title_activity_gallery_layout"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -103,7 +103,7 @@
             android:taskAffinity="com.angcyo"
             android:theme="@style/AppTheme.NoActionBar.Tran">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -112,21 +112,21 @@
             android:name=".LaunchMode.SingleActivity2"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_single2"
-            android:theme="@style/AppTheme.NoActionBar.Tran"/>
+            android:theme="@style/AppTheme.NoActionBar.Tran" />
 
         <!-- android:launchMode="singleInstance" -->
         <!-- android:excludeFromRecents="true" -->
         <activity
             android:name=".LaunchMode.SingleActivity3"
             android:label="@string/title_activity_single3"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 指定任务的堆栈名 android:taskAffinity="com.angcyo" -->
         <activity
             android:name=".LaunchMode.SingleActivity4"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_single4"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 不在历史记录中显示 android:excludeFromRecents="true" -->
         <activity
@@ -134,7 +134,7 @@
             android:label="@string/title_activity_single_task_welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -144,9 +144,9 @@
             android:label="@string/title_activity_view_pager"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <data android:mimeType="image/*"/>
+                <data android:mimeType="image/*" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -157,7 +157,7 @@
             <intent-filter>
 
                 <!-- android:label="@string/title_activity_package_manager" -->
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -166,38 +166,38 @@
         <service
             android:name="com.angcyo.service.MyService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <service
             android:name="com.angcyo.service.MyIntentService"
-            android:exported="false"/>
+            android:exported="false" />
         <service
             android:name="com.angcyo.service.MyService1"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <service
             android:name="com.angcyo.service.MyIntentService1"
-            android:exported="false"/>
+            android:exported="false" />
         <service
             android:name="com.angcyo.service.MyService2"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <service
             android:name="com.angcyo.service.MyIntentService2"
-            android:exported="false"/>
+            android:exported="false" />
 
         <receiver android:name="com.angcyo.receiver.Receiver1">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.angcyo.receiver.Receiver2">
             <intent-filter>
-                <action android:name="android.intent.action.MEDIA_UNMOUNTED"/>
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.angcyo.receiver.Receiver3">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_INSTALL"/>
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
             </intent-filter>
         </receiver>
 
@@ -206,7 +206,7 @@
             android:label="@string/title_activity_span_demo"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -216,27 +216,27 @@
             android:label="@string/title_activity_intent_filter"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity android:name=".IntentFilterDemo.IntentFilterActivitySample">
             <intent-filter>
-                <action android:name="com.angcyo.action"/>
-                <action android:name="com.angcyo.action1"/>
-                <action android:name="com.angcyo.action3"/>
+                <action android:name="com.angcyo.action" />
+                <action android:name="com.angcyo.action1" />
+                <action android:name="com.angcyo.action3" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="com.angcyo1"/>
-                <category android:name="com.angcyo2"/>
-                <category android:name="com.angcyo3"/>
-                <category android:name="com.angcyo4"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.angcyo1" />
+                <category android:name="com.angcyo2" />
+                <category android:name="com.angcyo3" />
+                <category android:name="com.angcyo4" />
 
-                <data android:mimeType="angcyo/*"/>
-                <data android:mimeType="angcyo1/*"/>
-                <data android:mimeType="angcyo2/*"/>
-                <data android:mimeType="angcyo3/*"/>
+                <data android:mimeType="angcyo/*" />
+                <data android:mimeType="angcyo1/*" />
+                <data android:mimeType="angcyo2/*" />
+                <data android:mimeType="angcyo3/*" />
             </intent-filter>
         </activity>
 
@@ -244,13 +244,13 @@
             android:name="com.angcyo.aidl.BookProvider"
             android:authorities="com.angcyo.sample.provider"
             android:permission="com.angcyo.provider"
-            android:process=":provider"/>
+            android:process=":provider" />
 
         <activity android:name=".ViewDemo.PathButtonActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                 <category android:name="android.intent.category.LAUNCHER" />
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
         <activity
@@ -258,9 +258,9 @@
             android:label="@string/title_activity_view_switcher_demo"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity
@@ -268,9 +268,19 @@
             android:label="@string/title_activity_shape"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SurfaceViewMathDemo.SurfaceMathActivity"
+            android:label="@string/title_activity_surface_math"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

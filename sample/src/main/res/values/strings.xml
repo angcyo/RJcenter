@@ -18,4 +18,5 @@
     <string name="title_activity_intent_filter">IntentFilterActivity</string>
     <string name="title_activity_view_switcher_demo">ViewSwitcherDemo</string>
     <string name="title_activity_shape">ShapeActivity</string>
+    <string name="title_activity_surface_math">SurfaceMathActivity</string>
 </resources>
