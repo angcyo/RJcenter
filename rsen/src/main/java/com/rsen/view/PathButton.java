@@ -209,7 +209,10 @@ public class PathButton extends BasePathButton {
 
     @Override
     protected void onDrawPathEnd(Canvas canvas) {
-        this.performClick();//调用单击事件
+        if (!isCancel) {
+            this.performClick();//调用单击事件
+        }
+
         postInvalidate();
     }
 

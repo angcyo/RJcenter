@@ -59,6 +59,13 @@ public abstract class BasePathButton extends Button {
      */
     protected boolean isOneCircle = false;
     protected ArrayList<PointF> mPathList;//
+    @ColorInt
+    protected int mPathColor = Color.RED;
+    /**
+     * path 的宽度
+     */
+    protected float mPathWidth = 2;//dp
+    protected boolean isCancel = false;
     /**
      * 保存path中,所有用到的点坐标
      */
@@ -66,14 +73,7 @@ public abstract class BasePathButton extends Button {
     float mMinSize = 40;//dp 最小的大小
     boolean isDown = false;
     boolean isUp = false;
-
     int mDrawPause = mDrawDelay;//绘制一次之后,暂停多少毫秒
-    @ColorInt
-    protected int mPathColor = Color.RED;
-    /**
-     * path 的宽度
-     */
-    protected float mPathWidth = 2;//dp
 
     public BasePathButton(Context context) {
         super(context);
@@ -123,11 +123,23 @@ public abstract class BasePathButton extends Button {
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
 
-        if (action == MotionEvent.ACTION_DOWN) {
-            onTouchDown();
-        } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL)
-            onTouchUp();
+        if (isCancel) {
+            if (action == MotionEvent.ACTION_UP) {
+                isCancel = false;
+            }
+            return true;
+        }
+        if (action == MotionEvent.ACTION_MOVE && !getDrawRectF().contains(event.getX(), event.getY())) {
+            action = MotionEvent.ACTION_CANCEL;
+            isCancel = true;
+        }
 
+        if (action == MotionEvent.ACTION_DOWN) {
+            isCancel = false;
+            onTouchDown();
+        } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+            onTouchUp();
+        }
         return true;
     }
 
@@ -194,7 +206,7 @@ public abstract class BasePathButton extends Button {
                 }
             }
             postInvalidateDelayed(mCurDrawDelay);
-        }else{
+        } else {
             needDraw(canvas);
         }
     }
