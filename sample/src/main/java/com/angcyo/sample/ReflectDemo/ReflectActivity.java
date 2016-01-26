@@ -4,12 +4,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 
 public class ReflectActivity extends AppCompatActivity {
 
@@ -46,11 +49,44 @@ public class ReflectActivity extends AppCompatActivity {
         return builder.toString();
     }
 
+    public static void binning(Object object,ArrayList<String> jsons, ArrayList<Field> targets) throws IllegalAccessException {
+        if (jsons.size() < 1 || targets.size() < 1) {
+            return;
+        }
+        String json = jsons.remove(0);
+        for (int i = 0; i < targets.size(); i++) {
+            Field field = targets.get(i);
+            if (json.equals(field.getName())) {
+                field.set(object, json);
+                targets.remove(i);
+                break;
+            }
+        }
+        binning(object, jsons, targets);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reflect);
         initView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void initView() {
@@ -65,9 +101,9 @@ public class ReflectActivity extends AppCompatActivity {
         private static String e = "23eeeeee4";
         private static String e2 = "2---23eeeeee4";
         private static String e3 = "3--323eeeeee4";
-        private static String[] e3a = new String[]{"asdf","asdf"};
-        private static int[] ins = new int[]{1,2,3};
-        private static long[] easdf3 = new long[]{1241421,1251125,152};
+        private static String[] e3a = new String[]{"asdf", "asdf"};
+        private static int[] ins = new int[]{1, 2, 3};
+        private static long[] easdf3 = new long[]{1241421, 1251125, 152};
         private final String g = "final g";
         public String d = "dddd234";
         private String f = "fffffffff23eeeeee4";
