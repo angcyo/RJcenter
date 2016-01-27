@@ -450,6 +450,16 @@ public class CirclePathButton extends Button {
         void onSelectChanged(View view, boolean isSelect);
     }
 
+    @Override
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+        postInvalidate();
+    }
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
