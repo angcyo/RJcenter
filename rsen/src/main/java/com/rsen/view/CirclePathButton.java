@@ -36,6 +36,8 @@ public class CirclePathButton extends Button {
      * 用来绘制路径,最重要的成员
      */
     Path mPath;
+//    Path mPath;
+//    Path mPath;
 
     /**
      * 用来绘制对勾的路径,最重要的成员
