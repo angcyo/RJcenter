@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/drakeet/AndroidStudioProjects/MaterialDialog/library/src/main/res/values/color.xml -->
+    <eat-comment />
+    <color name="card_background">#ffffff</color>
+    <color name="card_shadow">#10000000</color>
+    <color name="lite_blue">#ff359ff2</color>
+    <color name="window_background">#00000000</color>
+    <!-- From: file:/Users/drakeet/AndroidStudioProjects/MaterialDialog/library/src/main/res/values/dimens.xml -->
+    <eat-comment />
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/Users/drakeet/AndroidStudioProjects/MaterialDialog/library/src/main/res/values/strings.xml -->
+    <eat-comment />
+</resources>

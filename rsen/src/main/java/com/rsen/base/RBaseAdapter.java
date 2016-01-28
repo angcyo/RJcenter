@@ -16,8 +16,8 @@ import java.util.List;
  */
 public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.RBaseViewHolder> {
 
-    List<T> mAllDatas;
-    Context mContext;
+    protected List<T> mAllDatas;
+    protected Context mContext;
 
 
     public RBaseAdapter(Context context) {
@@ -66,6 +66,10 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
     public void resetData(List<T> datas) {
         this.mAllDatas = datas;
         notifyDataSetChanged();
+    }
+
+    public List<T> getAllDatas() {
+        return mAllDatas;
     }
 
     /**

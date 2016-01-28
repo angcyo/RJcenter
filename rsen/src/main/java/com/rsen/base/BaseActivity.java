@@ -1,14 +1,15 @@
 package com.rsen.base;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.angcyo.rsen.R;
-
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView(savedInstanceState);
         initAfter();
         initEvent();
+        initViewData();
 
         initWindowAnim();
     }
@@ -50,6 +52,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    protected void initViewData() {
+
+    }
+
     /**
      * Init view.
      */
@@ -65,9 +71,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void launchActivity(Class c, Bundle args) {
+        Intent intent = new Intent(this, c);
+        intent.putExtras(args);
+        startActivity(intent);
+    }
+
     public void showDialogTip(String tip) {
 //        progressFragment = ProgressFragment.newInstance(tip);
-        progressFragment.show(getSupportFragmentManager(), "dialog_tip");
+//        progressFragment.show(getSupportFragmentManager(), "dialog_tip");
     }
 
     public void hideDialogTip() {
@@ -104,6 +116,32 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void removeCallbacks(Runnable runnable) {
         handler.removeCallbacks(runnable);
     }
+
+
+    protected void showMaterialDialog(String title, String message,
+                                final View.OnClickListener positiveListener, final View.OnClickListener negativeListener,
+                                DialogInterface.OnDismissListener onDismissListener) {
+        MaterialDialog mMaterialDialog = new MaterialDialog(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("确认", positiveListener)
+                .setNegativeButton("取消", negativeListener)
+                .setOnDismissListener(onDismissListener);
+        mMaterialDialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        EventBus.getDefault().unregister(this);
+//        ButterKnife.unbind(this);
+    }
+
+//    @Subscribe(threadMode = ThreadMode.MainThread)
+//    public void noNet(EventNoNet event) {
+//        hideDialogTip();
+//        PopupTipWindow.showTip(this, "请检查网络连接");
+//    }
 
     static class StaticHandler extends Handler {
         BaseActivity context;
