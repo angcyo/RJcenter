@@ -2,12 +2,15 @@ package com.rsen.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -17,7 +20,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-
 import com.angcyo.rsen.R;
 import com.rsen.util.ResUtil;
 
@@ -131,12 +133,16 @@ public class CirclePathButton extends Button {
      * 当前是否是选中状态
      */
     boolean isSelected = false;
+    boolean isSelectedEnd = false;
 
     /**
      * 开始绘制对勾
      */
     boolean isBeginSelecting = false;
     OnSelectChanged onSelectChanged;
+    Canvas tickCanvas;//绘制对勾在tickBitmap上
+    Drawable tickDrawable;//对勾的drawable,用于解决在 list中的bug
+    Bitmap tickBitmap;
 
     public CirclePathButton(Context context) {
         this(context, null);
@@ -183,6 +189,7 @@ public class CirclePathButton extends Button {
             bgDrawable = ResUtil.generateCircleBgDrawable(mPathWidth, mBorderColor);
             setBackgroundColor(Color.TRANSPARENT);
         }
+        tickCanvas = new Canvas();
     }
 
     @Override
@@ -262,6 +269,7 @@ public class CirclePathButton extends Button {
                     mPathTick.reset();
                     mTickCurIndex = 0;
                     isBeginSelecting = isSelected;
+                    isSelectedEnd = false;
 
                     if (mIsSelectStyle) {
                         if (onSelectChanged != null && !isSelected) {
@@ -287,15 +295,19 @@ public class CirclePathButton extends Button {
                         if (isBeginSelecting) {
                             mTickCurIndex = addNextTickPath(mTickCurIndex);
                         }
+                        if (mTickCurIndex == -1) {
+                            isSelectedEnd = true;
+                            break;
+                        }
                     }
                     canvas.drawPath(mPathTick, mPaint);
                     postInvalidateDelayed(1);
                 } else {
                     mTickCurIndex = 0;
-                    canvas.drawPath(mPathTick, mPaint);
+                    if (isSelectedEnd) {
+                        tickDrawable.draw(canvas);
+                    }
                 }
-            } else {
-
             }
         }
 //        canvas.drawRect(0, 0, mViewWidth, mViewHeight, mPaint);//测试边框
@@ -323,22 +335,47 @@ public class CirclePathButton extends Button {
         if (bgDrawable != null) {
             bgDrawable.setBounds(getPaddingLeft(), getPaddingTop(), w - getPaddingRight(), h - getPaddingBottom());
         }
+        Rect drawRect = getDrawRect();
+        tickBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+//        tickBitmap = Bitmap.createBitmap(drawRect.width(), drawRect.height(), Bitmap.Config.ARGB_8888);
+        tickCanvas.setBitmap(tickBitmap);
 
         fillTickPath();
+
+        /*将对勾绘制出来*/
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setColor(mPathSelectColor);
+        Path path = new Path();
+        for (int i = 0; i < mTickLeftList.size(); i++) {
+            PointF pointF = mTickLeftList.get(i);
+            if (i == 0) {
+                path.moveTo(pointF.x, pointF.y);
+            }
+            path.lineTo(pointF.x, pointF.y);
+        }
+        for (int i = 0; i < mTickRightList.size(); i++) {
+            PointF pointF = mTickRightList.get(i);
+            path.lineTo(pointF.x, pointF.y);
+        }
+        tickCanvas.drawPath(path, mPaint);
+        tickDrawable = new BitmapDrawable(getResources(), tickBitmap);
+        tickDrawable.setBounds((int) -mPathWidth, 0, (int) (w - mPathWidth), h);
     }
 
-    /**对勾的path, 一个点一个点的添加*/
+    /**
+     * 对勾的path, 一个点一个点的添加
+     */
     private void fillTickPath() {
         mPathTick.reset();
         mTickLeftList = new ArrayList<>();
         mTickRightList = new ArrayList<>();
 
         //对勾的path计算
-        RectF rectF = getDrawRectF();
+        Rect rectF = getDrawRect();
         rectF.centerX();
         rectF.centerY();
         float radius = rectF.height() / 2;//半径
-        int padding = getPaddingBottom();//注意 只是用xml中的padding属性
+        int padding = getPaddingLeft();//注意 只是用xml中的padding属性
         PointF startP = new PointF(padding + radius, padding + radius + radius / 2);
 //        PointF endP = new PointF(padding + radius, padding + radius + radius / 2);
         PointF nextP = new PointF(startP.x, startP.y);
@@ -413,6 +450,7 @@ public class CirclePathButton extends Button {
             if (onSelectChanged != null) {
                 onSelectChanged.onSelectChanged(this, true);
             }
+            return -1;
         }
         retIndex++;
         return retIndex;
@@ -431,11 +469,21 @@ public class CirclePathButton extends Button {
     /**
      * 去除padding 的 可绘制区域
      */
+    private Rect getDrawRect() {
+        Rect rect = new Rect();
+        int padding = getPaddingLeft();//注意 只是用xml中的padding属性
+        rect.set(padding, padding, mViewWidth - padding, mViewHeight - padding);
+        return rect;
+    }
+
+    /**
+     * 去除padding 的 可绘制区域
+     */
     private RectF getDrawRectF() {
-        RectF rectF = new RectF();
-        int padding = getPaddingTop();//注意 只是用xml中的padding属性
-        rectF.set(padding, padding, mViewWidth - padding, mViewHeight - padding);
-        return rectF;
+        RectF rect = new RectF();
+        int padding = getPaddingLeft();//注意 只是用xml中的padding属性
+        rect.set(padding, padding, mViewWidth - padding, mViewHeight - padding);
+        return rect;
     }
 
     public void e(String log) {
@@ -446,19 +494,22 @@ public class CirclePathButton extends Button {
         this.onSelectChanged = onSelectChanged;
     }
 
-    public interface OnSelectChanged {
-        void onSelectChanged(View view, boolean isSelect);
-    }
-
     @Override
     public boolean isSelected() {
         return isSelected;
     }
 
     @Override
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-        postInvalidate();
+    public void setSelected(final boolean selected) {
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isSelected = selected;
+                isSelectedEnd = selected;
+                isBeginSelecting = false;
+                postInvalidate();
+            }
+        }, 0);
     }
 
     @Override
@@ -476,5 +527,9 @@ public class CirclePathButton extends Button {
         bundle.putBoolean("IS_SELECT", isSelected);
         bundle.putParcelable("STATE", super.onSaveInstanceState());
         return bundle;
+    }
+
+    public interface OnSelectChanged {
+        void onSelectChanged(View view, boolean isSelect);
     }
 }
