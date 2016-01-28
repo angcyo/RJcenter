@@ -53,7 +53,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
     }
 
     /**
-     * 在最后的位置插入数据
+     * 在最后的位置插入数据;
      */
     public void addItemLast(T bean) {
         mAllDatas.add(bean);
@@ -61,7 +61,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
     }
 
     /**
-     * 重置数据
+     * 重置数据;
      */
     public void resetData(List<T> datas) {
         this.mAllDatas = datas;
@@ -69,7 +69,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
     }
 
     /**
-     * 追加数据
+     * 追加数据;
      */
     public void appendData(List<T> datas) {
         if (datas == null || datas.size() == 0) {
