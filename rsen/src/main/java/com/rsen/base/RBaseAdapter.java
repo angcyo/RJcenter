@@ -68,6 +68,21 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
         notifyDataSetChanged();
     }
 
+    /**
+     * 追加数据
+     */
+    public void appendData(List<T> datas) {
+        if (datas == null || datas.size() == 0) {
+            return;
+        }
+        if (this.mAllDatas == null) {
+            this.mAllDatas = new ArrayList<>();
+        }
+        int startPosition = this.mAllDatas.size();
+        this.mAllDatas.addAll(datas);
+        notifyItemRangeInserted(startPosition, datas.size());
+    }
+
     public List<T> getAllDatas() {
         return mAllDatas;
     }
