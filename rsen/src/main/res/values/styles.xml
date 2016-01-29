@@ -4,4 +4,13 @@
         <item name="android:windowEnterAnimation">@anim/alpha_0to1</item>
         <!--<item name="android:windowExitAnimation">@anim/alpha_1to0</item>-->
     </style>
+
+    <style name="TransparentTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--背景透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--无进入动画-->
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
 </resources>
