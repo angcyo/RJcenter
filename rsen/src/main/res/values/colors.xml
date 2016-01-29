@@ -12,4 +12,13 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <!-- From: file:/Users/drakeet/AndroidStudioProjects/MaterialDialog/library/src/main/res/values/strings.xml -->
     <eat-comment />
+
+
+    <color name="dim_bg">#50000000</color>
+
+    <color name="red_dark">#90FF0000</color>
+    <color name="colorPrimaryDark">#757575</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimary_Dark">#90009688</color>
+    <color name="colorAccent">#009688</color>
 </resources>

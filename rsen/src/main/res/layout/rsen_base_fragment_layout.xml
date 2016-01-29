@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/fragment_layout"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:showIn="@layout/rsen_base_activity_layout">
+
+    <!--内容布局-->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--数据为空时的覆盖布局-->
+    <RelativeLayout
+        android:id="@+id/empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!--love path 动画-->
+            <com.angcyo.ondemand.view.LovePathProgress
+                style="@style/LovePathProgressStyleBase"
+                android:layout_marginBottom="10dp"/>
+
+            <!--提示-->
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/empty_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="没有能展示的数据啦"
+                android:textColor="@color/colorAccent"/>
+
+            <!--刷新按钮-->
+            <com.angcyo.ondemand.view.PathButton
+                android:id="@+id/empty_refresh"
+                style="@style/PathButtonStyleBase"
+                android:text="刷新试试"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </RelativeLayout>
+
+    <!--没有网络时的覆盖布局-->
+    <RelativeLayout
+        android:id="@+id/nonet_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!--love path 动画-->
+            <com.angcyo.ondemand.view.LovePathProgress
+                style="@style/LovePathProgressStyleBase"
+                android:layout_marginBottom="10dp"/>
+
+            <!--提示-->
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/nonet_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="试试以下操作吧"
+                android:textColor="@color/colorAccent"/>
+
+            <com.angcyo.ondemand.view.PathButton
+                android:id="@+id/nonet_refresh"
+                style="@style/PathButtonStyleBase"
+                android:layout_marginTop="10dp"
+                android:text="刷新试试"/>
+
+            <com.angcyo.ondemand.view.PathButton
+                android:id="@+id/nonet_setting"
+                style="@style/PathButtonStyleBase"
+                android:text="网络设置"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </RelativeLayout>
+
+    <!--装载进度布局-->
+    <RelativeLayout
+        android:id="@+id/load_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!--love path 动画-->
+            <com.angcyo.ondemand.view.LovePathProgress
+                style="@style/LovePathProgressStyleBase"
+                android:layout_marginBottom="10dp"/>
+
+            <!--提示-->
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/load_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加载中,请稍后..."
+                android:textColor="@color/colorAccent"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </RelativeLayout>
+</RelativeLayout>

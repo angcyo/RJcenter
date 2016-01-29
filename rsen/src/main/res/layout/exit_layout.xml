@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/exit_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#80000000"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/exit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="再按一次退出"
+        android:textColor="@android:color/white"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/exit_text"
+        android:clickable="false"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/exit1"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="#FDFDFD" />
+
+        <View
+            android:id="@+id/exit2"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="#FDFDFD" />
+
+        <View
+            android:id="@+id/exit3"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="#FDFDFD" />
+    </LinearLayout>
+
+</RelativeLayout>

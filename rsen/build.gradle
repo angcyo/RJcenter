@@ -12,7 +12,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 8
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -31,9 +31,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:support-v4:23.1.1'
+    compile 'de.greenrobot:eventbus:3.0.0-beta1'
+    compile 'com.orhanobut:hawk:1.18'
 }
 
 task myJavadocs(type: Javadoc) {
