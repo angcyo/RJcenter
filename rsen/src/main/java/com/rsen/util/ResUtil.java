@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
@@ -15,6 +16,8 @@ import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
+
+import com.angcyo.rsen.R;
 
 /**
  * Created by angcyo on 15-12-31 031 10:52 上午.
@@ -230,6 +233,9 @@ public class ResUtil {
         }
     }
 
+    /**
+     * 获取状态栏的高度
+     */
     public static int getStatusBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -237,5 +243,15 @@ public class ResUtil {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    /**
+     * 获取ActionBar的高度
+     */
+    public static float getActionBarHeight(Context context) {
+        TypedArray actionbarSizeTypedArray = context.obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
+        float h = actionbarSizeTypedArray.getDimension(0,
+                context.getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
+        return h;
     }
 }
