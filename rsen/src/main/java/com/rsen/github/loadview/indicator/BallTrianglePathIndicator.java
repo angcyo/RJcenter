@@ -18,7 +18,7 @@ public class BallTrianglePathIndicator extends BaseIndicatorController {
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
-        paint.setStrokeWidth(3);
+        paint.setStrokeWidth(5);//rsen 2016-1-31
         paint.setStyle(Paint.Style.STROKE);
         for (int i = 0; i < 3; i++) {
             canvas.save();

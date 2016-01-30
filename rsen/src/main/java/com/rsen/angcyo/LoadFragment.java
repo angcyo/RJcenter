@@ -67,7 +67,7 @@ public class LoadFragment extends RBaseDialogFragment {
         float round = ResUtil.dpToPx(getResources(), 5);
         RoundRectShape rectShape = new RoundRectShape(new float[]{round, round, round, round, round, round, round, round}, null, null);
         ShapeDrawable bgDrawable = new ShapeDrawable(rectShape);
-        bgDrawable.getPaint().setColor(Color.parseColor("#80000000"));
+        bgDrawable.getPaint().setColor(Color.parseColor("#50000000"));
         ResUtil.setBgDrawable(mViewHolder.v(R.id.load_layout), bgDrawable);
     }
 }
