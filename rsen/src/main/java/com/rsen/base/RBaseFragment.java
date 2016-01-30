@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.angcyo.rsen.R;
+import com.rsen.angcyo.MaterialDialog;
+import com.rsen.angcyo.ProgressFragment;
 
 import de.greenrobot.event.EventBus;
 

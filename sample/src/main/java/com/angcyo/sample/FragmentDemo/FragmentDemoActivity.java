@@ -1,10 +1,12 @@
 package com.angcyo.sample.FragmentDemo;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
+import com.rsen.angcyo.LoadFragment;
 import com.rsen.base.RBaseActivity;
-import com.rsen.base.RBaseDialogFragment;
 
 public class FragmentDemoActivity extends RBaseActivity {
 
@@ -34,11 +36,10 @@ public class FragmentDemoActivity extends RBaseActivity {
 
     @Override
     protected void initAfter() {
-
     }
 
     public void button1(View view) {
-        new RBaseDialogFragment().show(getSupportFragmentManager(), "");
+        LoadFragment.launch(getSupportFragmentManager(), "angcyo 很长很长很长很长很长很长的文字");
     }
 
     public void button2(View view) {
@@ -46,11 +47,30 @@ public class FragmentDemoActivity extends RBaseActivity {
     }
 
     public void button3(View view) {
+        Dialog dialog = new Dialog(this);
+//        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+//        RelativeLayout relativeLayout = new RelativeLayout(this);
+//        relativeLayout.setBackgroundColor(Color.RED);
+        TextView textView = new TextView(this);
+        textView.setText("angcyo");
+        textView.setBackgroundColor(Color.YELLOW);
+//        relativeLayout.addView(textView);
+        WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
+//        dialog.getWindow().setLayout(-1,500);
 
+        attributes.width = -1;
+        attributes.height = -2;
+        dialog.getWindow().setAttributes(attributes);
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(textView, new ViewGroup.LayoutParams(-2, -2));
+        dialog.getWindow().setLayout(-1, -2);//setlayout 必须 在 setview 之后, 调用;并且 setBackgroundDrawable 必须设置
+
+        dialog.show();
     }
 
     public void button4(View view) {
-
+        LoadFragment.launch(getSupportFragmentManager(), "");
     }
 
     public static class TestFragment extends DialogFragment {
@@ -58,54 +78,76 @@ public class FragmentDemoActivity extends RBaseActivity {
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setStyle(STYLE_NO_FRAME, getTheme());
-            setStyle(STYLE_NO_TITLE, getTheme());
+//            setStyle(STYLE_NO_FRAME, getTheme());
+//            setStyle(STYLE_NO_TITLE, getTheme());
         }
 
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-
-//            getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
             final Window window = getDialog().getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//            getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            window.addFlags(Window.FEATURE_NO_TITLE);
+            window.requestFeature(Window.FEATURE_NO_TITLE);
+            View rootView = inflater.inflate(com.angcyo.rsen.R.layout.rsen_base_dialog_fragment_layout,  ((ViewGroup) window.findViewById(android.R.id.content)));
+                rootView.findViewById(R.id.fragment_layout).setBackgroundColor(Color.YELLOW);
 
-            WindowManager.LayoutParams attributes = window.getAttributes();
-            attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
-            attributes.height = WindowManager.LayoutParams.MATCH_PARENT;
+//            window.addFlags(Window.FEATURE_NO_TITLE);
+
+//            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+//            WindowManager.LayoutParams attributes = window.getAttributes();
+//            attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
+//            attributes.height = WindowManager.LayoutParams.MATCH_PARENT;
 //            attributes.x = 10;
 //            attributes.y = 10;
 //            attributes.gravity = Gravity.TOP;
-            window.setAttributes(attributes);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            window.setAttributes(attributes);
+//            window.setBackgroundDrawable(new ColorDrawable(Color.BLUE));
 
 //            window.setLayout(300, 400);
 
-            TextView textView = new TextView(getActivity());
-            textView.setText("angcyo");
+//            TextView textView = new TextView(getActivity());
+//            textView.setText("angcyo");
 //            textView.setLayoutParams(new FrameLayout.LayoutParams(2000,2000));
-            textView.setWidth(1180);
-            textView.setHeight(400);
-            textView.setBackgroundColor(Color.RED);
+//            textView.setWidth(1180);
+//            textView.setHeight(400);
+//            textView.setBackgroundColor(Color.RED);
+//            window.setLayout(-1,-1);
+            window.setBackgroundDrawable(new ColorDrawable(Color.BLUE));
 
-            textView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ViewGroup viewById = (ViewGroup) window.findViewById(android.R.id.content);
-                    viewById.getMeasuredWidth();
-                    viewById.getHeight();
-                }
-            }, 1000);
-            try {
-                container.addView(textView);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            WindowManager.LayoutParams attributes = window.getAttributes();
+
+
+//            getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+//           .addView(rootView);
+            attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
+            attributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
+//            attributes.x = 200;
+//            attributes.y = 200;
+            attributes.gravity = Gravity.CENTER;
+            window.setAttributes(attributes);
+//            window.setLayout(-1,-1);
+
+
+//            textView.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    ViewGroup viewById = (ViewGroup) window.findViewById(android.R.id.content);
+//                    viewById.getMeasuredWidth();
+//                    viewById.getHeight();
+//                }
+//            }, 1000);
+//            try {
+//                container.addView(textView);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 //            textView.setLayoutParams(new FrameLayout.LayoutParams(-1,-1));
-            return textView;
+            return null;
         }
 
     }

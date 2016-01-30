@@ -1,4 +1,4 @@
-package com.rsen.base;
+package com.rsen.angcyo;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.angcyo.rsen.R;
+import com.rsen.base.BaseDialogFragment;
 
 
 /**
@@ -71,7 +72,7 @@ public class ProgressFragment extends BaseDialogFragment {
     @Override
     protected void initViewBefore(Bundle savedInstanceState) {
         super.initViewBefore(savedInstanceState);
-        tip = getArguments().getString(KEY_TIP, "");
+        tip = getArguments().getString(KEY_TIP);
         cancel = getArguments().getBoolean(KEY_CANCEL, cancel);
         setCancelable(cancel);
     }

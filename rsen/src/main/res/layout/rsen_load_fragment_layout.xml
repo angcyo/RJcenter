@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/load_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.rsen.github.loadview.AVLoadingIndicatorView
+        android:id="@+id/load_view"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        app:indicator="BallTrianglePath"
+        app:indicator_color="?attr/colorAccent"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/load_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/load_view"
+        android:layout_centerHorizontal="true"
+        android:textColor="?attr/colorAccent"
+        android:layout_margin="10dp"
+        tools:text="加载中..."/>
+</RelativeLayout>

@@ -1,6 +1,8 @@
 package com.rsen.base;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -21,16 +23,33 @@ import com.angcyo.rsen.R;
 /**
  * Created by angcyo on 2016-01-30.
  */
-public class RBaseDialogFragment extends DialogFragment {
+public abstract class RBaseDialogFragment extends DialogFragment {
     protected ViewGroup rootView;
     protected RBaseViewHolder mViewHolder;
     protected Window mWindow;
+    protected RBaseActivity mBaseActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mBaseActivity = (RBaseActivity) activity;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mBaseActivity = (RBaseActivity) context;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mWindow = getDialog().getWindow();
-        WindowManager.LayoutParams mWindowAttributes = mWindow.getAttributes();
+        if (isNoTitle()) {
+            mWindow.requestFeature(Window.FEATURE_NO_TITLE);//必须放在setContextView之前调用
+        }
+        rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_dialog_fragment_layout, (ViewGroup) mWindow.findViewById(android.R.id.content));
+
         if (isStatusTranslucent() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mWindow.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
@@ -40,29 +59,32 @@ public class RBaseDialogFragment extends DialogFragment {
         if (!isDimEnabled()) {
             mWindow.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
-        if (isNoTitle()) {
-            getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        }
+
         getDialog().setCanceledOnTouchOutside(canCanceledOnOutside());
         setCancelable(canCancelable());
         if (canTouchOnOutside()) {
             mWindow.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
         }
-        if (isTransparent()) {
-            mWindow.setBackgroundDrawable(new ColorDrawable(Color.BLUE));
-        }
 
-        mWindowAttributes.width = WindowManager.LayoutParams.MATCH_PARENT;//这个属性需要配合透明背景颜色,才会真正的 MATCH_PARENT
-        mWindowAttributes.height = WindowManager.LayoutParams.MATCH_PARENT;
+        mWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams mWindowAttributes = mWindow.getAttributes();
+        mWindowAttributes.width = getWindowWidth();//这个属性需要配合透明背景颜色,才会真正的 MATCH_PARENT
+        mWindowAttributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
         mWindowAttributes.gravity = getGravity();
         mWindow.setAttributes(mWindowAttributes);
 
-        rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_dialog_fragment_layout, (ViewGroup) mWindow.findViewById(android.R.id.content), false);
-//        rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_dialog_fragment_layout, container, true);
-
-
-        return rootView;
+        mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView));
+        initView(getArguments());
+        return null;
     }
+
+    protected int getWindowWidth() {
+        return WindowManager.LayoutParams.MATCH_PARENT;
+    }
+
+    protected abstract void initView(Bundle arguments);
+
+    protected abstract int getContentView();
 
     /**
      * 返回中心
@@ -78,13 +100,6 @@ public class RBaseDialogFragment extends DialogFragment {
     @StyleRes
     int getAnimStyles() {
         return R.style.DialogWindowAnim;
-    }
-
-    /**
-     * 返回窗口背景的颜色, 0为不设置
-     */
-    protected boolean isTransparent() {
-        return true;
     }
 
     /**
