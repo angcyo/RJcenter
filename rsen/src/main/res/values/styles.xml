@@ -16,9 +16,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">?attr/colorPrimary</item>
+        <item name="colorPrimaryDark">?attr/colorPrimaryDark</item>
+        <item name="colorAccent">?attr/colorAccent</item>
         <!--<item name="android:listPreferredItemHeight"></item>-->
     </style>
 
@@ -52,7 +52,7 @@
         <item name="android:button">@null</item>
         <item name="android:padding">5dp</item>
         <item name="android:layout_margin">2dp</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">?attr/colorAccent</item>
     </style>
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
@@ -62,7 +62,7 @@
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabBackground">?attr/selectableItemBackground</item>
         <item name="tabSelectedTextColor">?attr/colorAccent</item>
-        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
     </style>
 
@@ -76,12 +76,12 @@
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:padding">5dp</item>
-        <item name="lovePathColor">@color/colorAccent</item>
+        <item name="lovePathColor">?attr/colorAccent</item>
     </style>
     <style name="PathButtonStyleBase">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="pathColor">@color/colorAccent</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="pathColor">?attr/colorAccent</item>
     </style>
 </resources>

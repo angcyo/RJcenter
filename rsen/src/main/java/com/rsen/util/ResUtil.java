@@ -14,6 +14,7 @@ import android.graphics.drawable.shapes.ArcShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -253,5 +254,40 @@ public class ResUtil {
         float h = actionbarSizeTypedArray.getDimension(0,
                 context.getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
         return h;
+    }
+
+    /**
+     * 获取 colorAccent 颜色
+     */
+    public static
+    @ColorRes
+    int getThemeColorAccent(Context context) {
+        return getThemeColor(context, "colorAccent");
+    }
+
+    /**
+     * 获取主题声明的颜色
+     */
+    public static
+    @ColorRes
+    int getThemeColor(Context context, String name) {
+//        TypedArray array = getTheme().obtainStyledAttributes(new int[] {
+//                R.color.colorAccent,
+//                android.R.attr.textColorPrimary,
+//        });
+//        int backgroundColor = array.getColor(0, 0xFF00FF);
+//        int textColor = array.getColor(1, 0xFF00FF);
+//        array.recycle();
+        return getThemeIdentifier(context, name, "color");
+    }
+
+    public static float getThemeDimen(Context context, String name) {
+        int id = getThemeIdentifier(context, name, "dimen");
+        return context.getResources().getDimension(id);
+    }
+
+    /**根据name, 在主题中 寻找资源id*/
+    public static int getThemeIdentifier(Context context, String type, String name) {
+        return context.getResources().getIdentifier(name, type, context.getPackageName());
     }
 }

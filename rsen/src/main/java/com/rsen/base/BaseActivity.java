@@ -9,20 +9,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
 
 import com.angcyo.rsen.R;
+import com.rsen.util.ResUtil;
 
 import java.lang.reflect.Field;
 
@@ -36,16 +35,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     public ProgressFragment progressFragment = null;
     public MaterialDialog mMaterialDialog;
     protected LayoutInflater mLayoutInflater;
-    protected ViewGroup mActivityLayout;
-    protected ViewGroup mAppbarLayout;
-    protected ViewGroup mFragmentLayout;
-    protected View mEmptyLayout;
-    protected View mLoadLayout;
-    protected View mNonetLayout;
-    protected FrameLayout mContainerLayout;//内容布局
+    protected ViewGroup mActivityLayout;//Activity的根布局
+    protected ViewGroup mAppbarLayout;//toolbar 包裹布局
+    protected ViewGroup mFragmentLayout;//重要的包裹布局,包含空布局,无网络布局,加载布局
+    protected View mEmptyLayout;//空布局
+    protected View mLoadLayout;//加载布局
+    protected View mNonetLayout;//无网络布局
+    protected FrameLayout mContainerLayout;//内容包裹布局
     protected FloatingActionButton mFab;
     protected Toolbar mToolbar;
     protected RBaseViewHolder mViewHolder;
+    private View stateBarView;//状态栏背景View
 
     /**
      * 获取ActionBar的高度
@@ -60,11 +60,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 获取状态栏的高度
      */
-    public static int getStatusBarHeight(Context context) {
-        int result = 0;
+    public static float getStatusBarHeight(Context context) {
+        float result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
+            result = context.getResources().getDimension(resourceId);
+//            result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
     }
@@ -74,14 +75,33 @@ public abstract class BaseActivity extends AppCompatActivity {
         init();
         initBefore();
         super.onCreate(savedInstanceState);
+        mLayoutInflater = LayoutInflater.from(this);
         initBaseView();
         initBaseViewEvent();
+        initWindow();
+
         initView(savedInstanceState);
         initAfter();
         initEvent();
         initViewData();
+    }
 
-        initWindow();
+    private void initBaseView() {
+        setTheme(R.style.AppTheme_NoActionBar);
+        setContentView(R.layout.rsen_base_activity_layout);
+        mActivityLayout = (ViewGroup) findViewById(R.id.activity_layout);
+        mFragmentLayout = (ViewGroup) findViewById(R.id.fragment_layout);
+        mAppbarLayout = (ViewGroup) findViewById(R.id.appbar_layout);
+        mLoadLayout = findViewById(R.id.load_layout);
+        mContainerLayout = (FrameLayout) findViewById(R.id.container);
+        mEmptyLayout = findViewById(R.id.empty_layout);
+        mNonetLayout = findViewById(R.id.nonet_layout);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        setSupportActionBar(mToolbar);
+
+        /*设置内容布局*/
+        mViewHolder = new RBaseViewHolder(mLayoutInflater.inflate(getContentView(), mContainerLayout, true));
     }
 
     private void initBaseViewEvent() {
@@ -122,39 +142,77 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    private void initBaseView() {
-        mLayoutInflater = LayoutInflater.from(this);
-        setContentView(R.layout.rsen_base_activity_layout);
-        mActivityLayout = (ViewGroup) findViewById(R.id.activity_layout);
-        mFragmentLayout = (ViewGroup) findViewById(R.id.fragment_layout);
-        mAppbarLayout = (ViewGroup) findViewById(R.id.appbar_layout);
-        mLoadLayout = findViewById(R.id.load_layout);
-        mContainerLayout = (FrameLayout) findViewById(R.id.container);
-        mEmptyLayout = findViewById(R.id.empty_layout);
-        mNonetLayout = findViewById(R.id.nonet_layout);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
-        setSupportActionBar(mToolbar);
 
-        /*设置内容布局*/
-        mViewHolder = new RBaseViewHolder(mLayoutInflater.inflate(getContentView(), mContainerLayout, true));
-    }
-
-    protected abstract int getContentView();
+    protected abstract
+    @LayoutRes
+    int getContentView();
 
     //设置窗口动画
     protected void initWindow() {
-        getWindow().setWindowAnimations(R.style.WindowAnim);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
-            // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//导航栏
-
-            View stateBarView = new View(this);
-            stateBarView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, getStatusBarHeight(this)));
-            stateBarView.setBackgroundResource(R.color.colorAccent);
-            ((ViewGroup) findViewById(android.R.id.content)).addView(stateBarView);
+        /*窗口动画*/
+        if (enableWindowAnim()) {
+            getWindow().setWindowAnimations(R.style.WindowAnim);
         }
+        /*透明状态栏*/
+        if (enableStatusTranslucent()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
+
+                if (enableStatusColor()) {
+                    int statusBarHeight = (int) getStatusBarHeight(this);
+                    stateBarView = new View(this);
+                    stateBarView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight));
+                    stateBarView.setBackgroundResource(ResUtil.getThemeColorAccent(this));
+                    ViewGroup viewGroup = ((ViewGroup) findViewById(android.R.id.content));
+                    viewGroup.addView(stateBarView);
+                    mActivityLayout.setFitsSystemWindows(true);
+                }
+            }
+        }
+        /*透明导航栏*/
+        if (enableNavigationTranslucent()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//导航栏
+
+                if (enableNavigationColor()) {
+
+                }
+            }
+        }
+    }
+
+    /**
+     * 激活状态栏半透明
+     */
+    protected boolean enableStatusTranslucent() {
+        return true;
+    }
+
+
+    /**
+     * 启动状态栏颜色, 默认使用 ColorAccent 颜色, rootView 添加padding
+     */
+    protected boolean enableStatusColor() {
+        return true;
+    }
+
+    /**
+     * 启动虚拟导航栏颜色, 默认使用 ColorAccent 颜色
+     */
+    protected boolean enableNavigationColor() {
+        return false;
+    }
+
+    protected boolean enableNavigationTranslucent() {
+        return false;
+    }
+
+    /**
+     * 启动窗口动画
+     */
+    protected boolean enableWindowAnim() {
+        return true;
     }
 
     //初始化
@@ -294,7 +352,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         try {
             Field mPositiveButton = mMaterialDialog.getClass().getDeclaredField("mPositiveButton");
             mPositiveButton.setAccessible(true);
-            ((Button) mPositiveButton.get(mMaterialDialog)).setTextColor(getResources().getColor(R.color.colorAccent));
+            ((Button) mPositiveButton.get(mMaterialDialog)).setTextColor(getResources().getColor(ResUtil.getThemeColorAccent(this)));
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -327,58 +385,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (context != null && msg != null) {
                 context.handMessage(msg, msg.what, msg.obj);
             }
-        }
-    }
-
-    /**
-     * ViewHolder
-     */
-    public static class RBaseViewHolder {
-        private View itemView;
-
-        public RBaseViewHolder(View itemView) {
-            this.itemView = itemView;
-        }
-
-        public View v(@IdRes int resId) {
-            return itemView.findViewById(resId);
-        }
-
-        public View view(@IdRes int resId) {
-            return v(resId);
-        }
-
-        /**
-         * 返回 TextView
-         */
-        public TextView tV(@IdRes int resId) {
-            return (TextView) v(resId);
-        }
-
-        public TextView textView(@IdRes int resId) {
-            return tV(resId);
-        }
-
-        /**
-         * 返回 ImageView
-         */
-        public ImageView imgV(@IdRes int resId) {
-            return (ImageView) v(resId);
-        }
-
-        public ImageView imageView(@IdRes int resId) {
-            return imgV(resId);
-        }
-
-        /**
-         * 返回 ViewGroup
-         */
-        public ViewGroup groupV(@IdRes int resId) {
-            return (ViewGroup) v(resId);
-        }
-
-        public ViewGroup viewGroup(@IdRes int resId) {
-            return groupV(resId);
         }
     }
 

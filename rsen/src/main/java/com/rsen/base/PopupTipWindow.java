@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.angcyo.rsen.R;
+import com.rsen.util.ResUtil;
 
 
 /**
@@ -51,7 +52,7 @@ public class PopupTipWindow {
         rootLayout.setPadding(20, 10, 10, 10);
         rootLayout.setGravity(Gravity.CENTER_VERTICAL);
         rootLayout.setSingleLine();
-        rootLayout.setBackgroundResource(R.color.colorAccent);
+        rootLayout.setBackgroundResource(ResUtil.getThemeColorAccent(context));
     }
 
     public static void showTip(Context context, String tip) {

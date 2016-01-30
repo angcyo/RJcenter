@@ -26,7 +26,7 @@ public abstract class BaseFragment extends Fragment {
     protected BaseActivity mBaseActivity;
     protected ViewGroup rootView;
     protected boolean isCreate = false;
-    protected BaseActivity.RBaseViewHolder mViewHolder;
+    protected RBaseViewHolder mViewHolder;
     protected LayoutInflater mLayoutInflater;
     protected ViewGroup mActivityLayout;
     protected ViewGroup mAppbarLayout;
@@ -47,7 +47,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mLayoutInflater = inflater;
         rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_fragment_layout, container, false);
-        mViewHolder = new BaseActivity.RBaseViewHolder(inflater.inflate(getContentView(), rootView, true));
+        mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView, true));
         initBaseView();
         initBaseViewEvent();
         initView(rootView);
