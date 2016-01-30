@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="angcyo" />
+
+    <Button
+        android:text="button"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--&lt;!&ndash;内容布局&ndash;&gt;-->
+    <!--<FrameLayout-->
+    <!--android:id="@+id/container"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+
+    <!--&lt;!&ndash;数据为空时的覆盖布局&ndash;&gt;-->
+    <!--<include layout="@layout/rsen_base_empty_layout" />-->
+
+    <!--&lt;!&ndash;没有网络时的覆盖布局&ndash;&gt;-->
+    <!--<include layout="@layout/rsen_base_nonet_layout" />-->
+
+    <!--&lt;!&ndash;装载进度布局&ndash;&gt;-->
+    <!--<include layout="@layout/rsen_base_load_layout" />-->
+</RelativeLayout>

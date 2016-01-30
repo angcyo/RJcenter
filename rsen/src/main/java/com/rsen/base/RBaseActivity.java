@@ -164,12 +164,11 @@ public abstract class RBaseActivity extends AppCompatActivity {
                     int statusBarHeight = (int) getStatusBarHeight(this);
                     stateBarView = new View(this);
                     stateBarView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight));
-//                    stateBarView.setBackgroundColor(Color.GREEN);
                     stateBarView.setBackgroundResource(ResUtil.getThemeColorAccent(this));
                     ViewGroup viewGroup = ((ViewGroup) findViewById(android.R.id.content));
                     mActivityLayout.setFitsSystemWindows(true);
                     viewGroup.addView(stateBarView);
-//                    mActivityLayout.addView(stateBarView);
+                    //  mActivityLayout.addView(stateBarView);
                 }
             }
         }

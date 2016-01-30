@@ -25,8 +25,13 @@
     <style name="AppBarStyle" parent="Theme.AppCompat.Light.DarkActionBar" />
 
     <style name="WindowAnim">
-        <item name="android:windowEnterAnimation">@anim/alpha_0to1</item>
-        <item name="android:windowExitAnimation">@anim/alpha_1to0</item>
+        <item name="android:windowEnterAnimation">@anim/default_window_enter_alpha_anim</item>
+        <item name="android:windowExitAnimation">@anim/default_window_exit_alpha_anim</item>
+    </style>
+
+    <style name="DialogWindowAnim">
+        <item name="android:windowEnterAnimation">@anim/dialog_fragment_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_fragment_exit_anim</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
