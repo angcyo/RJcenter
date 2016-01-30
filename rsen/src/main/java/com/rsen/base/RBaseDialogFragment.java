@@ -1,10 +1,10 @@
 package com.rsen.base;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -48,16 +48,16 @@ public class RBaseDialogFragment extends DialogFragment {
         if (canTouchOnOutside()) {
             mWindow.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
         }
-
-        mWindowAttributes.width = WindowManager.LayoutParams.MATCH_PARENT;
-        mWindowAttributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        mWindowAttributes.gravity = getGravity();
-
-        if (getWindowColor() != 0) {
-            mWindow.setBackgroundDrawable(new ColorDrawable(getWindowColor()));
+        if (isTransparent()) {
+            mWindow.setBackgroundDrawable(new ColorDrawable(Color.BLUE));
         }
-        rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_dialog_fragment_layout, null);
+
+        mWindowAttributes.width = WindowManager.LayoutParams.MATCH_PARENT;//这个属性需要配合透明背景颜色,才会真正的 MATCH_PARENT
+        mWindowAttributes.height = WindowManager.LayoutParams.MATCH_PARENT;
+        mWindowAttributes.gravity = getGravity();
         mWindow.setAttributes(mWindowAttributes);
+
+        rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_dialog_fragment_layout, (ViewGroup) mWindow.findViewById(android.R.id.content), false);
 //        rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_dialog_fragment_layout, container, true);
 
 
@@ -83,10 +83,8 @@ public class RBaseDialogFragment extends DialogFragment {
     /**
      * 返回窗口背景的颜色, 0为不设置
      */
-    protected
-    @ColorInt
-    int getWindowColor() {
-        return 0;
+    protected boolean isTransparent() {
+        return true;
     }
 
     /**
@@ -100,7 +98,7 @@ public class RBaseDialogFragment extends DialogFragment {
      * 是否背景变暗
      */
     protected boolean isDimEnabled() {
-        return false;
+        return true;
     }
 
     /**
