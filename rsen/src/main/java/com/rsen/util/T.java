@@ -46,7 +46,6 @@ public class T {
         if (toast == null) {
             toast = Toast.makeText(content, text, Toast.LENGTH_SHORT);
         }
-
         return toast;
     }
 }

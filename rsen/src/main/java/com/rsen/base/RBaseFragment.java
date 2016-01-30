@@ -1,13 +1,13 @@
 package com.rsen.base;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +21,9 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by angcyo on 15-08-31-031.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class RBaseFragment extends Fragment {
 
-    protected BaseActivity mBaseActivity;
+    protected RBaseActivity mBaseActivity;
     protected ViewGroup rootView;
     protected boolean isCreate = false;
     protected RBaseViewHolder mViewHolder;
@@ -93,6 +93,10 @@ public abstract class BaseFragment extends Fragment {
 
     protected void onOverlayRefresh(View v) {
 
+    }
+
+    public void showToast(String msg) {
+        mBaseActivity.showToast(msg);
     }
 
     protected void showEmptyLayout() {
@@ -222,7 +226,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mBaseActivity = (BaseActivity) context;
+        mBaseActivity = (RBaseActivity) context;
     }
 
     public void showDialogTip(String tip) {
@@ -253,7 +257,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mBaseActivity = (BaseActivity) activity;
+        mBaseActivity = (RBaseActivity) activity;
     }
 
     protected void e(String log) {

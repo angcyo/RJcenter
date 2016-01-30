@@ -3,9 +3,9 @@ package com.angcyo.sample.FragmentDemo;
 import android.os.Bundle;
 
 import com.angcyo.sample.R;
-import com.rsen.base.BaseActivity;
+import com.rsen.base.RBaseActivity;
 
-public class FragmentDemoActivity extends BaseActivity {
+public class FragmentDemoActivity extends RBaseActivity {
 
     @Override
     protected int getContentView() {

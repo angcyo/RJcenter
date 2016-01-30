@@ -286,8 +286,10 @@ public class ResUtil {
         return context.getResources().getDimension(id);
     }
 
-    /**根据name, 在主题中 寻找资源id*/
-    public static int getThemeIdentifier(Context context, String type, String name) {
+    /**
+     * 根据name, 在主题中 寻找资源id
+     */
+    public static int getThemeIdentifier(Context context, String name, String type) {
         return context.getResources().getIdentifier(name, type, context.getPackageName());
     }
 }

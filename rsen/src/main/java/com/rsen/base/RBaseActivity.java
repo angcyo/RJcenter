@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 
 import com.angcyo.rsen.R;
 import com.rsen.util.ResUtil;
+import com.rsen.util.T;
 
 import java.lang.reflect.Field;
 
@@ -29,7 +30,7 @@ import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class RBaseActivity extends AppCompatActivity {
 
     public static Handler handler;
     public ProgressFragment progressFragment = null;
@@ -121,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     intent.setComponent(component);
                     intent.setAction("android.intent.action.VIEW");
                 }
-                BaseActivity.this.startActivity(intent);
+                RBaseActivity.this.startActivity(intent);
             }
         });
         mNonetLayout.findViewById(R.id.nonet_refresh).setOnClickListener(new View.OnClickListener() {
@@ -163,10 +164,12 @@ public abstract class BaseActivity extends AppCompatActivity {
                     int statusBarHeight = (int) getStatusBarHeight(this);
                     stateBarView = new View(this);
                     stateBarView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight));
+//                    stateBarView.setBackgroundColor(Color.GREEN);
                     stateBarView.setBackgroundResource(ResUtil.getThemeColorAccent(this));
                     ViewGroup viewGroup = ((ViewGroup) findViewById(android.R.id.content));
-                    viewGroup.addView(stateBarView);
                     mActivityLayout.setFitsSystemWindows(true);
+                    viewGroup.addView(stateBarView);
+//                    mActivityLayout.addView(stateBarView);
                 }
             }
         }
@@ -282,6 +285,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void showToast(String msg) {
+        T.show(this, msg);
+    }
+
     protected void showEmptyLayout() {
 //        mContainerLayout.setVisibility(View.GONE);
         mNonetLayout.setVisibility(View.GONE);
@@ -373,9 +380,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     static class StaticHandler extends Handler {
-        BaseActivity context;
+        RBaseActivity context;
 
-        public StaticHandler(BaseActivity context) {
+        public StaticHandler(RBaseActivity context) {
             this.context = context;
         }
 
