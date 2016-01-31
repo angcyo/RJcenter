@@ -19,11 +19,21 @@ import com.rsen.util.ResUtil;
  */
 public class LoadFragment extends RBaseDialogFragment {
     public static final String KEY_TIP = "tip";
+    public static final String KEY_DIM = "dim";
+    public static final String KEY_CANCEL = "cancel";
     private String tip;
+    private boolean isDim = false;
+    private boolean canCancel = false;
 
     public static void launch(@NonNull FragmentManager fragmentManager, String tip) {
+        launch(fragmentManager, tip, false, true);
+    }
+
+    public static void launch(@NonNull FragmentManager fragmentManager, String tip, boolean isDim, boolean canCancel) {
         Bundle bundle = new Bundle();
         bundle.putString(KEY_TIP, tip);
+        bundle.putBoolean(KEY_DIM, isDim);
+        bundle.putBoolean(KEY_CANCEL, canCancel);
         LoadFragment fragment = new LoadFragment();
         fragment.setArguments(bundle);
         fragment.show(fragmentManager, LoadFragment.class.getSimpleName());
@@ -54,20 +64,25 @@ public class LoadFragment extends RBaseDialogFragment {
     }
 
     @Override
+    protected boolean canCancelable() {
+        return canCancel;
+    }
+
+    @Override
     protected int getGravity() {
         return Gravity.CENTER;
     }
 
     @Override
     protected boolean isDimEnabled() {
-        return false;
+        return isDim;
     }
 
     private void initBgDrawable() {
         float round = ResUtil.dpToPx(getResources(), 5);
         RoundRectShape rectShape = new RoundRectShape(new float[]{round, round, round, round, round, round, round, round}, null, null);
         ShapeDrawable bgDrawable = new ShapeDrawable(rectShape);
-        bgDrawable.getPaint().setColor(Color.parseColor("#50000000"));
+        bgDrawable.getPaint().setColor(Color.parseColor("#40000000"));
         ResUtil.setBgDrawable(mViewHolder.v(R.id.load_layout), bgDrawable);
     }
 }

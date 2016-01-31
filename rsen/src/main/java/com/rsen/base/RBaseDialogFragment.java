@@ -69,13 +69,17 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         mWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams mWindowAttributes = mWindow.getAttributes();
         mWindowAttributes.width = getWindowWidth();//这个属性需要配合透明背景颜色,才会真正的 MATCH_PARENT
-        mWindowAttributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        mWindowAttributes.height = getWindowHeight();
         mWindowAttributes.gravity = getGravity();
         mWindow.setAttributes(mWindowAttributes);
 
         mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView));
         initView(getArguments());
         return null;
+    }
+
+    protected int getWindowHeight() {
+        return WindowManager.LayoutParams.WRAP_CONTENT;
     }
 
     protected int getWindowWidth() {

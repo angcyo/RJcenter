@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.angcyo.sample.R;
 import com.rsen.angcyo.LoadFragment;
 import com.rsen.base.RBaseActivity;
+import com.rsen.util.L;
 
 public class FragmentDemoActivity extends RBaseActivity {
 
@@ -32,6 +33,38 @@ public class FragmentDemoActivity extends RBaseActivity {
 //
 //        setSupportActionBar((Toolbar) mViewHolder.v(R.id.toolbar));
 //        mAppbarLayout.setFitsSystemWindows(true);
+        mViewHolder.v(R.id.edit_text).setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                L.e("" + visibility);
+            }
+        });
+
+        mViewHolder.v(R.id.edit_text).addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                L.e("");
+            }
+        });
+
+        mViewHolder.viewGroup(R.id.root_layout).setOnHierarchyChangeListener(new ViewGroup.OnHierarchyChangeListener() {
+            @Override
+            public void onChildViewAdded(View parent, View child) {
+                L.e("");
+            }
+
+            @Override
+            public void onChildViewRemoved(View parent, View child) {
+                L.e("");
+            }
+        });
+
+        mActivityLayout.setFitsSystemWindows(false);
+    }
+
+    @Override
+    protected boolean enableStatusColor() {
+        return true;
     }
 
     @Override
@@ -48,7 +81,7 @@ public class FragmentDemoActivity extends RBaseActivity {
 
     public void button3(View view) {
         Dialog dialog = new Dialog(this);
-//        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 //        RelativeLayout relativeLayout = new RelativeLayout(this);
 //        relativeLayout.setBackgroundColor(Color.RED);
         TextView textView = new TextView(this);
