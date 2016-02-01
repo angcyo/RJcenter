@@ -14,7 +14,6 @@ import android.graphics.drawable.shapes.ArcShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
-import android.support.annotation.ColorRes;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -259,18 +258,14 @@ public class ResUtil {
     /**
      * 获取 colorAccent 颜色
      */
-    public static
-    @ColorRes
-    int getThemeColorAccent(Context context) {
+    public static int getThemeColorAccent(Context context) {
         return getThemeColor(context, "colorAccent");
     }
 
     /**
      * 获取主题声明的颜色
      */
-    public static
-    @ColorRes
-    int getThemeColor(Context context, String name) {
+    public static int getThemeColor(Context context, String name) {
 //        TypedArray array = getTheme().obtainStyledAttributes(new int[] {
 //                R.color.colorAccent,
 //                android.R.attr.textColorPrimary,

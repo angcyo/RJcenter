@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <com.rsen.viewgroup.ArcBgView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@android:color/white"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="40dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="我是标题文本"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="这里是用来显示内容区域的文本,内容可以很长很长很长,并且可以很长很长很长很长很长很长很长很长的;"
+            android:textColor="#3e3e3e"/>
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/control_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/content"
+            android:orientation="horizontal">
+
+            <!--消极的按钮-->
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/negative_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="取消"
+                android:textColor="#3e3e3e"/>
+
+            <!--中立的按钮-->
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/neutral_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="放弃"
+                android:textColor="#3e3e3e"/>
+
+            <!--积极的按钮-->
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/positive_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="0dp"
+                android:layout_weight="1"
+                android:background="?attr/colorAccent"
+                android:text="确定"
+                android:textColor="#ffffff"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </com.rsen.viewgroup.ArcBgView>
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/question_128"/>
+</RelativeLayout>

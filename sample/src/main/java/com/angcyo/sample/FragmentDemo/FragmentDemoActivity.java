@@ -15,7 +15,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
-import com.rsen.angcyo.LoadFragment;
+import com.rsen.angcyo.CommonDialogFragment;
+import com.rsen.angcyo.LoadDialogFragment;
 import com.rsen.base.RBaseActivity;
 import com.rsen.util.L;
 
@@ -72,11 +73,12 @@ public class FragmentDemoActivity extends RBaseActivity {
     }
 
     public void button1(View view) {
-        LoadFragment.launch(getSupportFragmentManager(), "angcyo 很长很长很长很长很长很长的文字");
+        LoadDialogFragment.launch(getSupportFragmentManager(), "angcyo 很长很长很长很长很长很长的文字");
     }
 
     public void button2(View view) {
-        new TestFragment().show(getSupportFragmentManager(), "");
+        //new TestFragment().show(getSupportFragmentManager(), "");
+        CommonDialogFragment.launch(getSupportFragmentManager());
     }
 
     public void button3(View view) {
@@ -103,7 +105,7 @@ public class FragmentDemoActivity extends RBaseActivity {
     }
 
     public void button4(View view) {
-        LoadFragment.launch(getSupportFragmentManager(), "");
+        LoadDialogFragment.launch(getSupportFragmentManager(), "");
     }
 
     public static class TestFragment extends DialogFragment {

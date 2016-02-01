@@ -15,14 +15,16 @@ import com.rsen.base.RBaseDialogFragment;
 import com.rsen.util.ResUtil;
 
 /**
+ * 装载进度对话框
+ * <p/>
  * Created by angcyo on 16-01-31-031.
  */
-public class LoadFragment extends RBaseDialogFragment {
+public class LoadDialogFragment extends RBaseDialogFragment {
     public static final String KEY_TIP = "tip";
     public static final String KEY_DIM = "dim";
     public static final String KEY_CANCEL = "cancel";
     private String tip;
-    private boolean isDim = false;
+    private boolean isDim = true;
     private boolean canCancel = false;
 
     public static void launch(@NonNull FragmentManager fragmentManager, String tip) {
@@ -34,28 +36,35 @@ public class LoadFragment extends RBaseDialogFragment {
         bundle.putString(KEY_TIP, tip);
         bundle.putBoolean(KEY_DIM, isDim);
         bundle.putBoolean(KEY_CANCEL, canCancel);
-        LoadFragment fragment = new LoadFragment();
+        LoadDialogFragment fragment = new LoadDialogFragment();
         fragment.setArguments(bundle);
-        fragment.show(fragmentManager, LoadFragment.class.getSimpleName());
+        fragment.show(fragmentManager, LoadDialogFragment.class.getSimpleName());
     }
 
     @Override
-    protected void initView(Bundle arguments) {
+    protected void initArguments(Bundle arguments) {
+        super.initArguments(arguments);
         if (arguments != null) {
             tip = arguments.getString(KEY_TIP);
+            isDim = arguments.getBoolean(KEY_DIM, isDim);
+            canCancel = arguments.getBoolean(KEY_CANCEL, canCancel);
         }
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
         if (TextUtils.isEmpty(tip)) {
             mViewHolder.v(R.id.load_tip).setVisibility(View.GONE);
         } else {
             mViewHolder.tV(R.id.load_tip).setText(tip);
         }
-
         initBgDrawable();//设置圆角背景
     }
 
     @Override
     protected int getContentView() {
-        return R.layout.rsen_load_fragment_layout;
+        return R.layout.rsen_load_dialog_fragment;
     }
 
     @Override

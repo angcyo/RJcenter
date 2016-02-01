@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import com.angcyo.rsen.R;
 
 /**
+ * 对话框DialogFragment的基类
  * Created by angcyo on 2016-01-30.
  */
 public abstract class RBaseDialogFragment extends DialogFragment {
@@ -44,6 +45,8 @@ public abstract class RBaseDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        initArguments(getArguments());
+
         mWindow = getDialog().getWindow();
         if (isNoTitle()) {
             mWindow.requestFeature(Window.FEATURE_NO_TITLE);//必须放在setContextView之前调用
@@ -74,8 +77,12 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         mWindow.setAttributes(mWindowAttributes);
 
         mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView));
-        initView(getArguments());
+        initView();
         return null;
+    }
+
+    protected void initArguments(Bundle arguments) {
+
     }
 
     protected int getWindowHeight() {
@@ -86,7 +93,8 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         return WindowManager.LayoutParams.MATCH_PARENT;
     }
 
-    protected abstract void initView(Bundle arguments);
+    protected void initView(){
+    }
 
     protected abstract int getContentView();
 
