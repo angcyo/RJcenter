@@ -78,7 +78,7 @@ public class FragmentDemoActivity extends RBaseActivity {
 
     public void button2(View view) {
         //new TestFragment().show(getSupportFragmentManager(), "");
-        CommonDialogFragment.launch(getSupportFragmentManager());
+        CommonDialogFragment.launch(getSupportFragmentManager(), "", "").setClickListener(new CommonDialogFragment.SimpleButtonClickListener());
     }
 
     public void button3(View view) {
@@ -108,6 +108,41 @@ public class FragmentDemoActivity extends RBaseActivity {
         LoadDialogFragment.launch(getSupportFragmentManager(), "");
     }
 
+
+    public void button5(View view) {
+        CommonDialogFragment.launch(getSupportFragmentManager(), "提示", "确定退出吗?").setClickListener(new CommonDialogFragment.SimpleButtonClickListener(){
+            @Override
+            public boolean onNegativeButtonClick(View view) {
+                return false;
+            }
+        });
+    }
+
+
+    public void button6(View view) {
+        //new TestFragment().show(getSupportFragmentManager(), "");
+        CommonDialogFragment.launch(getSupportFragmentManager(), "提示", "").setClickListener(new CommonDialogFragment.SimpleButtonClickListener());
+    }
+
+
+    public void button7(View view) {
+        //new TestFragment().show(getSupportFragmentManager(), "");
+        CommonDialogFragment.launch(getSupportFragmentManager(), "", "无内容").setClickListener(new CommonDialogFragment.SimpleButtonClickListener());
+    }
+
+
+    public void button8(View view) {
+        //new TestFragment().show(getSupportFragmentManager(), "");
+        CommonDialogFragment.launch(getSupportFragmentManager(), "", "").setClickListener(new CommonDialogFragment.SimpleButtonClickListener());
+    }
+
+
+    public void button9(View view) {
+        //new TestFragment().show(getSupportFragmentManager(), "");
+        CommonDialogFragment.launch(getSupportFragmentManager(), "", "").setClickListener(new CommonDialogFragment.SimpleButtonClickListener());
+    }
+
+
     public static class TestFragment extends DialogFragment {
 
         @Override
@@ -124,8 +159,8 @@ public class FragmentDemoActivity extends RBaseActivity {
 //            getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 //            window.addFlags(Window.FEATURE_NO_TITLE);
             window.requestFeature(Window.FEATURE_NO_TITLE);
-            View rootView = inflater.inflate(com.angcyo.rsen.R.layout.rsen_base_dialog_fragment_layout,  ((ViewGroup) window.findViewById(android.R.id.content)));
-                rootView.findViewById(R.id.fragment_layout).setBackgroundColor(Color.YELLOW);
+            View rootView = inflater.inflate(com.angcyo.rsen.R.layout.rsen_base_dialog_fragment_layout, ((ViewGroup) window.findViewById(android.R.id.content)));
+            rootView.findViewById(R.id.fragment_layout).setBackgroundColor(Color.YELLOW);
 
 //            window.addFlags(Window.FEATURE_NO_TITLE);
 

@@ -57,18 +57,42 @@
             android:onClick="button4"
             android:text="button4"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="button5"
+            android:text="button5"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="button6"
+            android:text="button6"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="button7"
+            android:text="button7"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="button8"
+            android:text="button8"/>
+
     </LinearLayout>
 
     <com.rsen.viewgroup.ArcBgView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
-        android:layout_height="wrap_content">
+        android:background="@color/colorAccent">
 
         <View
             android:layout_width="100dp"
-            android:background="#30ffffff"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            android:background="#30ffffff"/>
     </com.rsen.viewgroup.ArcBgView>
 
 </RelativeLayout>

@@ -52,8 +52,8 @@ public class LoadDialogFragment extends RBaseDialogFragment {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
         if (TextUtils.isEmpty(tip)) {
             mViewHolder.v(R.id.load_tip).setVisibility(View.GONE);
         } else {

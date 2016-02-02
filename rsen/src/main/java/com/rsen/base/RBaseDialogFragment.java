@@ -25,10 +25,14 @@ import com.angcyo.rsen.R;
  * Created by angcyo on 2016-01-30.
  */
 public abstract class RBaseDialogFragment extends DialogFragment {
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MSG = "msg";
     protected ViewGroup rootView;
     protected RBaseViewHolder mViewHolder;
     protected Window mWindow;
     protected RBaseActivity mBaseActivity;
+    protected String mDialogTitle;
+    protected String mDialogMsg;
 
     @Override
     public void onAttach(Activity activity) {
@@ -77,11 +81,15 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         mWindow.setAttributes(mWindowAttributes);
 
         mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView));
-        initView();
+        initView(savedInstanceState);
         return null;
     }
 
     protected void initArguments(Bundle arguments) {
+        if (arguments != null) {
+            mDialogTitle = arguments.getString(KEY_TITLE);
+            mDialogMsg = arguments.getString(KEY_MSG);
+        }
 
     }
 
@@ -93,7 +101,7 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         return WindowManager.LayoutParams.MATCH_PARENT;
     }
 
-    protected void initView(){
+    protected void initView(Bundle savedInstanceState) {
     }
 
     protected abstract int getContentView();

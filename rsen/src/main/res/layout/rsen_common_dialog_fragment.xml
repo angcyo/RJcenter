@@ -11,32 +11,30 @@
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="40dp">
+        android:paddingTop="30dp">
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="我是标题文本"
+            android:layout_margin="5dp"
             android:textColor="@android:color/black"
             android:textSize="18sp"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/content"
+            android:id="@+id/msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="这里是用来显示内容区域的文本,内容可以很长很长很长,并且可以很长很长很长很长很长很长很长很长的;"
+            android:layout_margin="10dp"
             android:textColor="#3e3e3e"/>
 
         <android.support.v7.widget.LinearLayoutCompat
             android:id="@+id/control_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/content"
+            android:layout_below="@id/msg"
             android:orientation="horizontal">
 
             <!--消极的按钮-->
