@@ -21,6 +21,7 @@ import android.widget.Button;
 import com.angcyo.rsen.R;
 
 /**
+ * 边框button, 只有边框
  * Created by angcyo on 16-01-24-024.
  */
 public class BorderButton extends Button {

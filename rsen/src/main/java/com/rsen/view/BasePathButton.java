@@ -17,6 +17,8 @@ import com.rsen.util.ResUtil;
 import java.util.ArrayList;
 
 /**
+ * 公共path的基类
+ *
  * Created by angcyo on 16-01-24-024.
  */
 public abstract class BasePathButton extends Button {

@@ -22,6 +22,9 @@ import com.rsen.util.ResUtil;
 import java.util.ArrayList;
 
 /**
+ * Path button, 按压时 足渐 绘制path
+ * 放手时 快速绘制,直至完成
+ *
  * Created by angcyo on 16-01-24-024.
  */
 public class PathButton extends BasePathButton {
