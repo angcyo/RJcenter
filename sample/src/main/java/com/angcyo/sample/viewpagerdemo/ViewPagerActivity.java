@@ -1,6 +1,5 @@
 package com.angcyo.sample.ViewPagerDemo;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,10 +19,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
+import com.rsen.view.CircleIndicator;
 
 public class ViewPagerActivity extends AppCompatActivity {
 
     ViewPager viewPager;
+    CircleIndicator circleIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,8 @@ public class ViewPagerActivity extends AppCompatActivity {
         });
         initView();
 
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        startActivity(intent);
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        startActivity(intent);
     }
 
     private void initView() {
@@ -52,6 +53,9 @@ public class ViewPagerActivity extends AppCompatActivity {
 //        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         viewPager.setPageTransformer(true, new DepthPageTransformer());
         viewPager.setOffscreenPageLimit(0);
+
+        circleIndicator = (CircleIndicator) findViewById(R.id.indicator);
+        circleIndicator.setViewPager(viewPager);
     }
 
     public static class RFragment extends Fragment {
