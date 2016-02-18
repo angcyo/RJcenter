@@ -2,14 +2,14 @@ package com.angcyo.demo.retrofit;
 
 import android.util.Log;
 
-import com.squareup.okhttp.ResponseBody;
-
 import java.io.IOException;
 
-import retrofit.Call;
-import retrofit.Response;
-import retrofit.Retrofit;
-import retrofit.http.GET;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+
 
 /**
  * Created by angcyo on 15-12-18 018 12:31 下午.

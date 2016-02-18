@@ -2,17 +2,17 @@ package com.angcyo.demo.qq;
 
 import android.util.Log;
 
-import com.squareup.okhttp.ResponseBody;
-
 import java.io.IOException;
 
-import retrofit.Call;
-import retrofit.Response;
-import retrofit.Retrofit;
-import retrofit.http.GET;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+
 
 /**
  * Created by angcyo on 15-12-22-022.
