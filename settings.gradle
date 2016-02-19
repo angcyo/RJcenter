@@ -1,4 +1,4 @@
-include ':rsen', ':sample'
+//include ':aardemo'
 //        ':rxjavademo',
 //        ':javademo',
 //        ':slidr'
@@ -6,4 +6,6 @@ include ':rsen', ':sample'
 //include ':groovydemo'
 
 include ':slidr'
+include ':rsen'
+include ':sample'
 //include ':rsen_qq'
