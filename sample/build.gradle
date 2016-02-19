@@ -113,8 +113,8 @@ android {
                     "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}${time}.apk")
         }
     }
-    sourceSets{
-        main{
+    sourceSets {
+        main {
             java.srcDirs = ['src/main/java', 'src/main/aidl']
         }
     }
@@ -123,15 +123,17 @@ android {
 //        targetCompatibility 1.8
 //        sourceCompatibility 1.8
 //    }
-}
 
-repositories {
-    flatDir {
-        dirs 'libs'
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
+
 dependencies {
-    compile(name:'aardemo-debug', ext:'aar')
+    compile(name:'aaaa-1.0', ext:'aar')
 
     //    compile 'com.angcyo:L:1.1.0'
     //    compile 'com.rsen:rsen:0.0.1'
@@ -143,7 +145,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.cocosw:query:0.2.2'
     //    compile 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
-        compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
 //    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
 }
 
@@ -173,7 +175,6 @@ tasks.withType(JavaCompile) {
 }
 
 
-
 def getTime() {
     return new Date().format("yyyy-MM-dd")
 }
@@ -183,14 +184,15 @@ def buildTime() {
 }
 
 def hostName() {
-    return System.getProperty("user.home").replaceAll("\\\\","\\\\\\\\") + " @ " + System.getProperty("user.name") + " @ " + InetAddress.localHost.hostName
+    return System.getProperty("user.home").replaceAll("\\\\", "\\\\\\\\") + " @ " + System.getProperty("user.name") + " @ " + InetAddress.localHost.hostName
 }
 
 def osName() {
     return System.getProperty("os.name") + " @ " + System.getProperty("os.version") + " @ " + System.getProperty("sun.cpu.isalist")
 }
+
 def javaVersion() {
-    return System.getProperty("java.home").replaceAll("\\\\","\\\\\\\\") + " @ " + System.getProperty("java.version")
+    return System.getProperty("java.home").replaceAll("\\\\", "\\\\\\\\") + " @ " + System.getProperty("java.version")
 }
 
 def revision() {

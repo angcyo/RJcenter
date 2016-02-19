@@ -16,6 +16,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+//    getApplicationVariants().all { variant ->
+//        variant.outputs.each { output ->
+//            output.outputFile = new File(output.outputFile.parent,
+//                    "aardemo-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}.aar")
+//        }
+//    }
 }
 
 dependencies {
