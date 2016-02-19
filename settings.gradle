@@ -1,6 +1,5 @@
 //include ':aardemo'
 //        ':rxjavademo',
-//        ':javademo',
 //        ':slidr'
 
 //include ':groovydemo'
@@ -9,3 +8,7 @@ include ':slidr'
 include ':rsen'
 include ':sample'
 //include ':rsen_qq'
+
+
+include ':javademo'
+
