@@ -1,5 +1,6 @@
 package com.angcyo.sample.ViewPagerDemo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
+import com.rsen.exception.CrashHandler;
 import com.rsen.view.CircleIndicator;
 
 public class ViewPagerActivity extends AppCompatActivity {
@@ -40,6 +42,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show()
 //        );
 
+        CrashHandler.init(this);
         initView();
 
 //        Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -130,6 +133,14 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            if (position == 1) {
+                Intent intent = new Intent("com.angcyo.test");
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                ViewPagerActivity.this.startActivity(intent);
+            }
+            if (position == 3) {
+                throw new IllegalStateException("哎呀,,,什么情况?");
+            }
             return RFragment.newInstance(position);
         }
 

@@ -4,9 +4,5 @@
 
     <application
         android:allowBackup="true"
-        android:supportsRtl="true">
-        <activity android:name="com.rsen.base.MainActivity">
-        </activity>
-    </application>
-
+        android:supportsRtl="true"/>
 </manifest>
