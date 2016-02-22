@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.angcyo.sample.SoftInputDemo.SoftInputActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionId="@android:integer/config_shortAnimTime"
+            android:imeActionLabel="登陆"
+            android:imeOptions="actionPrevious"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/edit2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edit3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionGo"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/edit4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/edit5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionSend" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开关" />
+
+            <Button
+                android:id="@+id/show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开" />
+
+            <Button
+                android:id="@+id/hide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="by angcyo:2016-2-22 14:28:25" />
+</RelativeLayout>

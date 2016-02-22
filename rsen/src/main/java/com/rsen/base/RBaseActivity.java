@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.LayoutRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +33,6 @@ import de.greenrobot.event.ThreadMode;
 
 public abstract class RBaseActivity extends AppCompatActivity {
 
-    public static Handler handler;
     public ProgressFragment progressFragment = null;
     public MaterialDialog mMaterialDialog;
     protected LayoutInflater mLayoutInflater;
@@ -158,6 +155,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
         if (enableWindowAnim()) {
             getWindow().setWindowAnimations(R.style.WindowAnim);
         }
+
         /*透明状态栏*/
         if (enableStatusTranslucent()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -222,7 +220,6 @@ public abstract class RBaseActivity extends AppCompatActivity {
 
     //初始化
     private void init() {
-        handler = new StaticHandler(this);
     }
 
 
@@ -318,35 +315,6 @@ public abstract class RBaseActivity extends AppCompatActivity {
         mLoadLayout.setVisibility(View.GONE);
     }
 
-    protected void handMessage(Message msg, int what, Object obj) {
-
-    }
-
-    public void sendMessage(Message msg) {
-        handler.sendMessage(msg);
-    }
-
-    public void sendMessage(int what, Object obj) {
-        Message msg = handler.obtainMessage();
-        msg.what = what;
-        msg.obj = obj;
-        handler.sendMessage(msg);
-    }
-
-    public void sendRunnable(Runnable runnable) {
-        handler.post(runnable);
-    }
-
-    public void sendDelayRunnable(Runnable runnable, long delayMillis) {
-        handler.postDelayed(runnable, delayMillis);
-    }
-
-
-    public void removeCallbacks(Runnable runnable) {
-        handler.removeCallbacks(runnable);
-    }
-
-
     protected void showMaterialDialog(String title, String message,
                                       final View.OnClickListener positiveListener, final View.OnClickListener negativeListener,
                                       DialogInterface.OnDismissListener onDismissListener) {
@@ -379,22 +347,6 @@ public abstract class RBaseActivity extends AppCompatActivity {
     public void noNet(EventNoNet event) {
         hideDialogTip();
         PopupTipWindow.showTip(this, "请检查网络连接");
-    }
-
-    static class StaticHandler extends Handler {
-        RBaseActivity context;
-
-        public StaticHandler(RBaseActivity context) {
-            this.context = context;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (context != null && msg != null) {
-                context.handMessage(msg, msg.what, msg.obj);
-            }
-        }
     }
 
     public static class EventNoNet {

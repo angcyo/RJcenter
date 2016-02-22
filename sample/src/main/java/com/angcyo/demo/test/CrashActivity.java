@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.angcyo.sample.R;
 import com.rsen.exception.CrashHandler;
 
-public class TestActivity extends AppCompatActivity {
+public class CrashActivity extends AppCompatActivity {
 
     private int clickCount = 0;
 
@@ -44,6 +44,7 @@ public class TestActivity extends AppCompatActivity {
                 new Intent(this, CrashHandler.getLauncherActivity(this)));
     }
 
+    @SuppressWarnings("deprecation")
     private void copyErrorToClipboard(String msg) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
