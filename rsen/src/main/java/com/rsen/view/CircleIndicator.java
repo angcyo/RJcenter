@@ -30,7 +30,7 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
     private int position = 0;
 
     private Paint mPaint;
-    private int viewHieht, viewWidth;
+    private int viewHeight, viewWidth;
 
     public CircleIndicator(Context context) {
         this(context, null);
@@ -62,23 +62,23 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (mViewPager == null || mViewPager.getAdapter() == null || mViewPager.getAdapter().getCount() == 0) {
-            viewHieht = 0;
+            viewHeight = 0;
             viewWidth = 0;
         } else {
             count = mViewPager.getAdapter().getCount();
             mCircleMaxRadius = mCircleRadius * (1 + mCircleFactor);
-            viewHieht = (int) (mCircleMaxRadius * 2);
-            viewWidth = (int) (viewHieht * count + mCircleSpace * (count - 1));
+            viewHeight = (int) (mCircleMaxRadius * 2);
+            viewWidth = (int) (viewHeight * count + mCircleSpace * (count - 1));
         }
-        setMeasuredDimension(viewWidth, viewHieht);
+        setMeasuredDimension(viewWidth, viewHeight);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
 //        super.onDraw(canvas);
-        canvas.drawColor(Color.RED);
-        float cx = viewHieht / 2;
-        float cy = viewHieht / 2;
+//        canvas.drawColor(Color.RED);
+        float cx = viewHeight / 2;
+        float cy = viewHeight / 2;
         float radius;
         for (int i = 0; i < count; i++) {
             if (position == i) {
@@ -89,7 +89,7 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
                 radius = mCircleRadius;
             }
             canvas.drawCircle(cx, cy, radius, mPaint);
-            cx += mCircleSpace + viewHieht;
+            cx += mCircleSpace + viewHeight;
         }
     }
 

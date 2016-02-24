@@ -59,13 +59,13 @@ public class SpanDemoActivity extends AppCompatActivity {
         textView5 = (TextView) findViewById(R.id.text_view5);
         textView6 = (TextView) findViewById(R.id.text_view6);
         textView7 = (TextView) findViewById(R.id.text_view7);
-        ResUtil.setBgDrawable(textView1, ResUtil.generateBgDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
-        ResUtil.setBgDrawable(textView2, ResUtil.generateBgDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
-        ResUtil.setBgDrawable(textView3, ResUtil.generateBgDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
-        ResUtil.setBgDrawable(textView4, ResUtil.generateBgDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
-        ResUtil.setBgDrawable(textView5, ResUtil.generateBgDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
-        ResUtil.setBgDrawable(textView6, ResUtil.generateBgDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
-        ResUtil.setBgDrawable(textView7, ResUtil.generateBgDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
+        ResUtil.setBgDrawable(textView1, ResUtil.generateRoundBorderDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
+        ResUtil.setBgDrawable(textView2, ResUtil.generateRoundBorderDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
+        ResUtil.setBgDrawable(textView3, ResUtil.generateRoundBorderDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
+        ResUtil.setBgDrawable(textView4, ResUtil.generateRoundBorderDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
+        ResUtil.setBgDrawable(textView5, ResUtil.generateRoundBorderDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
+        ResUtil.setBgDrawable(textView6, ResUtil.generateRoundBorderDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
+        ResUtil.setBgDrawable(textView7, ResUtil.generateRoundBorderDrawable(getResources(), 10, Color.BLUE, Color.CYAN));
 
         textView1.setGravity(Gravity.CENTER);
         textView2.setGravity(Gravity.CENTER);
