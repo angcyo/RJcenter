@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.rsen.util.ResUtil;
+
 /**
  * ViewPager 圆圈指示器
  * <p/>
@@ -17,12 +19,12 @@ import android.view.View;
 public class RectIndicator extends View implements ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
-    private float mRectWidth = 10f;//矩形的宽度, 像素
-    private float mRectHeight = 4f;//矩形的高度, 像素
+    private float mRectWidth = 16f;//矩形的宽度, dp
+    private float mRectHeight = 4f;//矩形的高度, dp
     //    private float mMaxRectWidth;//放大后的宽度
 //    private float mMaxRectHeight;//放大后的高度
 //    private float mScaleFactor = 0.5f;//圆圈放大的倍数
-    private float mRectSpace = 4f;//矩形之间的间隙, 像素
+    private float mRectSpace = 4f;//矩形之间的间隙, dp
 
     @ColorInt
     private int mDefualtColor = Color.BLUE;//缺省的颜色
@@ -49,6 +51,10 @@ public class RectIndicator extends View implements ViewPager.OnPageChangeListene
     }
 
     private void initView() {
+        mRectWidth = ResUtil.dpToPx(getResources(), mRectWidth);
+        mRectHeight = ResUtil.dpToPx(getResources(), mRectHeight);
+        mRectSpace = ResUtil.dpToPx(getResources(), mRectSpace);
+
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaint.setColor(mDefualtColor);
@@ -95,20 +101,18 @@ public class RectIndicator extends View implements ViewPager.OnPageChangeListene
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (positionOffset > 0) {
-            this.position = position;
-            this.positionOffset = positionOffset;
-            invalidate();
-        }
+
     }
 
     @Override
     public void onPageSelected(int position) {
-
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
+        if (state == ViewPager.SCROLL_STATE_IDLE) {
+            this.position = mViewPager.getCurrentItem();
+            invalidate();
+        }
     }
 }
