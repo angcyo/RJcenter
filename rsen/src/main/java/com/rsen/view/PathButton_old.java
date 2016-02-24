@@ -144,7 +144,7 @@ public class PathButton_old extends Button {
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);//
         mPaint.setColor(mPathColor);
         if (mIsBorderStyle) {
-            bgDrawable = ResUtil.generateBgDrawable(mBorderRound, mBorderWidth, mBorderColor);
+            bgDrawable = ResUtil.generateRoundBorderDrawable(mBorderRound, mBorderWidth, mBorderColor);
             ResUtil.setBgDrawable(this, bgDrawable);
         }
     }

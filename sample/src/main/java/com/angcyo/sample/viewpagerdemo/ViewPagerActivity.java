@@ -135,8 +135,9 @@ public class ViewPagerActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             if (position == 1) {
                 Intent intent = new Intent("com.angcyo.test");
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                ViewPagerActivity.this.startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                ViewPagerActivity.this.startActivity(intent);
             }
             if (position == 3) {
                 throw new IllegalStateException("哎呀,,,什么情况?");

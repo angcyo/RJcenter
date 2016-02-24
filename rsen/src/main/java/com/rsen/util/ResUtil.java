@@ -57,7 +57,7 @@ public class ResUtil {
      * @param defaultColor the default color
      * @return the drawable
      */
-    public static Drawable generateBgDrawable(int pressColor, int defaultColor) {
+    public static Drawable generateRoundBorderDrawable(int pressColor, int defaultColor) {
         //按下状态
         Shape roundRectShape = new RoundRectShape(null, null, null);//圆角背景
         ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
@@ -82,7 +82,7 @@ public class ResUtil {
      * @param defaultColor the default color
      * @return the drawable
      */
-    public static Drawable generateBgDrawable(Resources res, float radii, int pressColor, int defaultColor) {
+    public static Drawable generateRoundBorderDrawable(Resources res, float radii, int pressColor, int defaultColor) {
 
         radii = dpToPx(res, radii);
 
@@ -116,7 +116,7 @@ public class ResUtil {
      * @param defaultColor the default color
      * @return the drawable
      */
-    public static Drawable generateBgDrawable(Resources res, float radii, float borderWidth, int pressColor, int defaultColor) {
+    public static Drawable generateRoundBorderDrawable(Resources res, float radii, float borderWidth, int pressColor, int defaultColor) {
 
         radii = dpToPx(res, radii);
         borderWidth = dpToPx(res, borderWidth);
@@ -144,9 +144,9 @@ public class ResUtil {
         return bgStateDrawable;
     }
 
-    public static Drawable generateBgDrawable(float rL1, float rL2, float rT1, float rT2,
-                                              float rR1, float rR2, float rB1, float rB2,
-                                              int pressColor, int defaultColor) {
+    public static Drawable generateRoundBorderDrawable(float rL1, float rL2, float rT1, float rT2,
+                                                       float rR1, float rR2, float rB1, float rB2,
+                                                       int pressColor, int defaultColor) {
         //外环的圆角矩形
         float[] outRadii = new float[]{rL1, rL2, rT1, rT2, rR1, rR2, rB1, rB2};//四个角的 圆角幅度,8个可以设置的值,每个角都有2个边 2*4=8个
 
@@ -170,7 +170,7 @@ public class ResUtil {
         return bgStateDrawable;
     }
 
-    public static Drawable generateBgDrawable(float radiiL, float radiiR, int pressColor, int defaultColor) {
+    public static Drawable generateRoundBorderDrawable(float radiiL, float radiiR, int pressColor, int defaultColor) {
         //外环的圆角矩形
         float[] outRadii = new float[]{radiiL, radiiL, radiiR, radiiR, radiiR, radiiR, radiiL, radiiL};//四个角的 圆角幅度,8个可以设置的值,每个角都有2个边 2*4=8个
 
@@ -203,11 +203,11 @@ public class ResUtil {
      * @param color       颜色
      * @return the drawable
      */
-    public static Drawable generateBgDrawable(float radii, float borderWidth, int color) {
-        //外环的圆角矩形
+    public static Drawable generateRoundBorderDrawable(float radii, float borderWidth, int color) {
+
         float[] radiiF = new float[]{radii, radii, radii, radii, radii, radii, radii, radii};//四个角的 圆角幅度,8个可以设置的值,每个角都有2个边 2*4=8个
         RectF rectF = new RectF(borderWidth, borderWidth, borderWidth, borderWidth);
-        //按下状态
+
         Shape roundRectShape = new RoundRectShape(radiiF, rectF, radiiF);//圆角背景
         ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
         shopDrawablePress.getPaint().setColor(color);//设置颜色
