@@ -27,7 +27,7 @@ public class RectIndicator extends View implements ViewPager.OnPageChangeListene
     private float mRectSpace = 4f;//矩形之间的间隙, dp
 
     @ColorInt
-    private int mDefualtColor = Color.BLUE;//缺省的颜色
+    private int mDefaultColor = Color.BLUE;//缺省的颜色
     private int mCurrentColor = Color.RED;//当前的颜色
 
     private int count = 0;//圆圈的数量
@@ -57,7 +57,7 @@ public class RectIndicator extends View implements ViewPager.OnPageChangeListene
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mPaint.setColor(mDefualtColor);
+        mPaint.setColor(mDefaultColor);
     }
 
     public void setViewPager(ViewPager viewPager) {
@@ -87,7 +87,7 @@ public class RectIndicator extends View implements ViewPager.OnPageChangeListene
             if (position == i) {
                 mPaint.setColor(mCurrentColor);
             } else {
-                mPaint.setColor(mDefualtColor);
+                mPaint.setColor(mDefaultColor);
             }
             float l = 0f, t = 0f, r, b = mRectHeight;
             if (i > 0) {
