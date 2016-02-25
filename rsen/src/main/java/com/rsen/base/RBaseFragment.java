@@ -49,13 +49,20 @@ public abstract class RBaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mLayoutInflater = inflater;
         rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_fragment_layout, container, false);
-        mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView, true));
+
+        int contentView = getContentView();
+        if (contentView == 0) {
+            mViewHolder = new RBaseViewHolder(rootView);
+        } else {
+            mViewHolder = new RBaseViewHolder(inflater.inflate(contentView, rootView, true));
+        }
+
         initBaseView();
         initBaseViewEvent();
         initView(rootView);
         initAfter();
         isCreate = true;
-        onLoadData();
+        initViewData();
         return rootView;
     }
 
@@ -140,7 +147,7 @@ public abstract class RBaseFragment extends Fragment {
 
     protected abstract int getContentView();
 
-    protected abstract void onLoadData();
+    protected abstract void initViewData();
 
     protected void loadData(Bundle savedInstanceState) {
 

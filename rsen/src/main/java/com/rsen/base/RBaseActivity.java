@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -102,7 +104,12 @@ public abstract class RBaseActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
 
         /*设置内容布局*/
-        mViewHolder = new RBaseViewHolder(mLayoutInflater.inflate(getContentView(), mContainerLayout, true));
+        int contentView = getContentView();
+        if (contentView == 0) {
+            mViewHolder = new RBaseViewHolder(mFragmentLayout);
+        } else {
+            mViewHolder = new RBaseViewHolder(mLayoutInflater.inflate(contentView, mContainerLayout, true));
+        }
     }
 
     private void initBaseViewEvent() {
@@ -144,9 +151,8 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
 
-    protected abstract
     @LayoutRes
-    int getContentView();
+    protected abstract int getContentView();
 
     //设置窗口动画
     protected void initWindow() {
@@ -337,6 +343,59 @@ public abstract class RBaseActivity extends AppCompatActivity {
         }
     }
 
+
+    protected void addFragment(RBaseFragment fragment) {
+        addFragment(fragment, true);
+    }
+
+    protected void addFragment(RBaseFragment fragment, boolean toBack) {
+        addFragment(R.id.container, fragment, toBack);
+    }
+
+    protected void addFragment(@IdRes int viewId, RBaseFragment fragment) {
+        addFragment(viewId, fragment, true);
+    }
+
+    protected void addFragment(@IdRes int viewId, RBaseFragment fragment, boolean toBack) {
+        changeFragment(viewId, fragment, toBack, new OnChangeFragment() {
+            @Override
+            public void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, RBaseFragment fragment, boolean toBack) {
+                fragmentTransaction.add(viewId, fragment, fragment.toString());
+            }
+        });
+    }
+
+    protected void replaceFragment(RBaseFragment fragment) {
+        replaceFragment(fragment, false);
+    }
+
+    protected void replaceFragment(RBaseFragment fragment, boolean toBack) {
+        replaceFragment(R.id.container, fragment, toBack);
+    }
+
+    protected void replaceFragment(@IdRes int viewId, RBaseFragment fragment) {
+        replaceFragment(viewId, fragment, false);
+    }
+
+    protected void replaceFragment(@IdRes int viewId, RBaseFragment fragment, boolean toBack) {
+        changeFragment(viewId, fragment, toBack, new OnChangeFragment() {
+            @Override
+            public void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, RBaseFragment fragment, boolean toBack) {
+                fragmentTransaction.replace(viewId, fragment, fragment.toString());
+            }
+        });
+    }
+
+    private void changeFragment(@IdRes int viewId, RBaseFragment fragment, boolean toBack, OnChangeFragment listener) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //fragmentTransaction.setCustomAnimations();//动画效果
+        listener.onChangeFragment(fragmentTransaction, viewId, fragment, toBack);
+        if (toBack) {
+            fragmentTransaction.addToBackStack(fragment.toString());
+        }
+        fragmentTransaction.commit();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -347,6 +406,10 @@ public abstract class RBaseActivity extends AppCompatActivity {
     public void noNet(EventNoNet event) {
         hideDialogTip();
         PopupTipWindow.showTip(this, "请检查网络连接");
+    }
+
+    private interface OnChangeFragment {
+        void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, RBaseFragment fragment, boolean toBack);
     }
 
     public static class EventNoNet {

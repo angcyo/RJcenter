@@ -4,6 +4,7 @@ package com.rsen.base;
  * Created by angcyo on 2016-01-30.
  */
 
+import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -58,5 +59,22 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
 
     public ViewGroup viewGroup(@IdRes int resId) {
         return groupV(resId);
+    }
+
+    public RecyclerView r(@IdRes int resId) {
+        return (RecyclerView) v(resId);
+    }
+
+    public View viewByName(String name) {
+        View view = v(getIdByName(name, "id"));
+        return view;
+    }
+
+    /**
+     * 根据name, 在主题中 寻找资源id
+     */
+    private int getIdByName(String name, String type) {
+        Context context = itemView.getContext();
+        return context.getResources().getIdentifier(name, type, context.getPackageName());
     }
 }

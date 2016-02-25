@@ -31,8 +31,19 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     @Override
     public RBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View item = View.inflate(parent.getContext(), getItemLayoutId(viewType), null);
+        int itemLayoutId = getItemLayoutId(viewType);
+        View item;
+        if (itemLayoutId == 0) {
+            item = makeContentView(viewType);
+        } else {
+            item = View.inflate(parent.getContext(), itemLayoutId, null);
+        }
+
         return new RBaseViewHolder(item);
+    }
+
+    protected View makeContentView(int viewType) {
+        return null;
     }
 
     protected abstract int getItemLayoutId(int viewType);
