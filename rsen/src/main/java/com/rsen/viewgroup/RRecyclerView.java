@@ -1,11 +1,11 @@
 package com.rsen.viewgroup;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 /**
@@ -14,7 +14,7 @@ import android.util.AttributeSet;
  * Created by angcyo on 16-03-01-001.
  */
 public class RRecyclerView extends RecyclerView {
-    private int orientation = HORIZONTAL;
+    private int orientation = LinearLayoutManager.VERTICAL;
 
     public RRecyclerView(Context context) {
         this(context, null);
@@ -26,14 +26,15 @@ public class RRecyclerView extends RecyclerView {
 
     public RRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray a = context.obtainStyledAttributes(attrs, android.support.v7.recyclerview.R.styleable.RecyclerView);
-        orientation = a.getInt(android.support.v7.recyclerview.R.styleable.RecyclerView_android_orientation, VERTICAL);
-        a.recycle();
         initView(context);
     }
 
     private void initView(Context context) {
-        this.setLayoutManager(new LinearLayoutManager(context, orientation == HORIZONTAL ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false));
+        String tag = (String) this.getTag();
+        if (!TextUtils.isEmpty(tag) && "HORIZONTAL".equalsIgnoreCase(tag)) {
+            orientation = LinearLayoutManager.HORIZONTAL;
+        }
+        this.setLayoutManager(new LinearLayoutManager(context, orientation, false));
         this.setItemAnimator(new DefaultItemAnimator());
     }
 }
