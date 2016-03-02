@@ -43,8 +43,6 @@ public class QqDemo {
         @GET(URL)
         Call<ResponseBody> get();
     }
-
-
 }
 
 
