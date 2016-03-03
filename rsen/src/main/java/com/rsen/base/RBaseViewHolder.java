@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
+
 /**
  * 通用ViewHolder
  */
@@ -76,5 +78,23 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
     private int getIdByName(String name, String type) {
         Context context = itemView.getContext();
         return context.getResources().getIdentifier(name, type, context.getPackageName());
+    }
+
+    public void fillView(Object bean) {
+        Field[] fields = bean.getClass().getDeclaredFields();
+        for (Field f : fields) {
+            String name = f.getName();
+
+            try {
+                View view = viewByName(name);
+                if (view instanceof TextView) {
+                    ((TextView) view).setText((String) f.get(bean));
+                }else if (view instanceof ImageView) {
+
+                }
+
+            } catch (Exception e) {
+            }
+        }
     }
 }
