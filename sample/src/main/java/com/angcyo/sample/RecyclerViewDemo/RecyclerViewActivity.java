@@ -1,15 +1,24 @@
 package com.angcyo.sample.RecyclerViewDemo;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.angcyo.sample.R;
+import com.rsen.base.RBaseActivity;
 
-public class RecyclerViewActivity extends AppCompatActivity {
+public class RecyclerViewActivity extends RBaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler_view);
+    protected int getContentView() {
+        return R.layout.activity_recycler_view;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void initAfter() {
+//        Slidr.attach(this);
     }
 }

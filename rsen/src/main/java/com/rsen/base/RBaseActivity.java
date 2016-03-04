@@ -24,6 +24,7 @@ import com.angcyo.rsen.R;
 import com.rsen.angcyo.MaterialDialog;
 import com.rsen.angcyo.PopupTipWindow;
 import com.rsen.angcyo.ProgressFragment;
+import com.rsen.slidr.Slidr;
 import com.rsen.util.ResUtil;
 import com.rsen.util.T;
 
@@ -189,6 +190,13 @@ public abstract class RBaseActivity extends AppCompatActivity {
                 }
             }
         }
+        /*滑动删除*/
+        if (enableSlidr()) {
+            WindowManager.LayoutParams attributes = getWindow().getAttributes();
+            attributes.alpha = 0f;
+            getWindow().setAttributes(attributes);
+            Slidr.attach(this);
+        }
     }
 
     /**
@@ -198,6 +206,9 @@ public abstract class RBaseActivity extends AppCompatActivity {
         return true;
     }
 
+    protected boolean enableSlidr() {
+        return true;
+    }
 
     /**
      * 启动状态栏颜色, 默认使用 ColorAccent 颜色, rootView 添加padding
