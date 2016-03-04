@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
-import com.rsen.exception.CrashHandler;
+import com.rsen.exception.RCrashHandler;
 import com.rsen.view.CircleIndicator;
 
 public class ViewPagerActivity extends AppCompatActivity {
@@ -42,7 +42,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show()
 //        );
 
-        CrashHandler.init(this);
+        RCrashHandler.init(this);
         initView();
 
 //        Intent intent = new Intent(Intent.ACTION_VIEW);
