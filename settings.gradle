@@ -4,7 +4,7 @@
 
 //include ':groovydemo'
 
-include ':slidr'
+//include ':slidr'
 include ':rsen'
 include ':sample'
 //include ':rsen_qq'

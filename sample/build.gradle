@@ -133,20 +133,18 @@ android {
 }
 
 dependencies {
-    compile(name:'aaaa-1.0', ext:'aar')
-
+    compile(name: 'aaaa-1.0', ext: 'aar')
     //    compile 'com.angcyo:L:1.1.0'
     //    compile 'com.rsen:rsen:0.0.1'
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile project(':rsen')
-    compile project(':slidr')
+    testCompile 'junit:junit:4.12'
     compile 'io.reactivex:rxjava:1.1.1'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.cocosw:query:0.2.2'
     //    compile 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
-//    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
+    //    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
 }
 
 task javadocs(type: Javadoc) {
