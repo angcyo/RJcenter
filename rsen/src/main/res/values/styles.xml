@@ -14,13 +14,20 @@
     </declare-styleable>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">?attr/colorPrimary</item>
-        <item name="colorPrimaryDark">?attr/colorPrimaryDark</item>
-        <item name="colorAccent">?attr/colorAccent</item>
-        <!--<item name="android:listPreferredItemHeight"></item>-->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">?attr/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">?attr/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">?attr/colorAccent</item>-->
+        <!--&lt;!&ndash;<item name="android:listPreferredItemHeight"></item>&ndash;&gt;-->
+    <!--</style>-->
+
+    <style name="SlidrTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <style name="Test1" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <style name="AppBarStyle" parent="Theme.AppCompat.Light.DarkActionBar" />
 
@@ -34,10 +41,10 @@
         <item name="android:windowExitAnimation">@anim/dialog_fragment_exit_anim</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+    <!--<style name="AppTheme.NoActionBar">-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+    <!--</style>-->
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

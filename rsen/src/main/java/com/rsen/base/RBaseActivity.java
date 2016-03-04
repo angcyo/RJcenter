@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -91,7 +93,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     private void initBaseView() {
-        setTheme(R.style.AppTheme_NoActionBar);
+//        setTheme(R.style.Test1);
         setContentView(R.layout.rsen_base_activity_layout);
         mActivityLayout = (ViewGroup) findViewById(R.id.activity_layout);
         mFragmentLayout = (ViewGroup) findViewById(R.id.fragment_layout);
@@ -192,10 +194,11 @@ public abstract class RBaseActivity extends AppCompatActivity {
         }
         /*滑动删除*/
         if (enableSlidr()) {
-            WindowManager.LayoutParams attributes = getWindow().getAttributes();
-            attributes.alpha = 0f;
-            getWindow().setAttributes(attributes);
             Slidr.attach(this);
+        }
+        Drawable background = mActivityLayout.getBackground();
+        if (background == null) {
+            mActivityLayout.setBackgroundColor(Color.WHITE);
         }
     }
 
@@ -206,6 +209,9 @@ public abstract class RBaseActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * 激活滑动删除
+     */
     protected boolean enableSlidr() {
         return true;
     }
@@ -263,7 +269,13 @@ public abstract class RBaseActivity extends AppCompatActivity {
     /**
      * Init after.
      */
-    protected abstract void initAfter();
+    protected void initAfter() {
+
+    }
+
+    protected void hideToolbar() {
+        mAppbarLayout.setVisibility(View.GONE);
+    }
 
     public void launchActivity(Class c) {
         Intent intent = new Intent(this, c);

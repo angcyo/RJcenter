@@ -13,7 +13,6 @@ import android.os.Environment;
 import android.os.Process;
 import android.util.Log;
 
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -217,13 +216,14 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
                 new Intent().setAction(INTENT_ACTION_RESTART_ACTIVITY),
                 PackageManager.GET_RESOLVED_FILTER);
 
-        if (resolveInfos != null && resolveInfos.size() > 0) {
-            ResolveInfo resolveInfo = resolveInfos.get(0);
-            try {
-                return (Class<? extends Activity>) Class.forName(resolveInfo.activityInfo.name);
-            } catch (ClassNotFoundException e) {
-                //Should not happen, print it to the log!
-                Log.e("TAG", "Failed when resolving the restart activity class via intent filter, stack trace follows!", e);
+        for (ResolveInfo info : resolveInfos) {
+            if (info.activityInfo.packageName.equalsIgnoreCase(context.getPackageName())) {
+                try {
+                    return (Class<? extends Activity>) Class.forName(info.activityInfo.name);
+                } catch (ClassNotFoundException e) {
+                    //Should not happen, print it to the log!
+                    Log.e("TAG", "Failed when resolving the restart activity class via intent filter, stack trace follows!", e);
+                }
             }
         }
 
@@ -287,11 +287,23 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         System.exit(10);
     }
 
+    public static String getDataTime(String format) {
+        SimpleDateFormat df = new SimpleDateFormat(format);
+        return df.format(new Date());
+    }
+
+    public static String getSaveFolder(String folderName, String fileName) {
+        String filePath = Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator + folderName
+                + File.separator + fileName;
+        return filePath;
+    }
+
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         try {
-            if (getRestartActivityClassWithIntentFilter(context) != null) {
-                Intent intent = new Intent(INTENT_ACTION_RESTART_ACTIVITY);
+            Class<? extends Activity> restartClass = getRestartActivityClassWithIntentFilter(context);
+            if (restartClass != null) {
+                Intent intent = new Intent(context, restartClass);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);//去掉动画效果
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -331,17 +343,6 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         // 导出异常的调用栈信息
         ex.printStackTrace(pw);
         pw.close();
-    }
-
-    public static String getDataTime(String format) {
-        SimpleDateFormat df = new SimpleDateFormat(format);
-        return df.format(new Date());
-    }
-
-    public static String getSaveFolder(String folderName, String fileName) {
-        String filePath = Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator + folderName
-                + File.separator + fileName;
-        return filePath;
     }
 
     private void dumpPhoneInfo(PrintWriter pw) throws PackageManager.NameNotFoundException {

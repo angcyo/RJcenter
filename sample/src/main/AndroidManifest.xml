@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.angcyo.sample">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -13,6 +12,7 @@
         android:icon="@drawable/logo"
         android:label="${app_name}"
         android:supportsRtl="true"
+        android:name="com.angcyo.RApplication"
         android:theme="@style/AppTheme">
         <activity android:name="com.angcyo.demo.dialview.DialDemoActivity">
             <intent-filter>
@@ -309,6 +309,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name="com.rsen.exception.RCrashActivity">
+            <intent-filter>
+                <action android:name="com.angcyo.crash" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".SoftInputDemo.SoftInputActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -337,13 +344,14 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
-        <activity android:name=".RecyclerViewDemo.RecyclerViewActivity">
+        <activity android:name=".RecyclerViewDemo.RecyclerViewActivity"  android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RecyclerViewDemo.RecyclerViewActivity2"  android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
