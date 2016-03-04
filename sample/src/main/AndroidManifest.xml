@@ -309,13 +309,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <!--崩溃界面-->
         <activity android:name="com.rsen.exception.RCrashActivity">
             <intent-filter>
                 <action android:name="com.angcyo.crash" />
-
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity android:name=".SoftInputDemo.SoftInputActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
