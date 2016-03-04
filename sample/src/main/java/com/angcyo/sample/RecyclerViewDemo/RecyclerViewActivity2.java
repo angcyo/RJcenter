@@ -15,7 +15,6 @@ public class RecyclerViewActivity2 extends RBaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
     }
 
     public void button(View view) {
@@ -34,5 +33,10 @@ public class RecyclerViewActivity2 extends RBaseActivity {
     @Override
     protected void initAfter() {
 //        Slidr.attach(this);
+    }
+
+    @Override
+    protected boolean enableSlidr() {
+        return true;
     }
 }

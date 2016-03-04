@@ -18,7 +18,7 @@ public class RecyclerViewActivity extends RBaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 //        getTheme().applyStyle(R.style.Test1, true);
-        setTheme(com.angcyo.rsen.R.style.Test1);
+//        setTheme(com.angcyo.rsen.R.style.Test1);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#20ffff00")));
     }
 

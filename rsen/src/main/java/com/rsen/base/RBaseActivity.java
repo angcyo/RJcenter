@@ -93,7 +93,6 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     private void initBaseView() {
-//        setTheme(R.style.Test1);
         setContentView(R.layout.rsen_base_activity_layout);
         mActivityLayout = (ViewGroup) findViewById(R.id.activity_layout);
         mFragmentLayout = (ViewGroup) findViewById(R.id.fragment_layout);
