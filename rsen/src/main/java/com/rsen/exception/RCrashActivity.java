@@ -46,8 +46,8 @@ public class RCrashActivity extends RBaseActivity {
     }
 
     private void restartApp() {
-        CrashHandler.restartApplicationWithIntent(this,
-                new Intent(this, CrashHandler.getLauncherActivity(this)));
+        RCrashHandler.restartApplicationWithIntent(this,
+                new Intent(this, RCrashHandler.getLauncherActivity(this)));
     }
 
     @SuppressWarnings("deprecation")

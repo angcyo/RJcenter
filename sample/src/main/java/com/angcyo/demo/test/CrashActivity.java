@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
-import com.rsen.exception.CrashHandler;
+import com.rsen.exception.RCrashHandler;
 
 public class CrashActivity extends AppCompatActivity {
 
@@ -40,8 +40,8 @@ public class CrashActivity extends AppCompatActivity {
     }
 
     private void restartApp() {
-        CrashHandler.restartApplicationWithIntent(this,
-                new Intent(this, CrashHandler.getLauncherActivity(this)));
+        RCrashHandler.restartApplicationWithIntent(this,
+                new Intent(this, RCrashHandler.getLauncherActivity(this)));
     }
 
     @SuppressWarnings("deprecation")
