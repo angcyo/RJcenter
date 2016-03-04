@@ -76,7 +76,7 @@ public class RBaseRecyclerFragmentActivity extends RBaseActivity {
 
         @SuppressLint("NewApi")
         @Override
-        protected View makeContentView(int viewType) {
+        protected View createContentView(int viewType) {
             LinearLayout linearLayout = new LinearLayout(mContext);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             linearLayout.setLayoutParams(new ViewGroup.LayoutParams(-1, 300));

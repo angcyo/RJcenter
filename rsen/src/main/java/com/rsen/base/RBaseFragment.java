@@ -52,6 +52,11 @@ public abstract class RBaseFragment extends Fragment {
 
         int contentView = getContentView();
         if (contentView == 0) {
+            View view = createContentView();
+            if (view != null) {
+                rootView.addView(view,
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            }
             mViewHolder = new RBaseViewHolder(rootView);
         } else {
             mViewHolder = new RBaseViewHolder(inflater.inflate(contentView, rootView, true));
@@ -64,6 +69,10 @@ public abstract class RBaseFragment extends Fragment {
         isCreate = true;
         initViewData();
         return rootView;
+    }
+
+    protected View createContentView() {
+        return null;
     }
 
     private void initBaseViewEvent() {

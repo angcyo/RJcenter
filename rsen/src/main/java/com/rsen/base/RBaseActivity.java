@@ -108,10 +108,19 @@ public abstract class RBaseActivity extends AppCompatActivity {
         /*设置内容布局*/
         int contentView = getContentView();
         if (contentView == 0) {
+            View view = createContentView();
+            if (view != null) {
+                mFragmentLayout.addView(view,
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            }
             mViewHolder = new RBaseViewHolder(mFragmentLayout);
         } else {
             mViewHolder = new RBaseViewHolder(mLayoutInflater.inflate(contentView, mContainerLayout, true));
         }
+    }
+
+    protected View createContentView() {
+        return null;
     }
 
     private void initBaseViewEvent() {
@@ -273,7 +282,9 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     protected void hideToolbar() {
-        mAppbarLayout.setVisibility(View.GONE);
+//        mAppbarLayout.setVisibility(View.GONE);
+        mActivityLayout.removeView(mAppbarLayout);
+//        mActivityLayout.requestLayout();
     }
 
     public void launchActivity(Class c) {

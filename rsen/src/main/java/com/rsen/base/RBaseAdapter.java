@@ -34,7 +34,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         int itemLayoutId = getItemLayoutId(viewType);
         View item;
         if (itemLayoutId == 0) {
-            item = makeContentView(viewType);
+            item = createContentView(viewType);
         } else {
             item = View.inflate(parent.getContext(), itemLayoutId, null);
         }
@@ -42,7 +42,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         return new RBaseViewHolder(item);
     }
 
-    protected View makeContentView(int viewType) {
+    protected View createContentView(int viewType) {
         return null;
     }
 

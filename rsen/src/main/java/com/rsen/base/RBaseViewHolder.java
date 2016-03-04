@@ -26,6 +26,18 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         return itemView.findViewById(resId);
     }
 
+    public RecyclerView reV(@IdRes int resId) {
+        return (RecyclerView) itemView.findViewById(resId);
+    }
+
+    public RecyclerView reV(String idName) {
+        return (RecyclerView) viewByName(idName);
+    }
+
+    public View v(String idName) {
+        return viewByName(idName);
+    }
+
     public View view(@IdRes int resId) {
         return v(resId);
     }
@@ -89,7 +101,7 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
                 View view = viewByName(name);
                 if (view instanceof TextView) {
                     ((TextView) view).setText((String) f.get(bean));
-                }else if (view instanceof ImageView) {
+                } else if (view instanceof ImageView) {
 
                 }
 
