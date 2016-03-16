@@ -5,14 +5,22 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- 摄像头权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
     <!-- tools:replace="icon, label" -->
     <application
+        android:name="com.angcyo.RApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="${app_name}"
         android:supportsRtl="true"
-        android:name="com.angcyo.RApplication"
         android:theme="@style/AppTheme">
         <activity android:name="com.angcyo.demo.dialview.DialDemoActivity">
             <intent-filter>
@@ -309,13 +317,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--崩溃界面-->
+        <!-- 崩溃界面 -->
         <activity android:name="com.rsen.exception.RCrashActivity">
             <intent-filter>
                 <action android:name="com.angcyo.crash" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SoftInputDemo.SoftInputActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -341,17 +348,31 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".RecyclerViewDemo.RecyclerViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            </intent-filter>
+        </activity>
+        <activity android:name=".RecyclerViewDemo.RecyclerViewActivity2" />
+        <activity android:name=".SurfaceViewMathDemo.TextureViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecyclerViewDemo.RecyclerViewActivity2"  />
+        <activity android:name=".SurfaceViewMathDemo.SurfaceViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
