@@ -23,6 +23,57 @@ compile 'com.rsen:rsen:1.1.0'
 暂无
 
 ##项目推荐
+###[《Android应用开发》](https://github.com/Jhuster/Android)
+Code List
+----------
+
+- Builder 给出了使用ant编译Android工程的通用shell脚本，相关博文：[Android开发实践：用脚本编译Android工程](http://ticktick.blog.51cto.com/823160/1365947)
+
+- GroupList 封装并演示了如何使用Android的ExpandableListView控件，相关博文：[Android开发实践：多级列表的封装与应用](http://ticktick.blog.51cto.com/823160/1289642)
+
+- PopDialog 封装并演示了如何使用Android的PopupWindow控件，相关博文：[Android开发实践：用PopupWindow实现自定义Dailog](http://ticktick.blog.51cto.com/823160/1332083)
+
+- JniCallback 演示了如何从Native线程回调Java的函数，相关博文：[Android开发实践：JNI层线程回调Java函数示例](http://ticktick.blog.51cto.com/823160/1358558)
+
+- JniBuffer 演示了各种从Java端到Native层的Buffer传递方法，相关博文：[Android开发实践：Java层与Jni层的数组传递](http://ticktick.blog.51cto.com/823160/1360240)
+
+- LoopThread 演示了如何实现一个自定义的带Loop消息循环的线程，相关博文：[Android开发实践：自定义带消息循环（Looper）的工作线程](http://ticktick.blog.51cto.com/823160/1565272)
+
+- VideoPlayer 演示了Android隐式Intent的用法，相关博文：[Android开发实践：实战演练隐式Intent的用法](http://ticktick.blog.51cto.com/823160/1621957)
+
+- VideoServer 演示了如何利用NanoHttpd搭建一个Android视频服务器，相关博文：[基于NanoHttpd的Android视频服务器开发](http://ticktick.blog.51cto.com/823160/1705767)
+
+- CustomView 演示了如何自定义View和ViewGroup，并给出了一个柱状图动画自定义View的实现，相关博文：
+
+- （1）[Android开发实践：为什么要继承onMeasure()](http://ticktick.blog.51cto.com/823160/1540134)
+
+- （2）[Android开发实践：自定义ViewGroup的onLayout()分析](http://ticktick.blog.51cto.com/823160/1542200)
+
+- （3）[Android开发实践：自定义带动画的View](http://ticktick.blog.51cto.com/823160/1545863)
+
+- WIFI 封装了Andriod WIFI扫描和连接的相关API，相关博文：
+
+- （1）[Android开发实践：WIFI扫描功能的封装](http://ticktick.blog.51cto.com/823160/1394948)
+
+- （2）[Android开发实践：WIFI连接功能的封装](http://ticktick.blog.51cto.com/823160/1410080)
+
+- Socket封装了Android中的Socket相关API
+
+- （1） Broadcaster.java 封装了UDP广播包的收发操作，相关博文：[Android Socket 发送广播包的那些坑](http://ticktick.blog.51cto.com/823160/1707858)
+
+- MediaDemo 给出了Android平台下多媒体相关API的demo代码，相关博文：[Android中如何提取和生成mp4文件](http://ticktick.blog.51cto.com/823160/1710743)
+
+- Utils 给出了一系列的工具类代码
+
+- （1）SignatureGen.java 一个可以生成Java函数签名字符串的工具类，相关博文: [Android开发实践：JNI函数签名生成器](http://ticktick.blog.51cto.com/823160/1590209)
+
+- （2）BitmapHelper.java 一个封装了Bitmap操作的工具类，包括图片的打开、保存、剪裁、旋转等操作，相关博文: [Android开发实践：自己动手编写图片剪裁应用（3）](http://ticktick.blog.51cto.com/823160/1604074)
+
+- （3）ImageConvertor.java 封装了Android中各种图像格式转换，包括：NV21，YUY2、RGB565、ARGB8888、PNG、JPEG、Bitmap之间的转换操作。
+
+Thanks
+
+---
 ###[Android 开源项目分类汇总](https://github.com/Trinea/android-open-project)
 **目前包括：**
 >[Android 开源项目第一篇——个性化控件(View)篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A7%E4%BB%B6view)  
