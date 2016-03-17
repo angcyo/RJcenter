@@ -7,9 +7,14 @@
 
     <TextureView
         android:id="@+id/textureView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp" />
+        android:layout_width="1dp"
+        android:layout_height="1dp" />
 
+    <TextureView
+        android:id="@+id/textureView2"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="300dp" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -28,7 +33,6 @@
             android:id="@+id/rotate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="旋转90°--Texture" />
 
 
@@ -36,7 +40,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="getBitmap"
-            android:text="getBitmap" />
+            android:text="getBitmap"
+            android:textAllCaps="false" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setAlpha"
+            android:text="setAlpha"
+            android:textAllCaps="false" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="demo"
+            android:text="demo"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 
