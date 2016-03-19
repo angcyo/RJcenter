@@ -1,7 +1,7 @@
 package com.angcyo.sample.SocketDemo;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,7 +10,7 @@ import com.angcyo.sample.R;
 
 import java.net.SocketException;
 
-public class UdpSocketDemo extends Activity {
+public class UdpSocketDemo extends AppCompatActivity {
 
     AppCompatEditText editText;
 
@@ -22,7 +22,7 @@ public class UdpSocketDemo extends Activity {
         editText = (AppCompatEditText) findViewById(R.id.editText);
     }
 
-    public void send(View view) {
+    public void sendButton(View view) {
         try {
             UdpSendThread.sendData(getData());
         } catch (SocketException e) {
@@ -30,8 +30,24 @@ public class UdpSocketDemo extends Activity {
         }
     }
 
-    public void send2(View view) {
+    public void sendSecond(View view) {
+        for (int i = 0; i < 100; i++) {
+            try {
 
+                UdpSendThread.sendData(getData("__" + i));
+            } catch (SocketException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private byte[] getData(String string) {
+        String s = editText.getText().toString();
+        if (TextUtils.isEmpty(s)) {
+            s = "--";
+        }
+        s += string;
+        return s.getBytes();
     }
 
     private byte[] getData() {

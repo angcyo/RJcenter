@@ -160,7 +160,6 @@ public class ShowCamera extends SurfaceView {
         if (mCamera != null) {
             rotate += 90;
             mCamera.setDisplayOrientation(rotate % 360);
-
         }
     }
 }

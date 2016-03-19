@@ -10,7 +10,8 @@ include ':sample'
 //include ':rsen_qq'
 
 
-//include ':javademo'
+include ':javademo'
+
 
 //include ':androidPullToRefresh'
 //include ':itemAnimator'
