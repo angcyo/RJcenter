@@ -120,6 +120,7 @@ android {
     }
     //${variant.productFlavors[0].name}
     compileOptions {
+        encoding "UTF-8"
         targetCompatibility 1.8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
