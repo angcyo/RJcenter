@@ -17,6 +17,9 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class RetrofitActivity extends RBaseActivity {
 
@@ -47,13 +50,13 @@ public class RetrofitActivity extends RBaseActivity {
         api.enqueue(new Callback<RApiService.ResponseBean>() {
             @Override
             public void onResponse(Call<RApiService.ResponseBean> call, Response<RApiService.ResponseBean> response) {
-                append("getApi-->" + response.body().toString());
+                append("getApi-->\n" + response.body().toString());
             }
 
             @Override
             public void onFailure(Call<RApiService.ResponseBean> call, Throwable t) {
                 Log.e("", "");
-                append("getApi error-->" + t.toString());
+                append("getApi error-->\n" + t.toString());
             }
         });
 
@@ -66,7 +69,7 @@ public class RetrofitActivity extends RBaseActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.e("", "");
                 try {
-                    append("getApiString-->" + response.body().string());
+                    append("getApiString-->\n" + response.body().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -75,7 +78,7 @@ public class RetrofitActivity extends RBaseActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("", "");
-                append("getApiString error-->" + t.toString());
+                append("getApiString error-->\n" + t.toString());
             }
         });
 
@@ -92,13 +95,13 @@ public class RetrofitActivity extends RBaseActivity {
             @Override
             public void onResponse(Call<RApiService.ResponseBean> call, Response<RApiService.ResponseBean> response) {
                 Log.e("", "");
-                append("postApi-->" + response.body().toString());
+                append("postApi-->\n" + response.body().toString());
             }
 
             @Override
             public void onFailure(Call<RApiService.ResponseBean> call, Throwable t) {
                 Log.e("", "");
-                append("postApi error-->" + t.toString());
+                append("postApi error-->\n" + t.toString());
             }
         });
 
@@ -108,7 +111,7 @@ public class RetrofitActivity extends RBaseActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.e("", "");
                 try {
-                    append("postApiString-->" + response.body().string());
+                    append("postApiString-->\n" + response.body().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -117,8 +120,51 @@ public class RetrofitActivity extends RBaseActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("", "");
-                append("postApiString error-->" + t.getMessage());
+                append("postApiString error-->\n" + t.getMessage());
             }
         });
+
+        /*rx的使用*/
+        service.getRxApiString(params)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseBody>() {
+                    @Override
+                    public void onCompleted() {
+                        append("getRxApiString onCompleted-->\n");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        append("getRxApiString onError-->\n" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        try {
+                            append("getRxApiString onNext-->\n" + responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        service.postRxApiString(requestBean).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<RApiService.ResponseBean>() {
+                    @Override
+                    public void onCompleted() {
+                        append("postRxApiString onCompleted-->\n");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        append("postRxApiString onError-->\n" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(RApiService.ResponseBean responseBody) {
+                        append("postRxApiString onNext-->\n" + responseBody.toString());
+                    }
+                });
     }
 }

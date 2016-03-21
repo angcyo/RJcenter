@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import rx.Observable;
 
 /**
  * Created by angcyo on 16-03-20-020.
@@ -27,6 +28,11 @@ public interface RApiService {
     @POST("/api")
     Call<ResponseBody> postApiString(@Body RequestBean requestBean);
 
+    @GET("/api")
+    Observable<ResponseBody> getRxApiString(@QueryMap Map<String, String> params);
+
+    @POST("/api")
+    Observable<ResponseBean> postRxApiString(@Body RequestBean requestBean);
 
     class RequestBean {
         public String key1;
