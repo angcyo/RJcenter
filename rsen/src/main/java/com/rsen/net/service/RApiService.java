@@ -1,21 +1,39 @@
 package com.rsen.net.service;
 
+import java.util.Map;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by angcyo on 16-03-20-020.
  */
 public interface RApiService {
 
-    @GET("/api?{param}")
-    Call<ResponseBean> getApi(@Path("param") String param);
+    @GET("/api")
+    Call<ResponseBean> getApi(@Query("pa1") String pa1, @Query("ba1") String ba1);
 
     @POST("/api")
     Call<ResponseBean> postApi(@Body RequestBean requestBean);
+
+    @GET("/api")
+    Call<ResponseBody> getApiString(@QueryMap Map<String, String> params);
+
+    @POST("/api")
+    Call<ResponseBody> postApiString(@Body RequestBean requestBean);
+
+
+    class RequestBean {
+        public String key1;
+        public String key2;
+        public String key3;
+        public String key4;
+    }
 
     class ResponseBean {
 
@@ -92,12 +110,5 @@ public interface RApiService {
         public void setRid(int rid) {
             this.rid = rid;
         }
-    }
-
-    class RequestBean {
-        String key1;
-        String key2;
-        String key3;
-        String key4;
     }
 }
