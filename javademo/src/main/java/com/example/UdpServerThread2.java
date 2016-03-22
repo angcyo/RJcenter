@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Vector;
 
 /**
- * Created by angcyoon 2016-03-18 01:01.
+ * Created by angcyo 2016-03-18 01:01.
  */
 public class UdpServerThread2 extends Thread {
 
@@ -111,7 +111,6 @@ public class UdpServerThread2 extends Thread {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         }

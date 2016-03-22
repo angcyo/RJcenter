@@ -6,7 +6,7 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 
 /**
- * Created by angcyoon 2016-03-18 01:01.
+ * Created by angcyo 2016-03-18 01:01.
  */
 public class UdpServerThread extends Thread{
 
@@ -35,7 +35,6 @@ public class UdpServerThread extends Thread{
             data = new byte[DATA_LEN];
             DatagramPacket packet = new DatagramPacket(data, DATA_LEN);
             try {
-
                 System.out.println("等待中...");
                 socket.receive(packet);
                 String s = new String(data);
