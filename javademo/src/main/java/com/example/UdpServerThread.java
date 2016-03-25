@@ -14,9 +14,9 @@ public class UdpServerThread extends Thread{
 
     private boolean isExit = false;
 
-    public static String serverIp = "192.168.1.12";
+    public static String serverIp = "192.168.1.12";//192.168.124.78
     public static int serverPort = 8989;
-    private static final int DATA_LEN = 4096;
+    private static final int DATA_LEN = 65535;
     byte[] data;
 
     DatagramSocket socket;

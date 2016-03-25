@@ -18,9 +18,9 @@ import java.util.Vector;
 public class UdpServerThread2 extends Thread {
 
     public static final PrintStream p = System.out;
-    private static final int DATA_LEN = 1228800;
+    private static final int DATA_LEN = 65535;
     public static String serverIp = "192.168.124.78";
-    public static int serverPort = 8089;
+    public static int serverPort = 8920;
     private static Object lock = new Object();
     private final SaveFileThread fileThread;
     byte[] data;
@@ -53,13 +53,12 @@ public class UdpServerThread2 extends Thread {
             DatagramPacket packet = new DatagramPacket(data, DATA_LEN);
             try {
 
-                p.println("等待中...");
+                p.println(getId() + " 等待中... " + serverPort);
                 socket.receive(packet);
 //                String s = new String(data);
 //                p.println("收到数据包:" + s + " 大小:" + packet.getLength() + " 字节" + " 长度:" + s.length());
-                p.println("收到数据包大小:" + packet.getLength() + " 字节");
+                p.println(getId() + " 收到数据包大小:" + packet.getLength() + " 字节");
                 fileThread.saveData(data, packet.getLength());
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -72,6 +71,7 @@ public class UdpServerThread2 extends Thread {
     class SaveFileThread extends Thread {
         private Vector<byte[]> saveData;
         private volatile int length;
+        private boolean isAppend = true;
 
         public SaveFileThread() {
             this.saveData = new Vector<>();
@@ -84,9 +84,14 @@ public class UdpServerThread2 extends Thread {
         }
 
         private String getSaveFileName() {
+            if (isAppend) {
+                return "2016-3-24";
+            }
+
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH-mm-ss-SSS");
             String format = simpleDateFormat.format(new Date());
-            return (format + ".png");
+            return format;
+//            return (format + ".png");
         }
 
         public void saveData(byte[] data, int len) {
@@ -101,11 +106,12 @@ public class UdpServerThread2 extends Thread {
                     byte[] data = saveData.remove(0);
                     try {
                         String fileName = getSaveFileName();
-                        FileOutputStream outputStream = new FileOutputStream(new File("png" + File.separator + fileName));
+                        FileOutputStream outputStream = new FileOutputStream(new File("png" + File.separator + fileName), isAppend);
 
-                        outputStream.write(data, 0, length);
+                        outputStream.write(data, 4, length);
+
                         outputStream.close();
-                        p.println("保存至:-->" + fileName);
+                        p.println(getId() + " 保存至:-->" + fileName);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

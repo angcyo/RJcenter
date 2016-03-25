@@ -167,4 +167,20 @@ public class RetrofitActivity extends RBaseActivity {
                     }
                 });
     }
+
+    public static void main(String...agr) {
+        String tag = "tag";
+
+        switch (tag) {
+            case "a":
+                break;
+            case "b":
+                break;
+            case "c":
+                break;
+            default:
+                System.out.println("default");
+                break;
+        }
+    }
 }
