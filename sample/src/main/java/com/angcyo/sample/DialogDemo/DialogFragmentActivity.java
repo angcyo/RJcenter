@@ -58,7 +58,7 @@ public class DialogFragmentActivity extends RBaseActivity {
                 viewHolder.v(R.id.ok).setOnClickListener(v -> {
                     T.show(DialogFragmentActivity.this, "ok");
                 });
-                ((EditText) viewHolder.v(R.id.editText)).setHint("你可以在此输入内容");
+                ((EditText) viewHolder.v(R.id.editText)).setHint("你可以在此输入内容..");
             }
 
             @Override
