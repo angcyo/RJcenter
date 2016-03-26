@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -52,17 +51,22 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         initArguments(getArguments());
 
         mWindow = getDialog().getWindow();
+        mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (isNoTitle()) {
             mWindow.requestFeature(Window.FEATURE_NO_TITLE);//必须放在setContextView之前调用
         }
-        rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_dialog_fragment_layout, (ViewGroup) mWindow.findViewById(android.R.id.content));
+        rootView = (ViewGroup) inflater.inflate(getContentView(), (ViewGroup) mWindow.findViewById(android.R.id.content), false);
+        mViewHolder = new RBaseViewHolder(rootView);
 
-        if (isStatusTranslucent() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mWindow.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+        //此段代码,会出现软键盘覆盖界面的BUG
+//        if (isStatusTranslucent() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            mWindow.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        }
+
         if (isAnimEnabled()) {
             mWindow.setWindowAnimations(getAnimStyles());
         }
+
         if (!isDimEnabled()) {
             mWindow.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
@@ -80,9 +84,11 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         mWindowAttributes.gravity = getGravity();
         mWindow.setAttributes(mWindowAttributes);
 
-        mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView));
+//        mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView));
         initView(savedInstanceState);
-        return null;
+
+        setShowsDialog(true);
+        return rootView;
     }
 
     protected void initArguments(Bundle arguments) {
