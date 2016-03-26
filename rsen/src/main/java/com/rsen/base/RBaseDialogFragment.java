@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -59,9 +60,9 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         mViewHolder = new RBaseViewHolder(rootView);
 
         //此段代码,会出现软键盘覆盖界面的BUG
-//        if (isStatusTranslucent() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            mWindow.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        }
+        if (isStatusTranslucent() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && getGravity() != Gravity.BOTTOM) {
+            mWindow.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
 
         if (isAnimEnabled()) {
             mWindow.setWindowAnimations(getAnimStyles());

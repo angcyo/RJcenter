@@ -3,6 +3,7 @@ package com.rsen.base;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 
 /**
  * Created by angcyo on 2016-03-27 01:33.
@@ -38,6 +39,11 @@ public class RSimpleDialogFragment extends RBaseDialogFragment {
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         builderListener.onDialogDismiss(mViewHolder);
+    }
+
+    @Override
+    protected int getGravity() {
+        return Gravity.BOTTOM;
     }
 
     private void setBuilderListener(BuilderListener listener) {
