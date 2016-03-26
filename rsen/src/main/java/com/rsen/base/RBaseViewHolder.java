@@ -9,6 +9,7 @@ import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,6 +52,17 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
 
     public TextView textView(@IdRes int resId) {
         return tV(resId);
+    }
+
+    /**
+     * 返回 EditText
+     */
+    public EditText eV(@IdRes int resId) {
+        return (EditText) v(resId);
+    }
+
+    public EditText editView(@IdRes int resId) {
+        return eV(resId);
     }
 
     /**

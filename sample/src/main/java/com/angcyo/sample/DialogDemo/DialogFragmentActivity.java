@@ -1,5 +1,6 @@
 package com.angcyo.sample.DialogDemo;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,10 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
 import com.rsen.base.RBaseDialogFragment;
+import com.rsen.base.RBaseViewHolder;
+import com.rsen.base.RSimpleDialogFragment;
+import com.rsen.util.T;
 
 public class DialogFragmentActivity extends RBaseActivity {
 
@@ -26,7 +31,7 @@ public class DialogFragmentActivity extends RBaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        new TestDialogFragment().show(getSupportFragmentManager(), "DialogFragment");
+//        new TestDialogFragment().show(getSupportFragmentManager(), "DialogFragment");
 
         findViewById(R.id.editText).setFocusable(false);
 //        AlertDialog alertDialog = new AlertDialog.Builder(this).setView(R.layout.activity_dialog_fragment).create();
@@ -38,6 +43,29 @@ public class DialogFragmentActivity extends RBaseActivity {
 //        alertDialog.show();
 
 //        new TestDialog().show(getSupportFragmentManager(), "Dialog");
+
+        RSimpleDialogFragment.showDialog(getSupportFragmentManager(), null, new RSimpleDialogFragment.BuilderListener() {
+            @Override
+            public int getLayoutId() {
+                return R.layout.activity_dialog_fragment;
+            }
+
+            @Override
+            public void initView(RSimpleDialogFragment dialogFragment, RBaseViewHolder viewHolder, Bundle args) {
+                viewHolder.v(R.id.cancel).setOnClickListener(v -> {
+                    dialogFragment.dismiss();
+                });
+                viewHolder.v(R.id.ok).setOnClickListener(v -> {
+                    T.show(DialogFragmentActivity.this, "ok");
+                });
+                ((EditText) viewHolder.v(R.id.editText)).setHint("你可以在此输入内容");
+            }
+
+            @Override
+            public void onDialogDismiss(RBaseViewHolder viewHolder) {
+                T.show(DialogFragmentActivity.this, "Dismiss");
+            }
+        });
     }
 
 
@@ -46,6 +74,26 @@ public class DialogFragmentActivity extends RBaseActivity {
         @Override
         protected int getContentView() {
             return R.layout.activity_dialog_fragment;
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+        }
+
+        @Override
+        public void onDestroyView() {
+            super.onDestroyView();
+        }
+
+        @Override
+        public void onDetach() {
+            super.onDetach();
+        }
+
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            super.onDismiss(dialog);
         }
     }
 
