@@ -162,7 +162,7 @@ public class DialDemoActivity extends AppCompatActivity {
         target.setPivotY(y);
 
         e("w:" + target.getWidth() + " h:" + target.getHeight());
-        e("x:" + x + " y:" + y + " r:" + rotation);
+        e("X:" + x + " y:" + y + " r:" + rotation);
     }
 
     private float dp(float v) {

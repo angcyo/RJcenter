@@ -171,7 +171,7 @@ public class FragmentDemoActivity extends RBaseActivity {
 //            WindowManager.LayoutParams attributes = window.getAttributes();
 //            attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
 //            attributes.height = WindowManager.LayoutParams.MATCH_PARENT;
-//            attributes.x = 10;
+//            attributes.X = 10;
 //            attributes.y = 10;
 //            attributes.gravity = Gravity.TOP;
 //            window.setAttributes(attributes);
@@ -196,7 +196,7 @@ public class FragmentDemoActivity extends RBaseActivity {
 //           .addView(rootView);
             attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
             attributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
-//            attributes.x = 200;
+//            attributes.X = 200;
 //            attributes.y = 200;
             attributes.gravity = Gravity.CENTER;
             window.setAttributes(attributes);

@@ -397,7 +397,7 @@ public class CirclePathButton extends Button {
         nextP.x = startP.x;
         nextP.y = startP.y;
 
-//        mTickRightList.add(new PointF(nextP.x, nextP.y + 1));//连接点的地方,填充数据
+//        mTickRightList.add(new PointF(nextP.X, nextP.y + 1));//连接点的地方,填充数据
 
         for (int i = 0; i < (count + count / 2); i++) {
             mTickRightList.add(new PointF(nextP.x, nextP.y));

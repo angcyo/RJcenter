@@ -311,7 +311,7 @@ public class GalleryLinearLayout extends ViewGroup {
             int x = mScroller.getCurrX();
             int y = mScroller.getCurrY();
             if (isBeginFling) {
-                e("x-->" + x);
+                e("X-->" + x);
             }
             scrollTo(x, 0);
             invalidate();

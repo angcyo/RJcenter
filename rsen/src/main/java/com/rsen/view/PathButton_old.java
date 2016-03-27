@@ -301,8 +301,8 @@ public class PathButton_old extends Button {
      * 获取下一个path的点坐标
      */
     private Point addNextPath(Point curPoint) {
-//        e("x-->" + curPoint.x + " y-->" + curPoint.y);
-//        e("x-->" + curPoint.x + " y-->" + curPoint.y);
+//        e("X-->" + curPoint.X + " y-->" + curPoint.y);
+//        e("X-->" + curPoint.X + " y-->" + curPoint.y);
 
         Point retPoint = new Point();
         Point startPoint = mStartPoint;

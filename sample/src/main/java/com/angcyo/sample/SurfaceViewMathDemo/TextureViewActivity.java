@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.SurfaceTexture;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.util.TypedValue;
@@ -25,7 +24,7 @@ public class TextureViewActivity extends Activity implements TextureView.Surface
     float alpha;
     boolean isCreate;
     Canvas canvas;
-    private Camera mCamera;
+    private android.hardware.Camera mCamera;
     private TextureView mTextureView, mTextureView2;
     private Button mRotate;
     private float rotate;
@@ -78,14 +77,14 @@ public class TextureViewActivity extends Activity implements TextureView.Surface
     }
 
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-        mCamera = Camera.open();
+        mCamera = android.hardware.Camera.open();
         mCamera.setDisplayOrientation(90);
 
-        Camera.Parameters parameters = mCamera.getParameters();
+        android.hardware.Camera.Parameters parameters = mCamera.getParameters();
         parameters.setPreviewSize(1920, 1080);
         parameters.setPictureSize(1920, 1080);
-        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_AUTO);
-        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+        parameters.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_AUTO);
+        parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 //        parameters.setRotation(90);
 //        parameters.setPreviewFormat();
         mCamera.setParameters(parameters);
@@ -104,7 +103,7 @@ public class TextureViewActivity extends Activity implements TextureView.Surface
     }
 
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-        // Ignored, Camera does all the work for us
+        // Ignored, android.hardware.Camera does all the work for us
     }
 
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
@@ -117,7 +116,7 @@ public class TextureViewActivity extends Activity implements TextureView.Surface
     }
 
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-        // Invoked every time there's a new Camera preview frame
+        // Invoked every time there's a new android.hardware.Camera preview frame
     }
 
     public void getBitmap(View view) {

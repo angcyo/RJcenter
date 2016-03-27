@@ -4,8 +4,10 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,11 @@ import com.rsen.base.RBaseViewHolder;
 import com.rsen.base.RSimpleDialogFragment;
 import com.rsen.util.T;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class DialogFragmentActivity extends RBaseActivity {
 
     @Override
@@ -30,6 +37,8 @@ public class DialogFragmentActivity extends RBaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        fileTest();
+
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 //        new TestDialogFragment().show(getSupportFragmentManager(), "DialogFragment");
 
@@ -66,6 +75,23 @@ public class DialogFragmentActivity extends RBaseActivity {
                 T.show(DialogFragmentActivity.this, "Dismiss");
             }
         });
+    }
+
+    private void fileTest() {
+        String filePath = new String(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "test1.h264");
+        File file = new File(filePath);
+        long fileSize = file.length();
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            int available = fileInputStream.available();
+
+            Log.e("fileSize", "");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

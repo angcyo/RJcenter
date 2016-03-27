@@ -860,7 +860,7 @@ public class BmpUtil {
         if (null != bitmap) {
             if (DEBUG) {
                 L.v(TAG,
-                        "decodeImage() " + bitmap.getWidth() + "x" + bitmap.getHeight());
+                        "decodeImage() " + bitmap.getWidth() + "X" + bitmap.getHeight());
             }
         }
 

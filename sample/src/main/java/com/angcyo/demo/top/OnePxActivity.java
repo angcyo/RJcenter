@@ -69,7 +69,7 @@ public class OnePxActivity extends AppCompatActivity {
         wmParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         wmParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
-//        wmParams.x = x;
+//        wmParams.X = X;
 //        wmParams.y = y;
     }
 }

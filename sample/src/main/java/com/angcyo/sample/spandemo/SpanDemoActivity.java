@@ -144,10 +144,10 @@ public class SpanDemoActivity extends AppCompatActivity {
 
         @Override
         public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
-            e("text-->" + text + " start-->" + start + " end-->" + end + " x-->" + x + " top-->" + top + " y-->" + y + " bottom-->" + bottom);
+            e("text-->" + text + " start-->" + start + " end-->" + end + " X-->" + x + " top-->" + top + " y-->" + y + " bottom-->" + bottom);
             paint.setColor(Color.RED);
 //            paint.setTextSize(mSize);
-//            canvas.drawCircle(x, y, y, paint);
+//            canvas.drawCircle(X, y, y, paint);
             canvas.drawRect(x, top, x + s, bottom, paint);
             paint.setColor(Color.YELLOW);
             canvas.drawText(text, start, end, s/2, bottom/2 + y/2 , paint);
