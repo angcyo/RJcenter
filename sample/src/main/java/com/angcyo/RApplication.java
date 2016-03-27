@@ -2,6 +2,7 @@ package com.angcyo;
 
 import android.app.Application;
 
+import com.rsen.db.X;
 import com.rsen.exception.RCrashHandler;
 
 /**
@@ -12,5 +13,6 @@ public class RApplication extends Application {
     public void onCreate() {
         super.onCreate();
         RCrashHandler.init(this);
+        X.Ext.init(this);
     }
 }
