@@ -1,6 +1,9 @@
 package com.angcyo.sample.DbDemo;
 
 import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
+import android.widget.TextView;
 
 import com.angcyo.sample.DbDemo.db.Child;
 import com.angcyo.sample.DbDemo.db.Parent;
@@ -21,6 +24,7 @@ public class DbActivity extends RBaseActivity {
     DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
             .setDbName("rsen_db_test.db")
             // 不设置dbDir时, 默认存储在app的私有目录.
+            .setDbDir(Environment.getExternalStorageDirectory()) // "sdcard"的写法并非最佳实践, 这里为了简单, 先这样写了.
 //            .setDbDir(new File("/sdcard")) // "sdcard"的写法并非最佳实践, 这里为了简单, 先这样写了.
             .setDbVersion(2)
             .setDbOpenListener(new DbManager.DbOpenListener() {
@@ -49,12 +53,13 @@ public class DbActivity extends RBaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        test1();
-        test2();
+        tv_db_result = mViewHolder.tV(R.id.tv_db_result);
     }
 
-    private void test1() {
-        //
+    private TextView tv_db_result;
+
+    public void onTestDbClick(View view) {
+
         // 一对多: (本示例的代码)
         // 自己在多的一方(child)保存另一方的(parentId), 查找的时候用parentId查parent或child.
         // 一对一:
@@ -65,6 +70,7 @@ public class DbActivity extends RBaseActivity {
         String temp = "";
 
         try {
+
             DbManager db = X.getDb(daoConfig);
 
             Child child = new Child();
@@ -76,6 +82,7 @@ public class DbActivity extends RBaseActivity {
             if (test != null) {
                 child.setParentId(test.getId());
                 temp += "first parent:" + test + "\n";
+                tv_db_result.setText(temp);
             }
 
             Parent parent = new Parent();
@@ -84,14 +91,17 @@ public class DbActivity extends RBaseActivity {
             parent.setEmail("wyouflf@qq.com");
             parent.setTime(new Date());
             parent.setDate(new java.sql.Date(new Date().getTime()));
-            db.save(parent);
+//            db.save(parent);
+            db.saveBindingId(parent);
 
             db.saveBindingId(child);//保存对象关联数据库生成的id
 
             List<Child> children = db.selector(Child.class).findAll();
             temp += "children size:" + children.size() + "\n";
+            tv_db_result.setText(temp);
             if (children.size() > 0) {
                 temp += "last children:" + children.get(children.size() - 1) + "\n";
+                tv_db_result.setText(temp);
             }
 
             Calendar calendar = Calendar.getInstance();
@@ -104,8 +114,10 @@ public class DbActivity extends RBaseActivity {
                     .orderBy("id")
                     .limit(10).findAll();
             temp += "find parent size:" + list.size() + "\n";
+            tv_db_result.setText(temp);
             if (list.size() > 0) {
                 temp += "last parent:" + list.get(list.size() - 1) + "\n";
+                tv_db_result.setText(temp);
             }
 
             //parent.name = "hahaha123";
@@ -113,19 +125,22 @@ public class DbActivity extends RBaseActivity {
 
             Parent entity = child.getParent(db);
             temp += "find by id:" + entity.toString() + "\n";
+            tv_db_result.setText(temp);
 
             List<DbModel> dbModels = db.selector(Parent.class)
                     .groupBy("name")
                     .select("name", "count(name) as count").findAll();
             temp += "group by result:" + dbModels.get(0).getDataMap() + "\n";
+            tv_db_result.setText(temp);
 
         } catch (Throwable e) {
             temp += "error :" + e.getMessage() + "\n";
+            tv_db_result.setText(temp);
         }
     }
 
-
-    private void test2() {
+    public void onTestDb2Click(View view) {
+        tv_db_result.setText("wait...");
 
         DbManager db = X.getDb(daoConfig);
         String result = "";
@@ -193,5 +208,7 @@ public class DbActivity extends RBaseActivity {
         }
 
         final String finalResult = result;
+        tv_db_result.setText(finalResult);
     }
+
 }
