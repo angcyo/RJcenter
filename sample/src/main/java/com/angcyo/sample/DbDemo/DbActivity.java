@@ -54,7 +54,7 @@ public class DbActivity extends RBaseActivity {
     }
 
     private void test1() {
-
+        //
         // 一对多: (本示例的代码)
         // 自己在多的一方(child)保存另一方的(parentId), 查找的时候用parentId查parent或child.
         // 一对一:
