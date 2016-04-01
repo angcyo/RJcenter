@@ -20,6 +20,7 @@
         <LinearLayout
             android:layout_width="100dp"
             android:orientation="vertical"
+            android:visibility="visible"
             android:layout_height="match_parent"
             android:background="@android:color/holo_blue_bright">
 
@@ -29,10 +30,30 @@
                 android:layout_height="wrap_content"
                 android:text="Button" />
 
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
             <ImageView
                 android:id="@+id/imageView"
                 android:src="@mipmap/ic_launcher"
+                android:background="@android:color/holo_green_dark"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="100dp" />
 
             <Button
