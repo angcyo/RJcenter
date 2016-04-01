@@ -29,8 +29,9 @@ public class RDragLayout extends RelativeLayout {
     //    private Bitmap dragViewBitmap;//当前拖动View的Bitmap
     private ImageView dragImageView;
     List<Rect> gridList;
+    View[] gridArrayView;
     Paint paint;
-    private int gridNum = 6;        //横向格子数量
+    private int gridNum = 4;        //横向格子数量
 
 
     public RDragLayout(Context context, AttributeSet attrs) {
@@ -83,27 +84,32 @@ public class RDragLayout extends RelativeLayout {
 //
 //        dragImageView.setImageBitmap(null);
 //        removeView(dragImageView);
-        Rect rect = findRect(x, y);
-        if (rect == null) {
+        Rect rect = new Rect();
+        int index = findRect(x, y, rect);
+        if (index < 0) {
             removeView(dragImageView);
         } else {
+            View view = gridArrayView[index];
+            if (view != null) {
+                removeView(view);
+            }
             dragImageView.setScaleY(1f);
             dragImageView.setScaleX(1f);
             dragView(rect.centerX(), rect.centerY());
+            gridArrayView[index] = dragImageView;
         }
     }
 
-    private Rect findRect(float x, float y) {
-        for (Rect rt : gridList) {
+    private int findRect(float x, float y, Rect rect) {
+        for (int i = 0; i < gridList.size(); i++) {
+            Rect rt = gridList.get(i);
             if (rt.contains((int) x, (int) y)) {
-                return rt;
+                rect.set(rt);
+                return i;
             }
         }
-        return null;
-    }
 
-    private void startDragView(float x, float y) {
-
+        return -1;
     }
 
     private void dragView(float x, float y) {
@@ -144,7 +150,7 @@ public class RDragLayout extends RelativeLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int paddingLeft = (int) ResUtil.dpToPx(getResources(), 110);
+        int paddingLeft = (int) ResUtil.dpToPx(getResources(), 100);
 
         int measuredWidth = getMeasuredWidth() - paddingLeft;
         int gridWidth = (int) Math.ceil(measuredWidth / (float) gridNum);//每个格子的宽度
@@ -164,6 +170,9 @@ public class RDragLayout extends RelativeLayout {
                 gridList.add(rect);
 
             }
+        }
+        if (gridArrayView == null || gridArrayView.length != gridList.size()) {
+            gridArrayView = new View[gridList.size()];
         }
     }
 
