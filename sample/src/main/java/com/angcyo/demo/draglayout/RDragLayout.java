@@ -26,10 +26,10 @@ public class RDragLayout extends RelativeLayout {
 
     public static final boolean DEBUG = true;
     public static final String TAG = "RDragLayout";
-    private ImageView dragImageView;
-    List<Rect> gridList;
-    View[] gridArrayView;
-    Paint paint;
+    private ImageView dragImageView;//当前拖拽的View
+    List<Rect> gridList;//所有格子
+    View[] gridArrayView;//格子内对应的View
+    Paint paint;//格子画笔
     private int gridNum = 4;//横向格子数量
 
 
