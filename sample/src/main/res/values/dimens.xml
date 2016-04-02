@@ -4,5 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="ds_shape_bg">2dp</dimen>
-    <dimen name="drag_button_size">55dp</dimen>
+    <dimen name="drag_button_size">65dp</dimen>
 </resources>

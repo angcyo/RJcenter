@@ -215,7 +215,7 @@ public class RDragLayout extends RelativeLayout {
 
     private Animation getRemoveAnimation(View view) {
         ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.2f, 1f, 0.2f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                Animation.RELATIVE_TO_PARENT, 0.5f, Animation.RELATIVE_TO_PARENT, 0.5f);
         scaleAnimation.setDuration(300);
         scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
