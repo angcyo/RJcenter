@@ -26,7 +26,7 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/drag_button_size"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="ABC"
@@ -34,7 +34,7 @@
 
             <Button
                 android:id="@+id/button3"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/drag_button_size"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="KFC"
@@ -42,7 +42,7 @@
 
             <Button
                 android:id="@+id/button4"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/drag_button_size"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="88"
@@ -50,7 +50,7 @@
 
             <Button
                 android:id="@+id/button5"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/drag_button_size"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="R"
@@ -61,13 +61,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
+                android:src="@drawable/logo"
                 android:background="@android:color/holo_green_dark"
-                android:src="@mipmap/ic_launcher"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/drag_button_size"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="RSen"

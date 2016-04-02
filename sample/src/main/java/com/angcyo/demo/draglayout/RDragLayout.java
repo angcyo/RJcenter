@@ -26,12 +26,11 @@ public class RDragLayout extends RelativeLayout {
 
     public static final boolean DEBUG = true;
     public static final String TAG = "RDragLayout";
-    //    private Bitmap dragViewBitmap;//当前拖动View的Bitmap
     private ImageView dragImageView;
     List<Rect> gridList;
     View[] gridArrayView;
     Paint paint;
-    private int gridNum = 4;        //横向格子数量
+    private int gridNum = 4;//横向格子数量
 
 
     public RDragLayout(Context context, AttributeSet attrs) {
@@ -71,19 +70,6 @@ public class RDragLayout extends RelativeLayout {
     }
 
     private void stopDragView(float x, float y) {
-//        ImageView imageView = new ImageView(getContext());
-//        imageView.setImageBitmap(dragViewBitmap);
-//        imageView.setX(x);
-//        imageView.setY(y);
-//        addView(imageView);
-//
-////        if (dragViewBitmap != null) {
-////            dragViewBitmap.recycle();
-////            dragViewBitmap = null;
-////        }
-//
-//        dragImageView.setImageBitmap(null);
-//        removeView(dragImageView);
         Rect rect = new Rect();
         int index = findRect(x, y, rect);
         if (index < 0) {
@@ -122,27 +108,7 @@ public class RDragLayout extends RelativeLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        e("onInterceptTouchEvent");
-        if (ev.getAction() == MotionEvent.ACTION_MOVE) {
-            if (dragImageView.getParent() != null) {
-                dragView(ev.getX(), ev.getY());
-            }
-        } else if (ev.getAction() == MotionEvent.ACTION_UP) {
-            if (dragImageView.getParent() != null) {
-                stopDragView(ev.getX(), ev.getY());
-                //判断是否可以放下
-                //TODO: 16-03-31-031
-            }
-        } else if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-//            if (dragImageView.getVisibility() == View.INVISIBLE) {
-//                startDragView(ev.getX(), ev.getY());
-//                intercept = true;
-//            }
-        }
-
-//        if (intercept) {
-//            return true;
-//        }
+        e("onInterceptTouchEvent " + ev.getAction());
         return super.onInterceptTouchEvent(ev);
     }
 
@@ -195,13 +161,28 @@ public class RDragLayout extends RelativeLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//        e("onTouchEvent");
+        e("onTouchEvent " + event.getAction());
+        if (dragImageView != null && dragImageView.getParent() != null) {
+            //解决无法像正常情况一下拖放ImageView的BUG
+            return true;
+        }
         return super.onTouchEvent(event);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        e("dispatchTouchEvent");
+        e("dispatchTouchEvent " + ev.getAction());
+
+        if (dragImageView != null && dragImageView.getParent() != null) {
+            if (ev.getAction() == MotionEvent.ACTION_MOVE) {
+                dragView(ev.getX(), ev.getY());
+            } else if (ev.getAction() == MotionEvent.ACTION_UP) {
+                stopDragView(ev.getX(), ev.getY());
+                //判断是否可以放下
+                //TODO: 16-03-31-031
+            }
+        }
+
         return super.dispatchTouchEvent(ev);
     }
 
