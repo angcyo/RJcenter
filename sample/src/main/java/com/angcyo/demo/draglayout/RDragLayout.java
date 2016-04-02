@@ -1,5 +1,8 @@
 package com.angcyo.demo.draglayout;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,8 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class RDragLayout extends RelativeLayout {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public static final String TAG = "RDragLayout";
     private ImageView dragImageView;//当前拖拽的View
     List<Rect> gridList;//所有格子
@@ -34,6 +36,7 @@ public class RDragLayout extends RelativeLayout {
     Paint paint;//格子画笔
     private int gridNum = 4;//横向格子数量
     DragViewClickListener dragViewClickListener;
+    private ValueAnimator scaleAnimation;
 
     public RDragLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -46,6 +49,10 @@ public class RDragLayout extends RelativeLayout {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         dragViewClickListener = new DragViewClickListener();
+
+        scaleAnimation = ValueAnimator.ofFloat(1f, 0.2f);
+        scaleAnimation.setDuration(300);
+        scaleAnimation.setInterpolator(new AccelerateInterpolator());
     }
 
     private ImageView getImageView(Bitmap bitmap) {
@@ -213,27 +220,41 @@ public class RDragLayout extends RelativeLayout {
         return super.dispatchTouchEvent(ev);
     }
 
-    private Animation getRemoveAnimation(View view) {
-        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.2f, 1f, 0.2f,
-                Animation.RELATIVE_TO_PARENT, 0.5f, Animation.RELATIVE_TO_PARENT, 0.5f);
-        scaleAnimation.setDuration(300);
-        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
+    private void getRemoveAnimation(View view) {
+//        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.2f, 1f, 0.2f,
+//                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//        scaleAnimation.setDuration(300);
+//        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//                removeView(view);
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        });
+//        view.startAnimation(scaleAnimation);
+//        return scaleAnimation;
 
+        scaleAnimation.removeAllListeners();
+        scaleAnimation.addUpdateListener(animation -> {
+            view.setScaleX((Float) animation.getAnimatedValue());
+            view.setScaleY((Float) animation.getAnimatedValue());
+        });
+        scaleAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animation animation) {
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
                 removeView(view);
             }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
         });
-        view.startAnimation(scaleAnimation);
-        return scaleAnimation;
+        scaleAnimation.start();
     }
 
     public void e(String msg) {
