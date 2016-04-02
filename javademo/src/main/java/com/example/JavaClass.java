@@ -5,6 +5,8 @@ import com.rsa.RsaClass;
 import java.io.PrintStream;
 
 public class JavaClass {
+    static final PrintStream p = System.out;
+
     public static PrintStream Out = System.out;
 
     public static void main(String... args) {
