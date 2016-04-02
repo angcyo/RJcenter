@@ -31,6 +31,7 @@ public class RDragLayout extends RelativeLayout {
     View[] gridArrayView;//格子内对应的View
     Paint paint;//格子画笔
     private int gridNum = 4;//横向格子数量
+    DragViewClickListener dragViewClickListener;
 
 
     public RDragLayout(Context context, AttributeSet attrs) {
@@ -43,14 +44,14 @@ public class RDragLayout extends RelativeLayout {
         setWillNotDraw(false);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        dragViewClickListener = new DragViewClickListener();
     }
 
     private ImageView getImageView(Bitmap bitmap) {
         ImageView imageView = new ImageView(getContext());
         imageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         imageView.setImageBitmap(bitmap);
-        imageView.setClickable(false);
-        imageView.setFocusable(false);
+        imageView.setOnClickListener(dragViewClickListener);
         return imageView;
     }
 
@@ -72,6 +73,13 @@ public class RDragLayout extends RelativeLayout {
         dragView(view.getLeft(), view.getTop());
     }
 
+    private void removeView(int index) {
+        View view = gridArrayView[index];
+        if (view != null && index >= 0 && index < gridArrayView.length) {
+            removeView(view);
+        }
+    }
+
     /**
      * 停止拖拽,找到适合放下的Rect,并add View,否则remove view
      */
@@ -87,6 +95,7 @@ public class RDragLayout extends RelativeLayout {
             }
             dragImageView.setScaleY(1f);
             dragImageView.setScaleX(1f);
+            dragImageView.setTag(String.valueOf(index));
             dragView(rect.centerX(), rect.centerY());
             gridArrayView[index] = dragImageView;
         }
@@ -203,4 +212,21 @@ public class RDragLayout extends RelativeLayout {
             Log.e(TAG, msg);
         }
     }
+
+    class DragViewClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Object tag = v.getTag();
+            if (tag != null && tag instanceof String) {
+                try {
+                    int index = Integer.valueOf((Integer) tag);
+                    removeView(index);
+                } catch (Exception e) {
+                }
+            }
+
+        }
+    }
+
 }
