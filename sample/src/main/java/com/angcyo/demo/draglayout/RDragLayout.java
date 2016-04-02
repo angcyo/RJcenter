@@ -36,7 +36,6 @@ public class RDragLayout extends RelativeLayout {
     Paint paint;//格子画笔
     private int gridNum = 4;//横向格子数量
     DragViewClickListener dragViewClickListener;
-    private ValueAnimator scaleAnimation;
 
     public RDragLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -49,10 +48,6 @@ public class RDragLayout extends RelativeLayout {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         dragViewClickListener = new DragViewClickListener();
-
-        scaleAnimation = ValueAnimator.ofFloat(1f, 0.2f);
-        scaleAnimation.setDuration(300);
-        scaleAnimation.setInterpolator(new AccelerateInterpolator());
     }
 
     private ImageView getImageView(Bitmap bitmap) {
@@ -242,7 +237,9 @@ public class RDragLayout extends RelativeLayout {
 //        view.startAnimation(scaleAnimation);
 //        return scaleAnimation;
 
-        scaleAnimation.removeAllListeners();
+        ValueAnimator scaleAnimation = ValueAnimator.ofFloat(1f, 0.2f);
+        scaleAnimation.setDuration(300);
+        scaleAnimation.setInterpolator(new AccelerateInterpolator());
         scaleAnimation.addUpdateListener(animation -> {
             view.setScaleX((Float) animation.getAnimatedValue());
             view.setScaleY((Float) animation.getAnimatedValue());
