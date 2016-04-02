@@ -54,6 +54,9 @@ public class RDragLayout extends RelativeLayout {
         return imageView;
     }
 
+    /**
+     * 设置一个View,用于开始拖拽
+     */
     public void setDragView(View view) {
         Bitmap dragViewBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(dragViewBitmap);
@@ -69,6 +72,9 @@ public class RDragLayout extends RelativeLayout {
         dragView(view.getLeft(), view.getTop());
     }
 
+    /**
+     * 停止拖拽,找到适合放下的Rect,并add View,否则remove view
+     */
     private void stopDragView(float x, float y) {
         Rect rect = new Rect();
         int index = findRect(x, y, rect);
@@ -86,6 +92,9 @@ public class RDragLayout extends RelativeLayout {
         }
     }
 
+    /**
+     * 查找当前触摸点对应的Rect,通过rect参数返回,返回值表示格子的索引,用于判断当前格子,是否已经添加了view
+     */
     private int findRect(float x, float y, Rect rect) {
         for (int i = 0; i < gridList.size(); i++) {
             Rect rt = gridList.get(i);
@@ -98,6 +107,9 @@ public class RDragLayout extends RelativeLayout {
         return -1;
     }
 
+    /**
+     * 将View的中心位置,应触摸点的位置
+     */
     private void dragView(float x, float y) {
         int width = dragImageView.getWidth();
         int height = dragImageView.getHeight();
