@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -32,7 +34,6 @@ public class RDragLayout extends RelativeLayout {
     Paint paint;//格子画笔
     private int gridNum = 4;//横向格子数量
     DragViewClickListener dragViewClickListener;
-
 
     public RDragLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -76,7 +77,7 @@ public class RDragLayout extends RelativeLayout {
     private void removeView(int index) {
         View view = gridArrayView[index];
         if (view != null && index >= 0 && index < gridArrayView.length) {
-            removeView(view);
+            removeViewAnimation(view);
         }
     }
 
@@ -87,18 +88,23 @@ public class RDragLayout extends RelativeLayout {
         Rect rect = new Rect();
         int index = findRect(x, y, rect);
         if (index < 0) {
-            removeView(dragImageView);
+            removeViewAnimation(dragImageView);
         } else {
             View view = gridArrayView[index];
             if (view != null) {
-                removeView(view);
+                removeViewAnimation(view);
             }
             dragImageView.setScaleY(1f);
             dragImageView.setScaleX(1f);
             dragImageView.setTag(String.valueOf(index));
             dragView(rect.centerX(), rect.centerY());
             gridArrayView[index] = dragImageView;
+            dragImageView = null;
         }
+    }
+
+    private void removeViewAnimation(View view) {
+        getRemoveAnimation(view);
     }
 
     /**
@@ -207,6 +213,29 @@ public class RDragLayout extends RelativeLayout {
         return super.dispatchTouchEvent(ev);
     }
 
+    private Animation getRemoveAnimation(View view) {
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.2f, 1f, 0.2f,
+                Animation.RELATIVE_TO_PARENT, 0.5f, Animation.RELATIVE_TO_PARENT, 0.5f);
+        scaleAnimation.setDuration(300);
+        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                removeView(view);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        view.startAnimation(scaleAnimation);
+        return scaleAnimation;
+    }
+
     public void e(String msg) {
         if (DEBUG) {
             Log.e(TAG, msg);
@@ -220,7 +249,8 @@ public class RDragLayout extends RelativeLayout {
             Object tag = v.getTag();
             if (tag != null && tag instanceof String) {
                 try {
-                    int index = Integer.valueOf((Integer) tag);
+                    int index = Integer.valueOf((String) tag);
+                    e("onClick " + index);
                     removeView(index);
                 } catch (Exception e) {
                 }
