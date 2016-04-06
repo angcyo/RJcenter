@@ -7,6 +7,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@android:color/white"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.angcyo.sample.TextureViewDemo.MP4TextureActivity">
 
@@ -21,27 +22,34 @@
 
 
             <com.rsen.media.VideoTextureView
+                android:id="@+id/carView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:file_path="/sdcard/robi/end.mp4" />
+                app:loop_mode="false"
+                app:fps="24"
+                app:file_path="/sdcard/robi/appera.mp4" />
 
 
             <com.rsen.media.VideoTextureView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:file_path="/sdcard/robi/abs.mp4"
+                android:id="@+id/carView2"
+                android:background="@android:color/transparent"
                 app:fps="20" />
 
 
             <com.rsen.media.VideoTextureView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:alpha="0.4"
                 app:file_path="/sdcard/robi/2016-4-2_3.mp4" />
 
 
             <com.rsen.media.VideoTextureView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:alpha="0.2"
                 app:file_path="/sdcard/robi/abs.mp4"
                 app:fps="60" />
 
@@ -50,12 +58,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:file_path="/sdcard/robi/end.mp4"
+                android:alpha="0.7"
                 app:fps="30" />
 
             <com.rsen.media.VideoTextureView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:file_path="/sdcard/robi/abs.mp4"
+                android:alpha="0.1"
                 app:fps="5" />
 
 
@@ -63,6 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:file_path="/sdcard/robi/end.mp4"
+                android:alpha="0.0"
                 app:fps="10" />
 
         </LinearLayout>
