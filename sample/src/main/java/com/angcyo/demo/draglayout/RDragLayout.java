@@ -1,8 +1,5 @@
 package com.angcyo.demo.draglayout;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -14,7 +11,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -28,7 +26,7 @@ import java.util.List;
  */
 public class RDragLayout extends RelativeLayout {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     public static final String TAG = "RDragLayout";
     private ImageView dragImageView;//当前拖拽的View
     List<Rect> gridList;//所有格子
@@ -215,43 +213,27 @@ public class RDragLayout extends RelativeLayout {
         return super.dispatchTouchEvent(ev);
     }
 
-    private void getRemoveAnimation(View view) {
-//        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.2f, 1f, 0.2f,
-//                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-//        scaleAnimation.setDuration(300);
-//        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                removeView(view);
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//
-//            }
-//        });
-//        view.startAnimation(scaleAnimation);
-//        return scaleAnimation;
-
-        ValueAnimator scaleAnimation = ValueAnimator.ofFloat(1f, 0.2f);
+    private Animation getRemoveAnimation(View view) {
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.2f, 1f, 0.2f,
+                Animation.RELATIVE_TO_PARENT, 0.5f, Animation.RELATIVE_TO_PARENT, 0.5f);
         scaleAnimation.setDuration(300);
-        scaleAnimation.setInterpolator(new AccelerateInterpolator());
-        scaleAnimation.addUpdateListener(animation -> {
-            view.setScaleX((Float) animation.getAnimatedValue());
-            view.setScaleY((Float) animation.getAnimatedValue());
-        });
-        scaleAnimation.addListener(new AnimatorListenerAdapter() {
+        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
                 removeView(view);
             }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
         });
-        scaleAnimation.start();
+        view.startAnimation(scaleAnimation);
+        return scaleAnimation;
     }
 
     public void e(String msg) {
