@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VideoTextureView">
+        <!--文件的绝对路径-->
+        <attr name="file_path" format="string" />
+        <!--是否自动开始-->
+        <attr name="auto_start" format="boolean" />
+        <!--是否循环播放-->
+        <attr name="loop_mode" format="boolean" />
+        <!--播放帧率,决定播放的速度-->
+        <attr name="fps" format="integer" />
+    </declare-styleable>
+
+</resources>

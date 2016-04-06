@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.angcyo.sample.TextureViewDemo.MP4TextureActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.rsen.media.VideoTextureView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:file_path="/sdcard/robi/end.mp4" />
+
+
+            <com.rsen.media.VideoTextureView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:file_path="/sdcard/robi/abs.mp4"
+                app:fps="20" />
+
+
+            <com.rsen.media.VideoTextureView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:file_path="/sdcard/robi/2016-4-2_3.mp4" />
+
+
+            <com.rsen.media.VideoTextureView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:file_path="/sdcard/robi/abs.mp4"
+                app:fps="60" />
+
+
+            <com.rsen.media.VideoTextureView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:file_path="/sdcard/robi/end.mp4"
+                app:fps="30" />
+
+            <com.rsen.media.VideoTextureView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:file_path="/sdcard/robi/abs.mp4"
+                app:fps="5" />
+
+
+            <com.rsen.media.VideoTextureView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:file_path="/sdcard/robi/end.mp4"
+                app:fps="10" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello Mp4 Play"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
