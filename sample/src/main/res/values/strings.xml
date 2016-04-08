@@ -19,4 +19,6 @@
     <string name="title_activity_view_switcher_demo">ViewSwitcherDemo</string>
     <string name="title_activity_shape">ShapeActivity</string>
     <string name="title_activity_surface_math">SurfaceMathActivity</string>
+
+    <string name="app_accessibility_description">此服务只适用于微信\n自动向附近的人发送好友申请\n\n作者联系方式QQ:10010</string>
 </resources>
