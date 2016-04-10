@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.AppBarLayout;
+import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
+import com.rsen.util.CrashUtil;
 import com.rsen.util.T;
 
 import java.util.List;
@@ -24,6 +27,12 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        CrashUtil.init();
+
+        mToolbar.setTitle(getString(R.string.name_rsen_weixin));
+        mToolbar.setLayoutParams(new AppBarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 500));
+
+
         //监听AccessibilityService 变化
         accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
         accessibilityManager.addAccessibilityStateChangeListener(this);
@@ -46,9 +55,9 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
      */
     private void updateServiceStatus() {
         if (isServiceEnabled()) {
-            mViewHolder.tV("enable").setText("关闭");
+            mViewHolder.tV("enable").setText("插件已开启, 前往-->关闭");
         } else {
-            mViewHolder.tV("enable").setText("开启");
+            mViewHolder.tV("enable").setText("插件已关闭, 前往-->开启");
         }
     }
 

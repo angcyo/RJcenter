@@ -15,8 +15,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.angcyo.sample.BuildConfig;
-
 import java.util.List;
 
 public class RsenAccessibilityService extends AccessibilityService {
@@ -28,7 +26,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     public static final String TEXT_TXL = "通讯录";
     public static final String TEXT_FX = "发现";
     public static final String TEXT_ME = "我";
-    public static final String TEXT_LIST_ITEM = "米以内";
+    public static final String TEXT_LIST_ITEM = "以内";
     public static final String TEXT_DZH = "打招呼";
     public static final String TEXT_SAY_HI = "加为朋友";
     public static final String TEXT_SAY_HI2 = "添加朋友请求已发送";
@@ -38,6 +36,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     private int memberNumIndex = 0;//一屏需要添加的好友数量,用于控制滚动ListView
     private long addMemberNum = 0;//执行了多少次添加朋友操作
     private List<AccessibilityNodeInfo> lastItemList;//保存最后一次附近人的列表信息,用于判断是否全部添加了好友.
+    private boolean isOver = false;
 
     @Override
     protected void onServiceConnected() {
@@ -52,22 +51,35 @@ public class RsenAccessibilityService extends AccessibilityService {
     public boolean onUnbind(Intent intent) {
         //关闭服务时,调用
         e((new Exception()).getStackTrace()[1].getMethodName());
+        hideTipDialog();
         return super.onUnbind(intent);
     }
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+
         AccessibilityNodeInfo source = event.getSource();
         if (source == null) {
             return;
         }
-        //当窗口发生的事件是我们配置监听的事件时,会回调此方法.会被调用多次
-        if (BuildConfig.DEBUG) {
-            try {
-                e((new Exception()).getStackTrace()[1].getMethodName() + getDebugInfo(event));
-            } catch (Exception e) {
-            }
+
+        AccessibilityNodeInfo rootInActiveWindow = getRootInActiveWindow();
+        if (rootInActiveWindow == null) {
+            return;
         }
+
+        CharSequence packageName = rootInActiveWindow.getPackageName();
+        if (TextUtils.isEmpty(packageName) || !packageName.toString().contains("com.tencent.mm")) {
+            return;
+        }
+
+        //当窗口发生的事件是我们配置监听的事件时,会回调此方法.会被调用多次
+//        if (BuildConfig.DEBUG) {
+//            try {
+//                e((new Exception()).getStackTrace()[1].getMethodName() + getDebugInfo(event));
+//            } catch (Exception e) {
+//            }
+//        }
 
         if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
 //            createTipDialog();
@@ -78,14 +90,22 @@ public class RsenAccessibilityService extends AccessibilityService {
 //                    jumpToFaXianPage(event);
 //                jumpToFJDRPage(event);
 //                }
-                addMemberNum = 0;
                 needBack = false;
-                if (alertDialog != null && alertDialog.isShowing()) {
-                    alertDialog.dismiss();
+                hideTipDialog();
+
+                if (isOver) {
+                    showOverDialog();
+                    isOver = false;
                 }
+
+                addMemberNum = 0;
             } else if (isWeiXinFJDRPage(event)) {
                 //附近的人
                 e("已经进入\"附近的人\"界面");
+                if (addMemberNum < 1) {
+                    showTipMsg("接下来,就交给我吧...");
+                }
+
                 AccessibilityNodeInfo listNode = source.getChild(0).getChild(1);
                 if (listNode.getChildCount() > 0) {
                     needBack = false;
@@ -100,9 +120,12 @@ public class RsenAccessibilityService extends AccessibilityService {
                             if (isNodeListFoot(itemList)) {
                                 //所有联系人添加完毕
                                 needBack = true;
+                                isOver = true;
+                                e("列表已全部添加完毕,共:" + addMemberNum);
                             } else {
                                 lastItemList = itemList;
                                 listNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+                                e("请求滚动(前进)...");
                                 try {
                                     Thread.sleep(300);
                                 } catch (InterruptedException e) {
@@ -119,6 +142,7 @@ public class RsenAccessibilityService extends AccessibilityService {
                 }
             } else if (isWeiXinDetailPage(event)) {
                 //详细资料
+                e("详细资料");
                 if (!needBack) {
                     if (!clickButton(source, TEXT_DZH)) {
                         needBack = true;
@@ -126,13 +150,19 @@ public class RsenAccessibilityService extends AccessibilityService {
                 }
             } else if (isWeiXinSayHiPage(event)) {
                 //打招呼,聊天界面
+                e("聊天界面");
                 if (!needBack) {
                     clickButton(source, TEXT_SAY_HI);
                     addMemberNum++;
                     showToast();
-                    sendBackKey();
                 }
+                e("请求返回...隐藏键盘");
+                sendBackKey();
                 needBack = true;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                }
             }
 //            else {
 //                needBack = true;
@@ -140,10 +170,25 @@ public class RsenAccessibilityService extends AccessibilityService {
 
             if (needBack) {
                 sendBackKey();
+                e("请求返回Back");
             }
         }
 
 //        alertDialog.setMessage(event.getText() + " -- " + String.valueOf(event.getEventType()) + " -- " + index++);
+    }
+
+    private void showOverDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("完美结束")
+                .setMessage("上一次的战果是:" + addMemberNum + "次")
+                .setPositiveButton("恭喜发财", null)
+                .create();
+
+        Window window = alertDialog.getWindow();
+        window.setType(WindowManager.LayoutParams.TYPE_TOAST);
+        window.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+
+        alertDialog.show();
     }
 
     private void showItemListInfo(List<AccessibilityNodeInfo> itemList) {
@@ -167,11 +212,18 @@ public class RsenAccessibilityService extends AccessibilityService {
         return false;
     }
 
+    private void showTipMsg(String msg) {
+        alertDialog.setMessage(msg);
+        if (!alertDialog.isShowing()) {
+            alertDialog.show();
+        }
+    }
+
     private void showToast() {
 //        Toast toast = T.initToast(this, "");
 //        toast.setGravity(Gravity.BOTTOM, 0, 0);
 //        T.show(this, "已为申请好友:" + addMemberNum + "次");
-        alertDialog.setMessage("已为您申请好友:" + addMemberNum + "次");
+        alertDialog.setMessage("已为您申请好友:" + addMemberNum + "次,\n如果发现程序打瞌睡了,熄屏亮屏一次,就可以激活啦!");
         if (!alertDialog.isShowing()) {
             alertDialog.show();
         }
@@ -276,8 +328,8 @@ public class RsenAccessibilityService extends AccessibilityService {
         AccessibilityNodeInfo source = event.getSource();
         if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_SAY_HI), TEXT_SAY_HI, false)) {
             return true;
-        } else if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_SAY_HI2), TEXT_SAY_HI2, false)){
-
+        } else if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_SAY_HI2), TEXT_SAY_HI2, false)) {
+            return true;
         }
 
         return false;
@@ -347,10 +399,18 @@ public class RsenAccessibilityService extends AccessibilityService {
 //        alertDialog.show();
     }
 
+    private void hideTipDialog() {
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
+    }
+
     @Override
     public void onInterrupt() {
         //当服务要被中断时调用.会被调用多次
         e((new Exception()).getStackTrace()[1].getMethodName());
+
+        hideTipDialog();
     }
 
     private void e(String msg) {

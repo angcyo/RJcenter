@@ -7,4 +7,4 @@
     android:description="@string/app_accessibility_description"
     android:notificationTimeout="10"
     android:packageNames="com.tencent.mm"
-    android:settingsActivity="xyz.monkeytong.hongbao.activities.SettingsActivity" />
+    android:settingsActivity="com.angcyo.accessibility.RAccessibilityActivity" />

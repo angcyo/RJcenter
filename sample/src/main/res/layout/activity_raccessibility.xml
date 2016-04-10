@@ -12,9 +12,12 @@
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/enable"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/background_selector"
         android:text="开启"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
