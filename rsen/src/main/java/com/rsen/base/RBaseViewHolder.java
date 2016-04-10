@@ -50,6 +50,13 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         return (TextView) v(resId);
     }
 
+    /**
+     * 返回 TextView
+     */
+    public TextView tV(String idName) {
+        return (TextView) v(idName);
+    }
+
     public TextView textView(@IdRes int resId) {
         return tV(resId);
     }

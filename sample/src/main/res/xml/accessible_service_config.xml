@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<accessibility-service
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:description="@string/app_accessibility_description"
-
-    android:packageNames="com.tencent.mm,com.tencent.mobileqq"
-
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
     android:accessibilityEventTypes="typeAllMask"
-    android:accessibilityFlags="flagDefault"
     android:accessibilityFeedbackType="feedbackAllMask"
+    android:accessibilityFlags="flagDefault"
+    android:canRetrieveWindowContent="true"
+    android:description="@string/app_accessibility_description"
     android:notificationTimeout="10"
-    android:settingsActivity="xyz.monkeytong.hongbao.activities.SettingsActivity"
-    android:canRetrieveWindowContent="true"/>
+    android:packageNames="com.tencent.mm"
+    android:settingsActivity="xyz.monkeytong.hongbao.activities.SettingsActivity" />

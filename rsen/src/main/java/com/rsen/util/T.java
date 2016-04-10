@@ -44,7 +44,11 @@ public class T {
      */
     public static Toast initToast(Context content, CharSequence text) {
         if (toast == null) {
-            toast = Toast.makeText(content, text, Toast.LENGTH_SHORT);
+            synchronized (T.class) {
+                if (toast == null) {
+                    toast = Toast.makeText(content, text, Toast.LENGTH_SHORT);
+                }
+            }
         }
         return toast;
     }
