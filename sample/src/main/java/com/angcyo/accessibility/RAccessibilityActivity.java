@@ -147,7 +147,9 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         String code = Hawk.get(KEY_CODE, "");
 
         if (TextUtils.isEmpty(code)) {
-//            mViewHolder.tV(R.id.codeEdit).setText(code);
+            if (!mViewHolder.tV(R.id.codeEdit).isEnabled()) {
+                mViewHolder.tV(R.id.codeEdit).setText(code);
+            }
             mViewHolder.tV(R.id.codeEdit).setEnabled(true);
             mViewHolder.tV(R.id.register).setText("立即注册");
             mViewHolder.v(R.id.register).setEnabled(true);
