@@ -164,50 +164,6 @@ public class Utils {
     }
 
     /**
-     * Gets device name.
-     *
-     * @return 返回设备型号 device name
-     */
-    public static String getDeviceName() {
-        String string = Build.MODEL;
-        return string;
-    }
-
-    /**
-     * 返回设备制造商,和型号
-     * Taken from: http://stackoverflow.com/a/12707479/1254846
-     *
-     * @return The device model name (i.e., "LGE Nexus 5")
-     */
-    public static String getDeviceModelName() {
-        String manufacturer = Build.MANUFACTURER;
-        String model = Build.MODEL;
-        if (model.startsWith(manufacturer)) {
-            return capitalize(model);
-        } else {
-            return capitalize(manufacturer) + " " + model;
-        }
-    }
-
-    /**
-     * 返回首字母大写
-     *
-     * @param s The string to capitalize
-     * @return The capitalized string
-     */
-    public static String capitalize(String s) {
-        if (s == null || s.length() == 0) {
-            return "";
-        }
-        char first = s.charAt(0);
-        if (Character.isUpperCase(first)) {
-            return s;
-        } else {
-            return Character.toUpperCase(first) + s.substring(1);
-        }
-    }
-
-    /**
      * Gets os sdk.
      *
      * @return 返回设备sdk版本 os sdk

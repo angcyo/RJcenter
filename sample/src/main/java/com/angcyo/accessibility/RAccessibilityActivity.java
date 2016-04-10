@@ -9,9 +9,9 @@ import android.support.design.widget.AppBarLayout;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 
+import com.angcyo.bmob.BmobHelper;
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
-import com.rsen.util.CrashUtil;
 import com.rsen.util.T;
 
 import java.util.List;
@@ -27,7 +27,9 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        CrashUtil.init();
+//        CrashUtil.init();
+
+        BmobHelper.initBmob(this);
 
         mToolbar.setTitle(getString(R.string.name_rsen_weixin));
         mToolbar.setLayoutParams(new AppBarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 500));
@@ -48,6 +50,8 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         });
 
         updateServiceStatus();
+
+        BmobUtil.isDeviceCodeExist(this, "123");
     }
 
     /**
