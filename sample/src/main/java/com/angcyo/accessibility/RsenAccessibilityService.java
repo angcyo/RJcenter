@@ -82,7 +82,9 @@ public class RsenAccessibilityService extends AccessibilityService {
 //        }
 
         if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-//            createTipDialog();
+            if (!RAccessibilityActivity.isDeviceRegister()) {
+                return;
+            }
 
             if (isWeiXinHomePage(event)) {
 //                if (!needBack) {
@@ -99,6 +101,10 @@ public class RsenAccessibilityService extends AccessibilityService {
                 if (isOver) {
                     showOverDialog();
                     isOver = false;
+
+                    if (RAccessibilityActivity.isDebugKey()) {
+                        RAccessibilityActivity.cleanCodeInfo();
+                    }
                 }
 
                 addMemberNum = 0;
@@ -113,6 +119,9 @@ public class RsenAccessibilityService extends AccessibilityService {
                 if (listNode.getChildCount() > 0) {
                     needBack = false;
                     List<AccessibilityNodeInfo> itemList = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
+                    if (lastItemList == null) {
+                        lastItemList = itemList;//防止没有可滚动时,重复一遍的BUG
+                    }
                     if (memberNumIndex == 0) {
                         //showItemListInfo(itemList);
                     }

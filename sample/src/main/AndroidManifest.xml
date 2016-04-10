@@ -460,6 +460,7 @@
 
         <activity
             android:name="com.angcyo.accessibility.RAccessibilityActivity"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/name_rsen_weixin"
             android:launchMode="singleTask">
             <intent-filter>

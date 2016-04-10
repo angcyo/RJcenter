@@ -10,14 +10,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.angcyo.accessibility.RAccessibilityActivity">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/enable"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="为了不影响正常使用\n您需要手动打开'附近的人'界面\n之后程序就会自动运行" />
+
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/background_selector"
-        android:text="开启"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/codeEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="请输入注册码"
+            android:inputType="textEmailAddress" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/enable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_selector"
+            android:text="开启"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_selector"
+            android:text="立即注册"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+    </android.support.v7.widget.LinearLayoutCompat>
+
 
 </RelativeLayout>

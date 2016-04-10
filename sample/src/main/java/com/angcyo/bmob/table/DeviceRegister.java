@@ -12,6 +12,15 @@ public class DeviceRegister extends BmobObject {
     public String deviceName;//设备名
     public String deviceModelName;//设备制作商名
     public Long runCount;//运行的次数
+    public String osVer;//系统的版本
+
+    public String getOsVer() {
+        return osVer;
+    }
+
+    public void setOsVer(String osVer) {
+        this.osVer = osVer;
+    }
 
     public String getIMEI() {
         return IMEI;
