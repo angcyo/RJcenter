@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
@@ -51,6 +50,12 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 
         mViewHolder.v("enable").setOnClickListener(v -> {
             onEnableClick();
+        });
+
+        mViewHolder.v("enable").setOnLongClickListener(v -> {
+            cleanCodeInfo();
+            updateButton();
+            return true;
         });
 
         mViewHolder.v("register").setOnClickListener(v -> {
@@ -140,12 +145,21 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 
     private void updateButton() {
         String code = Hawk.get(KEY_CODE, "");
+
         if (TextUtils.isEmpty(code)) {
-            mViewHolder.v(R.id.register).setVisibility(View.VISIBLE);
+            mViewHolder.tV(R.id.codeEdit).setText(code);
+            mViewHolder.tV(R.id.codeEdit).setEnabled(true);
+            mViewHolder.tV(R.id.register).setText("立即注册");
+            mViewHolder.v(R.id.register).setEnabled(true);
         } else {
+            String debug = "(只能绑定一台设备)";
+            if (Hawk.get(KEY_DEBUG, true)) {
+                debug = "(测试注册码只能使用一次)";
+            }
             mViewHolder.tV(R.id.codeEdit).setText(code);
             mViewHolder.tV(R.id.codeEdit).setEnabled(false);
-            mViewHolder.v(R.id.register).setVisibility(View.GONE);
+            mViewHolder.tV(R.id.register).setText(debug);
+            mViewHolder.v(R.id.register).setEnabled(false);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }
     }
