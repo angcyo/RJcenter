@@ -147,7 +147,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         String code = Hawk.get(KEY_CODE, "");
 
         if (TextUtils.isEmpty(code)) {
-            mViewHolder.tV(R.id.codeEdit).setText(code);
+//            mViewHolder.tV(R.id.codeEdit).setText(code);
             mViewHolder.tV(R.id.codeEdit).setEnabled(true);
             mViewHolder.tV(R.id.register).setText("立即注册");
             mViewHolder.v(R.id.register).setEnabled(true);
@@ -205,7 +205,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
     }
 
     /**
-     * 是否是Debug Key
+     * 是否 是Debug Key
      */
     public static boolean isDebugKey() {
         return Hawk.get(KEY_DEBUG, true);
