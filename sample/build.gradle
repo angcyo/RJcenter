@@ -43,13 +43,13 @@ def oh = { msg ->
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion '23.0.3'
     defaultConfig {
         applicationId "com.angcyo.sample"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.0410"
+        versionName "1.0.0410.2"
 
         resValue "string", "build_time", buildTime()
         resValue "string", "build_host", hostName()

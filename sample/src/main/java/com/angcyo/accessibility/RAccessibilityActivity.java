@@ -160,7 +160,8 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
             mViewHolder.tV(R.id.codeEdit).setEnabled(false);
             mViewHolder.tV(R.id.register).setText(debug);
             mViewHolder.v(R.id.register).setEnabled(false);
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN |
+                    WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         }
     }
 
