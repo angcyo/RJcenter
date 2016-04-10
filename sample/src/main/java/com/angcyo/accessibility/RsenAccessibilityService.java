@@ -119,9 +119,9 @@ public class RsenAccessibilityService extends AccessibilityService {
                 if (listNode.getChildCount() > 0) {
                     needBack = false;
                     List<AccessibilityNodeInfo> itemList = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
-                    if (lastItemList == null) {
-                        lastItemList = itemList;//防止没有可滚动时,重复一遍的BUG
-                    }
+//                    if (lastItemList == null) {
+//                        lastItemList = itemList;//防止没有可滚动时,重复一遍的BUG
+//                    }
                     if (memberNumIndex == 0) {
                         //showItemListInfo(itemList);
                     }
@@ -129,25 +129,31 @@ public class RsenAccessibilityService extends AccessibilityService {
                     if (itemList.size() > 0) {
                         if (memberNumIndex >= itemList.size()) {
                             //需要滚动屏幕了
-                            if (isNodeListFoot(itemList)) {
+                            listNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+                            e("请求滚动(前进)...");
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                            }
+                            lastItemList = itemList;
+
+                            listNode = source.getChild(0).getChild(1);
+                            List<AccessibilityNodeInfo> itemList2 = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
+
+                            if (isNodeListFoot(itemList2)) {
                                 //所有联系人添加完毕
                                 needBack = true;
                                 isOver = true;
                                 e("列表已全部添加完毕,共:" + addMemberNum);
                             } else {
-                                lastItemList = itemList;
-                                listNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
-                                e("请求滚动(前进)...");
-                                try {
-                                    Thread.sleep(300);
-                                } catch (InterruptedException e) {
-                                }
                                 memberNumIndex = 0;
-                                List<AccessibilityNodeInfo> itemList2 = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
-                                //showItemListInfo(itemList2);
+                                e("查看资料:" + itemList.get(memberNumIndex).getParent().getChild(0).getText());
                                 itemList2.get(memberNumIndex++).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
                             }
+
+                            //showItemListInfo(itemList2);
                         } else {
+                            e("查看资料:" + itemList.get(memberNumIndex).getParent().getChild(0).getText());
                             itemList.get(memberNumIndex++).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
                         }
                     }
