@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+
+    <TextView 
+        android:id="@+id/tv_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="18sp"
+        />
+    <Button
+        android:id="@+id/tv_one_one"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/string_file_1" />
+    <Button
+        android:id="@+id/tv_one_many"
+        android:gravity="left|center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/string_file_2" />
+    
+    <Button
+        android:id="@+id/tv_many_one"
+        android:gravity="left|center"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/string_file_3" />
+    
+    <Button
+        android:id="@+id/tv_many_many"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/string_file_4" />
+    
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/string_file_5"
+        ></Button>
+
+</LinearLayout>
+

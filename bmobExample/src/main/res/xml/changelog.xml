@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog>
+    <release version="V3.4.5_1111">
+        <change>1、修复特殊网络情况下出现400错误的问题；</change>
+        <change>2、新增getObjectByKey方法获取当前登陆用户的某一列的值；</change>
+        <change>3、setValue方法支持java基本数据类型；</change>
+        <change>4、强制更新模式下隐藏右上角关闭按钮。</change>
+    </release>
+</changelog>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BmobExample</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_changelog">Bmob更新日志</string>
+    <string name="close">关闭</string>
+
+    <string-array name="bmob_list">
+        <item>1. 用户管理</item>
+        <item>2. 数据增删改查 </item>
+        <item>3. 数据关联</item>
+        <item>4. 批量操作</item>
+        <item>5. ACL和角色</item>
+        <item>6. 文件管理</item>
+        <item>7. 新版文件管理</item>
+        <item>8. 云端代码</item>
+        <item>9. 数据实时同步</item>
+        <item>10. 推送服务</item>
+        <item>11. 应用自动更新</item>
+        <item>12. 地理位置</item>
+        <item>13. 获取服务器时间</item>
+        <item>14. 统计查询</item>
+        <item>15. SQL语句查询</item>
+        <item>16. 短信服务</item>
+        <item>17. 表结构</item>
+    </string-array>
+    
+    <string-array name="bmob_crud_list">
+        <item>1. 创建数据</item>
+        <item>2. 更新数据</item>
+        <item>3. 删除数据</item>
+        <item>4. 查询数据</item>
+    </string-array>
+    
+    <string-array name="bmob_acl_list">
+        <item>1.添加ACL</item>
+        <item>2.创建角色</item>
+        <item>3.更新角色</item>
+        <item>4.删除角色</item>
+    </string-array>
+    
+    <string-array name="bmob_user_list">
+        <item>1. 注册用户</item>
+        <item>2. 登陆用户</item>
+        <item>3. 获取本地用户</item>
+        <item>4. 退出登陆</item>
+        <item>5. 更新用户</item>
+        <item>6. 重置密码</item>
+        <item>7. 验证旧密码</item>
+        <item>8. 验证邮件</item>
+        <item>9. 查询用户</item>
+        <item>10.通过邮箱和密码登陆</item>
+        <item>11.通过手机号码和密码登陆</item>
+        <item>12.通过手机号码和短信验证码登陆</item>
+        <item>13.手机号码一键注册登录</item>
+        <item>14.通过手机验证码重置密码</item>
+        <item>15.修改当前用户密码</item>
+    </string-array>
+    
+    <string-array name="bmob_findtest_list">
+        <item>1. 查询单个对象</item>
+        <item>2. 查询多个对象</item>
+        <item>3. count对象个数</item>
+        <item>4. 复合与查询</item>
+        <item>5. 复合或查询</item>
+    </string-array>
+    
+    <string-array name="batch_action_list">
+        <item>1. 批量添加</item>
+        <item>2. 批量更新</item>
+        <item>3. 批量删除</item>
+    </string-array>
+    
+    <string-array name="bmob_location_list">
+        <item>1. 查询最接近某个坐标的数据</item>
+        <item>2. 查询指定距离范围内的数据</item>
+        <item>3. 查询指定矩形范围内的数据</item>
+    </string-array>
+    
+    <string-array name="bmob_statistic_list">
+        <item>1. 计算总和</item>
+        <item>2. 分组计算总和</item>
+        <item>3. 多个分组并计算多个列的总和</item>
+        <item>4. 分组计算总和并只返回满足条件的部分值</item>
+        <item>5. 分组计算总和并返回每个分组的记录数</item>
+        <item>6. 获取不重复的列值</item>
+        <item>7. 其他（平均值、最大值、最小值）</item>
+    </string-array>
+    
+    <string-array name="bmob_sql_list">
+        <item>1. 基本sql查询</item>
+        <item>2. 查询个数sql</item>
+        <item>3. 统计查询sql</item>
+        <item>4. 占位符查询</item>
+    </string-array>
+
+    <string name="publish">发布</string>
+    <string name="share">随时随地分享&#8230;</string>
+    <string name="comment">评论</string>
+    
+    <string-array name="bmob_push_list">
+        <item>1. 订阅渠道</item>
+        <item>2. 取消订阅</item>
+        <item>3. 给所有人推送</item>
+        <item>4. 给指定Android用户推送</item>
+        <item>5. 给指定IOS用户推送</item>
+        <item>6. 给指定渠道用户推送</item>
+        <item>7. 给不活跃用户推送消息</item>
+        <item>8. 给Android平台推送</item>
+        <item>9. 给IOS平台推送</item>
+        <item>10. 根据地理位置信息推送</item>
+    </string-array>
+
+    <string name="string_pick">选择文件(用于单条数据，一个BmobFile列)</string>
+    
+    <string name="string_file_1">1、单条数据，一个BmobFile列</string>
+    <string name="string_file_2">2、单条数据，多个BmobFile列</string>
+    <string name="string_file_3">3、多条数据，每条数据一个BmobFile列</string>
+    <string name="string_file_4">4、多条数据，每条数据多个BmobFile列</string>
+    <string name="string_file_5">5、删除文件</string>
+    
+     <string-array name="bmob_newfile_arrays">
+        <item>1. 单一上传</item>
+        <item>2. 批量上传</item>
+        <item>3. 下载文件</item>
+        <item>4. 清除缓存</item>
+        <item>5. 获取当前缓存大小</item>
+        <item>6. 文件下载本地路径</item>
+        <item>7. 请求服务器生成缩略图任务</item>
+        <item>8. 本地生成缩略图</item>
+        <item>9. 获取文件的可访问地址</item>
+        <item>10. 删除文件</item>
+        
+    </string-array>
+    
+     <string-array name="bmob_code_list">
+        <item>1. 请求短信验证码</item>
+        <item>2. 验证短信验证码是否有效</item>
+        <item>3. 查询短信验证码状态</item>
+        <item>4. 自定义发送短信内容</item>
+    </string-array>
+    
+    <string name="string_local_id">规格ID:</string>
+    <string name="string_local_width">宽度:</string>
+    <string name="string_local_height">高度:</string>
+    <string name="string_local_quality">压缩质量:</string>
+    <string name="string_local_set">指定规格ID</string>
+    <string name="string_local_set1">指定规格ID、宽、高</string>
+    <string name="string_local_set2">指定规格ID、宽、高、压缩质量</string>
+    
+</resources>
