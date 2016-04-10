@@ -91,6 +91,9 @@ public class RsenAccessibilityService extends AccessibilityService {
 //                jumpToFJDRPage(event);
 //                }
                 needBack = false;
+                lastItemList = null;
+                memberNumIndex = 0;
+
                 hideTipDialog();
 
                 if (isOver) {
