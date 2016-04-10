@@ -193,7 +193,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
     }
 
     /**
-     * 是否注册了
+     * 是否 注册了
      */
     public static boolean isDeviceRegister() {
         String code = Hawk.get(KEY_CODE, "");
