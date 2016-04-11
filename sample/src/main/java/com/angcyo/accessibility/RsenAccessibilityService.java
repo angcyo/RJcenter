@@ -104,9 +104,9 @@ public class RsenAccessibilityService extends AccessibilityService {
                 curPage = PAGE_HOME;
                 needBack = false;
 
-                if (alertDialog.isShowing()) {
-                    alertDialog.hide();
-                }
+//                if (alertDialog.isShowing()) {
+//                    alertDialog.hide();
+//                }
                 //主页
 //                if (!needBack) {
 //                    jumpToFaXianPage(event);
