@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,6 +15,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,14 +32,18 @@ public class RsenAccessibilityService extends AccessibilityService {
     public static final String TEXT_LIST_ITEM = "以内";
     public static final String TEXT_DZH = "打招呼";
     public static final String TEXT_SAY_HI = "加为朋友";
+    public static final String TEXT_SAY_SEND = "发送";
     public static final String TEXT_SAY_HI2 = "添加朋友请求已发送";
     private AlertDialog alertDialog;
     private long index = 0;
     private boolean needBack = false;//添加好友之后,请求返回.
     private int memberNumIndex = 0;//一屏需要添加的好友数量, 用于控制滚动ListView
     private long addMemberNum = 0;//执行了多少次添加朋友操作
-    private List<AccessibilityNodeInfo> lastItemList;//保存最后一次附近人的列表信息,用于判断是否全部添加了好友.
+    //    private List<AccessibilityNodeInfo> lastItemList;//保存最后一次附近人的列表信息,用于判断是否全部添加了好友.
     private boolean isOver = false;
+    private boolean requestScroll = false;//自动滚屏的标识符,用于标识该检查滚动事件
+
+    private ScrollHandler scrollHandler;
 
     @Override
     protected void onServiceConnected() {
@@ -45,6 +52,7 @@ public class RsenAccessibilityService extends AccessibilityService {
         e((new Exception()).getStackTrace()[1].getMethodName());
 
         createTipDialog();
+        scrollHandler = new ScrollHandler();
     }
 
     @Override
@@ -83,6 +91,7 @@ public class RsenAccessibilityService extends AccessibilityService {
 
         if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             if (!RAccessibilityActivity.isDeviceRegister()) {
+                //未注册直接返回
                 return;
             }
 
@@ -92,70 +101,78 @@ public class RsenAccessibilityService extends AccessibilityService {
 //                    jumpToFaXianPage(event);
 //                jumpToFJDRPage(event);
 //                }
-                needBack = false;
-                lastItemList = null;
-                memberNumIndex = 0;
-
-                hideTipDialog();
-
+                long num = addMemberNum;
+                ready();
                 if (isOver) {
-                    showOverDialog();
+                    showOverDialog(num);
                     isOver = false;
-
                     if (RAccessibilityActivity.isDebugKey()) {
                         RAccessibilityActivity.cleanCodeInfo();
                     }
                 }
 
-                addMemberNum = 0;
             } else if (isWeiXinFJDRPage(event)) {
                 //附近的人
                 e("已经进入\"附近的人\"界面");
-                if (addMemberNum < 1) {
-                    showTipMsg("接下来,就交给我吧...");
-                }
+//                List<AccessibilityNodeInfo> infosByText = source.findAccessibilityNodeInfosByText("开始查看");
+//
+//                if (infosByText.size() > 0) {
+//                    return;
+//                }
 
-                AccessibilityNodeInfo listNode = source.getChild(0).getChild(1);
-                if (listNode.getChildCount() > 0) {
-                    needBack = false;
-                    List<AccessibilityNodeInfo> itemList = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
-//                    if (lastItemList == null) {
-//                        lastItemList = itemList;//防止没有可滚动时,重复一遍的BUG
-//                    }
-                    if (memberNumIndex == 0) {
-                        //showItemListInfo(itemList);
+                /*获取到ListView*/
+                AccessibilityNodeInfo listNode = source.getChild(0).getChild(1);//null
+                if (listNode != null && listNode.getChildCount() > 0) {
+                    if (addMemberNum < 1) {
+                        showTipMsg("接下来,就交给我吧...");
                     }
 
+                    needBack = false;
+                    //查找所有Items
+                    List<AccessibilityNodeInfo> itemList = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
                     if (itemList.size() > 0) {
+                        //查找到非空列表
+
                         if (memberNumIndex >= itemList.size()) {
-                            //需要滚动屏幕了
-                            listNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+                            //请求滚动屏幕
                             e("请求滚动(前进)...");
-                            try {
-                                Thread.sleep(300);
-                            } catch (InterruptedException e) {
-                            }
-                            lastItemList = itemList;
-
-                            listNode = source.getChild(0).getChild(1);
-                            List<AccessibilityNodeInfo> itemList2 = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
-
-                            if (isNodeListFoot(itemList2)) {
-                                //所有联系人添加完毕
-                                needBack = true;
-                                isOver = true;
-                                e("列表已全部添加完毕,共:" + addMemberNum);
-                            } else {
-                                memberNumIndex = 0;
-                                e("查看资料:" + itemList.get(memberNumIndex).getParent().getChild(0).getText());
-                                itemList2.get(memberNumIndex++).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                            }
-
-                            //showItemListInfo(itemList2);
+                            memberNumIndex = 0;
+                            requestListScroll(listNode);
                         } else {
-                            e("查看资料:" + itemList.get(memberNumIndex).getParent().getChild(0).getText());
-                            itemList.get(memberNumIndex++).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                            clickListItem(itemList, memberNumIndex++);
                         }
+
+
+//                        if (memberNumIndex >= itemList.size()) {
+//                            //需要滚动屏幕了
+//                            listNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+//                            e("请求滚动(前进)...");
+//                            try {
+//                                Thread.sleep(300);
+//                            } catch (InterruptedException e) {
+//                            }
+//                            lastItemList = itemList;
+//
+//                            listNode = source.getChild(0).getChild(1);
+//                            List<AccessibilityNodeInfo> itemList2 = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
+//
+//                            if (isNodeListFoot(itemList2)) {
+//                                //所有联系人添加完毕
+//                                needBack = true;
+//                                isOver = true;
+//                                e("列表已全部添加完毕,共:" + addMemberNum);
+//                            } else {
+//                                memberNumIndex = 0;
+//                                e("查看资料:" + itemList2.get(memberNumIndex).getParent().getChild(0).getText());
+////                                itemList2.get(memberNumIndex++).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
+//                                clickListItem(itemList2, memberNumIndex++);
+//                            }
+//
+//                            //showItemListInfo(itemList2);
+//                        } else {
+//                            e("查看资料:" + itemList.get(memberNumIndex).getParent().getChild(0).getText());
+//                            clickListItem(itemList, memberNumIndex++);
+//                        }
                     }
                 }
             } else if (isWeiXinDetailPage(event)) {
@@ -170,7 +187,8 @@ public class RsenAccessibilityService extends AccessibilityService {
                 //打招呼,聊天界面
                 e("聊天界面");
                 if (!needBack) {
-                    clickButton(source, TEXT_SAY_HI);
+                    clickSendButton(source);
+//                    clickButton(source, TEXT_SAY_HI);
                     addMemberNum++;
                     showToast();
                 }
@@ -190,15 +208,50 @@ public class RsenAccessibilityService extends AccessibilityService {
                 sendBackKey();
                 e("请求返回Back");
             }
+        } else if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED) {
+            if (requestScroll) {
+                requestScroll = false;
+//                e("附近的人页面滚动事件...");
+                if (source.getClassName().equals(ListView.class.getName())) {
+                    List<AccessibilityNodeInfo> itemList = source.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
+//                    showItemListInfo(itemList);
+                    e("附近的人页面滚动事件...end");
+//                    requestListScroll(source);
+                    clickListItem(itemList, memberNumIndex++);
+                }
+            }
+
+//            if (isWeiXinFJDRPage(event)) {
+//                AccessibilityNodeInfo listNode = source.getChild(0).getChild(1);
+//                List<AccessibilityNodeInfo> itemList = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
+//                showItemListInfo(itemList);
+////                listNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+//                e("附近的人页面滚动事件...");
+//            }
         }
+
+//        e(event.getEventType() + " 事件ID");
 
 //        alertDialog.setMessage(event.getText() + " -- " + String.valueOf(event.getEventType()) + " -- " + index++);
     }
 
-    private void showOverDialog() {
+    private void requestListScroll(AccessibilityNodeInfo listNode) {
+        requestScroll = true;
+        listNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+        scrollHandler.sendMessageDelayed(scrollHandler.obtainMessage(ScrollHandler.MSG_SCROLL), 1000);
+    }
+
+    private void ready() {
+        needBack = false;
+        memberNumIndex = 0;
+        addMemberNum = 0;
+        hideTipDialog();
+    }
+
+    private void showOverDialog(long num) {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("完美结束")
-                .setMessage("上一次的战果是:" + addMemberNum + "次")
+                .setMessage("上一次的战果是:" + num + "次")
                 .setPositiveButton("恭喜发财", null)
                 .create();
 
@@ -209,10 +262,17 @@ public class RsenAccessibilityService extends AccessibilityService {
         alertDialog.show();
     }
 
+    /**
+     * 附近的人ListView Item点击事件
+     */
+    private void clickListItem(List<AccessibilityNodeInfo> itemList, int index) {
+        itemList.get(index).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
+    }
+
     private void showItemListInfo(List<AccessibilityNodeInfo> itemList) {
         for (int i = 0; i < itemList.size(); i++) {
             AccessibilityNodeInfo info = itemList.get(i);
-            e(info.getParent().getChild(0).getText() + " -- " + info.getText().toString());
+            e("Item:" + info.getParent().getChild(0).getText() + " -- " + info.getText().toString());
         }
     }
 
@@ -221,6 +281,27 @@ public class RsenAccessibilityService extends AccessibilityService {
      */
     private boolean clickButton(AccessibilityNodeInfo source, String buttonText) {
         List<AccessibilityNodeInfo> nodeInfos = source.findAccessibilityNodeInfosByText(buttonText);
+        for (AccessibilityNodeInfo info : nodeInfos) {
+            if (info.getClassName().equals(Button.class.getName())) {
+                info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 返回值表示,打招呼界面的添加好友按钮,,不同的版本,会有文本上的差异
+     */
+    private boolean clickSendButton(AccessibilityNodeInfo source) {
+        List<AccessibilityNodeInfo> nodeInfos = source.findAccessibilityNodeInfosByText(TEXT_SAY_HI);
+        for (AccessibilityNodeInfo info : nodeInfos) {
+            if (info.getClassName().equals(Button.class.getName())) {
+                info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                return true;
+            }
+        }
+        nodeInfos = source.findAccessibilityNodeInfosByText(TEXT_SAY_SEND);
         for (AccessibilityNodeInfo info : nodeInfos) {
             if (info.getClassName().equals(Button.class.getName())) {
                 info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
@@ -247,16 +328,16 @@ public class RsenAccessibilityService extends AccessibilityService {
         }
     }
 
-    /**
-     * 判断是否已经滚动到了附近的人的底部
-     */
-    private boolean isNodeListFoot(List<AccessibilityNodeInfo> list) {
-        if (lastItemList == null || list == null) {
-            return false;
-        }
-
-        return lastItemList.containsAll(list);
-    }
+//    /**
+//     * 判断是否已经滚动到了附近的人的底部
+//     */
+//    private boolean isNodeListFoot(List<AccessibilityNodeInfo> list) {
+//        if (lastItemList == null || list == null) {
+//            return false;
+//        }
+//
+//        return lastItemList.containsAll(list);
+//    }
 
     /**
      * 跳转到 发现 界面
@@ -423,6 +504,12 @@ public class RsenAccessibilityService extends AccessibilityService {
         }
     }
 
+    private void scrollEnd() {
+        isOver = true;
+        requestScroll = false;
+        sendBackKey();
+    }
+
     @Override
     public void onInterrupt() {
         //当服务要被中断时调用.会被调用多次
@@ -482,5 +569,22 @@ public class RsenAccessibilityService extends AccessibilityService {
         stringBuilder.append(source.getChildCount());
 
         return stringBuilder.toString();
+    }
+
+    class ScrollHandler extends Handler {
+        //        public static final String MSG_SCROLL = "scroll";
+        public static final int MSG_SCROLL = 900;
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == MSG_SCROLL) {
+                //收到滚动消息
+                if (requestScroll) {
+                    //收到消息后,requestScroll如果还是为true,表示并没有滚动,即滚动结束了
+                    scrollEnd();
+                }
+            }
+        }
     }
 }

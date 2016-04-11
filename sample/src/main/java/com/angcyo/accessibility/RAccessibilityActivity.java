@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
@@ -24,10 +25,35 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class RAccessibilityActivity extends RBaseActivity implements AccessibilityManager.AccessibilityStateChangeListener {
 
-    private AccessibilityManager accessibilityManager;
     public static final String KEY_OBJID = "objid";//保存注册码在bmob上记录的id
     public static final String KEY_CODE = "code";//保存注册码在bmob上记录的id
     public static final String KEY_DEBUG = "debug";//是否是debug的key
+    private AccessibilityManager accessibilityManager;
+
+    /**
+     * 是否 注册了
+     */
+    public static boolean isDeviceRegister() {
+        String code = Hawk.get(KEY_CODE, "");
+        if (TextUtils.isEmpty(code)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 是否 是Debug Key
+     */
+    public static boolean isDebugKey() {
+        return Hawk.get(KEY_DEBUG, true);
+    }
+
+    public static void cleanCodeInfo() {
+        Hawk.put(KEY_OBJID, "");
+        Hawk.put(KEY_CODE, "");
+        Hawk.put(KEY_DEBUG, true);
+    }
 
     @Override
     protected int getContentView() {
@@ -41,7 +67,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         BmobHelper.initBmob(this);
 
         mToolbar.setTitle(getString(R.string.name_rsen_weixin));
-        mToolbar.setLayoutParams(new AppBarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 500));
+        mToolbar.setLayoutParams(new AppBarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
 
 
         //监听AccessibilityService 变化
@@ -65,6 +91,15 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         updateServiceStatus();
 
         BmobUtil.increment(this, Hawk.get(KEY_OBJID));
+
+
+        mViewHolder.v(R.id.rootLayout).addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (bottom - oldBottom >= 0) {
+                mViewHolder.v(R.id.tip).setVisibility(View.VISIBLE);
+            } else {
+                mViewHolder.v(R.id.tip).setVisibility(View.GONE);
+            }
+        });
     }
 
     /**
@@ -192,31 +227,6 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
             }
         }
         return false;
-    }
-
-    /**
-     * 是否 注册了
-     */
-    public static boolean isDeviceRegister() {
-        String code = Hawk.get(KEY_CODE, "");
-        if (TextUtils.isEmpty(code)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * 是否 是Debug Key
-     */
-    public static boolean isDebugKey() {
-        return Hawk.get(KEY_DEBUG, true);
-    }
-
-    public static void cleanCodeInfo() {
-        Hawk.put(KEY_OBJID, "");
-        Hawk.put(KEY_CODE, "");
-        Hawk.put(KEY_DEBUG, true);
     }
 
     @Override
