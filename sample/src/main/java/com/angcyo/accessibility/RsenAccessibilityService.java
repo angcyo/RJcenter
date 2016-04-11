@@ -101,15 +101,15 @@ public class RsenAccessibilityService extends AccessibilityService {
 //                    jumpToFaXianPage(event);
 //                jumpToFJDRPage(event);
 //                }
-                long num = addMemberNum;
-                ready();
-                if (isOver) {
-                    showOverDialog(num);
-                    isOver = false;
-                    if (RAccessibilityActivity.isDebugKey()) {
-                        RAccessibilityActivity.cleanCodeInfo();
-                    }
-                }
+//                long num = addMemberNum;
+//                ready();
+//                if (isOver) {
+//                    showOverDialog(num);
+//                    isOver = false;
+//                    if (RAccessibilityActivity.isDebugKey()) {
+//                        RAccessibilityActivity.cleanCodeInfo();
+//                    }
+//                }
 
             } else if (isWeiXinFJDRPage(event)) {
                 //附近的人
@@ -507,7 +507,18 @@ public class RsenAccessibilityService extends AccessibilityService {
     private void scrollEnd() {
         isOver = true;
         requestScroll = false;
+        hideTipDialog();
         sendBackKey();
+
+        long num = addMemberNum;
+        ready();
+        if (isOver) {
+            showOverDialog(num);
+            isOver = false;
+            if (RAccessibilityActivity.isDebugKey()) {
+                RAccessibilityActivity.cleanCodeInfo();
+            }
+        }
     }
 
     @Override
