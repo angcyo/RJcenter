@@ -33,7 +33,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     private AlertDialog alertDialog;
     private long index = 0;
     private boolean needBack = false;//添加好友之后,请求返回.
-    private int memberNumIndex = 0;//一屏需要添加的好友数量,用于控制滚动ListView
+    private int memberNumIndex = 0;//一屏需要添加的好友数量, 用于控制滚动ListView
     private long addMemberNum = 0;//执行了多少次添加朋友操作
     private List<AccessibilityNodeInfo> lastItemList;//保存最后一次附近人的列表信息,用于判断是否全部添加了好友.
     private boolean isOver = false;
