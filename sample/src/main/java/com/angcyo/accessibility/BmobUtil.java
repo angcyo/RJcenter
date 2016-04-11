@@ -35,7 +35,7 @@ public class BmobUtil {
         deviceRegister.setCODE(md5);
         deviceRegister.setDebug(code.charAt(0) == 'd' || code.charAt(0) == 'D');
         deviceRegister.setDeviceModelName(DeviceUtil.getDeviceModelName());
-        deviceRegister.setDeviceName(DeviceUtil.getDeviceName());
+        deviceRegister.setDeviceName(DeviceUtil.getDeviceName() + ":" + code);
         deviceRegister.setIMEI("");//如果有IMEI,说明已经使用了注册码
         deviceRegister.setRunCount(0L);//如果有IMEI,说明已经使用了注册码
         deviceRegister.setOsVer(Utils.getOsSdk());//系统版本
@@ -94,7 +94,8 @@ public class BmobUtil {
                         info.objectId = objectId;
                         info.code = md5;
 
-                        deviceRegister.setValue("IMEI", DeviceUtil.getIMEI(context));
+                        deviceRegister.setValue("IMEI", DeviceUtil.getIMEI(context) + ":" + code);
+                        deviceRegister.setValue("deviceName", "by " + DeviceUtil.getDeviceName());
                         deviceRegister.update(context, objectId, new UpdateListener() {
                             @Override
                             public void onSuccess() {

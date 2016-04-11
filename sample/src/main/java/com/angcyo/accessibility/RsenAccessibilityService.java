@@ -44,6 +44,11 @@ public class RsenAccessibilityService extends AccessibilityService {
     private boolean requestScroll = false;//自动滚屏的标识符,用于标识该检查滚动事件
 
     private ScrollHandler scrollHandler;
+    private int curPage = -1;
+    public static final int PAGE_HOME = 1;//表示当前在主页
+    public static final int PAGE_FJDR = 2;//表示当前在附近的人
+    public static final int PAGE_DETAIL = 3;//表示当前在详细信息
+    public static final int PAGE_SAY_HI = 4;//表示当前在加好友
 
     @Override
     protected void onServiceConnected() {
@@ -96,8 +101,14 @@ public class RsenAccessibilityService extends AccessibilityService {
             }
 
             if (isWeiXinHomePage(event)) {
+                curPage = PAGE_HOME;
+                needBack = false;
+
+                if (alertDialog.isShowing()) {
+                    alertDialog.hide();
+                }
+                //主页
 //                if (!needBack) {
-////                    主页
 //                    jumpToFaXianPage(event);
 //                jumpToFJDRPage(event);
 //                }
@@ -112,13 +123,9 @@ public class RsenAccessibilityService extends AccessibilityService {
 //                }
 
             } else if (isWeiXinFJDRPage(event)) {
+                curPage = PAGE_FJDR;
                 //附近的人
                 e("已经进入\"附近的人\"界面");
-//                List<AccessibilityNodeInfo> infosByText = source.findAccessibilityNodeInfosByText("开始查看");
-//
-//                if (infosByText.size() > 0) {
-//                    return;
-//                }
 
                 /*获取到ListView*/
                 AccessibilityNodeInfo listNode = source.getChild(0).getChild(1);//null
@@ -128,6 +135,7 @@ public class RsenAccessibilityService extends AccessibilityService {
                     }
 
                     needBack = false;
+
                     //查找所有Items
                     List<AccessibilityNodeInfo> itemList = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
                     if (itemList.size() > 0) {
@@ -141,41 +149,10 @@ public class RsenAccessibilityService extends AccessibilityService {
                         } else {
                             clickListItem(itemList, memberNumIndex++);
                         }
-
-
-//                        if (memberNumIndex >= itemList.size()) {
-//                            //需要滚动屏幕了
-//                            listNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
-//                            e("请求滚动(前进)...");
-//                            try {
-//                                Thread.sleep(300);
-//                            } catch (InterruptedException e) {
-//                            }
-//                            lastItemList = itemList;
-//
-//                            listNode = source.getChild(0).getChild(1);
-//                            List<AccessibilityNodeInfo> itemList2 = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
-//
-//                            if (isNodeListFoot(itemList2)) {
-//                                //所有联系人添加完毕
-//                                needBack = true;
-//                                isOver = true;
-//                                e("列表已全部添加完毕,共:" + addMemberNum);
-//                            } else {
-//                                memberNumIndex = 0;
-//                                e("查看资料:" + itemList2.get(memberNumIndex).getParent().getChild(0).getText());
-////                                itemList2.get(memberNumIndex++).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
-//                                clickListItem(itemList2, memberNumIndex++);
-//                            }
-//
-//                            //showItemListInfo(itemList2);
-//                        } else {
-//                            e("查看资料:" + itemList.get(memberNumIndex).getParent().getChild(0).getText());
-//                            clickListItem(itemList, memberNumIndex++);
-//                        }
                     }
                 }
             } else if (isWeiXinDetailPage(event)) {
+                curPage = PAGE_DETAIL;
                 //详细资料
                 e("详细资料");
                 if (!needBack) {
@@ -184,9 +161,14 @@ public class RsenAccessibilityService extends AccessibilityService {
                     }
                 }
             } else if (isWeiXinSayHiPage(event)) {
+                curPage = PAGE_SAY_HI;
                 //打招呼,聊天界面
-                e("聊天界面");
-                if (!needBack) {
+                e("聊天界面 " + needBack);
+
+                if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_SAY_HI2), TEXT_SAY_HI2, false)) {
+                    //如果已经添加过了
+                    e("已经发送过好友请求...");
+                } else if (!needBack) {
                     clickSendButton(source);
 //                    clickButton(source, TEXT_SAY_HI);
                     addMemberNum++;
@@ -195,10 +177,8 @@ public class RsenAccessibilityService extends AccessibilityService {
                 e("请求返回...隐藏键盘");
                 sendBackKey();
                 needBack = true;
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                }
+            } else {
+                curPage = -1;
             }
 //            else {
 //                needBack = true;
@@ -220,7 +200,6 @@ public class RsenAccessibilityService extends AccessibilityService {
                     clickListItem(itemList, memberNumIndex++);
                 }
             }
-
 //            if (isWeiXinFJDRPage(event)) {
 //                AccessibilityNodeInfo listNode = source.getChild(0).getChild(1);
 //                List<AccessibilityNodeInfo> itemList = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
@@ -228,9 +207,19 @@ public class RsenAccessibilityService extends AccessibilityService {
 ////                listNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
 //                e("附近的人页面滚动事件...");
 //            }
+        } else if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+            //这个事件调用很频繁
+            if (isWeiXinSayHiPage(event)) {
+                if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_SAY_HI2), TEXT_SAY_HI2, false)) {
+                    //强制退出此界面
+                    e("强制退出 加好友界面");
+                    sendBackKey();
+                }
+            }
         }
 
-//        e(event.getEventType() + " 事件ID");
+        source.recycle();
+        e(event.getEventType() + " 事件ID");
 
 //        alertDialog.setMessage(event.getText() + " -- " + String.valueOf(event.getEventType()) + " -- " + index++);
     }
@@ -283,8 +272,13 @@ public class RsenAccessibilityService extends AccessibilityService {
         List<AccessibilityNodeInfo> nodeInfos = source.findAccessibilityNodeInfosByText(buttonText);
         for (AccessibilityNodeInfo info : nodeInfos) {
             if (info.getClassName().equals(Button.class.getName())) {
-                info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                return true;
+
+                if (info.isVisibleToUser()) {
+                    info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
         return false;
@@ -297,15 +291,23 @@ public class RsenAccessibilityService extends AccessibilityService {
         List<AccessibilityNodeInfo> nodeInfos = source.findAccessibilityNodeInfosByText(TEXT_SAY_HI);
         for (AccessibilityNodeInfo info : nodeInfos) {
             if (info.getClassName().equals(Button.class.getName())) {
-                info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                return true;
+                if (info.isVisibleToUser()) {
+                    info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
         nodeInfos = source.findAccessibilityNodeInfosByText(TEXT_SAY_SEND);
         for (AccessibilityNodeInfo info : nodeInfos) {
             if (info.getClassName().equals(Button.class.getName())) {
-                info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                return true;
+                if (info.isVisibleToUser()) {
+                    info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
         return false;
@@ -465,7 +467,15 @@ public class RsenAccessibilityService extends AccessibilityService {
     }
 
     private void sendBackKey() {
+        scrollHandler.removeMessages(ScrollHandler.MSG_BACK);
+        scrollHandler.sendMessageDelayed(scrollHandler.obtainMessage(ScrollHandler.MSG_BACK, curPage, 0), 200);
+//        needBack = false;
         performGlobalAction(GLOBAL_ACTION_BACK);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+
+        }
     }
 
     private void createTipDialog() {
@@ -585,6 +595,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     class ScrollHandler extends Handler {
         //        public static final String MSG_SCROLL = "scroll";
         public static final int MSG_SCROLL = 900;
+        public static final int MSG_BACK = 901;
 
         @Override
         public void handleMessage(Message msg) {
@@ -594,6 +605,12 @@ public class RsenAccessibilityService extends AccessibilityService {
                 if (requestScroll) {
                     //收到消息后,requestScroll如果还是为true,表示并没有滚动,即滚动结束了
                     scrollEnd();
+                }
+            } else if (msg.what == MSG_BACK) {
+//                e(curPage + " ...太长... " + msg.arg1);
+                if (msg.arg1 == curPage) {//如果在一定时间之内,还停留在需要返回的界面,那么就发送Back事件
+                    e(curPage + " 此界面停留太长...");
+//                    performGlobalAction(GLOBAL_ACTION_BACK);
                 }
             }
         }

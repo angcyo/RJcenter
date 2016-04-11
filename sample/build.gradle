@@ -49,7 +49,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.0410.2"
+        versionName "1.0"
 
         resValue "string", "build_time", buildTime()
         resValue "string", "build_host", hostName()
@@ -110,7 +110,7 @@ android {
                 time = ""
             }
             output.outputFile = new File(output.outputFile.parent,
-                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}${time}.apk")
+                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}.${variant.versionName}${time}.apk")
         }
     }
     sourceSets {
@@ -173,7 +173,8 @@ tasks.withType(JavaCompile) {
 
 
 def getTime() {
-    return new Date().format("yyyy-MM-dd")
+//    return new Date().format("yyyy-MM-dd")
+    return new Date().format("mmss")
 }
 
 def buildTime() {
