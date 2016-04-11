@@ -107,6 +107,7 @@ public class RsenAccessibilityService extends AccessibilityService {
 //                if (alertDialog.isShowing()) {
 //                    alertDialog.hide();
 //                }
+
                 //主页
 //                if (!needBack) {
 //                    jumpToFaXianPage(event);
