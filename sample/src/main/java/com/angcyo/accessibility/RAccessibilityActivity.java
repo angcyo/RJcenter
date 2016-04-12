@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -28,6 +30,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
     public static final String KEY_OBJID = "objid";//保存注册码在bmob上记录的id
     public static final String KEY_CODE = "code";//保存注册码在bmob上记录的id
     public static final String KEY_DEBUG = "debug";//是否是debug的key
+    public static final String KEY_SAY_HI = "say";//是否是debug的key
     private AccessibilityManager accessibilityManager;
 
     /**
@@ -40,6 +43,20 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         }
 
         return true;
+    }
+
+    /**
+     * 获取打招呼的 字符串
+     */
+    public static String getSayHiString() {
+        return Hawk.get(KEY_SAY_HI, "");
+    }
+
+    /**
+     * 获取打招呼的 字符串
+     */
+    public static void saveSayHiString(String say) {
+        Hawk.put(KEY_SAY_HI, say);
     }
 
     /**
@@ -100,6 +117,24 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
                 mViewHolder.v(R.id.tip).setVisibility(View.GONE);
             }
         });
+
+        mViewHolder.eV(R.id.helloEdit).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                saveSayHiString(s.toString());
+            }
+        });
+
+        mViewHolder.eV(R.id.helloEdit).setText(getSayHiString());
     }
 
     /**

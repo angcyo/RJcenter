@@ -28,12 +28,23 @@
         android:paddingBottom="@dimen/activity_vertical_margin">
 
         <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/helloEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="自动发送打招呼语"
+            android:imeOptions="actionNext"
+            android:singleLine="true" />
+
+        <android.support.v7.widget.AppCompatEditText
             android:id="@+id/codeEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="请输入注册码"
-            android:inputType="textEmailAddress" />
+            android:imeOptions="actionNone"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/enable"

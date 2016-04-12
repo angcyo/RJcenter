@@ -105,12 +105,12 @@ android {
         variant.outputs.each { output ->
             def time
             if (!variant.buildType.name.equalsIgnoreCase("debug")) {
-                time = "-" + getTime()
+                time = "." + getTime()
             } else {
                 time = ""
             }
             output.outputFile = new File(output.outputFile.parent,
-                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}.${variant.versionName}${time}.apk")
+                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}_${variant.versionName}${time}.apk")
         }
     }
     sourceSets {

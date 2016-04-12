@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -34,6 +35,8 @@ public class RsenAccessibilityService extends AccessibilityService {
     public static final String TEXT_SAY_HI = "加为朋友";
     public static final String TEXT_SAY_SEND = "发送";
     public static final String TEXT_SAY_HI2 = "添加朋友请求已发送";
+    public static final String TEXT_HELLO = "打个招呼";
+    public static final int SLEEP_TIME = 300;//两次发送返回按键事件间隔,建议大于300毫秒,否则可能无法响应
     private AlertDialog alertDialog;
     private long index = 0;
     private boolean needBack = false;//添加好友之后,请求返回.
@@ -45,6 +48,7 @@ public class RsenAccessibilityService extends AccessibilityService {
 
     private ScrollHandler scrollHandler;
     private int curPage = -1;
+    private int pageIndex = -1;//页面计数器
     public static final int PAGE_HOME = 1;//表示当前在主页
     public static final int PAGE_FJDR = 2;//表示当前在附近的人
     public static final int PAGE_DETAIL = 3;//表示当前在详细信息
@@ -101,12 +105,18 @@ public class RsenAccessibilityService extends AccessibilityService {
             }
 
             if (isWeiXinHomePage(event)) {
+                e("已经进入\"主页\"界面");
                 curPage = PAGE_HOME;
                 needBack = false;
+                incrementPageIndex();
 
-//                if (alertDialog.isShowing()) {
-//                    alertDialog.hide();
-//                }
+                if (alertDialog != null) {
+                    if (alertDialog.isShowing()) {
+                        alertDialog.dismiss();
+                        alertDialog = null;
+                    }
+                }
+
 
                 //主页
 //                if (!needBack) {
@@ -125,6 +135,7 @@ public class RsenAccessibilityService extends AccessibilityService {
 
             } else if (isWeiXinFJDRPage(event)) {
                 curPage = PAGE_FJDR;
+                incrementPageIndex();
                 //附近的人
                 e("已经进入\"附近的人\"界面");
 
@@ -154,6 +165,7 @@ public class RsenAccessibilityService extends AccessibilityService {
                 }
             } else if (isWeiXinDetailPage(event)) {
                 curPage = PAGE_DETAIL;
+                incrementPageIndex();
                 //详细资料
                 e("详细资料");
                 if (!needBack) {
@@ -161,30 +173,41 @@ public class RsenAccessibilityService extends AccessibilityService {
                         needBack = true;
                     }
                 }
+                checkBack();
             } else if (isWeiXinSayHiPage(event)) {
                 curPage = PAGE_SAY_HI;
+                incrementPageIndex();
                 //打招呼,聊天界面
-                e("聊天界面 " + needBack);
+                e("聊天界面 needBack:" + needBack);
+//                scrollHandler.sendMessage(scrollHandler.obtainMessage(ScrollHandler.MSG_BACK, curPage, 0));
+//                scrollHandler.sendMessageDelayed(scrollHandler.obtainMessage(ScrollHandler.MSG_BACK, curPage, 0), 200);
+                if (isKeyboardShow(source)) {
+                    e("键盘弹出...请求隐藏键盘...");
+                    sendBackKey();
+                }
 
                 if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_SAY_HI2), TEXT_SAY_HI2, false)) {
                     //如果已经添加过了
                     e("已经发送过好友请求...");
                 } else if (!needBack) {
+                    //发送打招呼文本到文本输入框
+                    sendComment(source);
                     clickSendButton(source);
 //                    clickButton(source, TEXT_SAY_HI);
                     addMemberNum++;
                     showToast();
                 }
-                e("请求返回...隐藏键盘");
-                sendBackKey();
+//                e("请求返回...隐藏键盘");
+//                performGlobalAction(GLOBAL_ACTION_BACK);
+//                sendBackKey();
                 needBack = true;
+                checkBack();
             } else {
                 curPage = -1;
             }
 //            else {
 //                needBack = true;
 //            }
-
             if (needBack) {
                 sendBackKey();
                 e("请求返回Back");
@@ -209,18 +232,18 @@ public class RsenAccessibilityService extends AccessibilityService {
 //                e("附近的人页面滚动事件...");
 //            }
         } else if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
-            //这个事件调用很频繁
-            if (isWeiXinSayHiPage(event)) {
-                if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_SAY_HI2), TEXT_SAY_HI2, false)) {
-                    //强制退出此界面
-                    e("强制退出 加好友界面");
-                    sendBackKey();
-                }
-            }
+//            //这个事件调用很频繁
+//            if (isWeiXinSayHiPage(event)) {
+//                if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_SAY_HI2), TEXT_SAY_HI2, false)) {
+//                    //强制退出此界面
+//                    e("强制退出 加好友界面");
+//                    sendBackKey();
+//                }
+//            }
         }
 
         source.recycle();
-        e(event.getEventType() + " 事件ID");
+//        e(event.getEventType() + " 事件ID");
 
 //        alertDialog.setMessage(event.getText() + " -- " + String.valueOf(event.getEventType()) + " -- " + index++);
     }
@@ -257,6 +280,49 @@ public class RsenAccessibilityService extends AccessibilityService {
      */
     private void clickListItem(List<AccessibilityNodeInfo> itemList, int index) {
         itemList.get(index).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
+    }
+
+    /**
+     * 请在打招呼界面调用此方法
+     */
+    private boolean isKeyboardShow(AccessibilityNodeInfo source) {
+        AccessibilityNodeInfo editText = null;
+        try {
+            editText = source.getChild(0).getChild(0).getChild(4).getChild(0).getChild(0);
+            if (editText != null) {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private void sendComment(AccessibilityNodeInfo source) {
+        String sayHiString = RAccessibilityActivity.getSayHiString();
+        if (TextUtils.isEmpty(sayHiString)) {
+            return;
+        }
+        try {
+            AccessibilityNodeInfo editText = source.getChild(0).getChild(0).getChild(4).getChild(0).getChild(0);//键盘未弹出,使用此方法
+            if (editText == null) {
+                editText = source.getChild(0).getChild(0).getChild(5).getChild(0).getChild(0);//键盘弹出,使用此方法
+            }
+            if ("android.widget.EditText".equals(editText.getClassName())) {
+                Bundle arguments = new Bundle();
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, sayHiString);
+                editText.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+            }
+
+            //发送文本
+            List<AccessibilityNodeInfo> sendButton = source.findAccessibilityNodeInfosByText(TEXT_SAY_SEND);
+            if (sendButton != null && sendButton.size() > 0) {
+                AccessibilityNodeInfo info = sendButton.get(sendButton.size() - 1);
+                info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            }
+        } catch (Exception e) {
+            // Not support
+        }
     }
 
     private void showItemListInfo(List<AccessibilityNodeInfo> itemList) {
@@ -315,6 +381,9 @@ public class RsenAccessibilityService extends AccessibilityService {
     }
 
     private void showTipMsg(String msg) {
+        if (alertDialog == null) {
+            createTipDialog();
+        }
         alertDialog.setMessage(msg);
         if (!alertDialog.isShowing()) {
             alertDialog.show();
@@ -325,10 +394,7 @@ public class RsenAccessibilityService extends AccessibilityService {
 //        Toast toast = T.initToast(this, "");
 //        toast.setGravity(Gravity.BOTTOM, 0, 0);
 //        T.show(this, "已为申请好友:" + addMemberNum + "次");
-        alertDialog.setMessage("已为您申请好友:" + addMemberNum + "次,\n如果发现程序打瞌睡了,熄屏亮屏一次,就可以激活啦!");
-        if (!alertDialog.isShowing()) {
-            alertDialog.show();
-        }
+        showTipMsg("已为您申请好友:" + addMemberNum + "次,\n如果发现程序打瞌睡了,熄屏亮屏一次,就可以激活啦!");
     }
 
 //    /**
@@ -467,15 +533,18 @@ public class RsenAccessibilityService extends AccessibilityService {
         return false;
     }
 
+    private void checkBack() {
+//        pageIndex = 0;
+//        scrollHandler.removeMessages(ScrollHandler.MSG_BACK);
+//        scrollHandler.sendMessageDelayed(scrollHandler.obtainMessage(ScrollHandler.MSG_BACK, curPage, 0), SLEEP_TIME);
+    }
+
     private void sendBackKey() {
-        scrollHandler.removeMessages(ScrollHandler.MSG_BACK);
-        scrollHandler.sendMessageDelayed(scrollHandler.obtainMessage(ScrollHandler.MSG_BACK, curPage, 0), 200);
 //        needBack = false;
         performGlobalAction(GLOBAL_ACTION_BACK);
         try {
-            Thread.sleep(100);
+            Thread.sleep(SLEEP_TIME);
         } catch (InterruptedException e) {
-
         }
     }
 
@@ -593,6 +662,12 @@ public class RsenAccessibilityService extends AccessibilityService {
         return stringBuilder.toString();
     }
 
+    private void incrementPageIndex() {
+        if (pageIndex != -1) {
+            pageIndex++;
+        }
+    }
+
     class ScrollHandler extends Handler {
         //        public static final String MSG_SCROLL = "scroll";
         public static final int MSG_SCROLL = 900;
@@ -610,9 +685,31 @@ public class RsenAccessibilityService extends AccessibilityService {
             } else if (msg.what == MSG_BACK) {
 //                e(curPage + " ...太长... " + msg.arg1);
                 if (msg.arg1 == curPage) {//如果在一定时间之内,还停留在需要返回的界面,那么就发送Back事件
-                    e(curPage + " 此界面停留太长...");
-//                    performGlobalAction(GLOBAL_ACTION_BACK);
+                    if (pageIndex == 0) {
+                        performGlobalAction(GLOBAL_ACTION_BACK);
+                        e(curPage + " 此界面停留太长...自动返回 " + pageIndex);
+                        try {
+                            Thread.sleep(SLEEP_TIME);
+                        } catch (InterruptedException e) {
+                        }
+                    }
+
+                    pageIndex = -1;
                 }
+//                performGlobalAction(GLOBAL_ACTION_BACK);
+//                try {
+//                    Thread.sleep(SLEEP_TIME);
+//                    e("返回1次");
+//                } catch (InterruptedException e) {
+//                }
+//                performGlobalAction(GLOBAL_ACTION_BACK);
+//                try {
+//                    Thread.sleep(SLEEP_TIME);
+//                    e("返回2次");
+//                } catch (InterruptedException e) {
+//                }
+//                performGlobalAction(GLOBAL_ACTION_BACK);
+//                e("返回3次");
             }
         }
     }
