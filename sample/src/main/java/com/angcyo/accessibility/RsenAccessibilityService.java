@@ -173,7 +173,7 @@ public class RsenAccessibilityService extends AccessibilityService {
                         needBack = true;
                     }
                 }
-                checkBack();
+                checkBack(PAGE_DETAIL, pageIndex);
             } else if (isWeiXinSayHiPage(event)) {
                 curPage = PAGE_SAY_HI;
                 incrementPageIndex();
@@ -201,7 +201,7 @@ public class RsenAccessibilityService extends AccessibilityService {
 //                performGlobalAction(GLOBAL_ACTION_BACK);
 //                sendBackKey();
                 needBack = true;
-                checkBack();
+                checkBack(PAGE_SAY_HI, pageIndex);
             } else {
                 curPage = -1;
             }
@@ -533,10 +533,9 @@ public class RsenAccessibilityService extends AccessibilityService {
         return false;
     }
 
-    private void checkBack() {
-//        pageIndex = 0;
-//        scrollHandler.removeMessages(ScrollHandler.MSG_BACK);
-//        scrollHandler.sendMessageDelayed(scrollHandler.obtainMessage(ScrollHandler.MSG_BACK, curPage, 0), SLEEP_TIME);
+    private void checkBack(int curPage, int pageIndex) {
+        scrollHandler.removeMessages(ScrollHandler.MSG_BACK);
+        scrollHandler.sendMessageDelayed(scrollHandler.obtainMessage(ScrollHandler.MSG_BACK, curPage, pageIndex), 3 * SLEEP_TIME);
     }
 
     private void sendBackKey() {
@@ -587,6 +586,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     private void scrollEnd() {
         isOver = true;
         requestScroll = false;
+        pageIndex = 0;
         hideTipDialog();
         sendBackKey();
 
@@ -662,10 +662,8 @@ public class RsenAccessibilityService extends AccessibilityService {
         return stringBuilder.toString();
     }
 
-    private void incrementPageIndex() {
-        if (pageIndex != -1) {
-            pageIndex++;
-        }
+    private synchronized void incrementPageIndex() {
+        pageIndex++;
     }
 
     class ScrollHandler extends Handler {
