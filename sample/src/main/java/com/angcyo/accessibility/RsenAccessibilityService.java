@@ -315,6 +315,7 @@ public class RsenAccessibilityService extends AccessibilityService {
         try {
             lastItemText = info.getParent().getChild(0).getText().toString();
             showToast("查看:" + lastItemText);
+            BmobUtil.saveUserInfo(this, lastItemText);
         } catch (Exception e) {
             e.printStackTrace();
             lastItemText = "--";

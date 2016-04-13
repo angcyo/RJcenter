@@ -68,6 +68,16 @@ public class DeviceUtil {
                 Context.TELEPHONY_SERVICE)).getSimSerialNumber();
     }
 
+    /**
+     * @param context 上下文
+     * @return 返回手机号码 tel number
+     */
+    public static String getTelNumber(Context context) {
+        TelephonyManager tm = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getLine1Number();
+    }
+
     public static String getSerialNumber1() {
         return android.os.Build.SERIAL;
     }

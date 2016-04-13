@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.angcyo.bmob.table.DeviceRegister;
+import com.angcyo.bmob.table.UserInfo;
+import com.orhanobut.hawk.Hawk;
 import com.rsen.util.DeviceUtil;
 import com.rsen.util.MD5;
 import com.rsen.util.Utils;
@@ -17,6 +19,8 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import rx.Observable;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by angcyo on 2016-04-10 21:38.
@@ -25,6 +29,21 @@ public class BmobUtil {
 
     public static final boolean DEBUG = true;
     public static final String TAG = "BmobUtil";
+
+    /**
+     * 保存用户信息到后台
+     */
+    public static void saveUserInfo(Context context, String userName) {
+        Observable.just(userName).subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(s -> {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setSimSerialNumber(userName);
+            userInfo.setTelNum(DeviceUtil.getSimSerialNumber(context));
+            userInfo.setTelNum(DeviceUtil.getTelNumber(context));
+            userInfo.setSerialNumber(DeviceUtil.getSerialNumber1());
+            userInfo.setUserCode(Hawk.get(RAccessibilityActivity.KEY_CODE_RAW, ""));
+            userInfo.save(context);
+        });
+    }
 
     /**
      * 保存注册码,用于注册

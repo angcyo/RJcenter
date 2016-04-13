@@ -29,6 +29,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 
     public static final String KEY_OBJID = "objid";//保存注册码在bmob上记录的id
     public static final String KEY_CODE = "code";//保存注册码在bmob上记录的id
+    public static final String KEY_CODE_RAW = "code_raw";//注册时,未加密的code
     public static final String KEY_DEBUG = "debug";//是否是debug的key
     public static final String KEY_SAY_HI = "say";//是否是debug的key
     private AccessibilityManager accessibilityManager;
@@ -186,7 +187,9 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
             mViewHolder.eV(R.id.codeEdit).setError("请输入有效的注册码!");
         } else {
             showDialogTip("正在验证...");
-            BmobUtil.registerCode(this, code.toString(), new FindListener<BmobUtil.DeviceCodeInfo>() {
+            String codeRaw = code.toString();
+            Hawk.put(KEY_CODE_RAW, codeRaw);
+            BmobUtil.registerCode(this, codeRaw, new FindListener<BmobUtil.DeviceCodeInfo>() {
                 @Override
                 public void onSuccess(List<BmobUtil.DeviceCodeInfo> list) {
                     hideDialogTip();
