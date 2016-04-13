@@ -26,6 +26,8 @@ public class RsenAccessibilityService extends AccessibilityService {
     public static final String TAG = "AccessibilityService";
     public static final String TEXT_WEIXIN = "微信";
     public static final String TEXT_FJDR = "附近的人";
+    public static final String TEXT_START_FJDR = "开始查看";
+    public static final String TEXT_START2_FJDR = "你可以在此看到附近的人";
     public static final String TEXT_DETAIL = "详细资料";
     public static final String TEXT_TXL = "通讯录";
     public static final String TEXT_FX = "发现";
@@ -53,6 +55,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     private int curPage = -1;
     private int pageIndex = -1;//页面计数器
     private String lastItemText = "";//保存滚动开始前,最后一个的文本信息
+    private boolean canStart;//如果不是从附近的人界面进入的,直接不处理,返回;
 
     @Override
     protected void onServiceConnected() {
@@ -108,6 +111,7 @@ public class RsenAccessibilityService extends AccessibilityService {
                 e("已经进入\"主页\"界面");
                 curPage = PAGE_HOME;
                 needBack = false;
+                canStart = false;
                 incrementPageIndex();
 
                 if (alertDialog != null) {
@@ -137,34 +141,43 @@ public class RsenAccessibilityService extends AccessibilityService {
                 //附近的人
                 e("已经进入\"附近的人\"界面");
                 needBack = false;
+                canStart = true;
 
-                try {
-                /*获取到ListView*/
-                    AccessibilityNodeInfo listNode = source.getChild(0).getChild(1);//null
-                    if (listNode != null && listNode.getChildCount() > 0) {
-                        if (addMemberNum < 1) {
-                            showTipMsg("接下来,就交给我吧...");
-                        }
-                        //查找所有Items
-                        List<AccessibilityNodeInfo> itemList = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
-                        if (itemList.size() > 0) {
-                            //查找到非空列表
+                List<AccessibilityNodeInfo> startFJDR = source.findAccessibilityNodeInfosByText(TEXT_START_FJDR);
+                List<AccessibilityNodeInfo> startFJDR2 = source.findAccessibilityNodeInfosByText(TEXT_START2_FJDR);
+                if (startFJDR.size() > 0 && startFJDR2.size() > 0) {
+                    //开始查看界面
+                } else {
+                    try {
+                /*获取到ListView, 第一次打开附近的人, 很有可能出现 开始查看 界面*/
+                        AccessibilityNodeInfo listNode = source.getChild(0).getChild(1);//null
+                        if (listNode != null && listNode.getChildCount() > 0) {
+                            if (addMemberNum < 1) {
+                                showTipMsg("接下来,就交给我吧...");
+                            }
+                            //查找所有Items
+                            List<AccessibilityNodeInfo> itemList = listNode.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
+                            if (itemList.size() > 0) {
+                                //查找到非空列表
 
-                            if (memberNumIndex >= itemList.size()) {
-                                //请求滚动屏幕
-                                e("请求滚动(前进)...");
-                                memberNumIndex = 0;
-                                requestListScroll(listNode);
-                            } else {
-                                clickListItem(itemList, memberNumIndex++);
+                                if (memberNumIndex >= itemList.size()) {
+                                    //请求滚动屏幕
+                                    e("请求滚动(前进)...");
+                                    memberNumIndex = 0;
+                                    requestListScroll(listNode);
+                                } else {
+                                    clickListItem(itemList, memberNumIndex++);
+                                }
                             }
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-
             } else if (isWeiXinDetailPage(event)) {
+                if (!canStart) {
+                    return;
+                }
                 curPage = PAGE_DETAIL;
                 incrementPageIndex();
                 //详细资料
@@ -180,6 +193,9 @@ public class RsenAccessibilityService extends AccessibilityService {
                 }
                 checkBack(PAGE_DETAIL, pageIndex);
             } else if (isWeiXinSayHiPage(event)) {
+                if (!canStart) {
+                    return;
+                }
                 curPage = PAGE_SAY_HI;
                 incrementPageIndex();
                 //打招呼,聊天界面
@@ -620,6 +636,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     private void scrollEnd() {
         isOver = true;
         requestScroll = false;
+        canStart = false;
         pageIndex = 0;
         hideTipDialog();
         sendBackKey();
