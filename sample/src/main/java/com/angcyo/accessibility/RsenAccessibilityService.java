@@ -149,7 +149,7 @@ public class RsenAccessibilityService extends AccessibilityService {
                 List<AccessibilityNodeInfo> startFJDR2 = source.findAccessibilityNodeInfosByText(TEXT_START2_FJDR);
                 if (startFJDR.size() > 0 && startFJDR2.size() > 0) {
                     //开始查看界面
-                    T.show(getApplication(), "还差一步哦!");
+                    T.show(getApplicationContext(), "还差一步哦!");
                 } else {
                     try {
                 /*获取到ListView, 第一次打开附近的人, 很有可能出现 开始查看 界面*/
