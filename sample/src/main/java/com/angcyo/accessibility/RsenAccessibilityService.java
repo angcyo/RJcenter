@@ -591,8 +591,24 @@ public class RsenAccessibilityService extends AccessibilityService {
     }
 
     private void sendBackKey() {
-//        needBack = false;
-        showToast("正在返回...");
+        String page = "";
+        switch (curPage) {
+            case PAGE_DETAIL:
+                page = "详细资料";
+                break;
+            case PAGE_FJDR:
+                page = "附近的人";
+                break;
+            case PAGE_HOME:
+                page = "首页";
+                break;
+            case PAGE_SAY_HI:
+                page = "聊天";
+                break;
+            default:
+                break;
+        }
+        showToast("'" + page + "' 此界面,正在返回...");
         performGlobalAction(GLOBAL_ACTION_BACK);
         try {
             Thread.sleep(SLEEP_TIME);
