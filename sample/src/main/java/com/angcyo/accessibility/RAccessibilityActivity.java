@@ -32,6 +32,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
     public static final String KEY_CODE_RAW = "code_raw";//注册时,未加密的code
     public static final String KEY_DEBUG = "debug";//是否是debug的key
     public static final String KEY_SAY_HI = "say";//是否是debug的key
+    public static final String KEY_LAST_CLICK = "click";//最近一次的点击添加好友的数量的key
     private AccessibilityManager accessibilityManager;
 
     /**
@@ -44,6 +45,10 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         }
 
         return true;
+    }
+
+    public static void saveLastClick(long num) {
+        Hawk.put(KEY_LAST_CLICK, num);
     }
 
     /**
@@ -218,6 +223,12 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 
     private void updateButton() {
         String code = Hawk.get(KEY_CODE, "");
+        long num = Hawk.get(KEY_LAST_CLICK, 0l);
+        if (num == 0) {
+            mViewHolder.tV(R.id.tip).setText(R.string.tip);
+        } else {
+            mViewHolder.tV(R.id.tip).setText(getString(R.string.tip) + "\n上一次的战绩:" + num + "次");
+        }
 
         if (TextUtils.isEmpty(code)) {
             if (!mViewHolder.tV(R.id.codeEdit).isEnabled()) {

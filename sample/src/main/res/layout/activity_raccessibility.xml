@@ -18,7 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="为了不影响正常使用\n您需要手动打开'附近的人'界面\n之后程序就会自动运行" />
+        android:text="@string/tip" />
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"

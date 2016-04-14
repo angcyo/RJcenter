@@ -45,7 +45,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     public static final int PAGE_FJDR = 2;//表示当前在附近的人
     public static final int PAGE_DETAIL = 3;//表示当前在详细信息
     public static final int PAGE_SAY_HI = 4;//表示当前在加好友
-    private AlertDialog alertDialog;
+    private static AlertDialog alertDialog;
     private long index = 0;
     private boolean needBack = false;//添加好友之后,请求返回.
     private int memberNumIndex = 0;//一屏需要添加的好友数量, 用于控制滚动ListView
@@ -634,7 +634,8 @@ public class RsenAccessibilityService extends AccessibilityService {
         window.setType(WindowManager.LayoutParams.TYPE_TOAST);
         window.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
         WindowManager.LayoutParams attributes = window.getAttributes();
-        attributes.gravity = Gravity.CENTER;
+        attributes.gravity = Gravity.BOTTOM;
+        attributes.y = 200;
 //        attributes.dimAmount = 0f;
         window.setAttributes(attributes);
         window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
@@ -665,6 +666,7 @@ public class RsenAccessibilityService extends AccessibilityService {
         ready();
         if (isOver) {
             showOverDialog(num);
+            RAccessibilityActivity.saveLastClick(num);
             isOver = false;
             if (RAccessibilityActivity.isDebugKey()) {
                 RAccessibilityActivity.cleanCodeInfo();
