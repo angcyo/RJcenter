@@ -464,7 +464,7 @@
             android:name="com.angcyo.accessibility.RAccessibilityActivity"
             android:label="@string/name_rsen_weixin"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

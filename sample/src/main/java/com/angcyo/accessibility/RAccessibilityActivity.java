@@ -3,12 +3,16 @@ package com.angcyo.accessibility;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -141,6 +145,9 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         });
 
         mViewHolder.eV(R.id.helloEdit).setText(getSayHiString());
+
+        mViewHolder.v(R.id.tip).setFocusable(true);
+        mViewHolder.v(R.id.tip).requestFocus();
     }
 
     /**
@@ -227,7 +234,14 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         if (num == 0) {
             mViewHolder.tV(R.id.tip).setText(R.string.tip);
         } else {
-            mViewHolder.tV(R.id.tip).setText(getString(R.string.tip) + "\n上一次的战绩:" + num + "次");
+//            mViewHolder.tV(R.id.tip).setText(getString(R.string.tip) + "\n上一次的战绩:" + num + "次");
+            String other = "上一次的战绩:" + num + "次";
+            String text = getString(R.string.tip) + "\n" + other;
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(text);
+            spannableStringBuilder.setSpan(new ForegroundColorSpan(Color.RED),
+                    text.length() - other.length(), text.length(),
+                    Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            mViewHolder.tV(R.id.tip).setText(spannableStringBuilder);
         }
 
         if (TextUtils.isEmpty(code)) {
