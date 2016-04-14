@@ -49,7 +49,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     private long index = 0;
     private boolean needBack = false;//添加好友之后,请求返回.
     private int memberNumIndex = 0;//一屏需要添加的好友数量, 用于控制滚动ListView
-    private long addMemberNum = 0;//执行了多少次添加朋友操作
+    private long addMemberNum = -1;//执行了多少次添加朋友操作
     //    private List<AccessibilityNodeInfo> lastItemList;//保存最后一次附近人的列表信息,用于判断是否全部添加了好友.
     private boolean isOver = false;
     private boolean requestScroll = false;//自动滚屏的标识符,用于标识该检查滚动事件
@@ -120,8 +120,12 @@ public class RsenAccessibilityService extends AccessibilityService {
                     if (alertDialog.isShowing()) {
                         alertDialog.dismiss();
                         alertDialog = null;
+                        if (addMemberNum > 0) {
+                            RAccessibilityActivity.saveLastClick(addMemberNum);
+                        }
                     }
                 }
+                addMemberNum = -1;
                 //主页
 //                if (!needBack) {
 //                    jumpToFaXianPage(event);
@@ -149,12 +153,25 @@ public class RsenAccessibilityService extends AccessibilityService {
                 List<AccessibilityNodeInfo> startFJDR2 = source.findAccessibilityNodeInfosByText(TEXT_START2_FJDR);
                 if (startFJDR.size() > 0 && startFJDR2.size() > 0) {
                     //开始查看界面
-                    T.show(getApplicationContext(), "还差一步哦!");
+                    T.show(getApplicationContext(), "亲,还差一步哦!");
                 } else {
                     try {
                 /*获取到ListView, 第一次打开附近的人, 很有可能出现 开始查看 界面*/
-                        AccessibilityNodeInfo listNode = source.getChild(0).getChild(1);//null
+                        AccessibilityNodeInfo listNode = null;//null
+                        int childCount = source.getChildCount();
+                        if (childCount == 1) {
+                            //小米手机 测试通过
+                            listNode = source.getChild(0).getChild(1);
+                        } else if (childCount == 2) {
+                            //魅族手机测试通过
+                            listNode = source.getChild(1);
+                        }
+
                         if (listNode != null && listNode.getChildCount() > 0) {
+                            if (addMemberNum == -1) {
+                                T.show(getApplicationContext(), "正在接管操作,请稍等...");
+                                addMemberNum = 0;
+                            }
                             if (addMemberNum < 1) {
                                 showTipMsg("接下来,就交给我吧...");
                             }
@@ -172,6 +189,8 @@ public class RsenAccessibilityService extends AccessibilityService {
                                     clickListItem(itemList, memberNumIndex++);
                                 }
                             }
+                        } else {
+                            T.show(getApplicationContext(), "Sorry, 请告诉我:你的是哪款手机?");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -274,7 +293,7 @@ public class RsenAccessibilityService extends AccessibilityService {
         }
 
         source.recycle();
-//        e(event.getEventType() + " 事件ID");
+        e(event.getEventType() + " 事件ID");
 
 //        alertDialog.setMessage(event.getText() + " -- " + String.valueOf(event.getEventType()) + " -- " + index++);
     }
@@ -524,6 +543,15 @@ public class RsenAccessibilityService extends AccessibilityService {
         AccessibilityNodeInfo source = event.getSource();
         if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_FJDR), TEXT_FJDR, false)) {
             //如果不是主页,又包含 附近的人 TextView,那么就返回 true
+
+            if (haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_WEIXIN), TEXT_WEIXIN) &&
+                    haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_TXL), TEXT_TXL) &&
+                    haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_FX), TEXT_FX) &&
+                    haveNodeInfo(source.findAccessibilityNodeInfosByText(TEXT_ME), TEXT_ME)) {
+                //如果这个时候又发现了有主页的特征...则...
+                return false;
+            }
+
             return true;
         }
 
@@ -566,13 +594,13 @@ public class RsenAccessibilityService extends AccessibilityService {
         }
 
         for (AccessibilityNodeInfo info : nodeInfos) {
-            CharSequence text = info.getText();
+            String text = info.getText().toString();
             if (TextUtils.isEmpty(text)) {
                 continue;
             }
             /*文本是nodeText,并且是TextView类型*/
             if (strictMode) {
-                if (nodeText.equals(text) && TextView.class.getName().equals(info.getClassName())) {
+                if (nodeText.equals(text) && TextView.class.getName().equals(info.getClassName().toString())) {
                     return true;
                 }
             } else {
