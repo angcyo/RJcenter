@@ -3,6 +3,7 @@ package com.rsen.exception;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,11 @@ public class RCrashActivity extends RBaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected int getStateBarColor() {
+        return Color.WHITE;
     }
 
     @Override

@@ -21,7 +21,7 @@
     <string name="title_activity_surface_math">SurfaceMathActivity</string>
 
     <string name="app_accessibility_description">此服务只适用于微信\n自动向附近的人发送好友申请\n为了良好使用,请保证屏幕常亮,不锁屏,并锁定屏幕方向哦\n^_^\n\n小米Note\nAndroid 6.0.1\n微信6.3.15\n作者联系方式QQ:664738095\n</string>
-    <string name="name_rsen_weixin">Rsen微信助手</string>
+    <string name="name_rsen_weixin">R·Sen微信助手</string>
     <string name="tip_say_hi">打招呼语,多个之间使用\'|\'分割,会自动循环发送</string>
     <string name="tip">为了不影响正常使用\n您需要手动打开\'附近的人\'界面\n之后程序就会自动运行</string>
 </resources>

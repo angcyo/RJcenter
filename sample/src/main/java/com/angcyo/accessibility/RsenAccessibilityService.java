@@ -157,16 +157,9 @@ public class RsenAccessibilityService extends AccessibilityService {
                 } else {
                     try {
                 /*获取到ListView, 第一次打开附近的人, 很有可能出现 开始查看 界面*/
-                        AccessibilityNodeInfo listNode = null;//null
-                        int childCount = source.getChildCount();
-                        if (childCount == 1) {
-                            //小米手机 测试通过
-                            listNode = source.getChild(0).getChild(1);
-                        } else if (childCount == 2) {
-                            //魅族手机测试通过
-                            listNode = source.getChild(1);
-                        }
+//                        T.show(getApplicationContext(), "loading...");
 
+                        AccessibilityNodeInfo listNode = getListNode(source);
                         if (listNode != null && listNode.getChildCount() > 0) {
                             if (addMemberNum == -1) {
                                 T.show(getApplicationContext(), "正在接管操作,请稍等...");
@@ -190,7 +183,7 @@ public class RsenAccessibilityService extends AccessibilityService {
                                 }
                             }
                         } else {
-                            T.show(getApplicationContext(), "Sorry, 请告诉我:你的是哪款手机?");
+//                            T.show(getApplicationContext(), "Sorry, 请告诉我:你的是哪款手机?");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -296,6 +289,30 @@ public class RsenAccessibilityService extends AccessibilityService {
         e(event.getEventType() + " 事件ID");
 
 //        alertDialog.setMessage(event.getText() + " -- " + String.valueOf(event.getEventType()) + " -- " + index++);
+    }
+
+
+    private AccessibilityNodeInfo getListNode(AccessibilityNodeInfo source) {
+//        int childCount = source.getChildCount();
+//        if (childCount == 1) {
+//            //小米手机 测试通过
+//            listNode = source.getChild(0).getChild(1);
+//        } else if (childCount == 2) {
+//            //魅族手机测试通过
+//            listNode = source.getChild(1);
+//        }
+        AccessibilityNodeInfo listNode = null;
+        for (int i = 0; i < source.getChildCount(); i++) {
+            AccessibilityNodeInfo child = source.getChild(i);
+            if (child.getClassName().toString().equals(ListView.class.getName())) {
+                return child;
+            }
+            AccessibilityNodeInfo node = getListNode(child);
+            if (node != null) {
+                return node;
+            }
+        }
+        return listNode;
     }
 
     private void requestListScroll(AccessibilityNodeInfo listNode) {
@@ -594,13 +611,13 @@ public class RsenAccessibilityService extends AccessibilityService {
         }
 
         for (AccessibilityNodeInfo info : nodeInfos) {
-            String text = info.getText().toString();
+            CharSequence text = info.getText();
             if (TextUtils.isEmpty(text)) {
                 continue;
             }
             /*文本是nodeText,并且是TextView类型*/
             if (strictMode) {
-                if (nodeText.equals(text) && TextView.class.getName().equals(info.getClassName().toString())) {
+                if (nodeText.equals(text.toString()) && TextView.class.getName().equals(info.getClassName().toString())) {
                     return true;
                 }
             } else {
