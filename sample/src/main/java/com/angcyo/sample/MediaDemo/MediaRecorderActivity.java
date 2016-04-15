@@ -15,6 +15,7 @@ import com.angcyo.sample.R;
 import java.io.IOException;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class MediaRecorderActivity extends Activity implements SurfaceHolder.Callback, MediaRecorder.OnInfoListener {
 
     SurfaceView surfaceView;

@@ -15,6 +15,7 @@ import java.util.Vector;
 /**
  * Created by robi on 2016-04-01 10:50.
  */
+@SuppressWarnings("deprecation")
 public class VideoRunnable extends Thread {
     public static boolean DEBUG = false;
 

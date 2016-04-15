@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @SuppressLint("NewApi")
+@SuppressWarnings("deprecation")
 public class CameraWrapper {
     public static final int IMAGE_HEIGHT = 1080;
     public static final int IMAGE_WIDTH = 1920;

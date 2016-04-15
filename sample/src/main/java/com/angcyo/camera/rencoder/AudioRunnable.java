@@ -16,6 +16,7 @@ import java.nio.ByteBuffer;
 /**
  * Created by robi on 2016-04-01 10:50.
  */
+@SuppressWarnings("deprecation")
 public class AudioRunnable extends Thread {
     public static final boolean DEBUG = true;
     public static final String TAG = "AudioRunnable";
