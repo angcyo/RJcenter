@@ -157,7 +157,9 @@ public class RsenAccessibilityService extends AccessibilityService {
                 } else {
                     try {
                 /*获取到ListView, 第一次打开附近的人, 很有可能出现 开始查看 界面*/
-//                        T.show(getApplicationContext(), "loading...");
+                        if (addMemberNum == -1) {
+                            T.show(getApplicationContext(), "loading...");
+                        }
 
                         AccessibilityNodeInfo listNode = getListNode(source);
                         if (listNode != null && listNode.getChildCount() > 0) {
