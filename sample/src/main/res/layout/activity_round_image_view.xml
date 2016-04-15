@@ -10,45 +10,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.angcyo.sample.viewdemo.RoundImageViewActivity">
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
 
-            <com.rsen.view.RoundImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:roundImage="@drawable/logo" />
+            <!--&lt;!&ndash;<com.rsen.view.DrawableRoundImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;app:roundImage="@drawable/logo" />&ndash;&gt;-->
 
-            <com.rsen.view.RoundImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo" />
+            <!--&lt;!&ndash;<com.rsen.view.DrawableRoundImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:src="@drawable/logo" />&ndash;&gt;-->
 
-            <com.rsen.view.RoundImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!--&lt;!&ndash;<com.rsen.view.DrawableRoundImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content" />&ndash;&gt;-->
 
-            <com.rsen.view.RoundImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:roundImage="@drawable/logo" />
+            <!--&lt;!&ndash;<com.rsen.view.DrawableRoundImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                <!--&lt;!&ndash;app:roundImage="@drawable/logo" />&ndash;&gt;-->
 
-            <com.rsen.view.RoundImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:roundImage="@drawable/logo" />
+            <!--&lt;!&ndash;<com.rsen.view.DrawableRoundImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="40dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="40dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;app:roundImage="@drawable/logo" />&ndash;&gt;-->
 
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+        <!--</LinearLayout>-->
+    <!--</android.support.v4.widget.NestedScrollView>-->
 
-    <com.rsen.view.RoundImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:roundImage="@drawable/logo" />
+    <!--<com.rsen.view.DrawableRoundImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:roundImage="@drawable/logo" />-->
 
 </RelativeLayout>

@@ -10,7 +10,7 @@ android {
         }
     }
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion '23.0.3'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 23
@@ -31,9 +31,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.android.support:design:23.2.1'
-    compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:support-v4:23.3.0'
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
     compile 'com.orhanobut:hawk:1.18'
     compile 'io.reactivex:rxjava:1.1.2'
@@ -53,7 +53,7 @@ task myJavadocs(type: Javadoc) {
         charSet 'UTF-8'
         author true
         version true
-        links "http://docs.oracle.com/javase/7/docs/api"
+        links "http://docs.oracle.com/javase/8/docs/api"
     }
 }
 //
