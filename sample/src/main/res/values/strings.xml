@@ -24,4 +24,5 @@
     <string name="name_rsen_weixin">R·Sen微信助手</string>
     <string name="tip_say_hi">打招呼语,多个之间使用\'|\'分割,会自动循环发送</string>
     <string name="tip">为了不影响正常使用\n您需要手动打开\'附近的人\'界面\n之后程序就会自动运行</string>
+    <string name="title_activity_round_image_view">RoundImageViewActivity</string>
 </resources>
