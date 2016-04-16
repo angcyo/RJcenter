@@ -12,6 +12,7 @@ import com.angcyo.rsen.R;
 
 /**
  * Created by angcyo on 2016-04-16 23:29.
+ * 圆角布局,任意View都能实现圆角
  */
 public class RoundLayout extends RelativeLayout {
     private float roundLayoutRadius = 14f;
