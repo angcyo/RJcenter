@@ -59,7 +59,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     private int pageIndex = -1;//页面计数器
     private String lastItemText = "";//保存滚动开始前,最后一个的文本信息
     private boolean canStart;//如果不是从附近的人界面进入的,直接不处理,返回;
-    private boolean isRetry = false;//是否是重试,随机地址,重试
+    private boolean isRetry = false;//是否是重试, 随机地址, 重试
 
     @Override
     protected void onServiceConnected() {
