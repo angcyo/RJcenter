@@ -90,7 +90,7 @@
         <activity
             android:name="com.angcyo.demo.top.OnePxActivity"
             android:theme="@style/Dialog" />
-        <activity android:name=".ViewDemo.TagRadioGroupActivity">
+        <activity android:name=".viewdemo.TagRadioGroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -98,7 +98,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewDemo.GalleryLayoutActivity"
+            android:name=".viewdemo.GalleryLayoutActivity"
             android:label="@string/title_activity_gallery_layout"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -269,7 +269,7 @@
             android:permission="com.angcyo.provider"
             android:process=":provider" />
 
-        <activity android:name=".ViewDemo.PathButtonActivity">
+        <activity android:name=".viewdemo.PathButtonActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
