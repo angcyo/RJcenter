@@ -2,7 +2,7 @@ package com.angcyo.sample.MediaDemo;
 
 import android.app.Activity;
 import android.graphics.ImageFormat;
-import android.hardware.Camera;
+import android.hardware.*;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.Log;

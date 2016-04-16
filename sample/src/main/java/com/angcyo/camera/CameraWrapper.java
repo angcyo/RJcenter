@@ -3,7 +3,7 @@ package com.angcyo.camera;
 import android.annotation.SuppressLint;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
-import android.hardware.Camera;
+import android.hardware.*;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
