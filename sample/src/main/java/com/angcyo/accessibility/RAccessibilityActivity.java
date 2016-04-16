@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
-import android.widget.CompoundButton;
 
 import com.angcyo.bmob.BmobHelper;
 import com.angcyo.sample.R;
@@ -101,14 +100,14 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 //        CrashUtil.init();
 
         BmobHelper.initBmob(this);
-
-        mToolbar.setTitle(getString(R.string.name_rsen_weixin));
-        mToolbar.setLayoutParams(new AppBarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
-
+        BmobUtil.increment(this, Hawk.get(KEY_OBJID));
 
         //监听AccessibilityService 变化
         accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
         accessibilityManager.addAccessibilityStateChangeListener(this);
+
+        mToolbar.setTitle(getString(R.string.name_rsen_weixin));
+        mToolbar.setLayoutParams(new AppBarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
 
         mViewHolder.v("enable").setOnClickListener(v -> {
             onEnableClick();
@@ -123,11 +122,6 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         mViewHolder.v("register").setOnClickListener(v -> {
             onRegisterClick();
         });
-
-        updateServiceStatus();
-
-        BmobUtil.increment(this, Hawk.get(KEY_OBJID));
-
 
         mViewHolder.v(R.id.rootLayout).addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
             if (bottom - oldBottom >= 0) {
@@ -152,18 +146,31 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
                 saveSayHiString(s.toString());
             }
         });
-
         mViewHolder.eV(R.id.helloEdit).setText(getSayHiString());
-
         mViewHolder.v(R.id.tip).setFocusable(true);
         mViewHolder.v(R.id.tip).requestFocus();
 
-        mViewHolder.cV(R.id.pauseButton).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Hawk.put(KEY_PAUSE, isChecked);
-            }
-        });
+        mViewHolder.cV(R.id.pauseButton).setOnCheckedChangeListener((buttonView, isChecked) -> Hawk.put(KEY_PAUSE, isChecked));
+
+        updateServiceStatus();
+
+        LocationManagerHelper.getInstance(this).initLocationInfos();
+
+//        mToolbar.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                LocationManagerHelper.getInstance(RAccessibilityActivity.this).setLocation();
+//            }
+//        }, 2000);
+
+//        s(Settings.ACTION_PRIVACY_SETTINGS);
+//        s(Settings.ACTION_SECURITY_SETTINGS);
+//        s(Settings.ACTION_SETTINGS);
+    }
+
+    private void s(String action) {
+        Intent intent = new Intent(action);
+        startActivity(intent);
     }
 
     /**
@@ -200,8 +207,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 
     private void gotoSetting() {
         try {
-            Intent accessibleIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-            startActivity(accessibleIntent);
+            s(Settings.ACTION_ACCESSIBILITY_SETTINGS);
         } catch (Exception e) {
             T.show(RAccessibilityActivity.this, "遇到一些问题,请手动打开系统设置>辅助服务>Rsen微信助手");
             e.printStackTrace();

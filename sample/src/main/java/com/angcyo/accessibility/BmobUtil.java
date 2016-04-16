@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.angcyo.bmob.table.DeviceRegister;
+import com.angcyo.bmob.table.LocationInfo;
 import com.angcyo.bmob.table.UserInfo;
 import com.orhanobut.hawk.Hawk;
 import com.rsen.util.DeviceUtil;
@@ -29,6 +30,24 @@ public class BmobUtil {
 
     public static final boolean DEBUG = true;
     public static final String TAG = "BmobUtil";
+
+    /**
+     * 获取所有位置信息
+     */
+    public static void getLocationInfos(Context context, List<LocationInfo> locationInfos) {
+        BmobQuery<LocationInfo> locationInfoBmobQuery = new BmobQuery<>();
+        locationInfoBmobQuery.findObjects(context, new FindListener<LocationInfo>() {
+            @Override
+            public void onSuccess(List<LocationInfo> list) {
+                locationInfos.addAll(list);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+    }
 
     /**
      * 保存用户信息到后台

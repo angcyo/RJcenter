@@ -9,6 +9,25 @@ public class Java3 {
     public static PrintStream p = System.out;
 
     public static void main(String... args) {
+//        test1();
+
+        test2();
+    }
+
+    private static void test2() {
+        int index = 0;
+        p.println(index++ % 3);
+        p.println(index++ % 3);
+        p.println(index++ % 3);
+        p.println(index++ % 3);
+        p.println(index++ % 3);
+        p.println(index++ % 3);
+        p.println(index++ % 3);
+        p.println(index++ % 3);
+        p.println(index++ % 3);
+    }
+
+    private static void test1() {
         String string = "asdf";
         String[] split = string.split("|");
         p.println(split.length);

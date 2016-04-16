@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -58,6 +59,7 @@ public class RsenAccessibilityService extends AccessibilityService {
     private int pageIndex = -1;//页面计数器
     private String lastItemText = "";//保存滚动开始前,最后一个的文本信息
     private boolean canStart;//如果不是从附近的人界面进入的,直接不处理,返回;
+    private boolean isRetry = false;//是否是重试,随机地址,重试
 
     @Override
     protected void onServiceConnected() {
@@ -137,9 +139,21 @@ public class RsenAccessibilityService extends AccessibilityService {
                 }
                 addMemberNum = -1;
                 //主页
+                if (isRetry) {
+                    if (switchLocation()) {
+                        isRetry = false;
+                        T.show(this, "正在设置新的地址,请稍等...");
+//                    try {
+//                        Thread.sleep(1500);
+//                    } catch (InterruptedException e) {
+//                    }
+                        jumpToFJDRPage(event);
+                    }
+                }
+
 //                if (!needBack) {
 //                    jumpToFaXianPage(event);
-//                jumpToFJDRPage(event);
+
 //                }
 //                long num = addMemberNum;
 //                ready();
@@ -341,7 +355,12 @@ public class RsenAccessibilityService extends AccessibilityService {
     private void showOverDialog(long num) {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("完美结束")
-                .setMessage("上一次的战果是:" + num + "次")
+                .setMessage("上一次的战果是:" + num + "次,\n选择继续,程序会自动切换一个\"随机地址\",并且重试.(此功能并非有效)")
+                .setNeutralButton("继续(beta)", (dialog, which) -> {
+                    if (switchLocation()) {
+                        T.show(this, "请手动打开\"附近的人\"界面.");
+                    }
+                })
                 .setPositiveButton("恭喜发财", null)
                 .create();
 
@@ -350,6 +369,36 @@ public class RsenAccessibilityService extends AccessibilityService {
         window.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
 
         alertDialog.show();
+    }
+
+    private boolean switchLocation() {
+        try {
+            LocationManagerHelper.getInstance(this).initLocation();
+            LocationManagerHelper.getInstance(this).setLocation();
+            return true;
+        } catch (Exception e) {
+            AlertDialog alertDialog = new AlertDialog.Builder(this)
+                    .setTitle("权限被禁止")
+                    .setMessage("请在系统设置界面中,找到并打开\"允许模拟地点\"(请根据自己的手机操作).")
+                    .setNeutralButton("重试", (dialog, which) -> {
+                        switchLocation();
+                    })
+                    .setPositiveButton("打开设置界面", (dialog, which) -> {
+                        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        isRetry = true;
+                    })
+                    .create();
+
+            Window window = alertDialog.getWindow();
+            window.setType(WindowManager.LayoutParams.TYPE_TOAST);
+            window.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+
+            alertDialog.show();
+        }
+
+        return false;
     }
 
     /**
@@ -689,7 +738,7 @@ public class RsenAccessibilityService extends AccessibilityService {
         window.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
         WindowManager.LayoutParams attributes = window.getAttributes();
         attributes.gravity = Gravity.BOTTOM;
-        attributes.y = 300;
+        attributes.y = 330;
 //        attributes.dimAmount = 0f;
         window.setAttributes(attributes);
         window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
