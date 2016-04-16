@@ -70,7 +70,12 @@
             android:text="立即注册"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
-    </android.support.v7.widget.LinearLayoutCompat>
 
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/pauseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂停程序" />
+    </android.support.v7.widget.LinearLayoutCompat>
 
 </RelativeLayout>

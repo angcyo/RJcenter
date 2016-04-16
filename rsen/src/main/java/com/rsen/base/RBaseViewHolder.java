@@ -9,6 +9,7 @@ import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,15 +51,23 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         return (TextView) v(resId);
     }
 
-    /**
-     * 返回 TextView
-     */
     public TextView tV(String idName) {
         return (TextView) v(idName);
     }
 
     public TextView textView(@IdRes int resId) {
         return tV(resId);
+    }
+
+    /**
+     * 返回 CompoundButton
+     */
+    public CompoundButton cV(@IdRes int resId) {
+        return (CompoundButton) v(resId);
+    }
+
+    public CompoundButton cV(String idName) {
+        return (CompoundButton) v(idName);
     }
 
     /**

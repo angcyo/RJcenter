@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.CompoundButton;
 
 import com.angcyo.bmob.BmobHelper;
 import com.angcyo.sample.R;
@@ -37,6 +38,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
     public static final String KEY_DEBUG = "debug";//是否是debug的key
     public static final String KEY_SAY_HI = "say";//是否是debug的key
     public static final String KEY_LAST_CLICK = "click";//最近一次的点击添加好友的数量的key
+    public static final String KEY_PAUSE = "pause";//暂停程序
     private AccessibilityManager accessibilityManager;
 
     /**
@@ -49,6 +51,13 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
         }
 
         return true;
+    }
+
+    /**
+     * 是否 暂停了
+     */
+    public static boolean isPause() {
+        return Hawk.get(KEY_PAUSE, false);
     }
 
     public static void saveLastClick(long num) {
@@ -148,6 +157,13 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 
         mViewHolder.v(R.id.tip).setFocusable(true);
         mViewHolder.v(R.id.tip).requestFocus();
+
+        mViewHolder.cV(R.id.pauseButton).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Hawk.put(KEY_PAUSE, isChecked);
+            }
+        });
     }
 
     /**
@@ -263,6 +279,8 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN |
                     WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         }
+
+        mViewHolder.cV(R.id.pauseButton).setChecked(Hawk.get(KEY_PAUSE, false));
     }
 
     /**

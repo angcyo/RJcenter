@@ -95,6 +95,16 @@ public class RsenAccessibilityService extends AccessibilityService {
             return;
         }
 
+        if (!RAccessibilityActivity.isDeviceRegister()) {
+            //未注册直接返回
+            return;
+        }
+
+        if (RAccessibilityActivity.isPause()) {
+            hideTipDialog();
+            return;
+        }
+
         //当窗口发生的事件是我们配置监听的事件时,会回调此方法.会被调用多次
 //        if (BuildConfig.DEBUG) {
 //            try {
@@ -103,11 +113,11 @@ public class RsenAccessibilityService extends AccessibilityService {
 //            }
 //        }
 
+        e("事件ID-->" + event.getEventType());
+
+
         if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            if (!RAccessibilityActivity.isDeviceRegister()) {
-                //未注册直接返回
-                return;
-            }
+
 
             if (isWeiXinHomePage(event)) {
                 e("已经进入\"主页\"界面");
@@ -287,8 +297,6 @@ public class RsenAccessibilityService extends AccessibilityService {
         }
 
         source.recycle();
-        e(event.getEventType() + " 事件ID");
-
 //        alertDialog.setMessage(event.getText() + " -- " + String.valueOf(event.getEventType()) + " -- " + index++);
     }
 

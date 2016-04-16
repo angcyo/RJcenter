@@ -48,8 +48,8 @@ android {
         applicationId "com.angcyo.sample"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "1.2.0"
 
         resValue "string", "build_time", buildTime()
         resValue "string", "build_host", hostName()
@@ -124,8 +124,6 @@ android {
         targetCompatibility 1.8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-
-
     repositories {
         flatDir {
             dirs 'libs'
@@ -174,7 +172,7 @@ tasks.withType(JavaCompile) {
 
 def getTime() {
 //    return new Date().format("yyyy-MM-dd")
-    return new Date().format("mmss")
+    return new Date().format("HHmmss")
 }
 
 def buildTime() {
