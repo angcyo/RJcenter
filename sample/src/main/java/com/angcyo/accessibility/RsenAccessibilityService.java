@@ -254,11 +254,10 @@ public class RsenAccessibilityService extends AccessibilityService {
                 if (source.getClassName().equals(ListView.class.getName())) {
                     List<AccessibilityNodeInfo> itemList = source.findAccessibilityNodeInfosByText(TEXT_LIST_ITEM);
 //                    showItemListInfo(itemList);
-                    int offset = 0;
                     try {
                         String itemText = itemList.get(0).getParent().getChild(0).getText().toString();
                         if (lastItemText.equals(itemText)) {
-                            offset = 1;
+                            memberNumIndex++;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -266,7 +265,7 @@ public class RsenAccessibilityService extends AccessibilityService {
 
                     e("附近的人页面滚动事件...end");
 //                    requestListScroll(source);
-                    clickListItem(itemList, memberNumIndex++ + offset);
+                    clickListItem(itemList, memberNumIndex++);
                 }
             }
 //            if (isWeiXinFJDRPage(event)) {
@@ -682,7 +681,7 @@ public class RsenAccessibilityService extends AccessibilityService {
         window.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
         WindowManager.LayoutParams attributes = window.getAttributes();
         attributes.gravity = Gravity.BOTTOM;
-        attributes.y = 200;
+        attributes.y = 300;
 //        attributes.dimAmount = 0f;
         window.setAttributes(attributes);
         window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
@@ -698,6 +697,9 @@ public class RsenAccessibilityService extends AccessibilityService {
     private void hideTipDialog() {
         if (alertDialog != null && alertDialog.isShowing()) {
             alertDialog.dismiss();
+            if (addMemberNum != 0) {
+                RAccessibilityActivity.saveLastClick(addMemberNum);
+            }
         }
     }
 
@@ -784,12 +786,15 @@ public class RsenAccessibilityService extends AccessibilityService {
 
     private synchronized void incrementPageIndex() {
         pageIndex++;
+        scrollHandler.removeMessages(ScrollHandler.MSG_HIDE_DIALOG);
+        scrollHandler.sendMessageDelayed(scrollHandler.obtainMessage(ScrollHandler.MSG_HIDE_DIALOG, pageIndex, 0), 10 * SLEEP_TIME);
     }
 
     class ScrollHandler extends Handler {
         //        public static final String MSG_SCROLL = "scroll";
         public static final int MSG_SCROLL = 900;
         public static final int MSG_BACK = 901;
+        public static final int MSG_HIDE_DIALOG = 902;
 
         @Override
         public void handleMessage(Message msg) {
@@ -838,6 +843,11 @@ public class RsenAccessibilityService extends AccessibilityService {
 //                }
 //                performGlobalAction(GLOBAL_ACTION_BACK);
 //                e("返回3次");
+            } else if (msg.what == MSG_HIDE_DIALOG) {
+                if (msg.arg1 == pageIndex) {
+                    //3秒之内,没有页面切换,隐藏对话框
+                    hideTipDialog();
+                }
             }
         }
     }
