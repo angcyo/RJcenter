@@ -96,7 +96,7 @@ public class DuduLayoutActivity extends RBaseActivity {
             pageLayout.showPrevious();
         });
         mViewHolder.v("second").setOnClickListener(v -> {
-//            pageLayout.showIndex(1);
+            pageLayout.setDisplayedChild(1);
         });
 
 
