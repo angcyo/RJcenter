@@ -31,7 +31,7 @@ public class RRecyclerView extends RecyclerView {
 
     private void initView(Context context) {
         String tag = (String) this.getTag();
-        if (!TextUtils.isEmpty(tag) && "HORIZONTAL".equalsIgnoreCase(tag)) {
+        if (!TextUtils.isEmpty(tag) && "H".equalsIgnoreCase(tag)) {
             orientation = LinearLayoutManager.HORIZONTAL;
         }
         this.setLayoutManager(new LinearLayoutManager(context, orientation, false));

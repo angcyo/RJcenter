@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DuduUploadBarLayout">
+        <attr name="normalDrawable" format="reference" />
+        <attr name="finishDrawable" format="reference" />
+        <attr name="cancelDrawable" format="reference" />
+        <attr name="upText" format="string" />
+        <attr name="finishText" format="string" />
+    </declare-styleable>
+</resources>
