@@ -113,7 +113,6 @@ public class DuduUploadBarLayout extends RelativeLayout {
         enterSet.addAnimation(alphaAnimation2);
         enterSet.setFillAfter(true);
 
-
         exitAnim = exitSet;
         enterAnim = enterSet;
     }

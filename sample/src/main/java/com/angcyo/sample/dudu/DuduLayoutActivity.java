@@ -10,6 +10,7 @@ import com.rsen.base.RBaseActivity;
 import com.rsen.base.RBaseAdapter;
 import com.rsen.base.RBaseViewHolder;
 import com.rsen.dudu.DuduUploadBarLayout;
+import com.rsen.viewgroup.PageLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +83,21 @@ public class DuduLayoutActivity extends RBaseActivity {
                 recyclerView.getAdapter().notifyItemRangeChanged(10, 10 + 5);
             }, 2000);
         }
+
+        PageLayout pageLayout = (PageLayout) mViewHolder.v("pageLayout");
+
+        mViewHolder.v("next").setOnClickListener(v -> {
+            pageLayout.showNextView();
+        });
+
+        mViewHolder.v("prev").setOnClickListener(v -> {
+            pageLayout.showPrevView();
+        });
+        mViewHolder.v("second").setOnClickListener(v -> {
+            pageLayout.showIndex(1);
+        });
+
+
     }
 
     public static class DuduBean {
