@@ -1,7 +1,6 @@
 package com.rsen.viewgroup;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
@@ -10,12 +9,12 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
+import android.widget.ViewAnimator;
 
 /**
  * Created by angcyo on 2016-04-17 13:21.
  */
-public class PageLayout extends FrameLayout {
+public class PageLayout extends ViewAnimator {
 
     private SparseArray<View> viewSparseArray;
     private int curPageIndex = 0;//当前显示页面的索引
@@ -30,7 +29,6 @@ public class PageLayout extends FrameLayout {
 
     public PageLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         init();
     }
 
@@ -75,96 +73,99 @@ public class PageLayout extends FrameLayout {
         this.toLeftAnim = toLeftAnim;
         this.toTopAnim = toTopAnim;
 
+
+        setInAnimation(toTopAnim);
+        setOutAnimation(toLeftAnim);
     }
 
     public int getCurPageIndex() {
         return curPageIndex;
     }
+//
+//    public void showNextView() {
+//        if (getChildCount() > 1) {
+//            int index = curPageIndex + 1;
+//            if (index >= getChildCount()) {
+//                showIndex(0);
+//            } else {
+//                showIndex(index);
+//            }
+//        }
+//    }
+//
+//    public void showPrevView() {
+//        if (getChildCount() > 1) {
+//            int index = curPageIndex - 1;
+//            if (index < 0) {
+//                showIndex(getChildCount() - 1);
+//            } else {
+//                showIndex(index);
+//            }
+//        }
+//    }
 
-    public void showNextView() {
-        if (getChildCount() > 1) {
-            int index = curPageIndex + 1;
-            if (index >= getChildCount()) {
-                showIndex(0);
-            } else {
-                showIndex(index);
-            }
-        }
-    }
+//    /**
+//     * 显示相对应位置的View
+//     *
+//     * @param index 位置
+//     */
+//    public void showIndex(int index) {
+//        if (index > getChildCount()) {
+//            return;
+//        }
+//        showView(getChildAt(index), index);
+//    }
+//
+//    public void showId(@IdRes int viewId) {
+//        for (int i = 0; i < getChildCount(); i++) {
+//            View childAt = getChildAt(i);
+//            if (childAt.getId() == viewId) {
+//                showView(childAt, i);
+//            }
+//        }
+//    }
+//
+//    private void showView(View view, int index) {
+//        getChildAt(curPageIndex).setVisibility(View.GONE);
+////        hideAllView();
+//        view.setVisibility(View.VISIBLE);
+//        animShowView(curPageIndex, index);
+//        curPageIndex = index;
+//    }
 
-    public void showPrevView() {
-        if (getChildCount() > 1) {
-            int index = curPageIndex - 1;
-            if (index < 0) {
-                showIndex(getChildCount() - 1);
-            } else {
-                showIndex(index);
-            }
-        }
-    }
+//    private void animShowView(int from, int to) {
+//        if (from == to) {
+//            return;
+//        }
+//        toRightAnim.cancel();
+//        toLeftAnim.cancel();
+//        toTopAnim.cancel();
+//        if (from > to) {
+//            //倒退
+//            getChildAt(from).startAnimation(toRightAnim);
+//            getChildAt(to).startAnimation(toTopAnim);
+//        } else {
+//            //前进
+//            getChildAt(from).startAnimation(toLeftAnim);
+//            getChildAt(to).startAnimation(toTopAnim);
+//        }
+//    }
 
-    /**
-     * 显示相对应位置的View
-     *
-     * @param index 位置
-     */
-    public void showIndex(int index) {
-        if (index > getChildCount()) {
-            return;
-        }
-        showView(getChildAt(index), index);
-    }
-
-    public void showId(@IdRes int viewId) {
-        for (int i = 0; i < getChildCount(); i++) {
-            View childAt = getChildAt(i);
-            if (childAt.getId() == viewId) {
-                showView(childAt, i);
-            }
-        }
-    }
-
-    private void showView(View view, int index) {
-        getChildAt(curPageIndex).setVisibility(View.GONE);
+//    private void hideAllView() {
+//        for (int i = 0; i < getChildCount(); i++) {
+//            getChildAt(i).setVisibility(View.GONE);
+//        }
+//    }
+//
+//    @Override
+//    protected void onAttachedToWindow() {
+//        super.onAttachedToWindow();
 //        hideAllView();
-        view.setVisibility(View.VISIBLE);
-        animShowView(curPageIndex, index);
-        curPageIndex = index;
-    }
-
-    private void animShowView(int from, int to) {
-        if (from == to) {
-            return;
-        }
-        toRightAnim.cancel();
-        toLeftAnim.cancel();
-        toTopAnim.cancel();
-        if (from > to) {
-            //倒退
-            getChildAt(from).startAnimation(toRightAnim);
-            getChildAt(to).startAnimation(toTopAnim);
-        } else {
-            //前进
-            getChildAt(from).startAnimation(toLeftAnim);
-            getChildAt(to).startAnimation(toTopAnim);
-        }
-    }
-
-    private void hideAllView() {
-        for (int i = 0; i < getChildCount(); i++) {
-            getChildAt(i).setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        hideAllView();
-        showIndex(curPageIndex);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-    }
+//        showIndex(curPageIndex);
+//    }
+//
+//    @Override
+//    protected void onDetachedFromWindow() {
+//        super.onDetachedFromWindow();
+//    }
 }
