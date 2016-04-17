@@ -101,6 +101,7 @@ public class DuduUploadBarLayout extends RelativeLayout {
         AlphaAnimation alphaAnimation = new AlphaAnimation(1f, 0.2f);
         exitSet.addAnimation(translateAnimation);
         exitSet.addAnimation(alphaAnimation);
+        exitSet.setFillAfter(true);
 
         AnimationSet enterSet = new AnimationSet(true);
         enterSet.setDuration(ANIM_TIME);
@@ -110,6 +111,8 @@ public class DuduUploadBarLayout extends RelativeLayout {
         AlphaAnimation alphaAnimation2 = new AlphaAnimation(0.2f, 1f);
         enterSet.addAnimation(translateAnimation2);
         enterSet.addAnimation(alphaAnimation2);
+        enterSet.setFillAfter(true);
+
 
         exitAnim = exitSet;
         enterAnim = enterSet;
@@ -161,27 +164,8 @@ public class DuduUploadBarLayout extends RelativeLayout {
     }
 
     private void startAnim(final View exitView, View enterView) {
-        exitView.setVisibility(View.VISIBLE);
-        enterView.setVisibility(View.VISIBLE);
         exitView.startAnimation(exitAnim);
         enterView.startAnimation(enterAnim);
-
-        exitAnim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                exitView.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
     }
 
     public void addFrame(List<Drawable> drawable) {
