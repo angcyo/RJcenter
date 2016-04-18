@@ -9,6 +9,7 @@
 
 *.iml
 /RJcenter.iml
+/gradle
 /*.iml
 
 ## Directory-based project format:
