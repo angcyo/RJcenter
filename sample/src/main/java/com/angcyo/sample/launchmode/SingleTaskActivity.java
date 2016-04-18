@@ -57,7 +57,7 @@ public class SingleTaskActivity extends AppCompatActivity {
 ////        attributes.alpha = 0.5f;
 //
 //        attributes.y = 300;
-//        attributes.X = 300;
+//        attributes.XUtil = 300;
 //        attributes.gravity = Gravity.BOTTOM;
 //        getWindow().setAttributes(attributes);
 //

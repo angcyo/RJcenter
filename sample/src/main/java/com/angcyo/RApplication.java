@@ -5,7 +5,7 @@ import android.app.Application;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.hawk.LogLevel;
-import com.rsen.db.X;
+import com.rsen.db.XUtil;
 import com.rsen.exception.RCrashHandler;
 
 /**
@@ -16,7 +16,7 @@ public class RApplication extends Application {
     public void onCreate() {
         super.onCreate();
         RCrashHandler.init(this);
-        X.Ext.init(this);
+        XUtil.Ext.init(this);
         Hawk.init(this)
                 .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
                 .setLogLevel(LogLevel.NONE)

@@ -403,7 +403,7 @@ public final class DbManagerImpl extends DbBase {
             File dbFile = new File(dbDir, config.getDbName());
             result = SQLiteDatabase.openOrCreateDatabase(dbFile, null);
         } else {
-            result = X.app().openOrCreateDatabase(config.getDbName(), 0, null);
+            result = XUtil.app().openOrCreateDatabase(config.getDbName(), 0, null);
         }
         return result;
     }

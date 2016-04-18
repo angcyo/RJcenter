@@ -11,7 +11,7 @@ import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
 import com.rsen.db.DbException;
 import com.rsen.db.DbManager;
-import com.rsen.db.X;
+import com.rsen.db.XUtil;
 import com.rsen.db.table.DbModel;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class DbActivity extends RBaseActivity {
 
         try {
 
-            DbManager db = X.getDb(daoConfig);
+            DbManager db = XUtil.getDb(daoConfig);
 
             Child child = new Child();
             child.setName("child's name");
@@ -142,7 +142,7 @@ public class DbActivity extends RBaseActivity {
     public void onTestDb2Click(View view) {
         tv_db_result.setText("wait...");
 
-        DbManager db = X.getDb(daoConfig);
+        DbManager db = XUtil.getDb(daoConfig);
         String result = "";
 
         List<Parent> parentList = new ArrayList<Parent>();
