@@ -53,6 +53,12 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         onBindView(holder, position, mAllDatas.get(position));
     }
 
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+    }
+
+    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+    }
+
     protected abstract void onBindView(RBaseViewHolder holder, int position, T bean);
 
     @Override
