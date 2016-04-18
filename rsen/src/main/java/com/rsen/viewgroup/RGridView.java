@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.rsen.base.RBaseAdapter;
+
 /**
  * 简单封装的RecyclerView
  * <p>
@@ -36,5 +38,25 @@ public class RGridView extends RecyclerView {
         }
         this.setLayoutManager(new GridLayoutManager(context, spanCount));
         this.setItemAnimator(new DefaultItemAnimator());
+
+        addOnScrollListener(new OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Adapter adapter = getAdapter();
+                if (adapter != null && adapter instanceof RBaseAdapter) {
+                    ((RBaseAdapter) adapter).onScrollStateChanged(recyclerView, newState);
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Adapter adapter = getAdapter();
+                if (adapter != null && adapter instanceof RBaseAdapter) {
+                    ((RBaseAdapter) adapter).onScrolled(recyclerView, dx, dy);
+                }
+            }
+        });
     }
 }
