@@ -7,6 +7,7 @@ package com.rsen.base;
 import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -20,20 +21,20 @@ import java.lang.reflect.Field;
  * 通用ViewHolder
  */
 public class RBaseViewHolder extends RecyclerView.ViewHolder {
+    private SparseArray<View> sparseArray;
+
     public RBaseViewHolder(View itemView) {
         super(itemView);
+        sparseArray = new SparseArray();
     }
 
     public View v(@IdRes int resId) {
-        return itemView.findViewById(resId);
-    }
-
-    public RecyclerView reV(@IdRes int resId) {
-        return (RecyclerView) itemView.findViewById(resId);
-    }
-
-    public RecyclerView reV(String idName) {
-        return (RecyclerView) viewByName(idName);
+        View view = sparseArray.get(resId);
+        if (view == null) {
+            view = itemView.findViewById(resId);
+            sparseArray.put(resId, view);
+        }
+        return view;
     }
 
     public View v(String idName) {
@@ -42,6 +43,14 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
 
     public View view(@IdRes int resId) {
         return v(resId);
+    }
+
+    public RecyclerView reV(@IdRes int resId) {
+        return (RecyclerView) v(resId);
+    }
+
+    public RecyclerView reV(String idName) {
+        return (RecyclerView) viewByName(idName);
     }
 
     /**

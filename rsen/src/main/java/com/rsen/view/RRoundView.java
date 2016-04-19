@@ -23,6 +23,8 @@ import com.angcyo.rsen.R;
  */
 public class RRoundView extends ImageView {
     private int roundRadius = 10;
+    private Path roundPath;
+    private RectF rectF;
 
     public RRoundView(Context context) {
         this(context, null);
@@ -38,52 +40,6 @@ public class RRoundView extends ImageView {
         rectF = new RectF();
     }
 
-    public void setRoundRadius(int roundRadius) {
-        this.roundRadius = roundRadius;
-        resetPath();
-        postInvalidate();
-    }
-
-    private void resetPath() {
-        roundPath.addRoundRect(rectF, roundRadius, roundRadius, Path.Direction.CW);
-    }
-
-    private Path roundPath;
-    private RectF rectF;
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        rectF.set(0f, 0f, getMeasuredWidth(), getMeasuredHeight());
-        resetPath();
-    }
-
-    @Override
-    public void draw(Canvas canvas) {
-        if (roundRadius > 0f) {
-            canvas.clipPath(roundPath);
-        }
-        super.draw(canvas);
-    }
-
-    private Bitmap scaleBitmap(Bitmap bitmap) {
-        Bitmap result = bitmap;
-        Matrix matrix;
-        float bmpW = bitmap.getWidth();
-        float bmpH = bitmap.getHeight();
-        float viewW = getMeasuredWidth();
-        float viewH = getMeasuredHeight();
-        ScaleType scaleType = getScaleType();
-        if (scaleType == ScaleType.FIT_XY) {
-            matrix = new Matrix();
-            matrix.setScale(viewW / bmpW, viewH / bmpH);
-            result = Bitmap.createBitmap(bitmap, 0, 0, (int) bmpW, (int) bmpH, matrix, true);
-        } else if (scaleType == ScaleType.CENTER) {
-            result = Bitmap.createBitmap(bitmap, (int) ((bmpW - viewW) / 2), (int) ((bmpH - viewH) / 2), (int) viewW, (int) viewH);
-        }
-        return result;
-    }
-
     public static Bitmap roundBitmap(Bitmap bitmap, int radius) {
         final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
@@ -91,8 +47,12 @@ public class RRoundView extends ImageView {
         paint.setColor(Color.RED);
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
+        final int color = 0xdd424242;
         Bitmap result = Bitmap.createBitmap(width, height, bitmap.getConfig());
         Canvas canvas = new Canvas(result);
+        paint.setAlpha(0);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
         canvas.drawRoundRect(new RectF(0, 0, width, height), radius, radius, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, 0, 0, paint);
@@ -116,5 +76,71 @@ public class RRoundView extends ImageView {
         // 把 drawable 内容画到画布中
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    public void setRoundRadius(int roundRadius) {
+        this.roundRadius = roundRadius;
+        resetPath();
+        postInvalidate();
+    }
+
+//    @Override
+//    public void draw(Canvas canvas) {
+//        if (roundRadius > 0f) {
+//            canvas.clipPath(roundPath);
+//        }
+//        super.draw(canvas);
+//    }
+
+    private void resetPath() {
+        roundPath.addRoundRect(rectF, roundRadius, roundRadius, Path.Direction.CW);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        rectF.set(0f, 0f, getMeasuredWidth(), getMeasuredHeight());
+        resetPath();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+//        super.onDraw(canvas);
+//        canvas.drawBitmap(roundBitmap(drawableToBitmap(getDrawable()), 10), 0, 0, null);
+
+        final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setColor(Color.RED);
+        Bitmap bitmap = drawableToBitmap(getDrawable());
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+//        final int color = 0xdd424242;
+//        canvas.drawARGB(0, 0, 0, 0);
+//        paint.setColor(color);
+        int radius = 10;
+        canvas.drawRoundRect(new RectF(0, 0, width, height), radius, radius, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        paint.setAlpha(0);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+    }
+
+    private Bitmap scaleBitmap(Bitmap bitmap) {
+        Bitmap result = bitmap;
+        Matrix matrix;
+        float bmpW = bitmap.getWidth();
+        float bmpH = bitmap.getHeight();
+        float viewW = getMeasuredWidth();
+        float viewH = getMeasuredHeight();
+        ScaleType scaleType = getScaleType();
+        if (scaleType == ScaleType.FIT_XY) {
+            matrix = new Matrix();
+            matrix.setScale(viewW / bmpW, viewH / bmpH);
+            result = Bitmap.createBitmap(bitmap, 0, 0, (int) bmpW, (int) bmpH, matrix, true);
+        } else if (scaleType == ScaleType.CENTER) {
+            result = Bitmap.createBitmap(bitmap, (int) ((bmpW - viewW) / 2), (int) ((bmpH - viewH) / 2), (int) viewW, (int) viewH);
+        }
+        return result;
     }
 }
