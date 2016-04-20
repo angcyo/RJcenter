@@ -25,6 +25,6 @@ public class RApplication extends Application {
                 .setPassword("angcyo")
                 .build();
 
-        RRealm.init(this, "rjcenter.realm");
+        RRealm.init(this, "rjcenter.realm", true);
     }
 }
