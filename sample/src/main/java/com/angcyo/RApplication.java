@@ -7,6 +7,7 @@ import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.hawk.LogLevel;
 import com.rsen.db.XUtil;
 import com.rsen.exception.RCrashHandler;
+import com.rsen.realm.RRealm;
 
 /**
  * Created by angcyo on 16-03-04-004.
@@ -24,5 +25,6 @@ public class RApplication extends Application {
                 .setPassword("angcyo")
                 .build();
 
+        RRealm.init(this, "rjcenter.realm");
     }
 }
