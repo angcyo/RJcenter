@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'realm-android'
 
 android {
     signingConfigs {
@@ -9,11 +10,11 @@ android {
             storePassword 'angcyo'
         }
     }
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion Integer.parseInt(R_COMPILE_SDK_VERSION)
+    buildToolsVersion R_BUILD_TOOLS_VERSION
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion Integer.parseInt(R_MIN_SDK_VERSION)
+        targetSdkVersion Integer.parseInt(R_TARGET_SDK_VERSION)
         versionCode 1
         versionName "1.0"
         signingConfig signingConfigs.config

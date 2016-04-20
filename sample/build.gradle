@@ -42,12 +42,12 @@ def oh = { msg ->
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion Integer.parseInt(R_COMPILE_SDK_VERSION)
+    buildToolsVersion R_BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.angcyo.sample"
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion Integer.parseInt(R_MIN_SDK_VERSION)
+        targetSdkVersion Integer.parseInt(R_TARGET_SDK_VERSION)
         versionCode 10
         versionName "1.3.0 beta"
 
@@ -121,7 +121,7 @@ android {
     //${variant.productFlavors[0].name}
     compileOptions {
         encoding "UTF-8"
-        targetCompatibility 1.8
+        targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
     repositories {

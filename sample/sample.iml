@@ -106,6 +106,7 @@
     <orderEntry type="library" exported="" name="okio-1.6.0" level="project" />
     <orderEntry type="library" exported="" name="retrofit-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="eventbus-3.0.0-beta1" level="project" />
+    <orderEntry type="library" exported="" name="realm-annotations-0.88.3" level="project" />
     <orderEntry type="library" exported="" name="rxjava-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="query-0.2.2" level="project" />
     <orderEntry type="library" exported="" name="converter-gson-2.0.0" level="project" />
