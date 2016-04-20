@@ -1,3 +1,5 @@
+rootProject.name = 'RJcenter'
+//https://github.com/realm/realm-java
 //include ':aardemo'
 //        ':rxjavademo',
 //        ':slidr'
