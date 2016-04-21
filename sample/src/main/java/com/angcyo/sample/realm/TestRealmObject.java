@@ -19,40 +19,40 @@ public class TestRealmObject extends RealmObject {
     @Ignore
     public String test;
 
-    public TestRealmObject() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
-    }
+//    public TestRealmObject() {
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public int getAge() {
+//        return age;
+//    }
+//
+//    public void setAge(int age) {
+//        this.age = age;
+//    }
+//
+//    public long getTime() {
+//        return time;
+//    }
+//
+//    public void setTime(long time) {
+//        this.time = time;
+//    }
+//
+//    public String getTest() {
+//        return test;
+//    }
+//
+//    public void setTest(String test) {
+//        this.test = test;
+//    }
 
     @Override
     public String toString() {

@@ -15,6 +15,10 @@ public class RealmActivity extends RBaseActivity {
 
     public static final int Num = 1000;
 
+    public static void e(String log) {
+        Log.e("angcyo", log);
+    }
+
     @Override
     protected int getContentView() {
         return R.layout.activity_realm;
@@ -41,10 +45,14 @@ public class RealmActivity extends RBaseActivity {
         RRealm.operate(realm -> {
             for (int i = 0; i < Num; i++) {
                 TestRealmObject realmObject = realm.createObject(TestRealmObject.class);
-                realmObject.setAge(i);
-                realmObject.setName("name" + i);
-                realmObject.setTest("test" + i);
-                realmObject.setTime(System.currentTimeMillis());
+//                realmObject.setAge(i);
+//                realmObject.setName("name" + i);
+//                realmObject.setTest("test" + i);
+//                realmObject.setTime(System.currentTimeMillis());
+                realmObject.age = i;
+                realmObject.name = "name" + i;
+                realmObject.test = "test" + i;
+                realmObject.time = System.currentTimeMillis();
             }
         });
         DebugTime.time();
@@ -65,8 +73,8 @@ public class RealmActivity extends RBaseActivity {
             RealmResults<TestRealmObject> all = realm.where(TestRealmObject.class).findAll();
             for (int i = 0; i < all.size(); i++) {
                 TestRealmObject object = all.get(i);
-                object.setName(object.getName() + " new");
-                object.setTest(object.getTest() + " new");
+//                object.setName(object.getName() + " new");
+//                object.setTest(object.getTest() + " new");
             }
         });
         DebugTime.time();
@@ -82,9 +90,5 @@ public class RealmActivity extends RBaseActivity {
             }
         });
         DebugTime.time();
-    }
-
-    public static void e(String log) {
-        Log.e("angcyo", log);
     }
 }

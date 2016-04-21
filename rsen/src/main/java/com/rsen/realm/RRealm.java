@@ -37,8 +37,95 @@ public class RRealm {
         }
     }
 
+    public static void tran(final OnOperate operate) {
+        if (operate != null) {
+            realm().executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    operate.on(realm);
+                }
+            });
+        }
+    }
+
+    public static void tranAsync(final OnOperate operate) {
+        if (operate != null) {
+            realm().executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    operate.on(realm);
+                }
+            });
+        }
+    }
+
+    public static void tranAsync(final OnOperate operate, final OnError onError) {
+        if (operate != null) {
+            realm().executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    operate.on(realm);
+                }
+            }, new Realm.Transaction.OnError() {
+                @Override
+                public void onError(Throwable error) {
+                    onError.onError(error);
+                }
+            });
+        }
+    }
+
+    public static void tranAsync(final OnOperate operate, final OnSuccess onSuccess) {
+        if (operate != null) {
+            realm().executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    operate.on(realm);
+                }
+            }, new Realm.Transaction.OnSuccess() {
+                @Override
+                public void onSuccess() {
+                    onSuccess.onSuccess();
+                }
+            }, new Realm.Transaction.OnError() {
+                @Override
+                public void onError(Throwable error) {
+                }
+            });
+        }
+    }
+
+    public static void tranAsync(final OnOperate operate, final OnSuccess onSuccess, final OnError onError) {
+        if (operate != null) {
+            realm().executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    operate.on(realm);
+                }
+            }, new Realm.Transaction.OnSuccess() {
+                @Override
+                public void onSuccess() {
+                    onSuccess.onSuccess();
+                }
+            }, new Realm.Transaction.OnError() {
+                @Override
+                public void onError(Throwable error) {
+                    onError.onError(error);
+                }
+            });
+        }
+    }
+
     public interface OnOperate {
         void on(Realm realm);
+    }
+
+    public interface OnSuccess {
+        void onSuccess();
+    }
+
+    public interface OnError {
+        void onError(Throwable error);
     }
 
 }
