@@ -38,6 +38,18 @@ public class RealmActivity extends RBaseActivity {
         mViewHolder.v(R.id.query).setOnClickListener(v -> {
             query();
         });
+        mViewHolder.v(R.id.add).setOnClickListener(v -> {
+            add();
+        });
+        mViewHolder.v(R.id.delete).setOnClickListener(v -> {
+            delete();
+        });
+        mViewHolder.v(R.id.update).setOnClickListener(v -> {
+            update();
+        });
+        mViewHolder.v(R.id.query).setOnClickListener(v -> {
+            query();
+        });
     }
 
     private void add() {
