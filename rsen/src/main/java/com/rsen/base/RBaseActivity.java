@@ -78,14 +78,20 @@ public abstract class RBaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*空操作*/
         init();
+        /*空操作*/
         initBefore();
         super.onCreate(savedInstanceState);
         mLayoutInflater = LayoutInflater.from(this);
+        /*初始化view*/
         initBaseView();
+        /*初始化view事件*/
         initBaseViewEvent();
+        /*初始化窗口特性*/
         initWindow();
 
+        /*重载方法*/
         initView(savedInstanceState);
         initAfter();
         initEvent();
@@ -432,6 +438,19 @@ public abstract class RBaseActivity extends AppCompatActivity {
             fragmentTransaction.addToBackStack(fragment.toString());
         }
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (moveToBack()) {
+            moveTaskToBack(true);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    protected boolean moveToBack() {
+        return true;
     }
 
     @Override

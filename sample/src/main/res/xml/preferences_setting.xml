@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:icon="@drawable/logo"
+        android:layout="@layout/rsen_base_preference_category"
+        android:title="PreferenceCategory Title">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="key_check_1"
+            android:layout="@layout/rsen_base_preference_checkbox"
+            android:summary="CheckBoxPreference summary"
+            android:title="CheckBoxPreference Title" />
+
+        <EditTextPreference
+            android:key="key_edit_1"
+            android:layout="@layout/rsen_base_preference_edittext"
+            android:summary="EditTextPreference Summary"
+            android:title="EditTextPreference Title" />
+
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="@drawable/logo"
+            android:key="key_check_2"
+            android:layout="@layout/rsen_base_preference_checkbox"
+            android:summary="CheckBoxPreference2 summary"
+            android:title="CheckBoxPreference2 Title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="key_check_3"
+            android:layout="@layout/rsen_base_preference_checkbox"
+            android:summary="CheckBoxPreference3 summary" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="key_check_3"
+            android:title="CheckBoxPreference3 Title" />
+    </PreferenceCategory>
+</PreferenceScreen>
