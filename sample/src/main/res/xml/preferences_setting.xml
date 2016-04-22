@@ -39,8 +39,7 @@
             android:title="CheckBoxPreference3 Title" />
     </PreferenceCategory>
 
-        <PreferenceCategory
-        android:title="提示信息">
+    <PreferenceCategory android:title="提示信息">
         <Preference
             android:key="pref_etc_check_update"
             android:summary="http://dwz.cn/WeChatLuckyMoney"
