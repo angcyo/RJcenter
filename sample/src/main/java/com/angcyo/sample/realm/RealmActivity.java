@@ -41,8 +41,8 @@ public class RealmActivity extends RBaseActivity {
         mViewHolder.v(R.id.add).setOnClickListener(v -> {
             add();
         });
-        mViewHolder.v(R.id.delete).setOnClickListener(v -> {
-            delete();
+        mViewHolder.v(R.id.delete2).setOnClickListener(v -> {
+            delete2();
         });
         mViewHolder.v(R.id.update).setOnClickListener(v -> {
             update();
@@ -75,6 +75,19 @@ public class RealmActivity extends RBaseActivity {
         RRealm.operate(realm -> {
             RealmResults<TestRealmObject> all = realm.where(TestRealmObject.class).findAll();
             all.clear();
+        });
+        DebugTime.time();
+    }
+
+    private void delete2() {
+        DebugTime.init();
+        RRealm.operate(realm -> {
+            RealmResults<TestRealmObject> all = realm.where(TestRealmObject.class).findAll();
+            for (int i = 0; i < all.size(); i++) {
+                if (i % 4 == 0) {
+                    all.get(i).removeFromRealm();
+                }
+            }
         });
         DebugTime.time();
     }
