@@ -11,7 +11,26 @@ public class Java3 {
     public static void main(String... args) {
 //        test1();
 
-        test2();
+//        test2();
+
+
+        test3();
+    }
+
+    private static void test3() {
+        boolean b = false;
+
+        b = b | false;
+        p.println(b);
+
+        b = b | true;
+        p.println(b);
+
+        b = b | false;
+        p.println(b);
+
+        b = b | true;
+        p.println(b);
     }
 
     private static void test2() {
