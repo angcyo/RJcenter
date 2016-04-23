@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@android:id/background"
+        android:drawable="@drawable/seekbar_bg">
+        <!--<clip>-->
+        <!--<shape>-->
+        <!--<corners android:radius="2.0dip"/>-->
+        <!--&lt;!&ndash;<padding&ndash;&gt;-->
+        <!--&lt;!&ndash;android:bottom="2dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:top="2dp"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<solid android:color="@android:color/black"/>&ndash;&gt;-->
+        <!--<stroke-->
+        <!--android:width="2dp"-->
+        <!--android:color="@android:color/black"/>-->
+        <!--</shape>-->
+        <!--</clip>-->
+    </item>
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="2.0dip"/>
+                <gradient
+                    android:endColor="@android:color/holo_blue_bright"
+                    android:startColor="@android:color/holo_green_dark"
+                    android:type="linear"/>
+            </shape>
+        </clip>
+    </item>
+
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners android:radius="2.0dip"/>
+                <gradient
+                    android:endColor="@android:color/holo_red_dark"
+                    android:startColor="@android:color/white"
+                    android:type="linear"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>

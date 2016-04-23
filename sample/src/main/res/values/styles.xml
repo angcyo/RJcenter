@@ -35,9 +35,9 @@
         <item name="android:backgroundDimAmount">0</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 
     <style name="Dialog" parent="@style/Theme.AppCompat.Dialog">
@@ -52,5 +52,17 @@
     <style name="SpanTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">50sp</item>
         <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
+
+    <style name="Widget.SeekBar.Normal" parent="@style/Widget.AppCompat.SeekBar">
+        <item name="android:maxHeight">8.0dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
+        <item name="android:progressDrawable">@drawable/seekbar_horizontal_shape</item>
+        <item name="android:minHeight">8.0dip</item>
+        <item name="android:thumb">@drawable/seek_thumb</item>
+        <item name="android:thumbOffset">10.0dip</item>
     </style>
 </resources>
