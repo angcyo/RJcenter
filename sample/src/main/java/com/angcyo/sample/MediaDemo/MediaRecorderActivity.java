@@ -2,7 +2,7 @@ package com.angcyo.sample.MediaDemo;
 
 import android.app.Activity;
 import android.graphics.ImageFormat;
-import android.hardware.*;
+import android.hardware.Camera;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.Log;
@@ -93,9 +93,12 @@ public class MediaRecorderActivity extends Activity implements SurfaceHolder.Cal
 
     private void closeMediaRecorder(MediaRecorder mediaRecorder) {
         if (mediaRecorder != null) {
-            mediaRecorder.stop();
+//            mediaRecorder.stop();
+            mediaRecorder.reset();
             mediaRecorder.release();
             mediaRecorder = null;
+
+            e("closeMediaRecorder");
         }
     }
 
@@ -114,8 +117,10 @@ public class MediaRecorderActivity extends Activity implements SurfaceHolder.Cal
         surfaceView.setKeepScreenOn(true);
 //        surfaceView.postDelayed(swapFile, DELAY_TIME);
         try {
-            mediaRecorder = initMediaRecorder(initCamera(Camera.CameraInfo.CAMERA_FACING_BACK), holder.getSurface(), getFileName());
+            String fileName = getFileName();
+            mediaRecorder = initMediaRecorder(initCamera(Camera.CameraInfo.CAMERA_FACING_BACK), holder.getSurface(), fileName);
             mediaRecorder.start();
+            e("开始录制:" + fileName);
         } catch (Exception e) {
             e.printStackTrace();
             e("初始化失败:" + e.getMessage());
@@ -124,11 +129,12 @@ public class MediaRecorderActivity extends Activity implements SurfaceHolder.Cal
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
+        e("surfaceChanged");
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        e("surfaceDestroyed");
         surfaceView.setKeepScreenOn(false);
         closeMediaRecorder(mediaRecorder);
     }
@@ -136,7 +142,7 @@ public class MediaRecorderActivity extends Activity implements SurfaceHolder.Cal
     private void resetMediaFileName() {
         if (mediaRecorder != null) {
             String fileName = getFileName();
-            mediaRecorder.stop();
+//            mediaRecorder.stop();
             mediaRecorder.reset();
             mediaRecorder.setOutputFile(fileName);
             e("重置文件名:" + fileName);
