@@ -6,7 +6,6 @@ import android.media.MediaRecorder;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import java.io.File;
@@ -53,6 +52,8 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
                     mThread.start();
                 }
             }
+        } else {
+            mThread.setSurfaceHolder(surface);
         }
     }
 
@@ -108,11 +109,29 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
         mSurfaceTexture = surfaceTexture;
         if (mCamera != null) {
             try {
-//                mCamera.setPreviewTexture(mSurfaceTexture);
-                mMediaRecorder.setPreviewDisplay(new Surface(mSurfaceTexture));
+                mCamera.stopPreview();
+                mCamera.setPreviewTexture(mSurfaceTexture);
+//                mMediaRecorder.setPreviewDisplay(new Surface(mSurfaceTexture));
+                mCamera.startPreview();
+                e("startPreview");
             } catch (Exception e) {
                 e.printStackTrace();
                 e("setSurfaceTexture " + e.getMessage());
+            }
+        }
+    }
+
+    public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
+        mSurfaceHolder = surfaceHolder;
+        if (mCamera != null) {
+            try {
+                mCamera.stopPreview();
+                mCamera.setPreviewDisplay(mSurfaceHolder);
+                mCamera.startPreview();
+                e("startPreview");
+            } catch (Exception e) {
+                e.printStackTrace();
+                e("setSurfaceHolder " + e.getMessage());
             }
         }
     }

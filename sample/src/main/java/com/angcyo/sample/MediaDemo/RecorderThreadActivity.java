@@ -22,10 +22,10 @@ public class RecorderThreadActivity extends RBaseActivity implements SurfaceHold
     @Override
     protected void initView(Bundle savedInstanceState) {
         setTitle("RecorderThread");
-//        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
-//        surfaceView.getHolder().addCallback(this);
-        textureView = (TextureView) mViewHolder.v("textureView");
-        textureView.setSurfaceTextureListener(this);
+        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+        surfaceView.getHolder().addCallback(this);
+//        textureView = (TextureView) mViewHolder.v("textureView");
+//        textureView.setSurfaceTextureListener(this);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class RecorderThreadActivity extends RBaseActivity implements SurfaceHold
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         RecorderThread.e("surfaceDestroyed");
-        RecorderThread.exitThread();
+//        RecorderThread.exitThread();
     }
 
     @Override
