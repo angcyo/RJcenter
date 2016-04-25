@@ -2,7 +2,6 @@ package com.angcyo.sample.MediaDemo;
 
 import android.app.Activity;
 import android.graphics.ImageFormat;
-import android.hardware.Camera;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,13 +39,13 @@ public class MediaRecorderActivity extends Activity implements SurfaceHolder.Cal
 //        surfaceView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
-    private synchronized Camera initCamera(int cameraId) throws Exception {
-        Camera camera = Camera.open(cameraId);
-        Camera.Parameters parameters = camera.getParameters();
+    private synchronized android.hardware.Camera initCamera(int cameraId) throws Exception {
+        android.hardware.Camera camera = android.hardware.Camera.open(cameraId);
+        android.hardware.Camera.Parameters parameters = camera.getParameters();
         parameters.setPreviewFormat(ImageFormat.NV21);
         parameters.setFlashMode("off");
-        parameters.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
-        parameters.setSceneMode(Camera.Parameters.SCENE_MODE_AUTO);
+        parameters.setWhiteBalance(android.hardware.Camera.Parameters.WHITE_BALANCE_AUTO);
+        parameters.setSceneMode(android.hardware.Camera.Parameters.SCENE_MODE_AUTO);
         parameters.setPreviewSize(1920, 1080);
 //            this.mCamera.setDisplayOrientation(90);
 //        mCameraPreviewCallback = new CameraPreviewCallback();
@@ -55,13 +54,13 @@ public class MediaRecorderActivity extends Activity implements SurfaceHolder.Cal
 //            mCamera.setPreviewCallback(mCameraPreviewCallback);
         List<String> focusModes = parameters.getSupportedFocusModes();
         if (focusModes.contains("continuous-video")) {
-            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+            parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
         }
         camera.setParameters(parameters);
         return camera;
     }
 
-    private MediaRecorder initMediaRecorder(Camera camera, Surface surface, String filePath) throws IOException {
+    private MediaRecorder initMediaRecorder(android.hardware.Camera camera, Surface surface, String filePath) throws IOException {
         //注意方法调用顺序
         MediaRecorder mediaRecorder = new MediaRecorder();
         camera.unlock();
@@ -118,7 +117,7 @@ public class MediaRecorderActivity extends Activity implements SurfaceHolder.Cal
 //        surfaceView.postDelayed(swapFile, DELAY_TIME);
         try {
             String fileName = getFileName();
-            mediaRecorder = initMediaRecorder(initCamera(Camera.CameraInfo.CAMERA_FACING_BACK), holder.getSurface(), fileName);
+            mediaRecorder = initMediaRecorder(initCamera(android.hardware.Camera.CameraInfo.CAMERA_FACING_BACK), holder.getSurface(), fileName);
             mediaRecorder.start();
             e("开始录制:" + fileName);
         } catch (Exception e) {

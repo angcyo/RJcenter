@@ -300,6 +300,7 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
+        boolean isShow = false;
         try {
             Class<? extends Activity> restartClass = getRestartActivityClassWithIntentFilter(context);
             if (restartClass != null) {
@@ -311,16 +312,21 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
                 args.putString("msg", getMsgFromThrowable(ex));
                 intent.putExtras(args);
                 context.startActivity(intent);
+                isShow = true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        /*注意下面的代码, 不能少哦*/
-        if (defaultUncaughtExceptionHandler != null) {
-            defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
-        } else {
-            Process.killProcess(Process.myPid());
+        ex.printStackTrace();
+
+        if (!isShow) {
+            /*注意下面的代码, 不能少哦*/
+            if (defaultUncaughtExceptionHandler != null) {
+                defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
+            } else {
+                Process.killProcess(Process.myPid());
+            }
         }
     }
 
