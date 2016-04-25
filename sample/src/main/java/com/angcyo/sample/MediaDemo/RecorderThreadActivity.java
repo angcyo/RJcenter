@@ -1,10 +1,14 @@
 package com.angcyo.sample.MediaDemo;
 
+import android.graphics.BlurMaskFilter;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.TextureView;
+import android.view.View;
 
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
@@ -22,10 +26,22 @@ public class RecorderThreadActivity extends RBaseActivity implements SurfaceHold
     @Override
     protected void initView(Bundle savedInstanceState) {
         setTitle("RecorderThread");
-        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
-        surfaceView.getHolder().addCallback(this);
-//        textureView = (TextureView) mViewHolder.v("textureView");
-//        textureView.setSurfaceTextureListener(this);
+//        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+//        surfaceView.getHolder().addCallback(this);
+        textureView = (TextureView) mViewHolder.v("textureView");
+        textureView.setSurfaceTextureListener(this);
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(2.f, 2.f);
+        textureView.setTransform(matrix);
+
+
+        Paint paint = new Paint();
+        paint.setMaskFilter(new BlurMaskFilter(25, BlurMaskFilter.Blur.NORMAL));
+        textureView.setLayerPaint(paint);
+        textureView.setLayerType(View.LAYER_TYPE_SOFTWARE, paint);
+
+        mViewHolder.v("button").setOnClickListener(v -> TestActivity.show(RecorderThreadActivity.this));
     }
 
     @Override

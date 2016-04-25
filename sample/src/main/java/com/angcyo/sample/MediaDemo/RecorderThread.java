@@ -171,6 +171,7 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
     private void releaseCamera() {
         if (mCamera != null) {
             // release the camera for other applications
+            mCamera.stopPreview();
             mCamera.release();
             mCamera = null;
         }
