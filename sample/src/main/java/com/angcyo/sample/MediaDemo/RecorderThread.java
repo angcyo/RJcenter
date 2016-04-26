@@ -1,6 +1,7 @@
 package com.angcyo.sample.MediaDemo;
 
 import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
  * Created by robi on 2016-04-24 11:00.
  */
 @SuppressWarnings("deprecation")
-public class RecorderThread extends HandlerThread implements MediaRecorder.OnInfoListener, MediaRecorder.OnErrorListener {
+public class RecorderThread extends HandlerThread implements MediaRecorder.OnInfoListener, MediaRecorder.OnErrorListener, Camera.PictureCallback {
 
     public static final int MAX_DURATION = 10 * 1000;//最常录制时间
     public static final int MSG_START = 0x01;
@@ -30,6 +32,7 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
     MediaRecorder mMediaRecorder;
     SurfaceHolder mSurfaceHolder;
     SurfaceTexture mSurfaceTexture;
+    int takePictureCount = 0;
     private Handler mHandler;
 
     public RecorderThread(String name, SurfaceHolder surface) {
@@ -80,7 +83,14 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
         synchronized (RecorderThread.class) {
             if (mThread != null) {
                 mThread.exit();
+                mThread = null;
             }
+        }
+    }
+
+    public static void takePhoto() {
+        if (mThread != null) {
+            mThread.takePictureCount(true);
         }
     }
 
@@ -88,11 +98,19 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
         Log.e("angcyo-->" + Thread.currentThread().getId(), msg);
     }
 
-    public static String getFileName() {
+    public static String getVideoFileName() {
+        return getFileName(".mp4");
+    }
+
+    public static String getPhotoFileName() {
+        return getFileName(".png");
+    }
+
+    public static String getFileName(String ext) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("/sdcard/angcyo/");
         stringBuilder.append(getTempFileName());
-        stringBuilder.append(".mp4");
+        stringBuilder.append(ext);
         String filePath = stringBuilder.toString();
         File parentFile = new File(filePath).getParentFile();
         if (!parentFile.exists()) {
@@ -102,7 +120,31 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
     }
 
     public static String getTempFileName() {
-        return new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(System.currentTimeMillis());
+        return new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss:SSS").format(System.currentTimeMillis());
+    }
+
+    private static void savePictureAction(byte[] pictureData) {
+        String picturePath = getPhotoFileName();
+        try {
+            FileOutputStream fos = new FileOutputStream(new File(picturePath));
+            fos.write(pictureData);
+            fos.flush();
+            fos.close();
+            e("图片保存至:" + picturePath);
+        } catch (Exception e) {
+            e("保存图片失败:" + e.getMessage());
+        }
+    }
+
+    private void takePictureCount(boolean increase) {
+        if (mCamera != null) {
+            if (increase) {
+                takePictureCount++;
+            }
+            if (takePictureCount > 0) {
+                mCamera.takePicture(null, null, this);
+            }
+        }
     }
 
     public void setSurfaceTexture(SurfaceTexture surfaceTexture) {
@@ -151,7 +193,7 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
     @Override
     protected void onLooperPrepared() {
         initHandler();
-        restartRecorder(getFileName());
+        restartRecorder(getVideoFileName());
     }
 
     private void createMediaRecorder() {
@@ -171,7 +213,11 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
     private void releaseCamera() {
         if (mCamera != null) {
             // release the camera for other applications
-            mCamera.stopPreview();
+            try {
+                mCamera.stopPreview();
+            } catch (Exception e) {
+
+            }
             mCamera.release();
             mCamera = null;
         }
@@ -217,81 +263,29 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
 
         CamcorderProfile mProfile = CamcorderProfile.get(android.hardware.Camera.CameraInfo.CAMERA_FACING_BACK, CamcorderProfile.QUALITY_HIGH);
 
-//        mMediaRecorder.setCamera(mCamera);
         mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
         mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-//        mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-//        mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC);
-//        mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
-//
+
         mMediaRecorder.setProfile(mProfile);
 //
         mMediaRecorder.setOutputFile(filePath);
         mMediaRecorder.setMaxDuration(MAX_DURATION);
         mMediaRecorder.setOnInfoListener(this);
         mMediaRecorder.setOnErrorListener(this);
-//
-//        mMediaRecorder.setVideoSize(mProfile.videoFrameWidth, mProfile.videoFrameHeight);
-////        mMediaRecorder.setVideoFrameRate(mProfile.videoFrameRate);
-////        mMediaRecorder.setVideoEncodingBitRate(mProfile.videoBitRate);
-////        mMediaRecorder.setAudioEncodingBitRate(mProfile.audioBitRate);
-////        mMediaRecorder.setAudioChannels(mProfile.audioChannels);
-////        mMediaRecorder.setAudioSamplingRate(mProfile.audioSampleRate);
-//
-////        mMediaRecorder.setProfile(mProfile);
-//
-////        mMediaRecorder.setPreviewDisplay(mSurface);
-//
+
         try {
             mMediaRecorder.prepare();
             mMediaRecorder.start();
             e("重新 开始录制:" + filePath);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e("重新 录制失败:" + e.getMessage());
             e.printStackTrace();
             mHandler.sendEmptyMessage(MSG_ERROR);
         }
     }
 
-    private void initMediaRecorder() {
-        if (mMediaRecorder != null) {
-            return;
-        }
-        //注意方法调用顺序
-        MediaRecorder mediaRecorder = new MediaRecorder();
-        mediaRecorder.reset();
-//        mCamera.unlock();
-//        mediaRecorder.setCamera(mCamera);
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-//        mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC);
-//        mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
-
-        String filePath = getFileName();
-        mediaRecorder.setOutputFile(filePath);
-
-        int video_width = 1920;
-        int video_height = 1080;
-//        mediaRecorder.setVideoSize(video_width, video_height);
-//        mediaRecorder.setVideoFrameRate(30);
-//        mediaRecorder.setVideoEncodingBitRate(12 * 1024 * 1024);
-
-        mediaRecorder.setMaxDuration(60 * 1000);
-        mediaRecorder.setOnInfoListener(this);
-        mediaRecorder.setOnErrorListener(this);
-
-        try {
-            mediaRecorder.prepare();
-            mediaRecorder.start();
-            e("开始录制:" + filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        mMediaRecorder = mediaRecorder;
+    private void checkTakePicture() {
+        takePictureCount(false);
     }
 
     private void openCamera(int cameraId) throws Exception {
@@ -340,7 +334,7 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
         e("onInfo " + what + " " + extra);
         if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED) {
             e("MEDIA_RECORDER_INFO_MAX_DURATION_REACHED");
-            restartRecorder(getFileName());
+            restartRecorder(getVideoFileName());
 //            mHandler.sendMessage(mHandler.obtainMessage(1001));
         }
     }
@@ -348,5 +342,15 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
     @Override
     public void onError(MediaRecorder mr, int what, int extra) {
         e("onError " + what + " " + extra);
+    }
+
+    @Override
+    public void onPictureTaken(byte[] data, Camera camera) {
+        e("onPictureTaken " + data.length + " count:" + takePictureCount);
+        savePictureAction(data);
+        takePictureCount--;
+        if (takePictureCount != 0) {
+            takePictureCount(false);
+        }
     }
 }

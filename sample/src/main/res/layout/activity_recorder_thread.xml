@@ -10,27 +10,52 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.angcyo.sample.MediaDemo.RecorderThreadActivity">
 
-    <!--<SurfaceView-->
-    <!--android:id="@+id/surfaceView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="500dp"/>-->
-
-    <TextureView
-        android:id="@+id/textureView"
+    <SurfaceView
+        android:id="@+id/surfaceView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="500dp"/>
+
+    <!--<TextureView-->
+    <!--android:id="@+id/textureView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.9"
         android:scaleType="fitXY"
-        android:src="@mipmap/temp_blur_png"/>
+        android:src="@mipmap/temp_blur_png"
+        android:visibility="gone"/>
 
-    <Button
-        android:id="@+id/button"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="button"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="exit"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="StartActivity"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/takePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="takePicture"
+            android:textAllCaps="false"/>
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>
