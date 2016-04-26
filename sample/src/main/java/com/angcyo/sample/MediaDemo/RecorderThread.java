@@ -19,13 +19,14 @@ import java.util.List;
  * Created by robi on 2016-04-24 11:00.
  */
 @SuppressWarnings("deprecation")
-public class RecorderThread extends HandlerThread implements MediaRecorder.OnInfoListener, MediaRecorder.OnErrorListener, Camera.PictureCallback {
+public class RecorderThread extends HandlerThread implements MediaRecorder.OnInfoListener, MediaRecorder.OnErrorListener, Camera.PictureCallback, Camera.ShutterCallback {
 
     public static final int MAX_DURATION = 10 * 1000;//最常录制时间
     public static final int MSG_START = 0x01;
     public static final int MSG_ERROR = MSG_START << 1;
     public static final int MSG_CAMERA_ERROR = MSG_ERROR << 1;
     public static final int MSG_NO_PREVIEW = MSG_CAMERA_ERROR << 1;
+    public static final int MSG_TAKE_PICTURE = MSG_NO_PREVIEW << 1;
     static RecorderThread mThread;
     Object lock = new Object();
     android.hardware.Camera mCamera;
@@ -33,6 +34,7 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
     SurfaceHolder mSurfaceHolder;
     SurfaceTexture mSurfaceTexture;
     int takePictureCount = 0;
+    boolean isMute = false;//拍照静音
     private Handler mHandler;
 
     public RecorderThread(String name, SurfaceHolder surface) {
@@ -90,7 +92,7 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
 
     public static void takePhoto() {
         if (mThread != null) {
-            mThread.takePictureCount(true);
+            mThread.mHandler.sendEmptyMessage(MSG_TAKE_PICTURE);
         }
     }
 
@@ -138,12 +140,20 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
 
     private void takePictureCount(boolean increase) {
         if (mCamera != null) {
-            if (increase) {
+            if (takePictureCount == 0) {
+                startTakePicture();
+            } else if (increase) {
                 takePictureCount++;
             }
-            if (takePictureCount > 0) {
-                mCamera.takePicture(null, null, this);
-            }
+            e("takePictureCount:" + takePictureCount);
+        }
+    }
+
+    private void startTakePicture() {
+        if (isMute) {
+            mCamera.takePicture(null, null, this);
+        } else {
+            mCamera.takePicture(this, null, this);
         }
     }
 
@@ -231,6 +241,9 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
                     break;
                 case MSG_ERROR:
                     break;
+                case MSG_TAKE_PICTURE:
+                    takePictureCount(true);
+                    break;
                 default:
                     break;
             }
@@ -282,10 +295,6 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
             e.printStackTrace();
             mHandler.sendEmptyMessage(MSG_ERROR);
         }
-    }
-
-    private void checkTakePicture() {
-        takePictureCount(false);
     }
 
     private void openCamera(int cameraId) throws Exception {
@@ -349,8 +358,15 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
         e("onPictureTaken " + data.length + " count:" + takePictureCount);
         savePictureAction(data);
         takePictureCount--;
-        if (takePictureCount != 0) {
-            takePictureCount(false);
+        if (takePictureCount > 0) {
+            startTakePicture();
+        } else {
+            takePictureCount = 0;
         }
+    }
+
+    @Override
+    public void onShutter() {
+        e("onShutter");
     }
 }
