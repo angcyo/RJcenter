@@ -11,12 +11,11 @@ import android.widget.ImageView;
 public class PlaneImageView extends ImageView {
     public PlaneImageView(Context context) {
         super(context);
-        animate().scaleX(-1).start();
+        setScaleX(-1);
     }
 
     public PlaneImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        animate().scaleX(-1).start();
+        setScaleX(-1);
     }
-
 }
