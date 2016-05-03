@@ -1,7 +1,6 @@
 package com.angcyo.sample.MediaDemo;
 
 import android.graphics.SurfaceTexture;
-import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Handler;
@@ -19,7 +18,7 @@ import java.util.List;
  * Created by robi on 2016-04-24 11:00.
  */
 @SuppressWarnings("deprecation")
-public class RecorderThread extends HandlerThread implements MediaRecorder.OnInfoListener, MediaRecorder.OnErrorListener, Camera.PictureCallback, Camera.ShutterCallback {
+public class RecorderThread extends HandlerThread implements MediaRecorder.OnInfoListener, MediaRecorder.OnErrorListener, android.hardware.Camera.PictureCallback, android.hardware.Camera.ShutterCallback {
 
     public static final int MAX_DURATION = 10 * 1000;//最常录制时间
     public static final int MSG_START = 0x01;
@@ -354,7 +353,7 @@ public class RecorderThread extends HandlerThread implements MediaRecorder.OnInf
     }
 
     @Override
-    public void onPictureTaken(byte[] data, Camera camera) {
+    public void onPictureTaken(byte[] data, android.hardware.Camera camera) {
         e("onPictureTaken " + data.length + " count:" + takePictureCount);
         savePictureAction(data);
         takePictureCount--;
