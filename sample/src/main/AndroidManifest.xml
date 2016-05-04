@@ -554,10 +554,17 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity android:name=".viewdemo.PlaneImageViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            </intent-filter>
+        </activity>
+        <activity android:name=".viewdemo.DuduProgressBarActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
