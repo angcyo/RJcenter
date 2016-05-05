@@ -1,5 +1,6 @@
 package com.rsen.view;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import com.angcyo.rsen.R;
 
@@ -27,6 +29,7 @@ public class DuduProgressBar extends View {
     private int backgroundColor = Color.GRAY;
     private int progressColor = Color.parseColor("#398DEE");
     private float progress = 0f;//进度条的比例,0-1
+    private boolean mAnim = true;
 
     public DuduProgressBar(Context context) {
         super(context);
@@ -62,14 +65,39 @@ public class DuduProgressBar extends View {
                     new int[]{progressColor, backgroundColor},
                     new float[]{progress, progress + 0.001f}, Shader.TileMode.CLAMP));
         }
-        mRectF.set(0f, 0f, getMeasuredWidth(), getMeasuredHeight());
+        mRectF.set(getPaddingLeft(), getPaddingTop(), getMeasuredWidth() - getPaddingRight(), getMeasuredHeight() - getPaddingBottom());
     }
 
 
+    /**
+     * 设置进度值
+     *
+     * @param progress 取值范围为 0-1f
+     */
     public void setProgress(float progress) {
+        if (progress > 1) {
+            progress = 1;
+        }
+        if (progress < 0) {
+            progress = 0;
+        }
+
+        updateProgress(progress);
+
+        if (mAnim) {
+            animToProgress(progress);
+        } else {
+            postInvalidate();
+        }
+    }
+
+    private void updateProgress(float progress) {
         this.progress = progress;
         initProgress();
-        postInvalidate();
+    }
+
+    public void setAnim(boolean anim) {
+        this.mAnim = anim;
     }
 
     @Override
@@ -98,6 +126,17 @@ public class DuduProgressBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawRoundRect(mRectF, roundX, roundY, mPaint);
+    }
+
+    private void animToProgress(float progress) {
+        ValueAnimator animator = ValueAnimator.ofFloat(0f, progress);
+        animator.setDuration(300);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.addUpdateListener(animation -> {
+            updateProgress((Float) animation.getAnimatedValue());
+            postInvalidate();
+        });
+        animator.start();
     }
 
     @Override

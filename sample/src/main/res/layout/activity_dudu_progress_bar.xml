@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -22,28 +20,55 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:progress="0.5"/>
+            app:progress="0.5" />
 
         <com.rsen.view.DuduProgressBar
             android:layout_width="200dp"
             android:layout_height="3dp"
             android:layout_margin="10dp"
             app:background_color="@android:color/holo_green_dark"
-            app:progress_color="@android:color/holo_red_dark"
-            app:progress="0.3"/>
+            app:progress="0.3"
+            app:progress_color="@android:color/holo_red_dark" />
 
         <com.rsen.view.DuduProgressBar
             android:layout_width="300dp"
             android:layout_height="5dp"
-            app:background_color="@android:color/holo_green_dark"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            app:background_color="@android:color/holo_green_dark" />
 
         <com.rsen.view.DuduProgressBar
+            android:id="@+id/progressBar3"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_margin="10dp"
-            app:progress_color="@android:color/holo_red_dark"
-            app:progress="1"/>
+            app:progress="1"
+            app:progress_color="@android:color/holo_red_dark" />
+
+        <com.rsen.view.DuduProgressBar
+            android:id="@+id/progressBar2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_margin="10dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            app:progress="0"
+            app:round="0dp"
+            app:progress_color="@android:color/holo_red_dark" />
+
+        <com.rsen.view.DuduProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_margin="10dp"
+            android:padding="4dp"
+            app:progress="0"
+            app:progress_color="#DCC289" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:text="ProgressDemo"
+            android:onClick="onButton"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

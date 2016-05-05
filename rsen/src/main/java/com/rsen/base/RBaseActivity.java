@@ -213,8 +213,12 @@ public abstract class RBaseActivity extends AppCompatActivity {
         }
         Drawable background = mActivityLayout.getBackground();
         if (background == null) {
-            mActivityLayout.setBackgroundColor(Color.WHITE);
+            mActivityLayout.setBackgroundColor(getBackgroundColor());
         }
+    }
+
+    protected int getBackgroundColor() {
+        return Color.WHITE;
     }
 
     protected int getStateBarColor() {
