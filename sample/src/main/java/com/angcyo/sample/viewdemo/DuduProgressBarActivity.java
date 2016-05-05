@@ -2,7 +2,10 @@ package com.angcyo.sample.viewdemo;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
@@ -13,6 +16,10 @@ import com.rsen.view.DuduProgressBar;
 public class DuduProgressBarActivity extends RBaseActivity {
 
     DuduProgressBar duduProgressBar, progressBar2, progressBar3;
+
+    public static void e(String log) {
+        Log.e("angcyo " + Thread.currentThread().getId(), "" + log);
+    }
 
     @Override
     protected int getContentView() {
@@ -27,6 +34,42 @@ public class DuduProgressBarActivity extends RBaseActivity {
 
         progressBar3.setAnim(false);
         progressBar2.setAnim(true);
+    }
+
+    class THandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            e("Handler handleMessage" + msg.what);
+        }
+    }
+
+    @Override
+    protected void initViewData() {
+//        Handler mainHandler = new Handler(new Handler.Callback() {
+//            @Override
+//            public boolean handleMessage(Message msg) {
+//                e("Activity handleMessage" + msg.what);
+//                return false;
+//            }
+//        });
+        Handler mainHandler = new THandler();
+
+        new Thread() {
+            @Override
+            public void run() {
+                Handler handler = new Handler(getMainLooper(), new Handler.Callback() {
+                    @Override
+                    public boolean handleMessage(Message msg) {
+                        e("Thread handleMessage" + msg.what);
+                        return false;
+                    }
+                });
+
+                handler.sendEmptyMessage(100);
+                mainHandler.sendEmptyMessage(200);
+            }
+        }.start();
     }
 
     @Override
