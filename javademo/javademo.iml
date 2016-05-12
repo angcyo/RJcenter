@@ -28,5 +28,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="sun.misc.BASE64Decoder" level="project" />
+    <orderEntry type="library" exported="" name="javademo.javademo" level="project" />
   </component>
 </module>
