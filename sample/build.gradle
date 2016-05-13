@@ -44,8 +44,8 @@ def oh = { msg ->
 }
 
 android {
-    compileSdkVersion Integer.parseInt(R_COMPILE_SDK_VERSION)
-    buildToolsVersion R_BUILD_TOOLS_VERSION
+    compileSdkVersion Integer.parseInt(rootProject.R_COMPILE_SDK_VERSION)
+    buildToolsVersion rootProject.R_BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.angcyo.sample"
         minSdkVersion Integer.parseInt(R_MIN_SDK_VERSION)
