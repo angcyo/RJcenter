@@ -1,0 +1,100 @@
+<configuration debug='false'>
+
+    <!--声明一个属性,用来指定log文件存放的路径-->
+    <property name="LOG_DIR" value="/sdcard/rlog"/>
+
+    <!--声明一个时间戳-->
+    <timestamp datePattern="yyyyMMdd" key="today"/>
+
+    <!--用于在控制台输出的Appender-->
+    <appender name="LOGCAT" class="ch.qos.logback.classic.android.LogcatAppender">
+        <encoder>
+            <pattern>%-5relative [%thread][%file:%M:%line] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--声明一个FileAppender-->
+    <appender name="BASE_FILE" class="ch.qos.logback.core.FileAppender">
+        <!--初始化的时候不创建文件,在第一次使用的时候创建文件-->
+        <lazy>true</lazy>
+        <!--log追加到文件,否则覆盖文件-->
+        <append>true</append>
+        <!--用来保存log的文件全路径-->
+        <file>${LOG_DIR}/base.log</file>
+        <!--输出log的格式-->
+        <encoder>
+            <!--<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%file:%line] - %msg%n</pattern>-->
+            <pattern>%date [%thread] %-5level %logger{36} [%file:%line] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--声明一个RollingFileAppender-->
+    <appender name="BASE_ROLL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/base.roll.${today}.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%date %-5relative [%thread] %-5level %logger{36} [%file:%M:%line] - %msg%n
+            </pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/base.roll.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--最大保存7天的日志-->
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+
+        <!--文件大于10mb,切换文件-->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!--指定logtest采用BASE_ROLL_FILE声明的RollingFileAppender输出日志-->
+    <logger name="logtest">
+        <appender-ref ref="BASE_ROLL_FILE"/>
+    </logger>
+
+    <!-- Write INFO (and higher-level) messages to the log file -->
+    <root level="TRACE">
+        <appender-ref ref="LOGCAT"/>
+    </root>
+
+    <!--支持的level-->
+    <!--TRACE-->
+    <!--DEBUG-->
+    <!--INFO-->
+    <!--WARN-->
+    <!--ERROR-->
+
+    <!--<pattern>
+      %d{yyyy-MM-dd HH:mm:ss} [%level] - %msg%n
+      Logger: %logger
+      Class: %class
+      File: %file
+      Caller: %caller
+      Line: %line
+      Message: %m
+      Method: %M
+      Relative: %relative
+      Thread: %thread
+      Exception: %ex
+      xException: %xEx
+      nopException: %nopex
+      rException: %rEx
+      Marker: %marker
+      %n
+  </pattern>-->
+
+    <!--引用其他位置的配置信息-->
+    <!--<includes>-->
+    <!--<include file="/sdcard/foo.xml"/>-->
+    <!--<include resource="assets/config/test.xml"/>-->
+    <!--<include resource="AndroidManifest.xml"/>-->
+
+    <!--<include file="/sdcard/logback/logback-test.xml"/>-->
+    <!--<include file="/sdcard/logback/logback.xml"/>-->
+    <!--<include resource="AndroidManifest.xml"/>-->
+    <!--<include resource="assets/logback-test.xml"/>-->
+    <!--<include resource="assets/logback.xml"/>-->
+    <!--</includes>-->
+</configuration>
