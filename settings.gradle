@@ -7,7 +7,7 @@ rootProject.name = 'RJcenter'
 //include ':groovydemo'
 
 //include ':slidr'
-include ':rsen'
+include ':rsen', ':rlib'
 include ':sample'
 //include ':rsen_qq'
 
