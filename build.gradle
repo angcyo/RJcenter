@@ -10,6 +10,7 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath "io.realm:realm-gradle-plugin:0.88.3"
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 

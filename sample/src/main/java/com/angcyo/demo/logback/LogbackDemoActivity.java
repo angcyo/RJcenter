@@ -6,18 +6,23 @@ import com.angcyo.sample.R;
 import com.lib.common.RLog;
 import com.rsen.base.RBaseActivity;
 
+import hugo.weaving.DebugLog;
+
 public class LogbackDemoActivity extends RBaseActivity {
 
+    @DebugLog
     @Override
     protected int getContentView() {
         return R.layout.activity_logback_demo;
     }
 
+    @DebugLog
     @Override
     protected void initView(Bundle savedInstanceState) {
 
     }
 
+    @DebugLog
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
