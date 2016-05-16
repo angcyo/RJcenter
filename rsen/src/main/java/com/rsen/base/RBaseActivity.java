@@ -454,7 +454,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     protected boolean moveToBack() {
-        return true;
+        return false;
     }
 
     @Override
