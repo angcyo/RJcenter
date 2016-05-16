@@ -466,7 +466,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void noNet(EventNoNet event) {
         hideDialogTip();
-        PopupTipWindow.showTip(this, "请检查网络连接");
+        PopupTipWindow.showTip(this, "请检查网络连接.");
     }
 
     private interface OnChangeFragment {
