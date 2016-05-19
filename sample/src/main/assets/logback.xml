@@ -50,7 +50,7 @@
     </appender>
 
     <!--指定logtest采用BASE_ROLL_FILE声明的RollingFileAppender输出日志-->
-    <logger name="logtest">
+    <logger name="logtest" level="DEBUG">
         <appender-ref ref="BASE_ROLL_FILE"/>
     </logger>
 
