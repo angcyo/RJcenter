@@ -193,12 +193,14 @@ public class MediaRecordActivity extends RBaseActivity {
 
             mMediaRecorder.setOutputFormat(camcorderProfile.fileFormat);
             if (isMultiMic) {
+                /*一个都不能少,成群出现*/
                 mMediaRecorder.setAudioChannels(camcorderProfile.audioChannels);
                 mMediaRecorder.setAudioSamplingRate(camcorderProfile.audioSampleRate);
                 mMediaRecorder.setAudioEncodingBitRate(camcorderProfile.audioBitRate);
                 mMediaRecorder.setAudioEncoder(camcorderProfile.audioCodec);
             }
 
+            /*一个都不能少,成群出现*/
             mMediaRecorder.setVideoEncodingBitRate(camcorderProfile.videoBitRate);
             mMediaRecorder.setVideoFrameRate(camcorderProfile.videoFrameRate);
             mMediaRecorder.setVideoSize(1920, 1080);
