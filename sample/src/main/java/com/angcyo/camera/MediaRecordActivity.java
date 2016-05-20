@@ -1,7 +1,6 @@
 package com.angcyo.camera;
 
 import android.graphics.SurfaceTexture;
-import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -72,7 +71,7 @@ public class MediaRecordActivity extends RBaseActivity {
         public static final int MSG_STOP_RECORD = 3;
         public static final int MSG_STOP_CAMERA = 4;
         private static final int MAX_DURATION = 10 * 1000;
-        Camera mCamera;
+        android.hardware.Camera mCamera;
         MediaRecorder mMediaRecorder;
         boolean isRecorderStart = false;
 
@@ -100,7 +99,7 @@ public class MediaRecordActivity extends RBaseActivity {
         }
 
         private void openCamera() {
-            mCamera = Camera.open();
+            mCamera = android.hardware.Camera.open();
             try {
                 mCamera.setPreviewTexture(mSurfaceTexture);//注意处
             } catch (IOException e) {
@@ -118,16 +117,16 @@ public class MediaRecordActivity extends RBaseActivity {
             }
         }
 
-        private void initCamera(Camera camera) {
+        private void initCamera(android.hardware.Camera camera) {
             if (camera == null) {
                 return;
             }
-            Camera.Parameters parameters = camera.getParameters();
+            android.hardware.Camera.Parameters parameters = camera.getParameters();
             parameters.setPreviewSize(1920, 1080);
             parameters.setPictureSize(1920, 1080);
             List<String> focusModes = parameters.getSupportedFocusModes();
-            if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
-                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+            if (focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+                parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
             }
             camera.setParameters(parameters);
         }
@@ -180,9 +179,32 @@ public class MediaRecordActivity extends RBaseActivity {
 
             CamcorderProfile camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
             mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+//            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
 
-            mMediaRecorder.setProfile(camcorderProfile);
+//            mMediaRecorder.setProfile(camcorderProfile);
+            boolean isMultiMic = true;
+            if (isMultiMic) {
+                camcorderProfile.audioSampleRate = 16000;//16K
+//                camcorderProfile.audioBitRate = 256000;
+//                camcorderProfile.audioChannels = 1;
+//                camcorderProfile.audioCodec = MediaRecorder.AudioEncoder.AMR_WB;
+                mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+            }
+
+            mMediaRecorder.setOutputFormat(camcorderProfile.fileFormat);
+            if (isMultiMic) {
+                mMediaRecorder.setAudioChannels(camcorderProfile.audioChannels);
+                mMediaRecorder.setAudioSamplingRate(camcorderProfile.audioSampleRate);
+                mMediaRecorder.setAudioEncodingBitRate(camcorderProfile.audioBitRate);
+                mMediaRecorder.setAudioEncoder(camcorderProfile.audioCodec);
+            }
+
+            mMediaRecorder.setVideoEncodingBitRate(camcorderProfile.videoBitRate);
+            mMediaRecorder.setVideoFrameRate(camcorderProfile.videoFrameRate);
+            mMediaRecorder.setVideoSize(1920, 1080);
+            mMediaRecorder.setVideoEncoder(camcorderProfile.videoCodec);
+
+
             String filePath = getFilePath();
             mMediaRecorder.setOutputFile(filePath);
             mMediaRecorder.setMaxDuration(MAX_DURATION);
