@@ -43,7 +43,7 @@ public class MediaRecordActivity extends RBaseActivity {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
                 mSurfaceTexture = surface;
-//                mRecordHandler.sendEmptyMessage(RecordHandler.MSG_OPEN_CAMERA);
+                mRecordHandler.sendEmptyMessage(RecordHandler.MSG_OPEN_CAMERA);
                 mRecordHandler.sendEmptyMessage(RecordHandler.MSG_OPEN_RECORD);
             }
 
@@ -70,7 +70,7 @@ public class MediaRecordActivity extends RBaseActivity {
         public static final int MSG_OPEN_RECORD = 2;
         public static final int MSG_STOP_RECORD = 3;
         public static final int MSG_STOP_CAMERA = 4;
-        private static final int MAX_DURATION = 10 * 1000;
+        private static final int MAX_DURATION = 60 * 1000;
         android.hardware.Camera mCamera;
         MediaRecorder mMediaRecorder;
         boolean isRecorderStart = false;
@@ -163,46 +163,47 @@ public class MediaRecordActivity extends RBaseActivity {
                 return;
             }
 
-//            if (mCamera == null) {
-//                return;
-//            }
+            if (mCamera == null) {
+                return;
+            }
 
-//            try {
-//                mCamera.unlock();//注意处
-//            } catch (Exception e) {
-//                Log.e("angcyo", e.getMessage());
-//                return;
-//            }
+            try {
+                mCamera.unlock();//注意处
+            } catch (Exception e) {
+                Log.e("angcyo", e.getMessage());
+                return;
+            }
 
             if (mMediaRecorder == null) {
                 createMediaRecorder();
             }
 
             mMediaRecorder.reset();
-//            mMediaRecorder.setCamera(mCamera);//注意顺序
+            mMediaRecorder.setCamera(mCamera);//注意顺序
 
             CamcorderProfile camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
-//            mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-//            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+            mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
 
-//            mMediaRecorder.setProfile(camcorderProfile);
-            boolean isMultiMic = true;
-            if (isMultiMic) {
+            mMediaRecorder.setProfile(camcorderProfile);
+
+//            boolean isMultiMic = true;
+//            if (isMultiMic) {
 //                camcorderProfile.audioSampleRate = 16000;//16K
 //                camcorderProfile.audioBitRate = 256000;
 //                camcorderProfile.audioChannels = 1;
 //                camcorderProfile.audioCodec = MediaRecorder.AudioEncoder.AMR_WB;
-                mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-            }
+//                mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+//            }
 
-            mMediaRecorder.setOutputFormat(camcorderProfile.fileFormat);
-            if (isMultiMic) {
-                /*一个都不能少,成群出现*/
-                mMediaRecorder.setAudioChannels(camcorderProfile.audioChannels);
-                mMediaRecorder.setAudioSamplingRate(camcorderProfile.audioSampleRate);
-                mMediaRecorder.setAudioEncodingBitRate(camcorderProfile.audioBitRate);
-                mMediaRecorder.setAudioEncoder(camcorderProfile.audioCodec);
-            }
+//            mMediaRecorder.setOutputFormat(camcorderProfile.fileFormat);
+//            if (isMultiMic) {
+//                /*一个都不能少,成群出现*/
+//                mMediaRecorder.setAudioChannels(camcorderProfile.audioChannels);
+//                mMediaRecorder.setAudioSamplingRate(camcorderProfile.audioSampleRate);
+//                mMediaRecorder.setAudioEncodingBitRate(camcorderProfile.audioBitRate);
+//                mMediaRecorder.setAudioEncoder(camcorderProfile.audioCodec);
+//            }
 
 //            /*一个都不能少,成群出现*/
 //            mMediaRecorder.setVideoEncodingBitRate(camcorderProfile.videoBitRate);
