@@ -43,7 +43,7 @@ public class MediaRecordActivity extends RBaseActivity {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
                 mSurfaceTexture = surface;
-                mRecordHandler.sendEmptyMessage(RecordHandler.MSG_OPEN_CAMERA);
+//                mRecordHandler.sendEmptyMessage(RecordHandler.MSG_OPEN_CAMERA);
                 mRecordHandler.sendEmptyMessage(RecordHandler.MSG_OPEN_RECORD);
             }
 
@@ -122,6 +122,8 @@ public class MediaRecordActivity extends RBaseActivity {
                 return;
             }
             android.hardware.Camera.Parameters parameters = camera.getParameters();
+            parameters.getSupportedPreviewSizes();
+            parameters.getSupportedPictureSizes();
             parameters.setPreviewSize(1920, 1080);
             parameters.setPictureSize(1920, 1080);
             List<String> focusModes = parameters.getSupportedFocusModes();
@@ -155,36 +157,38 @@ public class MediaRecordActivity extends RBaseActivity {
         }
 
         private void startRecorder() {
+            Log.e("angcyo", "startRecorder...");
+
             if (isRecorderStart) {
                 return;
             }
 
-            if (mCamera == null) {
-                return;
-            }
+//            if (mCamera == null) {
+//                return;
+//            }
 
-            try {
-                mCamera.unlock();//注意处
-            } catch (Exception e) {
-                Log.e("angcyo", e.getMessage());
-                return;
-            }
+//            try {
+//                mCamera.unlock();//注意处
+//            } catch (Exception e) {
+//                Log.e("angcyo", e.getMessage());
+//                return;
+//            }
 
             if (mMediaRecorder == null) {
                 createMediaRecorder();
             }
 
             mMediaRecorder.reset();
-            mMediaRecorder.setCamera(mCamera);//注意顺序
+//            mMediaRecorder.setCamera(mCamera);//注意顺序
 
             CamcorderProfile camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
-            mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+//            mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 //            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
 
 //            mMediaRecorder.setProfile(camcorderProfile);
             boolean isMultiMic = true;
             if (isMultiMic) {
-                camcorderProfile.audioSampleRate = 16000;//16K
+//                camcorderProfile.audioSampleRate = 16000;//16K
 //                camcorderProfile.audioBitRate = 256000;
 //                camcorderProfile.audioChannels = 1;
 //                camcorderProfile.audioCodec = MediaRecorder.AudioEncoder.AMR_WB;
@@ -200,11 +204,11 @@ public class MediaRecordActivity extends RBaseActivity {
                 mMediaRecorder.setAudioEncoder(camcorderProfile.audioCodec);
             }
 
-            /*一个都不能少,成群出现*/
-            mMediaRecorder.setVideoEncodingBitRate(camcorderProfile.videoBitRate);
-            mMediaRecorder.setVideoFrameRate(camcorderProfile.videoFrameRate);
-            mMediaRecorder.setVideoSize(1920, 1080);
-            mMediaRecorder.setVideoEncoder(camcorderProfile.videoCodec);
+//            /*一个都不能少,成群出现*/
+//            mMediaRecorder.setVideoEncodingBitRate(camcorderProfile.videoBitRate);
+//            mMediaRecorder.setVideoFrameRate(camcorderProfile.videoFrameRate);
+//            mMediaRecorder.setVideoSize(1920, 1080);
+//            mMediaRecorder.setVideoEncoder(camcorderProfile.videoCodec);
 
 
             String filePath = getFilePath();
@@ -213,6 +217,8 @@ public class MediaRecordActivity extends RBaseActivity {
             mMediaRecorder.setOnInfoListener(this);
             mMediaRecorder.setOnErrorListener(this);
 
+
+            Log.e("angcyo", "准备开始录制...");
             try {
                 mMediaRecorder.prepare();
             } catch (IOException e) {
@@ -229,7 +235,7 @@ public class MediaRecordActivity extends RBaseActivity {
             SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
             String name = sdf.format(new Date());
 
-            String folder = "/storage/sdcard1/test_r/";
+            String folder = "/sdcard/test_r/";
             File file = new File(folder);
             if (!file.exists()) {
                 file.mkdirs();
