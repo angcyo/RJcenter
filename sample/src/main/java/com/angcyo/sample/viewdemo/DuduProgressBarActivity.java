@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.angcyo.sample.R;
+import com.rsen.animation.RotateAnimation;
 import com.rsen.base.RBaseActivity;
 import com.rsen.view.DuduProgressBar;
 
@@ -76,6 +77,16 @@ public class DuduProgressBarActivity extends RBaseActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         animProgress();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        View imageView = mViewHolder.v("imageView");
+        RotateAnimation rotateAnimation = new RotateAnimation(imageView.getMeasuredWidth() / 2, imageView.getMeasuredHeight() / 2, RotateAnimation.ROTATE_INCREASE);
+        rotateAnimation.setDuration(1000);
+        rotateAnimation.setRepeatCount(RotateAnimation.INFINITE);
+        imageView.startAnimation(rotateAnimation);
     }
 
     public void onButton(View view) {
