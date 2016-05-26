@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -311,5 +313,21 @@ public class LinkBar extends View {
 
     private float spToPx(float sp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("index", mLinkIndex);
+        bundle.putParcelable("state", super.onSaveInstanceState());
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        Bundle bundle = (Bundle) state;
+        mLinkIndex = bundle.getInt("index");
+        super.onRestoreInstanceState(bundle.getParcelable("state"));
+
     }
 }
