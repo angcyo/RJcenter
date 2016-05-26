@@ -1,6 +1,8 @@
 package com.angcyo.sample.RecyclerViewDemo;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
@@ -24,15 +26,35 @@ public class RecyclerCardActivity extends RBaseActivity {
         datas.add("");
         datas.add("");
         datas.add("");
-        mViewHolder.reV(R.id.recyclerView).setAdapter(new RBaseAdapter<String>(this, datas) {
+        RBaseAdapter<String> rBaseAdapter = new RBaseAdapter<String>(this, datas) {
             @Override
             protected int getItemLayoutId(int viewType) {
                 return R.layout.activity_recycler_card_item;
             }
+
             @Override
             protected void onBindView(RBaseViewHolder holder, int position, String bean) {
             }
 
+        };
+        mViewHolder.reV(R.id.recyclerView).setAdapter(rBaseAdapter);
+
+        mViewHolder.eV(R.id.editText).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                datas.add("");
+                rBaseAdapter.resetData(datas);
+            }
         });
     }
 }

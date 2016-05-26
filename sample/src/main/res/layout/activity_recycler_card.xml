@@ -10,10 +10,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.angcyo.sample.RecyclerViewDemo.RecyclerCardActivity">
 
-    <com.rsen.viewgroup.RRecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.rsen.viewgroup.RRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
