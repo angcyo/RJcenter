@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.angcyo.sample.viewdemo.LinkBarActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <com.rsen.view.LinkBar
+            android:id="@+id/linkBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:circle_color="@android:color/holo_red_dark"
+            app:line_space="3dp"
+            app:line_width="6dp"/>
+
+        <com.rsen.view.LinkBar
+            android:id="@+id/linkBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:circle_radius="15dp"
+            app:circle_width="4dp"/>
+
+        <com.rsen.view.LinkBar
+            android:id="@+id/linkBar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            app:circle_color="@android:color/holo_red_dark"
+            app:circle_width="3dp"
+            app:line_text_space="2dp"
+            app:text_size="9sp"/>
+
+        <com.rsen.view.LinkBar
+            android:id="@+id/linkBar4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:link_index="3"
+            app:text_color="@android:color/holo_green_dark"
+            app:text_size="20sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:onClick="add"
+            android:text="set +1"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="dec"
+            android:text="set -1"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LinkBar">
+        <attr name="circle_radius" format="dimension"/>
+        <attr name="line_width" format="dimension"/>
+        <attr name="circle_width" format="dimension"/>
+        <attr name="circle_color" format="color"/>
+        <attr name="line_color" format="color"/>
+        <attr name="text_color" format="color"/>
+        <attr name="line_space" format="dimension"/>
+        <attr name="line_text_space" format="dimension"/>
+        <attr name="text_size" format="dimension"/>
+        <attr name="link_index" format="integer"/>
+    </declare-styleable>
+</resources>

@@ -58,7 +58,7 @@ public class RotateAnimation extends Animation {
     public void setInterpolatedTimeListener(InterpolatedTimeListener listener) {
         this.listener = listener;
     }
-    
+
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation transformation) {
         // interpolatedTime:动画进度值，范围为[0.0f,10.f]
@@ -103,6 +103,6 @@ public class RotateAnimation extends Animation {
      * 动画进度监听器。
      */
     public static interface InterpolatedTimeListener {
-        public void interpolatedTime(float interpolatedTime);
+        void interpolatedTime(float interpolatedTime);
     }
 }
