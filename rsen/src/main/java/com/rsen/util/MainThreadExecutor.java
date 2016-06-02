@@ -6,6 +6,7 @@ import android.os.Looper;
 import java.util.concurrent.Executor;
 
 /**
+ * 主线程调度器
  * Created by robi on 2016-06-02 20:47.
  */
 public class MainThreadExecutor {
