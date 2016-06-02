@@ -25,5 +25,6 @@ dependencies {
     compile 'com.github.tony19:logback-android-core:1.1.1-5'
     compile 'com.github.tony19:logback-android-classic:1.1.1-5'
 
-    /*...*/
+    /*multidex 依赖*/
+    compile 'com.android.support:multidex:1.0.1'
 }

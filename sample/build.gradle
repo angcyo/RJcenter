@@ -59,6 +59,8 @@ android {
         resValue "string", "build_revision", revision()
         resValue "string", "java_version", javaVersion()
         resValue "string", "os_name", osName()
+
+        multiDexEnabled true
     }
     signingConfigs {
         config {

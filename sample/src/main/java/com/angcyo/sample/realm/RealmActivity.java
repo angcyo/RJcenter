@@ -74,7 +74,7 @@ public class RealmActivity extends RBaseActivity {
         DebugTime.init();
         RRealm.operate(realm -> {
             RealmResults<TestRealmObject> all = realm.where(TestRealmObject.class).findAll();
-            all.clear();
+            all.deleteAllFromRealm();
         });
         DebugTime.time();
     }
@@ -85,7 +85,7 @@ public class RealmActivity extends RBaseActivity {
             RealmResults<TestRealmObject> all = realm.where(TestRealmObject.class).findAll();
             for (int i = 0; i < all.size(); i++) {
                 if (i % 4 == 0) {
-                    all.get(i).removeFromRealm();
+                    all.get(i).deleteFromRealm();
                 }
             }
         });

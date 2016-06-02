@@ -1,6 +1,8 @@
 package com.angcyo;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
@@ -26,5 +28,11 @@ public class RApplication extends Application {
                 .build();
 
         RRealm.init(this, "rjcenter.realm", true);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 }

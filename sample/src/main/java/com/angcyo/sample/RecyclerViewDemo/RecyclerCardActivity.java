@@ -1,8 +1,10 @@
 package com.angcyo.sample.RecyclerViewDemo;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.inputmethod.InputMethodManager;
 
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
@@ -53,8 +55,14 @@ public class RecyclerCardActivity extends RBaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 datas.add("");
+                hideSoftInput();
                 rBaseAdapter.resetData(datas);
             }
         });
+    }
+
+    private void hideSoftInput() {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mViewHolder.eV(R.id.editText).getWindowToken(), 0);
     }
 }
