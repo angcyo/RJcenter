@@ -27,4 +27,8 @@ dependencies {
 
     /*multidex 依赖*/
     compile 'com.android.support:multidex:1.0.1'
+
+    /*picasso 依赖*/
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
 }
