@@ -83,6 +83,25 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         notifyItemInserted(0);
     }
 
+    /**
+     * delete item with object
+     */
+    public void deleteItem(T bean) {
+        if (mAllDatas != null) {
+            int indexOf = mAllDatas.indexOf(bean);
+            if (indexOf > -1) {
+                if (onDeleteItem(bean)) {
+                    notifyItemRemoved(indexOf);
+                    mAllDatas.remove(bean);
+                }
+            }
+        }
+    }
+
+    protected boolean onDeleteItem(T bean) {
+        return true;
+    }
+
     public void removeFirstItem() {
         mAllDatas.remove(0);
         notifyItemRemoved(0);
