@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.text.DecimalFormat;
 
 /**
@@ -221,6 +222,16 @@ public class FileUtil {
             return "" + (size / (1024)) + "\nKB";
         } else
             return "" + size + "\nB";
+    }
+
+    public static void writeToFile(String data, String filePath, boolean isAppend) {
+        try {
+            FileWriter fileWriter = new FileWriter(new File(filePath), isAppend);
+            fileWriter.write(data);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception e) {
+        }
     }
 
     /**
