@@ -156,6 +156,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     compile 'com.cocosw:query:0.2.2'
+
+//    去掉重复依赖
+//    compile 'com.alibaba.fastjson.latest.integration' {
+//        exclude module: 'annotations', group: 'com.google.android'
+//    }
 }
 
 task javadocs(type: Javadoc) {
