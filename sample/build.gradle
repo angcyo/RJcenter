@@ -148,6 +148,7 @@ android {
 
 dependencies {
     compile(name: 'aaaa-1.0', ext: 'aar')
+    //    compile name: 'volley', ext: 'aar'
     //    compile 'com.angcyo:L:1.1.0'
     //    compile 'com.rsen:rsen:0.0.1'
     compile fileTree(include: ['*.jar'], dir: 'libs')
