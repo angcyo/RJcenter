@@ -13,6 +13,8 @@ import com.angcyo.sample.R;
 import com.rsen.animation.RotateAnimation;
 import com.rsen.base.RBaseActivity;
 import com.rsen.view.DuduProgressBar;
+import com.rsen.view.PatternEditText;
+import com.rsen.view.PatternElseEditText;
 
 public class DuduProgressBarActivity extends RBaseActivity {
 
@@ -35,14 +37,18 @@ public class DuduProgressBarActivity extends RBaseActivity {
 
         progressBar3.setAnim(false);
         progressBar2.setAnim(true);
-    }
 
-    class THandler extends Handler{
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            e("Handler handleMessage" + msg.what);
-        }
+
+        ((PatternElseEditText) mViewHolder.v(R.id.patternElseView)).setPattern("### #### ####", null);
+
+        mViewHolder.v(R.id.setPatternView).setOnClickListener(v -> {
+            try {
+                ((PatternElseEditText) mViewHolder.v(R.id.patternElseView)).setPattern(mViewHolder.tV(R.id.patternTextView).getText().toString(), null);
+                ((PatternEditText) mViewHolder.v(R.id.patternView)).setPatternString(mViewHolder.tV(R.id.patternTextView).getText().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -101,5 +107,13 @@ public class DuduProgressBarActivity extends RBaseActivity {
         animator.setInterpolator(new DecelerateInterpolator());
         animator.addUpdateListener(animation -> duduProgressBar.setProgress((Float) animation.getAnimatedValue()));
         animator.start();
+    }
+
+    class THandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            e("Handler handleMessage" + msg.what);
+        }
     }
 }
