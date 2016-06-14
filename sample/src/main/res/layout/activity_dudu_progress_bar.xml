@@ -116,8 +116,8 @@
                 android:id="@+id/setPatternView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="设置模版"/>
-
+                android:background="@drawable/tran_bt_bg"/>
+            <!--设置模版-->
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
