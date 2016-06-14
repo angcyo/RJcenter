@@ -3,6 +3,7 @@ package com.rsen.util;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -43,6 +44,35 @@ public class CmdUtil {
             }
         }
         return isAppRunning;
+    }
+
+
+    /**
+     * 检查APK是否安装
+     */
+    public static boolean checkApkExist(Context context, String packageName) {
+        if (packageName == null || "".equals(packageName))
+            return false;
+        try {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo(
+                    packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * 检查APK是否安装
+     */
+    public static boolean isAppInstalled(final Context context, final String packageName) {
+        try {
+            final PackageManager pm = context.getPackageManager();
+            final PackageInfo info = pm.getPackageInfo(packageName, 0);
+            return info != null;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
     /**
