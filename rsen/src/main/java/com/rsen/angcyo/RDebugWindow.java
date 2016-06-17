@@ -47,9 +47,6 @@ public class RDebugWindow {
         if (mContext != null) {
             mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
             mBaseViewHolder = new RBaseViewHolder(initView(mContext));
-
-            mWindowManager.addView(mBaseViewHolder.itemView, initWindowParams());
-            isAdd = true;
         }
     }
 
