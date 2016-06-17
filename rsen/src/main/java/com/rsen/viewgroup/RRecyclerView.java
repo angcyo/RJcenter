@@ -59,4 +59,13 @@ public class RRecyclerView extends RecyclerView {
             }
         });
     }
+
+    @Override
+    public void setTag(Object tag) {
+        super.setTag(tag);
+        if (tag != null && "V".equalsIgnoreCase((String) tag)) {
+            orientation = LinearLayoutManager.VERTICAL;
+        }
+        this.setLayoutManager(new LinearLayoutManager(getContext(), orientation, false));
+    }
 }
