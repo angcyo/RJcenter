@@ -131,6 +131,10 @@ public class RDebugWindow {
     }
 
     private void addTextInternal(String text) {
+        if (mWindowManager == null) {
+            return;
+        }
+
         if (!isAdd) {
             mWindowManager.addView(mBaseViewHolder.itemView, initWindowParams());
             isAdd = true;
