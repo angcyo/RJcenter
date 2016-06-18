@@ -42,7 +42,11 @@ import java.util.List;
 public class RDebugWindow {
 
     private static final String TAG = "DebugWindow";
+    private static final int WIDTH_STEP = 40;//每次宽度修改的步长
+    private static final int HEIGHT_STEP = 40;//每次高度修改的步长
     private static RDebugWindow sRDebugWindow;
+    private static int MIN_WIDTH = 100;
+    private static int MIN_HEIGHT = 60;
     float downX, downY;
     long downTime;//按下时间
     private RBaseViewHolder mBaseViewHolder;
@@ -53,17 +57,14 @@ public class RDebugWindow {
     private boolean isAdd = false;
     private WindowManager.LayoutParams mLayoutParams;
 
-    private static final int WIDTH_STEP = 40;//每次宽度修改的步长
-    private static final int HEIGHT_STEP = 40;//每次高度修改的步长
-    private static int MIN_WIDTH = 100;
-    private static int MIN_HEIGHT = 60;
-
     private RDebugWindow(Context context) {
         mContext = context;
         if (mContext != null) {
-            mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-            mBaseViewHolder = new RBaseViewHolder(initView(mContext));
-
+            if (Thread.currentThread().getId() == Looper.getMainLooper().getThread().getId()) {
+                init();
+            } else {
+                ThreadExecutor.instance().onMain(() -> init());
+            }
         }
     }
 
@@ -107,6 +108,11 @@ public class RDebugWindow {
         bgStateDrawable.addState(new int[]{}, layerDrawable);//其他状态
 
         return bgStateDrawable;
+    }
+
+    private void init() {
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        mBaseViewHolder = new RBaseViewHolder(initView(mContext));
     }
 
     /**
