@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.ArcShape;
@@ -85,40 +86,25 @@ public class RDebugWindow {
 
         //按下状态
         Shape arcShape = new ArcShape(0, 360);
-//        {
-//            @Override
-//            public void draw(Canvas canvas, Paint paint) {
-//                canvas.scale(0.9f, 0.9f);
-//                canvas.translate(width / 2, width / 2);
-//                super.draw(canvas, paint);
-//            }
-//        };
         ShapeDrawable shopDrawablePress = new ShapeDrawable(arcShape);//圆形shape
         shopDrawablePress.getPaint().setColor(color);//设置颜色
         shopDrawablePress.getPaint().setStyle(Paint.Style.FILL_AND_STROKE);//设置颜色
         shopDrawablePress.getPaint().setStrokeWidth(width);//设置颜色
-        shopDrawablePress.setIntrinsicWidth(20);
-        shopDrawablePress.setIntrinsicHeight(20);
+        LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{shopDrawablePress});
+        layerDrawable.setLayerInset(0, (int) (width / 2), (int) (width / 2), (int) (width / 2), (int) (width / 2));
 
-        bgStateDrawable.addState(new int[]{android.R.attr.state_pressed}, shopDrawablePress);//按下状态
+        bgStateDrawable.addState(new int[]{android.R.attr.state_pressed}, layerDrawable);//按下状态
 
         //正常状态
         arcShape = new ArcShape(0, 360);
-//        {
-//            @Override
-//            public void draw(Canvas canvas, Paint paint) {
-//                canvas.scale(0.9f, 0.9f);
-//                canvas.translate(width / 2, width / 2);
-//                super.draw(canvas, paint);
-//            }
-//        };
         shopDrawablePress = new ShapeDrawable(arcShape);//圆形shape
         shopDrawablePress.getPaint().setColor(color);//设置颜色
         shopDrawablePress.getPaint().setStyle(Paint.Style.STROKE);//设置边框绘制模式
         shopDrawablePress.getPaint().setStrokeWidth(width);//设置宽度
-        shopDrawablePress.setPadding(20, 20, 20, 20);
+        layerDrawable = new LayerDrawable(new Drawable[]{shopDrawablePress});
+        layerDrawable.setLayerInset(0, (int) (width / 2), (int) (width / 2), (int) (width / 2), (int) (width / 2));
 
-        bgStateDrawable.addState(new int[]{}, shopDrawablePress);//其他状态
+        bgStateDrawable.addState(new int[]{}, layerDrawable);//其他状态
 
         return bgStateDrawable;
     }
