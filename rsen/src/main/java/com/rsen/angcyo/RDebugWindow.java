@@ -64,6 +64,10 @@ public class RDebugWindow {
                 init();
             } else {
                 ThreadExecutor.instance().onMain(() -> init());
+                try {
+                    Thread.sleep(800);
+                } catch (InterruptedException e) {
+                }
             }
         }
     }
