@@ -425,7 +425,9 @@ public class RDebugWindow {
             mLayoutParams = new WindowManager.LayoutParams();
             mLayoutParams.width = getWindowWidth() / 3;
             mLayoutParams.height = getWindowHeight() / 2;
-            mLayoutParams.gravity = Gravity.RIGHT;
+            mLayoutParams.gravity = Gravity.RIGHT | Gravity.TOP;
+            mLayoutParams.x = MIN_WIDTH;
+            mLayoutParams.y = MIN_HEIGHT;
             mLayoutParams.format = PixelFormat.RGBA_8888;
             mLayoutParams.type = WindowManager.LayoutParams.TYPE_TOAST;//窗口类型
             mLayoutParams.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN// 覆盖状态栏
