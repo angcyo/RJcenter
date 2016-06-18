@@ -127,4 +127,20 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/logo"/>
+
+    <com.rsen.view.GifView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        app:gif="@raw/love_path_progress"/>
+
+    <com.rsen.view.GifView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        app:gif="@raw/love_path_progress"
+        app:paused="true"/>
 </RelativeLayout>
