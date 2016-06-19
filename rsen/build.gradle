@@ -40,18 +40,6 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:${R_SUPPORT_VERSION}"
-    compile "com.android.support:recyclerview-v7:${R_SUPPORT_VERSION}"
-    compile "com.android.support:design:${R_SUPPORT_VERSION}"
-    compile "com.android.support:cardview-v7:${R_SUPPORT_VERSION}"
-    compile "com.android.support:support-v4:${R_SUPPORT_VERSION}"
-    compile 'de.greenrobot:eventbus:3.0.0-beta1'
-    compile 'com.orhanobut:hawk:1.18'
-    compile 'io.reactivex:rxjava:1.1.5'
-    compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
     compile project(':rlib')
 }
 

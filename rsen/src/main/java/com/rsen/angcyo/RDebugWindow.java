@@ -12,12 +12,14 @@ import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.ArcShape;
 import android.graphics.drawable.shapes.Shape;
 import android.os.Looper;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -42,13 +44,14 @@ import java.util.List;
 public class RDebugWindow {
 
     private static final String TAG = "DebugWindow";
-    private static final int WIDTH_STEP = 40;//每次宽度修改的步长
-    private static final int HEIGHT_STEP = 40;//每次高度修改的步长
+    private static float WIDTH_STEP = 40;//每次宽度修改的步长
+    private static float HEIGHT_STEP = 40;//每次高度修改的步长
+    private float DEFAULT_BUTTON_SIZE = 20;
+    private float DEFAULT_BUTTON_BG_WIDTH = 2;
     private static RDebugWindow sRDebugWindow;
-    private static int MIN_WIDTH = 100;
-    private static int MIN_HEIGHT = 60;
+    private static float MIN_WIDTH = 100;
+    private static float MIN_HEIGHT = 60;
     float downX, downY;
-    long downTime;//按下时间
     private RBaseViewHolder mBaseViewHolder;
     private Context mContext;
     private WindowManager mWindowManager;
@@ -60,6 +63,13 @@ public class RDebugWindow {
     private RDebugWindow(Context context) {
         mContext = context;
         if (mContext != null) {
+            DEFAULT_BUTTON_SIZE = dpToPx(context, DEFAULT_BUTTON_SIZE);
+            MIN_WIDTH = dpToPx(context, MIN_WIDTH);
+            MIN_HEIGHT = dpToPx(context, MIN_HEIGHT);
+            WIDTH_STEP = dpToPx(context, WIDTH_STEP);
+            HEIGHT_STEP = dpToPx(context, HEIGHT_STEP);
+            DEFAULT_BUTTON_BG_WIDTH = dpToPx(context, DEFAULT_BUTTON_BG_WIDTH);
+
             if (Thread.currentThread().getId() == Looper.getMainLooper().getThread().getId()) {
                 init();
             } else {
@@ -123,14 +133,21 @@ public class RDebugWindow {
      * 添加文本到窗口显示
      */
     public synchronized void addText(String text) {
+        addText(text, -1);
+    }
+
+    /**
+     * 添加文本到窗口显示
+     */
+    public synchronized void addText(String text, @ColorInt int color) {
         if (Thread.currentThread().getId() == Looper.getMainLooper().getThread().getId()) {
-            addTextInternal(text);
+            addTextInternal(text, color);
         } else {
-            ThreadExecutor.instance().onMain(() -> addTextInternal(text));
+            ThreadExecutor.instance().onMain(() -> addTextInternal(text, color));
         }
     }
 
-    private void addTextInternal(String text) {
+    private void addTextInternal(String text, @ColorInt int color) {
         if (mWindowManager == null) {
             return;
         }
@@ -150,7 +167,7 @@ public class RDebugWindow {
                 //如果当前Item在最底下,开启自动滚动.
                 needScroll = true;
             }
-            adapter.addLatItem(new Bean(text));
+            adapter.addLatItem(new Bean(text, color));
             if (needScroll) {
                 //滚动至列表末尾
                 recyclerView.smoothScrollToPosition(adapter.getItemCount());
@@ -180,7 +197,7 @@ public class RDebugWindow {
 
         frame.addView(initControlLayout(context));//添加控制按钮布局
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.topMargin = 60;
+        layoutParams.topMargin = (int) (DEFAULT_BUTTON_SIZE + 10);
         frame.addView(recycler, layoutParams);
 
         positionTouch(frame);
@@ -194,8 +211,8 @@ public class RDebugWindow {
         LinearLayoutCompat layoutCompat = new LinearLayoutCompat(context);
         layoutCompat.setOrientation(LinearLayoutCompat.HORIZONTAL);
         final int padding = 2;
-
-        LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(40, 40);
+        final int size = (int) DEFAULT_BUTTON_SIZE;
+        LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(size, size);
         layoutParams.setMargins(10, 2, 2, 2);
 
         //改变位置
@@ -204,7 +221,7 @@ public class RDebugWindow {
         posView.setText("X");
         posView.setGravity(Gravity.CENTER);
         posView.setLayoutParams(new LinearLayoutCompat.LayoutParams(layoutParams));
-        posView.setBackground(generateCircleBgDrawable(2, Color.RED));
+        posView.setBackground(generateCircleBgDrawable(DEFAULT_BUTTON_BG_WIDTH, Color.RED));
         posView.setPadding(padding, padding, padding, padding);
         posView.setClickable(true);
 
@@ -214,7 +231,7 @@ public class RDebugWindow {
         widthView.setText("宽");
         widthView.setGravity(Gravity.CENTER);
         widthView.setLayoutParams(new LinearLayoutCompat.LayoutParams(layoutParams));
-        widthView.setBackground(generateCircleBgDrawable(2, Color.GREEN));
+        widthView.setBackground(generateCircleBgDrawable(DEFAULT_BUTTON_BG_WIDTH, Color.GREEN));
         widthView.setPadding(padding, padding, padding, padding);
         widthView.setClickable(true);
 
@@ -224,7 +241,7 @@ public class RDebugWindow {
         heightView.setText("高");
         heightView.setGravity(Gravity.CENTER);
         heightView.setLayoutParams(new LinearLayoutCompat.LayoutParams(layoutParams));
-        heightView.setBackground(generateCircleBgDrawable(2, Color.YELLOW));
+        heightView.setBackground(generateCircleBgDrawable(DEFAULT_BUTTON_BG_WIDTH, Color.YELLOW));
         heightView.setPadding(padding, padding, padding, padding);
         heightView.setClickable(true);
 
@@ -371,7 +388,7 @@ public class RDebugWindow {
         params.width += widthStep;
 
         if (widthStep < 0) {
-            params.width = Math.max(params.width, MIN_WIDTH);
+            params.width = (int) Math.max(params.width, MIN_WIDTH);
         }
 
         return params;
@@ -383,7 +400,7 @@ public class RDebugWindow {
         params.height += heightStep;
 
         if (heightStep < 0) {
-            params.height = Math.max(params.height, MIN_HEIGHT);
+            params.height = (int) Math.max(params.height, MIN_HEIGHT);
         }
 
         return params;
@@ -437,16 +454,20 @@ public class RDebugWindow {
     private WindowManager.LayoutParams initWindowParams() {
         if (mLayoutParams == null) {
             mLayoutParams = new WindowManager.LayoutParams();
-            mLayoutParams.width = getWindowWidth() / 3;
+            mLayoutParams.width = getWindowWidth() * 2 / 3;
             mLayoutParams.height = getWindowHeight() / 2;
             mLayoutParams.gravity = Gravity.RIGHT | Gravity.TOP;
-            mLayoutParams.x = MIN_WIDTH;
-            mLayoutParams.y = MIN_HEIGHT;
+            mLayoutParams.x = (int) MIN_WIDTH;
+            mLayoutParams.y = (int) MIN_HEIGHT;
             mLayoutParams.format = PixelFormat.RGBA_8888;
             mLayoutParams.type = WindowManager.LayoutParams.TYPE_TOAST;//窗口类型
             mLayoutParams.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN// 覆盖状态栏
                     | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL//窗口外可以点击
                     | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE//不监听按键事件
+//                    | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR
+//                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_OVERSCAN
+                    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS//突破窗口限制
+//                    | WindowManager.LayoutParams.FLAG_FULLSCREEN
             ;
         }
         return mLayoutParams;
@@ -454,9 +475,12 @@ public class RDebugWindow {
 
     static class Bean {
         public String text;
+        @ColorInt
+        public int color = -1;
 
-        public Bean(String text) {
+        public Bean(String text, @ColorInt int color) {
             this.text = text;
+            this.color = color;
         }
     }
 
@@ -483,7 +507,7 @@ public class RDebugWindow {
             TextView textView = new TextView(mContext);
             textView.setId(textViewId = View.generateViewId());
             layout.addView(textView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView.setTextColor(Color.WHITE);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);
 
             return layout;
         }
@@ -494,8 +518,23 @@ public class RDebugWindow {
             //动态创建的View Id,在这个地方会出现空指针BUG,
             View childAt = ((ViewGroup) holder.itemView).getChildAt(0);
             if (childAt instanceof TextView) {
-                ((TextView) childAt).setText(bean.text);
+                final TextView textView = (TextView) childAt;
+                textView.setText((position + 1) + ":" + bean.text);
+
+                int color = bean.color;
+                if (color == -1) {
+                    if (position % 2 == 0) {
+                        color = Color.WHITE;
+                    } else {
+                        color = Color.MAGENTA;
+                    }
+                }
+                textView.setTextColor(color);
             }
         }
+    }
+
+    public static float dpToPx(Context context, float dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 }

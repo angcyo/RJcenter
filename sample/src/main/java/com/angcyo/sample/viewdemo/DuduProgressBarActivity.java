@@ -1,6 +1,7 @@
 package com.angcyo.sample.viewdemo;
 
 import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.angcyo.sample.R;
+import com.rsen.angcyo.RDebugWindow;
 import com.rsen.animation.RotateAnimation;
 import com.rsen.base.RBaseActivity;
+import com.rsen.util.T;
 import com.rsen.view.DuduProgressBar;
 import com.rsen.view.PatternEditText;
 import com.rsen.view.PatternElseEditText;
@@ -93,6 +96,29 @@ public class DuduProgressBarActivity extends RBaseActivity {
         rotateAnimation.setDuration(1000);
         rotateAnimation.setRepeatCount(RotateAnimation.INFINITE);
         imageView.startAnimation(rotateAnimation);
+
+        RDebugWindow.instance(getApplicationContext()).addText("onPostResume", Color.RED);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+//        if (hasFocus) {
+//            new Thread() {
+//                @Override
+//                public void run() {
+//                    T.show(getApplication(), "Thread Name:" + Thread.currentThread().getName() + " Thread Id:" + Thread.currentThread().getId());
+//                }
+//            }.start();
+//        }
+        final String msg = "Thread Name:" + Thread.currentThread().getName() + " Thread Id:" + Thread.currentThread().getId() + " Focus:" + hasFocus;
+        T.show(getApplication(), msg);
+
+        new Thread() {
+            @Override
+            public void run() {
+                RDebugWindow.instance(getApplicationContext()).addText(msg);
+            }
+        }.start();
     }
 
     public void onButton(View view) {
