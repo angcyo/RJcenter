@@ -19,6 +19,8 @@ android {
     }
 }
 
+def leak_version = "1.4-beta2"
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -48,4 +50,9 @@ dependencies {
 
     /*文件操作, IO操作*/
     compile 'commons-io:commons-io:2.4'
+
+    /*内存泄漏检查*/
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${leak_version}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leak_version}"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leak_version}"
 }

@@ -1,0 +1,51 @@
+package com.rsen;
+
+import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
+import com.orhanobut.hawk.Hawk;
+import com.orhanobut.hawk.HawkBuilder;
+import com.orhanobut.hawk.LogLevel;
+import com.rsen.db.XUtil;
+import com.rsen.exception.RCrashHandler;
+import com.rsen.realm.RRealm;
+import com.squareup.leakcanary.LeakCanary;
+
+/**
+ * Created by angcyo on 16-03-04-004.
+ */
+public class RApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        /*崩溃异常处理*/
+        RCrashHandler.init(this);
+
+        /*XUtil初始化*/
+        XUtil.Ext.init(this);
+
+        /*sp持久化库*/
+        Hawk.init(this)
+                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
+                .setLogLevel(LogLevel.NONE)
+                .setStorage(HawkBuilder.newSqliteStorage(this))
+                .setPassword("angcyo")
+                .build();
+
+
+        /*Realm数据库初始化*/
+        RRealm.init(this, "rjcenter.realm", true);
+
+        /*内存泄漏检查*/
+        LeakCanary.install(this);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        /*65535限制*/
+        MultiDex.install(base);
+    }
+}
