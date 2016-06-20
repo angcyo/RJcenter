@@ -125,7 +125,7 @@ public class RDebugWindow {
     }
 
     private void init() {
-        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        mWindowManager = (WindowManager) mContext.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         mBaseViewHolder = new RBaseViewHolder(initView(mContext));
     }
 
@@ -456,7 +456,7 @@ public class RDebugWindow {
             mLayoutParams = new WindowManager.LayoutParams();
             mLayoutParams.width = getWindowWidth() * 2 / 3;
             mLayoutParams.height = getWindowHeight() / 2;
-            mLayoutParams.gravity = Gravity.RIGHT | Gravity.TOP;
+            mLayoutParams.gravity = Gravity.LEFT | Gravity.TOP;
             mLayoutParams.x = (int) MIN_WIDTH;
             mLayoutParams.y = (int) MIN_HEIGHT;
             mLayoutParams.format = PixelFormat.RGBA_8888;
