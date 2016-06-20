@@ -58,6 +58,7 @@ public class RDebugWindow {
     @IdRes
     private int rootViewId, recyclerViewId;
     private boolean isAdd = false;
+    private boolean autoScroll = true;//默认激活自动滚动
     private WindowManager.LayoutParams mLayoutParams;
 
     private RDebugWindow(Context context) {
@@ -160,15 +161,8 @@ public class RDebugWindow {
         if (mBaseViewHolder != null) {
             RecyclerView recyclerView = mBaseViewHolder.reV(recyclerViewId);
             RBaseAdapter adapter = (RBaseAdapter) recyclerView.getAdapter();
-            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-            int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-            boolean needScroll = false;
-            if ((lastVisibleItemPosition + 1) == adapter.getItemCount()) {
-                //如果当前Item在最底下,开启自动滚动.
-                needScroll = true;
-            }
             adapter.addLatItem(new Bean(text, color));
-            if (needScroll) {
+            if (autoScroll) {
                 //滚动至列表末尾
                 recyclerView.smoothScrollToPosition(adapter.getItemCount());
             }
@@ -194,6 +188,7 @@ public class RDebugWindow {
         recycler.setTag("V");
         recycler.setId(recyclerViewId = View.generateViewId());
         recycler.setAdapter(new RAdapter(context, new ArrayList<>()));
+        initRecyclerTouch(recycler);
 
         frame.addView(initControlLayout(context));//添加控制按钮布局
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -202,6 +197,21 @@ public class RDebugWindow {
 
         positionTouch(frame);
         return frame;
+    }
+
+    private void initRecyclerTouch(RecyclerView recyclerView) {
+        recyclerView.setOnTouchListener((v, event) -> {
+            autoScroll = false;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                if ((lastVisibleItemPosition + 1) == layoutManager.getItemCount()) {
+                    //如果当前Item在最底下,开启自动滚动.
+                    autoScroll = true;
+                }
+            }
+            return false;
+        });
     }
 
     /**
