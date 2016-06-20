@@ -46,12 +46,12 @@ public class RDebugWindow {
     private static final String TAG = "DebugWindow";
     private static float WIDTH_STEP = 40;//每次宽度修改的步长
     private static float HEIGHT_STEP = 40;//每次高度修改的步长
-    private float DEFAULT_BUTTON_SIZE = 20;
-    private float DEFAULT_BUTTON_BG_WIDTH = 2;
     private static RDebugWindow sRDebugWindow;
     private static float MIN_WIDTH = 100;
     private static float MIN_HEIGHT = 60;
     float downX, downY;
+    private float DEFAULT_BUTTON_SIZE = 20;
+    private float DEFAULT_BUTTON_BG_WIDTH = 2;
     private RBaseViewHolder mBaseViewHolder;
     private Context mContext;
     private WindowManager mWindowManager;
@@ -62,8 +62,8 @@ public class RDebugWindow {
     private WindowManager.LayoutParams mLayoutParams;
 
     private RDebugWindow(Context context) {
-        mContext = context;
-        if (mContext != null) {
+        if (context != null) {
+            mContext = context.getApplicationContext();
             DEFAULT_BUTTON_SIZE = dpToPx(context, DEFAULT_BUTTON_SIZE);
             MIN_WIDTH = dpToPx(context, MIN_WIDTH);
             MIN_HEIGHT = dpToPx(context, MIN_HEIGHT);
@@ -125,8 +125,12 @@ public class RDebugWindow {
         return bgStateDrawable;
     }
 
+    public static float dpToPx(Context context, float dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+    }
+
     private void init() {
-        mWindowManager = (WindowManager) mContext.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         mBaseViewHolder = new RBaseViewHolder(initView(mContext));
     }
 
@@ -404,7 +408,6 @@ public class RDebugWindow {
         return params;
     }
 
-
     private WindowManager.LayoutParams createHeightParams(int heightStep) {
         WindowManager.LayoutParams params = (WindowManager.LayoutParams) mBaseViewHolder.itemView.getLayoutParams();
         params.height += heightStep;
@@ -542,9 +545,5 @@ public class RDebugWindow {
                 textView.setTextColor(color);
             }
         }
-    }
-
-    public static float dpToPx(Context context, float dp) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 }
