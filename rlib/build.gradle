@@ -46,6 +46,6 @@ dependencies {
     /*picasso 依赖*/
     compile 'com.squareup.picasso:picasso:2.5.2'
 
-    /*文件操作, IO操作*/
+    /*文件操作,IO操作*/
     compile 'commons-io:commons-io:2.4'
 }
