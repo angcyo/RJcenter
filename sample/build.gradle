@@ -100,12 +100,14 @@ android {
     lintOptions {
         abortOnError false
         disable 'MissingTranslation'
+        disable 'GoogleAppIndexingWarning'
     }
     dexOptions {
         preDexLibraries = false
         jumboMode = true
         incremental true
         javaMaxHeapSize "4g"
+        dexInProcess false
     }
     getApplicationVariants().all { variant ->
         variant.outputs.each { output ->
