@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <style name="ActivityTheme" parent="SlidrTheme">
+        <item name="android:windowAnimationStyle">@style/ActivityNoAnim</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="ActivityNoAnim">
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+    </style>
+
     <style name="TransparentTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--背景透明-->
         <item name="android:windowIsTranslucent">true</item>
@@ -97,4 +110,6 @@
         <item name="android:textColor">?attr/colorAccent</item>
         <item name="pathColor">?attr/colorAccent</item>
     </style>
+
+
 </resources>
