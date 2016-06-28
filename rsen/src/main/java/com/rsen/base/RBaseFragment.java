@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -154,6 +155,7 @@ public abstract class RBaseFragment extends Fragment {
         mNonetLayout = rootView.findViewById(R.id.nonet_layout);
     }
 
+    @LayoutRes
     protected abstract int getContentView();
 
     protected abstract void initViewData();
