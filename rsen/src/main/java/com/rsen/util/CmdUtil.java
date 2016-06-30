@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -45,7 +46,6 @@ public class CmdUtil {
         }
         return isAppRunning;
     }
-
 
     /**
      * 检查APK是否安装
@@ -94,7 +94,7 @@ public class CmdUtil {
         List<AppInfo> appInfos = new ArrayList<AppInfo>();//需要返回的数据
 
         for (ActivityManager.RunningAppProcessInfo info : infos) {
-// 去除包含Android包名跟本包名的进程
+            // 去除包含Android包名跟本包名的进程
             if (info.processName.indexOf("android") == -1
                     && info.processName.indexOf(context.getPackageName()) == -1) {
                 AppInfo appInfo = new AppInfo();
@@ -259,7 +259,7 @@ public class CmdUtil {
             Process process = Runtime.getRuntime().exec("su");//申请root权限
             DataOutputStream dos = new DataOutputStream(process.getOutputStream());
 
-// 部分手机Root之后Library path 丢失，导入library path可解决该问题
+            // 部分手机Root之后Library path 丢失，导入library path可解决该问题
             dos.writeBytes("export LD_LIBRARY_PATH=/vendor/lib:/system/lib\n");
             dos.writeBytes((cmd + "\n"));
             dos.flush();
@@ -384,14 +384,14 @@ public class CmdUtil {
             dataOutputStream.writeBytes("chmod 777 " + file.getPath() + "\n");
             dataOutputStream.writeBytes("LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install -r " +
                     file.getPath());
-// 提交命令
+            // 提交命令
             dataOutputStream.flush();
-// 关闭流操作
+            // 关闭流操作
             dataOutputStream.close();
             out.close();
             int value = process.waitFor();
 
-// 代表成功
+            // 代表成功
             if (value == 0) {
                 result = true;
             } else if (value == 1) { // 失败
@@ -465,58 +465,76 @@ public class CmdUtil {
         }
     }
 
-    // 复制文件
+    /**
+     * 复制文件
+     */
     public static void copyFile2(File sourceFile, File targetFile)
             throws IOException {
-// 新建文件输入流并对它进行缓冲
+        // 新建文件输入流并对它进行缓冲
         FileInputStream input = new FileInputStream(sourceFile);
         BufferedInputStream inBuff = new BufferedInputStream(input);
 
-// 新建文件输出流并对它进行缓冲
+        // 新建文件输出流并对它进行缓冲
         FileOutputStream output = new FileOutputStream(targetFile);
         BufferedOutputStream outBuff = new BufferedOutputStream(output);
 
-// 缓冲数组
+        // 缓冲数组
         byte[] b = new byte[1024 * 5];
         int len;
         while ((len = inBuff.read(b)) != -1) {
             outBuff.write(b, 0, len);
         }
-// 刷新此缓冲的输出流
+        // 刷新此缓冲的输出流
         outBuff.flush();
 
-//关闭流
+        //关闭流
         inBuff.close();
         outBuff.close();
         output.close();
         input.close();
     }
 
-    // 复制文件夹
+    /**
+     * 复制文件夹
+     */
     public static void copyDirectiory(String sourceDir, String targetDir)
             throws IOException {
-// 新建目标目录
+        // 新建目标目录
         (new File(targetDir)).mkdirs();
-// 获取源文件夹当前下的文件或目录
+        // 获取源文件夹当前下的文件或目录
         File[] file = (new File(sourceDir)).listFiles();
         for (int i = 0; i < file.length; i++) {
             if (file[i].isFile()) {
-// 源文件
+                // 源文件
                 File sourceFile = file[i];
-// 目标文件
+                // 目标文件
                 File targetFile = new
                         File(new File(targetDir).getAbsolutePath()
                         + File.separator + file[i].getName());
                 copyFile2(sourceFile, targetFile);
             }
             if (file[i].isDirectory()) {
-// 准备复制的源文件夹
+                // 准备复制的源文件夹
                 String dir1 = sourceDir + "/" + file[i].getName();
-// 准备复制的目标文件夹
+                // 准备复制的目标文件夹
                 String dir2 = targetDir + "/" + file[i].getName();
                 copyDirectiory(dir1, dir2);
             }
         }
+    }
+
+    /**
+     * 判断进程是否运行
+     */
+    public static boolean isProcessRunning(Context context, String proName) {
+        boolean result = false;
+        ActivityManager mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : mActivityManager.getRunningAppProcesses()) {
+            if (TextUtils.equals(appProcess.processName, proName)) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     public static class AppInfo implements Serializable {
