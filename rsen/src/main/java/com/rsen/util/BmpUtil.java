@@ -2,6 +2,7 @@ package com.rsen.util;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,18 +21,21 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.angcyo.rsen.BuildConfig;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * 图片操作工具类
@@ -916,5 +920,37 @@ public class BmpUtil {
         return rotatedBitmap;
     }
 
+    /**
+     * 保存图片到系统相册目录
+     *
+     * @param bmp        位图对象
+     * @param fileFolder 图片目录
+     * @param filename   图片名称
+     * @return 保存地址
+     */
+    public static String saveImageToSystemAlbum(Context context, Bitmap bmp, String fileFolder, String filename) {
+        OutputStream stream = null;
+        try {
+            File saveDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), fileFolder);
+            if (!saveDirectory.exists()) saveDirectory.mkdirs();
+            File saveFile = new File(saveDirectory, filename);
+            if (!saveFile.exists()) saveFile.createNewFile();
+            stream = new BufferedOutputStream(new FileOutputStream(saveFile.getAbsolutePath()));
+            Bitmap.CompressFormat format = Bitmap.CompressFormat.JPEG;
+            int quality = 100;
+            bmp.compress(format, quality, stream);
+
+            // 发送系统广播更新相册
+            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Uri uri = Uri.fromFile(saveFile);
+            intent.setData(uri);
+            context.sendBroadcast(intent);
+            return saveFile.getAbsolutePath();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
+
