@@ -21,6 +21,7 @@ android {
 
 def leak_version = "1.4-beta2"
 def retrofit_version = "2.1.0"
+def apache_commons_version = "1.3.2"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -59,11 +60,16 @@ dependencies {
     /*picasso 依赖*/
     compile 'com.squareup.picasso:picasso:2.5.2'
 
-    /*文件操作, IO操作*/
-    compile 'commons-io:commons-io:2.4'
+
 
     /*内存泄漏检查*/
     debugCompile "com.squareup.leakcanary:leakcanary-android:${leak_version}"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leak_version}"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leak_version}"
+
+    /*apache 依赖*/
+//    compile "org.apache.commons:commons-io:${apache_commons_version}"
+
+    /*文件操作, IO操作*/
+    compile 'commons-io:commons-io:2.5'
 }

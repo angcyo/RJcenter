@@ -1,0 +1,84 @@
+package com.angcyo.sample.viewpagerdemo;
+//FragmentStatePagerAdapter 管理Fragment 的生命周期
+
+//点击第1个Fragment
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->isVisibleToUser false
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->isVisibleToUser false
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->onCreate 
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->isVisibleToUser true
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->onCreateView 
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->onStart 
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->onResume 
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->1: RFragment-->onCreate 
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->1: RFragment-->onCreateView 
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->1: RFragment-->onStart 
+01-16 17:46:08.843 15459-15459/com.angcyo.sample.debug E/angcyo-->1: RFragment-->onResume 
+
+//点击第2个Fragment
+01-16 17:46:26.813 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->isVisibleToUser false
+01-16 17:46:26.813 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->isVisibleToUser false
+01-16 17:46:26.813 15459-15459/com.angcyo.sample.debug E/angcyo-->1: RFragment-->isVisibleToUser true
+01-16 17:46:26.813 15459-15459/com.angcyo.sample.debug E/angcyo-->2: RFragment-->onCreate 
+01-16 17:46:26.813 15459-15459/com.angcyo.sample.debug E/angcyo-->2: RFragment-->onCreateView 
+01-16 17:46:26.823 15459-15459/com.angcyo.sample.debug E/angcyo-->2: RFragment-->onStart 
+01-16 17:46:26.823 15459-15459/com.angcyo.sample.debug E/angcyo-->2: RFragment-->onResume 
+
+//点击第3个Fragment
+01-16 17:46:39.293 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->isVisibleToUser false
+01-16 17:46:39.293 15459-15459/com.angcyo.sample.debug E/angcyo-->1: RFragment-->isVisibleToUser false
+01-16 17:46:39.293 15459-15459/com.angcyo.sample.debug E/angcyo-->2: RFragment-->isVisibleToUser true
+01-16 17:46:39.293 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->onPause 
+01-16 17:46:39.293 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->onStop 
+01-16 17:46:39.293 15459-15459/com.angcyo.sample.debug E/angcyo-->3: RFragment-->onCreate 
+01-16 17:46:39.293 15459-15459/com.angcyo.sample.debug E/angcyo-->3: RFragment-->onCreateView 
+01-16 17:46:39.293 15459-15459/com.angcyo.sample.debug E/angcyo-->3: RFragment-->onStart 
+01-16 17:46:39.293 15459-15459/com.angcyo.sample.debug E/angcyo-->3: RFragment-->onResume 
+
+//点击第4个Fragment
+01-16 17:46:59.293 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->isVisibleToUser false
+01-16 17:46:59.293 15459-15459/com.angcyo.sample.debug E/angcyo-->2: RFragment-->isVisibleToUser false
+01-16 17:46:59.293 15459-15459/com.angcyo.sample.debug E/angcyo-->3: RFragment-->isVisibleToUser true
+01-16 17:46:59.293 15459-15459/com.angcyo.sample.debug E/angcyo-->1: RFragment-->onPause 
+01-16 17:46:59.293 15459-15459/com.angcyo.sample.debug E/angcyo-->1: RFragment-->onStop 
+01-16 17:46:59.293 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->onCreate 
+01-16 17:46:59.293 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->onCreateView 
+01-16 17:46:59.293 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->onStart 
+01-16 17:46:59.293 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->onResume 
+
+//点击第5个Fragment
+01-16 17:47:10.673 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->isVisibleToUser false
+01-16 17:47:10.673 15459-15459/com.angcyo.sample.debug E/angcyo-->3: RFragment-->isVisibleToUser false
+01-16 17:47:10.673 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->isVisibleToUser true
+01-16 17:47:10.673 15459-15459/com.angcyo.sample.debug E/angcyo-->2: RFragment-->onPause 
+01-16 17:47:10.673 15459-15459/com.angcyo.sample.debug E/angcyo-->2: RFragment-->onStop 
+01-16 17:47:10.673 15459-15459/com.angcyo.sample.debug E/angcyo-->5: RFragment-->onCreate 
+01-16 17:47:10.673 15459-15459/com.angcyo.sample.debug E/angcyo-->5: RFragment-->onCreateView 
+01-16 17:47:10.673 15459-15459/com.angcyo.sample.debug E/angcyo-->5: RFragment-->onStart 
+01-16 17:47:10.673 15459-15459/com.angcyo.sample.debug E/angcyo-->5: RFragment-->onResume 
+
+//点击第6个Fragment
+01-16 17:47:19.483 15459-15459/com.angcyo.sample.debug E/angcyo-->0: RFragment-->isVisibleToUser false
+01-16 17:47:19.483 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->isVisibleToUser false
+01-16 17:47:19.483 15459-15459/com.angcyo.sample.debug E/angcyo-->5: RFragment-->isVisibleToUser true
+01-16 17:47:19.483 15459-15459/com.angcyo.sample.debug E/angcyo-->3: RFragment-->onPause 
+01-16 17:47:19.483 15459-15459/com.angcyo.sample.debug E/angcyo-->3: RFragment-->onStop 
+01-16 17:47:19.483 15459-15459/com.angcyo.sample.debug E/angcyo-->6: RFragment-->onCreate 
+01-16 17:47:19.483 15459-15459/com.angcyo.sample.debug E/angcyo-->6: RFragment-->onCreateView 
+01-16 17:47:19.483 15459-15459/com.angcyo.sample.debug E/angcyo-->6: RFragment-->onStart 
+01-16 17:47:19.483 15459-15459/com.angcyo.sample.debug E/angcyo-->6: RFragment-->onResume 
+
+//息屏
+01-16 17:47:34.663 15459-15459/com.angcyo.sample.debug E/angcyo-->6: RFragment-->onPause 
+01-16 17:47:34.663 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->onPause 
+01-16 17:47:34.663 15459-15459/com.angcyo.sample.debug E/angcyo-->5: RFragment-->onPause 
+01-16 17:47:34.673 15459-15459/com.angcyo.sample.debug E/angcyo-->6: RFragment-->onStop 
+01-16 17:47:34.673 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->onStop 
+01-16 17:47:34.673 15459-15459/com.angcyo.sample.debug E/angcyo-->5: RFragment-->onStop 
+
+//亮屏
+01-16 17:47:47.663 15459-15459/com.angcyo.sample.debug E/angcyo-->6: RFragment-->onStart 
+01-16 17:47:47.663 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->onStart 
+01-16 17:47:47.663 15459-15459/com.angcyo.sample.debug E/angcyo-->5: RFragment-->onStart 
+01-16 17:47:47.663 15459-15459/com.angcyo.sample.debug E/angcyo-->6: RFragment-->onResume 
+01-16 17:47:47.663 15459-15459/com.angcyo.sample.debug E/angcyo-->4: RFragment-->onResume 
+01-16 17:47:47.663 15459-15459/com.angcyo.sample.debug E/angcyo-->5: RFragment-->onResume 
