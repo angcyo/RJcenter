@@ -164,7 +164,7 @@ public class ViewPagerActivity extends AppCompatActivity {
             int pageWidth = view.getWidth();
             int pageHeight = view.getHeight();
             if (position < -1) { // [-Infinity,-1)
-                // This page is way off-screen to the left.
+                // This page is way off-screen to the left. 将要从左边离开屏幕
                 view.setAlpha(0);
             } else if (position <= 1) { // [-1,1]
                 // Modify the default slide transition to shrink the page as well
@@ -184,7 +184,7 @@ public class ViewPagerActivity extends AppCompatActivity {
                         (scaleFactor - MIN_SCALE) /
                                 (1 - MIN_SCALE) * (1 - MIN_ALPHA));
             } else { // (1,+Infinity]
-                // This page is way off-screen to the right.
+                // This page is way off-screen to the right.  将要从右边离开屏幕
                 view.setAlpha(0);
             }
         }
