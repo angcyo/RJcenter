@@ -190,6 +190,21 @@ public class ViewPagerActivity extends AppCompatActivity {
         }
     }
 
+    // -1  0  1
+    //-1 表示中心的 左边page
+    // 0 表示中心
+    // 1 表示中心的 右边page
+
+    //向左滑
+    //左边page -1 -2
+    //中心      0 -1
+    //右边page  1  0
+
+    //向右滑
+    //左边page -1 0
+    //中心      0 1
+    //右边page  1 2
+
     public class DepthPageTransformer implements ViewPager.PageTransformer {
         private static final float MIN_SCALE = 0.75f;
 
