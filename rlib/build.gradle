@@ -72,4 +72,7 @@ dependencies {
 
     /*文件操作, IO操作*/
     compile 'commons-io:commons-io:2.5'
+
+    /*阿里巴巴 fastjson 依赖*/
+    compile 'com.alibaba:fastjson:1.2.13'
 }
