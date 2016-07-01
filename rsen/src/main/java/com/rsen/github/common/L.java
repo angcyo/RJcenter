@@ -265,11 +265,12 @@ public class L {
         }
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         StackTraceElement targetElement = stackTrace[5];
-        String className = targetElement.getClassName();
-        String[] classNameInfo = className.split("\\.");
-        if (classNameInfo.length > 0) {
-            className = classNameInfo[classNameInfo.length - 1] + ".java";
-        }
+//        String className = targetElement.getClassName();
+        String fileName = targetElement.getFileName();
+//        String[] classNameInfo = className.split("\\.");
+//        if (classNameInfo.length > 0) {
+//            className = classNameInfo[classNameInfo.length - 1] + ".java";
+//        }
         String methodName = targetElement.getMethodName();
         int lineNumber = targetElement.getLineNumber();
         if (lineNumber < 0) {
@@ -277,7 +278,8 @@ public class L {
         }
         String methodNameShort = methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
         String msg = (objects == null) ? "Log with null object" : getObjectsString(objects);
-        String headString = "[(" + className + ":" + lineNumber + ")#" + methodNameShort + " ] ";
+//        String headString = "[(" + className + ":" + lineNumber + ")#" + methodNameShort + " ] ";
+        String headString = "[(" + fileName + ":" + lineNumber + ")#" + methodNameShort + " ] ";
         return new String[]{tag, msg, headString};
     }
 
