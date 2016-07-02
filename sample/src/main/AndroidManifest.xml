@@ -184,7 +184,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".pmdemo.PackageManagerActivity"
+            android:name=".packagedemo.PackageManagerActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
 
@@ -234,7 +234,7 @@
         </receiver>
 
         <activity
-            android:name=".spandemo.SpanDemoActivity"
+            android:name=".span.SpanDemoActivity"
             android:label="@string/title_activity_span_demo"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -244,7 +244,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".intentfilterdemo.IntentFilterActivity"
+            android:name=".intentfilter.IntentFilterActivity"
             android:label="@string/title_activity_intent_filter"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -253,7 +253,7 @@
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
-        <activity android:name=".intentfilterdemo.IntentFilterActivitySample">
+        <activity android:name=".intentfilter.IntentFilterActivitySample">
             <intent-filter>
                 <action android:name="com.angcyo.action"/>
                 <action android:name="com.angcyo.action1"/>
