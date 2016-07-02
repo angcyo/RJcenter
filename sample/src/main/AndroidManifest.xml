@@ -323,7 +323,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FragmentDemo.FragmentDemoActivity"
+            android:name=".fragment.FragmentDemoActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -573,7 +573,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             </intent-filter>
         </activity>
         <activity android:name="com.angcyo.demo.logback.LogbackDemoActivity">
@@ -610,7 +610,7 @@
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
-        <activity android:name=".FragmentDemo.FragmentLifeCycleActivity">
+        <activity android:name=".fragment.FragmentLifeCycleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
