@@ -79,4 +79,7 @@ dependencies {
 
     /*阿里巴巴 fastjson 依赖*/
     compile 'com.alibaba:fastjson:1.2.13'
+
+    /*Rx 形式的权限检查 https://github.com/tbruyelle/RxPermissions */
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
 }
