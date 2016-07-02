@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/empty_layout"
+    android:id="@+id/base_empty_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="gone">
@@ -19,7 +19,7 @@
 
         <!--提示-->
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/empty_tip"
+            android:id="@+id/base_empty_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -28,7 +28,7 @@
 
         <!--刷新按钮-->
         <com.rsen.view.PathButton
-            android:id="@+id/empty_refresh"
+            android:id="@+id/base_empty_refresh"
             style="@style/PathButtonStyleBase"
             android:text="刷新试试" />
     </android.support.v7.widget.LinearLayoutCompat>

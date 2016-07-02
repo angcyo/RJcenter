@@ -77,7 +77,7 @@ public abstract class RBaseFragment extends Fragment {
     }
 
     private void initBaseViewEvent() {
-        mNonetLayout.findViewById(R.id.nonet_setting).setOnClickListener(new View.OnClickListener() {
+        mNonetLayout.findViewById(R.id.base_nonet_setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = null;
@@ -96,13 +96,13 @@ public abstract class RBaseFragment extends Fragment {
                 mBaseActivity.startActivity(intent);
             }
         });
-        mNonetLayout.findViewById(R.id.nonet_refresh).setOnClickListener(new View.OnClickListener() {
+        mNonetLayout.findViewById(R.id.base_nonet_refresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onOverlayRefresh(v);
             }
         });
-        mEmptyLayout.findViewById(R.id.empty_refresh).setOnClickListener(new View.OnClickListener() {
+        mEmptyLayout.findViewById(R.id.base_empty_refresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onOverlayRefresh(v);
@@ -146,13 +146,13 @@ public abstract class RBaseFragment extends Fragment {
     }
 
     private void initBaseView() {
-        mActivityLayout = (ViewGroup) rootView.findViewById(R.id.activity_layout);
-        mFragmentLayout = (ViewGroup) rootView.findViewById(R.id.fragment_layout);
-        mAppbarLayout = (ViewGroup) rootView.findViewById(R.id.appbar_layout);
-        mLoadLayout = rootView.findViewById(R.id.load_layout);
-        mContainerLayout = (FrameLayout) rootView.findViewById(R.id.container);
-        mEmptyLayout = rootView.findViewById(R.id.empty_layout);
-        mNonetLayout = rootView.findViewById(R.id.nonet_layout);
+        mActivityLayout = (ViewGroup) rootView.findViewById(R.id.base_activity_layout);
+        mFragmentLayout = (ViewGroup) rootView.findViewById(R.id.base_fragment_layout);
+        mAppbarLayout = (ViewGroup) rootView.findViewById(R.id.base_appbar_layout);
+        mLoadLayout = rootView.findViewById(R.id.base_load_layout);
+        mContainerLayout = (FrameLayout) rootView.findViewById(R.id.base_container);
+        mEmptyLayout = rootView.findViewById(R.id.base_empty_layout);
+        mNonetLayout = rootView.findViewById(R.id.base_nonet_layout);
     }
 
     @LayoutRes

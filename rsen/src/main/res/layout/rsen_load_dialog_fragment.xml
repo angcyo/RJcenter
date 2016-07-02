@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/load_layout"
+    android:id="@+id/base_load_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +16,7 @@
         app:indicator_color="?attr/colorAccent"/>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/load_tip"
+        android:id="@+id/base_load_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/load_view"

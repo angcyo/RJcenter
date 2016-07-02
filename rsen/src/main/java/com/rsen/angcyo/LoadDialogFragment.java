@@ -55,9 +55,9 @@ public class LoadDialogFragment extends RBaseDialogFragment {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         if (TextUtils.isEmpty(tip)) {
-            mViewHolder.v(R.id.load_tip).setVisibility(View.GONE);
+            mViewHolder.v(R.id.base_load_tip).setVisibility(View.GONE);
         } else {
-            mViewHolder.tV(R.id.load_tip).setText(tip);
+            mViewHolder.tV(R.id.base_load_tip).setText(tip);
         }
         initBgDrawable();//设置圆角背景
     }
@@ -92,6 +92,6 @@ public class LoadDialogFragment extends RBaseDialogFragment {
         RoundRectShape rectShape = new RoundRectShape(new float[]{round, round, round, round, round, round, round, round}, null, null);
         ShapeDrawable bgDrawable = new ShapeDrawable(rectShape);
         bgDrawable.getPaint().setColor(Color.parseColor("#40000000"));
-        ResUtil.setBgDrawable(mViewHolder.v(R.id.load_layout), bgDrawable);
+        ResUtil.setBgDrawable(mViewHolder.v(R.id.base_load_layout), bgDrawable);
     }
 }

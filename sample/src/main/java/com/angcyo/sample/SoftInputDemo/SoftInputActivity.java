@@ -27,7 +27,7 @@ public class SoftInputActivity extends RBaseActivity {
     protected void initView(Bundle savedInstanceState) {
         final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         final EditText editText = (EditText) mViewHolder.v(R.id.edit);
-        mViewHolder.v(R.id.button).setOnClickListener(new View.OnClickListener() {
+        mViewHolder.v(R.id.add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.RESULT_UNCHANGED_SHOWN);

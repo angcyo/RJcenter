@@ -160,7 +160,7 @@ public class FragmentDemoActivity extends RBaseActivity {
 //            window.addFlags(Window.FEATURE_NO_TITLE);
             window.requestFeature(Window.FEATURE_NO_TITLE);
             View rootView = inflater.inflate(com.angcyo.rsen.R.layout.rsen_base_dialog_fragment_layout, ((ViewGroup) window.findViewById(android.R.id.content)));
-            rootView.findViewById(R.id.fragment_layout).setBackgroundColor(Color.YELLOW);
+            rootView.findViewById(R.id.base_fragment_layout).setBackgroundColor(Color.YELLOW);
 
 //            window.addFlags(Window.FEATURE_NO_TITLE);
 

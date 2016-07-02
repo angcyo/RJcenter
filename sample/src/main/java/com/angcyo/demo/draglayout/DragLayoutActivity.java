@@ -20,7 +20,7 @@ public class DragLayoutActivity extends Activity {
 
         dragLayout = (RDragLayout) findViewById(R.id.dragLayout);
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        View view = findViewById(R.id.button);
+        View view = findViewById(R.id.add);
         View view2 = findViewById(R.id.button2);
         View view3 = findViewById(R.id.button3);
         View view4 = findViewById(R.id.button4);

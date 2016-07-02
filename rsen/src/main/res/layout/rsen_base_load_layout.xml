@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/load_layout"
+    android:id="@+id/base_load_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="gone">
@@ -19,7 +19,7 @@
 
         <!--提示-->
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/load_tip"
+            android:id="@+id/base_load_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="加载中,请稍后..."

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nonet_layout"
+    android:id="@+id/base_nonet_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="gone">
@@ -19,20 +19,20 @@
 
         <!--提示-->
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/nonet_tip"
+            android:id="@+id/base_nonet_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="试试以下操作吧"
             android:textColor="?attr/colorAccent" />
 
         <com.rsen.view.PathButton
-            android:id="@+id/nonet_refresh"
+            android:id="@+id/base_nonet_refresh"
             style="@style/PathButtonStyleBase"
             android:layout_marginTop="10dp"
             android:text="刷新试试" />
 
         <com.rsen.view.PathButton
-            android:id="@+id/nonet_setting"
+            android:id="@+id/base_nonet_setting"
             style="@style/PathButtonStyleBase"
             android:text="网络设置" />
     </android.support.v7.widget.LinearLayoutCompat>

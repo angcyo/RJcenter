@@ -21,7 +21,7 @@ public class QqAnimActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qq_anim);
 
         text = (TextView) findViewById(R.id.text);
-        Button button = (Button) findViewById(R.id.button);
+        Button button = (Button) findViewById(R.id.add);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

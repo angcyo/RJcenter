@@ -16,7 +16,7 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/add"
         android:layout_toRightOf="@id/text"
         android:text="Click"
         android:textAllCaps="false"

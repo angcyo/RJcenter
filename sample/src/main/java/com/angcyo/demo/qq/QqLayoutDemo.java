@@ -18,7 +18,7 @@ public class QqLayoutDemo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.qq_layout_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.base_toolbar);
         setSupportActionBar(toolbar);
 
 

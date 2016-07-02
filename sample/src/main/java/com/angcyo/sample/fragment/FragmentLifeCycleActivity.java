@@ -13,8 +13,13 @@ import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
 import com.rsen.base.RBaseFragment;
 import com.rsen.github.common.L;
+import com.rsen.util.T;
 
 public class FragmentLifeCycleActivity extends RBaseActivity {
+
+
+    TestFragment oneFragment;
+    TestFragment twoFragment;
 
     @Override
     protected int getContentView() {
@@ -23,20 +28,40 @@ public class FragmentLifeCycleActivity extends RBaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        mViewHolder.v(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        mViewHolder.v(R.id.add).setOnClickListener(v -> addFragment());
+        mViewHolder.v(R.id.show).setOnClickListener(v -> showFragment(String.valueOf(oneFragment.hashCode())));
+        mViewHolder.v(R.id.hide).setOnClickListener(v -> hideFragment(oneFragment));
+        mViewHolder.v(R.id.replace).setOnClickListener(v -> {
+            replaceFragment(R.id.fragment_container, createFragment("Hello Replace Fragment"));
         });
+        mViewHolder.v(R.id.scroll).setOnClickListener(v -> twoFragment.scroll());
+        mViewHolder.v(R.id.remove).setOnClickListener(v -> removeFragment(twoFragment));
     }
 
     private void addFragment() {
-        addFragment(R.id.container, new TestFragment());
+        if (oneFragment == null) {
+            oneFragment = (TestFragment) createFragment("One");
+            addFragment(R.id.fragment_container, oneFragment);
+        } else if (twoFragment == null) {
+            twoFragment = (TestFragment) createFragment("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+            addFragment(R.id.fragment_container, twoFragment);
+        } else {
+            addFragment(R.id.fragment_container, new TestFragment());
+        }
     }
 
+    private RBaseFragment createFragment(String text) {
+        TestFragment testFragment = new TestFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("text", text);
+        testFragment.setArguments(bundle);
+        return testFragment;
+    }
 
     public static class TestFragment extends RBaseFragment {
+
+        public TestFragment() {
+        }
 
         @Override
         public void onAttachFragment(Fragment childFragment) {
@@ -148,12 +173,25 @@ public class FragmentLifeCycleActivity extends RBaseActivity {
 
         @Override
         protected void initViewData() {
+            final Bundle arguments = getArguments();
+            if (arguments != null) {
+                mViewHolder.tV(R.id.textView).setText(arguments.getString("text"));
+            }
+        }
 
+        public void scroll() {
+            final View view = getView();
+            view.animate().translationX(200).setDuration(1000).start();
         }
 
         @Override
         protected void initView(View rootView) {
-
+            mViewHolder.tV(R.id.textView).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    T.show(mBaseActivity, mViewHolder.tV(R.id.textView).getText());
+                }
+            });
         }
     }
 }

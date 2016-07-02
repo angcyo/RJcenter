@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -100,15 +101,15 @@ public abstract class RBaseActivity extends AppCompatActivity {
 
     private void initBaseView() {
         setContentView(R.layout.rsen_base_activity_layout);
-        mActivityLayout = (ViewGroup) findViewById(R.id.activity_layout);
-        mFragmentLayout = (ViewGroup) findViewById(R.id.fragment_layout);
-        mAppbarLayout = (ViewGroup) findViewById(R.id.appbar_layout);
-        mLoadLayout = findViewById(R.id.load_layout);
-        mContainerLayout = (FrameLayout) findViewById(R.id.container);
-        mEmptyLayout = findViewById(R.id.empty_layout);
-        mNonetLayout = findViewById(R.id.nonet_layout);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mActivityLayout = (ViewGroup) findViewById(R.id.base_activity_layout);
+        mFragmentLayout = (ViewGroup) findViewById(R.id.base_fragment_layout);
+        mAppbarLayout = (ViewGroup) findViewById(R.id.base_appbar_layout);
+        mLoadLayout = findViewById(R.id.base_load_layout);
+        mContainerLayout = (FrameLayout) findViewById(R.id.base_container);
+        mEmptyLayout = findViewById(R.id.base_empty_layout);
+        mNonetLayout = findViewById(R.id.base_nonet_layout);
+        mToolbar = (Toolbar) findViewById(R.id.base_toolbar);
+        mFab = (FloatingActionButton) findViewById(R.id.base_fab);
         setSupportActionBar(mToolbar);
 
         /*设置内容布局*/
@@ -130,7 +131,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     private void initBaseViewEvent() {
-        mNonetLayout.findViewById(R.id.nonet_setting).setOnClickListener(new View.OnClickListener() {
+        mNonetLayout.findViewById(R.id.base_nonet_setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = null;
@@ -149,13 +150,13 @@ public abstract class RBaseActivity extends AppCompatActivity {
                 RBaseActivity.this.startActivity(intent);
             }
         });
-        mNonetLayout.findViewById(R.id.nonet_refresh).setOnClickListener(new View.OnClickListener() {
+        mNonetLayout.findViewById(R.id.base_nonet_refresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onOverlayRefresh(v);
             }
         });
-        mEmptyLayout.findViewById(R.id.empty_refresh).setOnClickListener(new View.OnClickListener() {
+        mEmptyLayout.findViewById(R.id.base_empty_refresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onOverlayRefresh(v);
@@ -397,7 +398,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     protected void addFragment(RBaseFragment fragment, boolean toBack) {
-        addFragment(R.id.container, fragment, toBack);
+        addFragment(R.id.base_container, fragment, toBack);
     }
 
     protected void addFragment(@IdRes int viewId, RBaseFragment fragment) {
@@ -408,7 +409,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
         changeFragment(viewId, fragment, toBack, new OnChangeFragment() {
             @Override
             public void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, RBaseFragment fragment, boolean toBack) {
-                fragmentTransaction.add(viewId, fragment, fragment.toString());
+                fragmentTransaction.add(viewId, fragment, String.valueOf(fragment.hashCode()));
             }
         });
     }
@@ -418,7 +419,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     protected void replaceFragment(RBaseFragment fragment, boolean toBack) {
-        replaceFragment(R.id.container, fragment, toBack);
+        replaceFragment(R.id.base_container, fragment, toBack);
     }
 
     protected void replaceFragment(@IdRes int viewId, RBaseFragment fragment) {
@@ -429,7 +430,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
         changeFragment(viewId, fragment, toBack, new OnChangeFragment() {
             @Override
             public void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, RBaseFragment fragment, boolean toBack) {
-                fragmentTransaction.replace(viewId, fragment, fragment.toString());
+                fragmentTransaction.replace(viewId, fragment, String.valueOf(fragment.hashCode()));
             }
         });
     }
@@ -439,9 +440,48 @@ public abstract class RBaseActivity extends AppCompatActivity {
         //fragmentTransaction.setCustomAnimations();//动画效果
         listener.onChangeFragment(fragmentTransaction, viewId, fragment, toBack);
         if (toBack) {
-            fragmentTransaction.addToBackStack(fragment.toString());
+            fragmentTransaction.addToBackStack(String.valueOf(fragment.hashCode()));
         }
         fragmentTransaction.commit();
+    }
+
+    protected void showFragment(Fragment fragment) {
+        if (fragment != null && !fragment.isVisible()) {
+            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.show(fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    protected void showFragment(String tag) {
+        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+        showFragment(fragment);
+    }
+
+    protected void removeFragment(String tag) {
+        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+        removeFragment(fragment);
+    }
+
+    protected void removeFragment(Fragment fragment) {
+        if (fragment != null && fragment.isAdded() && !fragment.isRemoving()) {
+            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.remove(fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    protected void hideFragment(Fragment fragment) {
+        if (fragment != null && fragment.isVisible()) {
+            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.hide(fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    protected void hideFragment(String tag) {
+        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+        hideFragment(fragment);
     }
 
     @Override

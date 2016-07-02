@@ -25,7 +25,7 @@
             android:visibility="visible">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/add"
                 android:layout_width="@dimen/drag_button_size"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

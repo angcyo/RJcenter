@@ -11,16 +11,66 @@
     tools:context="com.angcyo.sample.fragment.FragmentLifeCycleActivity">
 
     <RelativeLayout
-        android:id="@+id/container"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         android:background="@android:color/holo_blue_bright"/>
 
-    <com.rsen.view.PathButton
-        android:id="@+id/button"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Add Fragment"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <com.rsen.view.PathButton
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Add Fragment"/>
+
+        <com.rsen.view.PathButton
+            android:id="@+id/replace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Replace Fragment"/>
+
+        <com.rsen.view.PathButton
+            android:id="@+id/remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Remove Fragment"/>
+
+        <com.rsen.view.PathButton
+            android:id="@+id/hide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:text="Hide Fragment"/>
+
+        <com.rsen.view.PathButton
+            android:id="@+id/show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="0dp"
+            android:text="Show Fragment"/>
+
+        <com.rsen.view.PathButton
+            android:id="@+id/scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="0dp"
+            android:text="Scroll Fragment"/>
+
+    </LinearLayout>
+
 
 </RelativeLayout>
