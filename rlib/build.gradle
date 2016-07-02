@@ -41,7 +41,7 @@ dependencies {
     /*hawk 键值对库*/
     compile 'com.orhanobut:hawk:1.18'
 
-    /*Rx相关依赖*/
+    /*Rx 相关依赖*/
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'io.reactivex:rxandroid:1.2.1'
 
