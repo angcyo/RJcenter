@@ -128,7 +128,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LaunchMode.SingleTaskActivity"
+            android:name=".launchermode.SingleTaskActivity"
             android:label="@string/title_activity_single_task"
             android:launchMode="singleTask"
             android:taskAffinity="com.angcyo"
@@ -140,7 +140,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LaunchMode.SingleActivity2"
+            android:name=".launchermode.SingleActivity2"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_single2"
             android:theme="@style/AppTheme.NoActionBar.Tran"/>
@@ -148,20 +148,20 @@
         <!-- android:launchMode="singleInstance" -->
         <!-- android:excludeFromRecents="true" -->
         <activity
-            android:name=".LaunchMode.SingleActivity3"
+            android:name=".launchermode.SingleActivity3"
             android:label="@string/title_activity_single3"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <!-- 指定任务的堆栈名 android:taskAffinity="com.angcyo" -->
         <activity
-            android:name=".LaunchMode.SingleActivity4"
+            android:name=".launchermode.SingleActivity4"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_single4"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <!-- 不在历史记录中显示 android:excludeFromRecents="true" -->
         <activity
-            android:name=".LaunchMode.SingleTaskWelcome"
+            android:name=".launchermode.SingleTaskWelcome"
             android:label="@string/title_activity_single_task_welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -171,7 +171,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewPagerDemo.ViewPagerActivity"
+            android:name=".viewpager.ViewPagerActivity"
             android:label="@string/title_activity_view_pager"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -184,7 +184,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PMDemo.PackageManagerActivity"
+            android:name=".pmdemo.PackageManagerActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
 
@@ -234,7 +234,7 @@
         </receiver>
 
         <activity
-            android:name=".SpanDemo.SpanDemoActivity"
+            android:name=".spandemo.SpanDemoActivity"
             android:label="@string/title_activity_span_demo"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -244,7 +244,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntentFilterDemo.IntentFilterActivity"
+            android:name=".intentfilterdemo.IntentFilterActivity"
             android:label="@string/title_activity_intent_filter"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -253,7 +253,7 @@
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
-        <activity android:name=".IntentFilterDemo.IntentFilterActivitySample">
+        <activity android:name=".intentfilterdemo.IntentFilterActivitySample">
             <intent-filter>
                 <action android:name="com.angcyo.action"/>
                 <action android:name="com.angcyo.action1"/>
@@ -351,7 +351,7 @@
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
-        <activity android:name=".ViewPagerDemo.ViewPagerGridViewActivity">
+        <activity android:name=".viewpager.ViewPagerGridViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -589,7 +589,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity
@@ -607,7 +607,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            </intent-filter>
+        </activity>
+        <activity android:name=".FragmentDemo.FragmentLifeCycleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

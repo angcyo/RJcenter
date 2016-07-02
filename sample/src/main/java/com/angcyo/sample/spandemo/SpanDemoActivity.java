@@ -1,4 +1,4 @@
-package com.angcyo.sample.SpanDemo;
+package com.angcyo.sample.spandemo;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
