@@ -68,7 +68,7 @@ public abstract class RBaseFragment extends Fragment {
         initView(rootView);
         initAfter();
         isCreate = true;
-        initViewData();
+        initViewData(getArguments());
         return rootView;
     }
 
@@ -158,7 +158,7 @@ public abstract class RBaseFragment extends Fragment {
     @LayoutRes
     protected abstract int getContentView();
 
-    protected abstract void initViewData();
+    protected abstract void initViewData(Bundle arg);
 
     protected void loadData(Bundle savedInstanceState) {
 

@@ -18,7 +18,7 @@ import com.angcyo.sample.R;
 import com.rsen.angcyo.CommonDialogFragment;
 import com.rsen.angcyo.LoadDialogFragment;
 import com.rsen.base.RBaseActivity;
-import com.rsen.util.L;
+import com.rsen.github.common.L;
 
 public class FragmentDemoActivity extends RBaseActivity {
 

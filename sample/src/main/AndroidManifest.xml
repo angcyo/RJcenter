@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.angcyo.sample">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.angcyo.sample">
 
     <!-- 摄像头权限 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <!-- 录音权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.RECORD_VIDEO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_VIDEO" />
 
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"/>
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
 
     <!-- Bmob权限 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <!-- 位置权限 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
 
     <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
     <!-- tools:replace="icon, label" -->
@@ -45,7 +45,7 @@
         tools:ignore="HardcodedDebugMode">
         <activity android:name="com.angcyo.demo.dialview.DialDemoActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -55,7 +55,7 @@
             android:label="PullLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -65,7 +65,7 @@
             android:label="PullRefreshLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -75,7 +75,7 @@
             android:label="NextScrollViewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -85,23 +85,23 @@
             android:configChanges="screenSize|keyboard|screenLayout|orientation"
             android:label="QqLayoutDemo"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.angcyo.demo.qq.QqActivity"
             android:label="RJcenter-QQ"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="RJcenter-Main"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.angcyo.demo.top.OnePxActivity"
-            android:theme="@style/Dialog"/>
+            android:theme="@style/Dialog" />
         <activity android:name=".viewdemo.TagRadioGroupActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -111,7 +111,7 @@
             android:label="@string/title_activity_gallery_layout"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -122,7 +122,7 @@
             android:label="@string/title_activity_gallery_layout"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -134,7 +134,7 @@
             android:taskAffinity="com.angcyo"
             android:theme="@style/AppTheme.NoActionBar.Tran">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -143,21 +143,21 @@
             android:name=".launchermode.SingleActivity2"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_single2"
-            android:theme="@style/AppTheme.NoActionBar.Tran"/>
+            android:theme="@style/AppTheme.NoActionBar.Tran" />
 
         <!-- android:launchMode="singleInstance" -->
         <!-- android:excludeFromRecents="true" -->
         <activity
             android:name=".launchermode.SingleActivity3"
             android:label="@string/title_activity_single3"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 指定任务的堆栈名 android:taskAffinity="com.angcyo" -->
         <activity
             android:name=".launchermode.SingleActivity4"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_single4"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 不在历史记录中显示 android:excludeFromRecents="true" -->
         <activity
@@ -165,7 +165,7 @@
             android:label="@string/title_activity_single_task_welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -175,7 +175,7 @@
             android:label="@string/title_activity_view_pager"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <data android:mimeType="image/*" /> -->
 
@@ -189,7 +189,7 @@
             <intent-filter>
 
                 <!-- android:label="@string/title_activity_package_manager" -->
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -198,38 +198,38 @@
         <service
             android:name="com.angcyo.service.MyService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <service
             android:name="com.angcyo.service.MyIntentService"
-            android:exported="false"/>
+            android:exported="false" />
         <service
             android:name="com.angcyo.service.MyService1"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <service
             android:name="com.angcyo.service.MyIntentService1"
-            android:exported="false"/>
+            android:exported="false" />
         <service
             android:name="com.angcyo.service.MyService2"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <service
             android:name="com.angcyo.service.MyIntentService2"
-            android:exported="false"/>
+            android:exported="false" />
 
         <receiver android:name="com.angcyo.receiver.Receiver1">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.angcyo.receiver.Receiver2">
             <intent-filter>
-                <action android:name="android.intent.action.MEDIA_UNMOUNTED"/>
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.angcyo.receiver.Receiver3">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_INSTALL"/>
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
             </intent-filter>
         </receiver>
 
@@ -238,7 +238,7 @@
             android:label="@string/title_activity_span_demo"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -248,27 +248,27 @@
             android:label="@string/title_activity_intent_filter"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity android:name=".intentfilter.IntentFilterActivitySample">
             <intent-filter>
-                <action android:name="com.angcyo.action"/>
-                <action android:name="com.angcyo.action1"/>
-                <action android:name="com.angcyo.action3"/>
+                <action android:name="com.angcyo.action" />
+                <action android:name="com.angcyo.action1" />
+                <action android:name="com.angcyo.action3" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="com.angcyo1"/>
-                <category android:name="com.angcyo2"/>
-                <category android:name="com.angcyo3"/>
-                <category android:name="com.angcyo4"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.angcyo1" />
+                <category android:name="com.angcyo2" />
+                <category android:name="com.angcyo3" />
+                <category android:name="com.angcyo4" />
 
-                <data android:mimeType="angcyo/*"/>
-                <data android:mimeType="angcyo1/*"/>
-                <data android:mimeType="angcyo2/*"/>
-                <data android:mimeType="angcyo3/*"/>
+                <data android:mimeType="angcyo/*" />
+                <data android:mimeType="angcyo1/*" />
+                <data android:mimeType="angcyo2/*" />
+                <data android:mimeType="angcyo3/*" />
             </intent-filter>
         </activity>
 
@@ -276,11 +276,11 @@
             android:name="com.angcyo.aidl.BookProvider"
             android:authorities="com.angcyo.sample.provider"
             android:permission="com.angcyo.provider"
-            android:process=":provider"/>
+            android:process=":provider" />
 
         <activity android:name=".viewdemo.PathButtonActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -290,7 +290,7 @@
             android:label="@string/title_activity_view_switcher_demo"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -300,7 +300,7 @@
             android:label="@string/title_activity_shape"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -310,14 +310,14 @@
             android:label="@string/title_activity_surface_math"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".ReflectDemo.ReflectActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -326,70 +326,70 @@
             android:name=".fragment.FragmentDemoActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name="com.angcyo.demo.test.CrashActivity">
             <intent-filter>
-                <action android:name="com.angcyo.test"/>
+                <action android:name="com.angcyo.test" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <!-- 崩溃界面 -->
         <activity android:name="com.rsen.exception.RCrashActivity">
             <intent-filter>
-                <action android:name="com.angcyo.crash"/>
+                <action android:name="com.angcyo.crash" />
             </intent-filter>
         </activity>
         <activity android:name=".SoftInputDemo.SoftInputActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity android:name=".viewpager.ViewPagerGridViewActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".RecyclerViewDemo.RBaseRecyclerFragmentActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".AnimDemo.QqAnimActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".RecyclerViewDemo.RecyclerViewActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
-        <activity android:name=".RecyclerViewDemo.RecyclerViewActivity2"/>
+        <activity android:name=".RecyclerViewDemo.RecyclerViewActivity2" />
         <activity android:name=".SurfaceViewMathDemo.TextureViewActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".SurfaceViewMathDemo.SurfaceViewActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -398,56 +398,56 @@
             android:name=".KeyboardDemo.KeyboardActivity"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".SocketDemo.UdpSocketDemo">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".view.EditTextActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name="com.angcyo.net.RetrofitActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".DialogDemo.DialogFragmentActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".DbDemo.DbActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name="com.angcyo.demo.draglayout.DragLayoutActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".TextureViewDemo.MP4TextureActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -461,12 +461,12 @@
             android:label="Rsen微信助手"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService"/>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
 
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/accessible_service_config"/>
+                android:resource="@xml/accessible_service_config" />
         </service>
 
         <!-- 无障碍服务 -->
@@ -476,7 +476,7 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -486,14 +486,14 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensor">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".MediaDemo.MediaRecorderActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -502,42 +502,42 @@
             android:name=".viewdemo.RoundImageViewActivity"
             android:label="@string/title_activity_round_image_view">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".view.RoundViewActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".dudu.DuduLayoutActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".realm.RealmActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".preference.PreferenceDemoActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity android:name=".viewdemo.SeekBarActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -555,14 +555,14 @@
         </activity>
         <activity android:name=".MediaDemo.TestActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity android:name=".viewdemo.PlaneImageViewActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -571,14 +571,14 @@
             android:name=".viewdemo.DuduProgressBarActivity"
             android:screenOrientation="sensor">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity android:name="com.angcyo.demo.logback.LogbackDemoActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -587,7 +587,7 @@
             android:name=".RecyclerViewDemo.RecyclerCardActivity"
             android:screenOrientation="sensor">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
@@ -596,7 +596,7 @@
             android:name="com.angcyo.camera.MediaRecordActivity"
             android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
@@ -605,16 +605,25 @@
             android:name=".viewdemo.LinkBarActivity"
             android:screenOrientation="sensor">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity android:name=".fragment.FragmentLifeCycleActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.angcyo.demo.qq.LoginActivity"
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

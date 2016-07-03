@@ -46,7 +46,7 @@ public class LocationManagerHelper implements LocationListener {
     }
 
     public void initLocationInfos() {
-        BmobUtil.getLocationInfos(context, locationInfos);
+        BmobUtil.getLocationInfos(locationInfos);
     }
 
     public static LocationManagerHelper getInstance(Context context) {

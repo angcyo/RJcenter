@@ -16,8 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import rx.Observable;
@@ -34,17 +35,14 @@ public class BmobUtil {
     /**
      * 获取所有位置信息
      */
-    public static void getLocationInfos(Context context, List<LocationInfo> locationInfos) {
+    public static void getLocationInfos(List<LocationInfo> locationInfos) {
         BmobQuery<LocationInfo> locationInfoBmobQuery = new BmobQuery<>();
-        locationInfoBmobQuery.findObjects(context, new FindListener<LocationInfo>() {
+        locationInfoBmobQuery.findObjects(new FindListener<LocationInfo>() {
             @Override
-            public void onSuccess(List<LocationInfo> list) {
-                locationInfos.addAll(list);
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
+            public void done(List<LocationInfo> list, BmobException e) {
+                if (e != null) {
+                    locationInfos.addAll(list);
+                }
             }
         });
     }
@@ -60,14 +58,14 @@ public class BmobUtil {
             userInfo.setTelNum(DeviceUtil.getTelNumber(context));
             userInfo.setSerialNumber(DeviceUtil.getSerialNumber1());
             userInfo.setUserCode(Hawk.get(RAccessibilityActivity.KEY_CODE_RAW, ""));
-            userInfo.save(context);
+            userInfo.save();
         });
     }
 
     /**
      * 保存注册码,用于注册
      */
-    public static void saveRegisterCode(Context context, String code, SaveListener saveListener) {
+    public static void saveRegisterCode(String code, SaveListener<String> saveListener) {
         String md5 = MD5.toMD5(code);
         DeviceRegister deviceRegister = new DeviceRegister();
         deviceRegister.setCODE(md5);
@@ -78,20 +76,19 @@ public class BmobUtil {
         deviceRegister.setRunCount(0L);//如果有IMEI,说明已经使用了注册码
         deviceRegister.setOsVer(Utils.getOsSdk());//系统版本
 
-        isDeviceCodeExist(context, md5, new FindListener<DeviceRegister>() {
+        isDeviceCodeExist(md5, new FindListener<DeviceRegister>() {
             @Override
-            public void onSuccess(List<DeviceRegister> list) {
-                if (list.size() > 0) {
-                    saveListener.onFailure(1001, "注册码已经存在");
+            public void done(List<DeviceRegister> list, BmobException e) {
+                if (e == null) {
+                    if (list.size() > 0) {
+                        saveListener.done(null, new BmobException("注册码已经存在"));
+                    } else {
+                        deviceRegister.save();
+                    }
                 } else {
-                    deviceRegister.save(context, saveListener);
+                    //如果注册码不存在
+                    deviceRegister.save(saveListener);
                 }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                //如果注册码不存在
-                deviceRegister.save(context, saveListener);
             }
         });
     }
@@ -99,76 +96,71 @@ public class BmobUtil {
     /**
      * 运行次数自增
      */
-    public static void increment(Context context, String objId) {
+    public static void increment(String objId) {
         BmobQuery<DeviceRegister> deviceRegisterBmobQuery = new BmobQuery<>();
-        deviceRegisterBmobQuery.getObject(context, objId, new GetListener<DeviceRegister>() {
+        deviceRegisterBmobQuery.getObject(objId, new QueryListener<DeviceRegister>() {
             @Override
-            public void onSuccess(DeviceRegister deviceRegister) {
-                deviceRegister.increment("runCount");
-                deviceRegister.update(context);
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-
+            public void done(DeviceRegister deviceRegister, BmobException e) {
+                if (e != null) {
+                    deviceRegister.increment("runCount");
+                    deviceRegister.update();
+                }
             }
         });
     }
 
     public static void registerCode(Context context, String code, FindListener<DeviceCodeInfo> registerListener) {
         String md5 = MD5.toMD5(code);
-        isDeviceCodeExist(context, md5, new FindListener<DeviceRegister>() {
-            @Override
-            public void onSuccess(List<DeviceRegister> list) {
-                if (list.size() != 1) {
-                    registerListener.onError(1001, "注册失败,请检查注册码是否正确.");
-                } else {
-                    DeviceRegister deviceRegister = list.get(0);
-                    if (TextUtils.isEmpty(deviceRegister.getIMEI())) {
-                        //如果IMEI为空,表示没有注册.保存设备IMEI信息,注册
-                        String objectId = deviceRegister.getObjectId();
-                        DeviceCodeInfo info = new DeviceCodeInfo();
-                        info.isDebug = deviceRegister.isDebug;
-                        info.objectId = objectId;
-                        info.code = md5;
+        isDeviceCodeExist(md5, new FindListener<DeviceRegister>() {
+                    @Override
+                    public void done(List<DeviceRegister> list, BmobException e) {
+                        if (e == null) {
+                            if (list.size() != 1) {
+                                registerListener.done(null, new BmobException("注册码已被注册."));
+                            } else {
+                                DeviceRegister deviceRegister = list.get(0);
+                                if (TextUtils.isEmpty(deviceRegister.getIMEI())) {
+                                    //如果IMEI为空,表示没有注册.保存设备IMEI信息,注册
+                                    String objectId = deviceRegister.getObjectId();
+                                    DeviceCodeInfo info = new DeviceCodeInfo();
+                                    info.isDebug = deviceRegister.isDebug;
+                                    info.objectId = objectId;
+                                    info.code = md5;
 
-                        deviceRegister.setValue("IMEI", DeviceUtil.getIMEI(context) + ":" + code);
-                        deviceRegister.setValue("deviceName", "by " + DeviceUtil.getDeviceName());
-                        deviceRegister.update(context, objectId, new UpdateListener() {
-                            @Override
-                            public void onSuccess() {
-                                ArrayList<DeviceCodeInfo> codeInfo = new ArrayList<>();
-                                codeInfo.add(info);
-                                registerListener.onSuccess(codeInfo);
+                                    deviceRegister.setValue("IMEI", DeviceUtil.getIMEI(context) + ":" + code);
+                                    deviceRegister.setValue("deviceName", "by " + DeviceUtil.getDeviceName());
+                                    deviceRegister.update(objectId, new UpdateListener() {
+                                        @Override
+                                        public void done(BmobException e) {
+                                            if (e == null) {
+                                                ArrayList<DeviceCodeInfo> codeInfo = new ArrayList<>();
+                                                codeInfo.add(info);
+                                                registerListener.done(codeInfo, null);
+                                            } else {
+                                                registerListener.done(null, e);
+                                            }
+                                        }
+                                    });
+                                }
                             }
-
-                            @Override
-                            public void onFailure(int i, String s) {
-                                registerListener.onError(i, s);
-                            }
-                        });
-                    } else {
-                        registerListener.onError(1001, "注册码已被注册.");
+                        } else {
+                            //如果注册码不存在
+                            registerListener.done(null, new BmobException("注册失败,请检查注册码是否正确."));
+                        }
                     }
-
                 }
-            }
 
-            @Override
-            public void onError(int i, String s) {
-                //如果注册码不存在
-                registerListener.onError(1001, "注册失败,请检查注册码是否正确.");
-            }
-        });
+        );
     }
 
     /**
      * 判断注册码是否存在
      */
-    public static void isDeviceCodeExist(Context context, String code, FindListener<DeviceRegister> findListener) {
+
+    public static void isDeviceCodeExist(String code, FindListener<DeviceRegister> findListener) {
         BmobQuery<DeviceRegister> deviceRegisterBmobQuery = new BmobQuery<>();
         deviceRegisterBmobQuery.addWhereEqualTo("CODE", code);
-        deviceRegisterBmobQuery.findObjects(context, findListener);
+        deviceRegisterBmobQuery.findObjects(findListener);
     }
 
     public static void e(String msg) {

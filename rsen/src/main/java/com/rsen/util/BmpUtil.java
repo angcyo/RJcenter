@@ -27,6 +27,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.angcyo.rsen.BuildConfig;
+import com.rsen.github.common.L;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;

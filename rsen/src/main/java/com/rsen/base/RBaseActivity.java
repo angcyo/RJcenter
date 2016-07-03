@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.StyleRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -177,7 +178,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
 
         /*窗口动画*/
         if (enableWindowAnim()) {
-            getWindow().setWindowAnimations(R.style.WindowAnim);
+            getWindow().setWindowAnimations(getWindowAnimStyle());
         }
 
         /*透明状态栏*/
@@ -265,10 +266,20 @@ public abstract class RBaseActivity extends AppCompatActivity {
         return true;
     }
 
-    //初始化
-    private void init() {
+    /**
+     * 窗口动画样式
+     */
+    @StyleRes
+    protected int getWindowAnimStyle() {
+        return R.style.WindowAnim;
     }
 
+    //初始化
+    private void init() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
 
     /**
      * Init before _.
@@ -393,51 +404,52 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
 
-    protected void addFragment(RBaseFragment fragment) {
+    protected void addFragment(Fragment fragment) {
         addFragment(fragment, true);
     }
 
-    protected void addFragment(RBaseFragment fragment, boolean toBack) {
+    protected void addFragment(Fragment fragment, boolean toBack) {
         addFragment(R.id.base_container, fragment, toBack);
     }
 
-    protected void addFragment(@IdRes int viewId, RBaseFragment fragment) {
+    protected void addFragment(@IdRes int viewId, Fragment fragment) {
         addFragment(viewId, fragment, true);
     }
 
-    protected void addFragment(@IdRes int viewId, RBaseFragment fragment, boolean toBack) {
+    protected void addFragment(@IdRes int viewId, Fragment fragment, boolean toBack) {
         changeFragment(viewId, fragment, toBack, new OnChangeFragment() {
             @Override
-            public void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, RBaseFragment fragment, boolean toBack) {
+            public void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, Fragment fragment, boolean toBack) {
                 fragmentTransaction.add(viewId, fragment, String.valueOf(fragment.hashCode()));
             }
         });
     }
 
-    protected void replaceFragment(RBaseFragment fragment) {
+    protected void replaceFragment(Fragment fragment) {
         replaceFragment(fragment, false);
     }
 
-    protected void replaceFragment(RBaseFragment fragment, boolean toBack) {
+    protected void replaceFragment(Fragment fragment, boolean toBack) {
         replaceFragment(R.id.base_container, fragment, toBack);
     }
 
-    protected void replaceFragment(@IdRes int viewId, RBaseFragment fragment) {
+    protected void replaceFragment(@IdRes int viewId, Fragment fragment) {
         replaceFragment(viewId, fragment, false);
     }
 
-    protected void replaceFragment(@IdRes int viewId, RBaseFragment fragment, boolean toBack) {
+    protected void replaceFragment(@IdRes int viewId, Fragment fragment, boolean toBack) {
         changeFragment(viewId, fragment, toBack, new OnChangeFragment() {
             @Override
-            public void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, RBaseFragment fragment, boolean toBack) {
+            public void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, Fragment fragment, boolean toBack) {
                 fragmentTransaction.replace(viewId, fragment, String.valueOf(fragment.hashCode()));
             }
         });
     }
 
-    private void changeFragment(@IdRes int viewId, RBaseFragment fragment, boolean toBack, OnChangeFragment listener) {
+    private void changeFragment(@IdRes int viewId, Fragment fragment, boolean toBack, OnChangeFragment listener) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        //fragmentTransaction.setCustomAnimations();//动画效果
+        fragmentTransaction.setCustomAnimations(R.anim.fragment_tran_enter_h, R.anim.fragment_tran_exit_h,
+                R.anim.fragment_tran_enter_h, R.anim.fragment_tran_exit_h);//动画效果
         listener.onChangeFragment(fragmentTransaction, viewId, fragment, toBack);
         if (toBack) {
             fragmentTransaction.addToBackStack(String.valueOf(fragment.hashCode()));
@@ -446,16 +458,37 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     protected void showFragment(Fragment fragment) {
-        if (fragment != null && !fragment.isVisible()) {
-            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.show(fragment);
-            fragmentTransaction.commit();
+        if (fragment != null) {
+            if (!fragment.isAdded()) {
+                addFragment(fragment);
+            } else if (!fragment.isVisible()) {
+                final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.show(fragment);
+                fragmentTransaction.commit();
+            }
         }
     }
 
     protected void showFragment(String tag) {
         final Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
         showFragment(fragment);
+    }
+
+    protected void showFragment(@IdRes int resId, Fragment fragment) {
+        if (fragment != null) {
+            if (!fragment.isAdded()) {
+                addFragment(resId, fragment);
+            } else if (!fragment.isVisible()) {
+                final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.show(fragment);
+                fragmentTransaction.commit();
+            }
+        }
+    }
+
+    protected void showFragment(@IdRes int resId, String tag) {
+        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+        showFragment(resId, fragment);
     }
 
     protected void removeFragment(String tag) {
@@ -510,7 +543,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     private interface OnChangeFragment {
-        void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, RBaseFragment fragment, boolean toBack);
+        void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, Fragment fragment, boolean toBack);
     }
 
     public static class EventNoNet {

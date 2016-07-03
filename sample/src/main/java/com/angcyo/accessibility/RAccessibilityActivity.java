@@ -26,6 +26,7 @@ import com.rsen.util.T;
 
 import java.util.List;
 
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -100,7 +101,7 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
 //        CrashUtil.init();
 
         BmobHelper.initBmob(this);
-        BmobUtil.increment(this, Hawk.get(KEY_OBJID));
+        BmobUtil.increment(Hawk.get(KEY_OBJID));
 
         //监听AccessibilityService 变化
         accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
@@ -186,17 +187,15 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
             String[] strings = code.toString().split(":");
             if (strings.length == 2 && strings[0].equalsIgnoreCase("add") && !TextUtils.isEmpty(strings[1])) {
                 showDialogTip("请稍等...");
-                BmobUtil.saveRegisterCode(this, strings[1], new SaveListener() {
+                BmobUtil.saveRegisterCode(strings[1], new SaveListener<String>() {
                     @Override
-                    public void onSuccess() {
+                    public void done(String deviceRegister, BmobException e) {
                         hideDialogTip();
-                        showToast("注册码:" + strings[1] + " 添加成功.");
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        hideDialogTip();
-                        showToast("失败:" + s);
+                        if (e == null) {
+                            showToast("注册码:" + strings[1] + " 添加成功.");
+                        } else {
+                            showToast("失败:" + e.getMessage());
+                        }
                     }
                 });
             } else {
@@ -223,22 +222,20 @@ public class RAccessibilityActivity extends RBaseActivity implements Accessibili
             showDialogTip("正在验证...");
             String codeRaw = code.toString();
             Hawk.put(KEY_CODE_RAW, codeRaw);
+
             BmobUtil.registerCode(this, codeRaw, new FindListener<BmobUtil.DeviceCodeInfo>() {
                 @Override
-                public void onSuccess(List<BmobUtil.DeviceCodeInfo> list) {
+                public void done(List<BmobUtil.DeviceCodeInfo> list, BmobException e) {
                     hideDialogTip();
-                    showToast("恭喜注册成功");
-                    Hawk.put(KEY_OBJID, list.get(0).objectId);
-                    Hawk.put(KEY_CODE, list.get(0).code);
-                    Hawk.put(KEY_DEBUG, list.get(0).isDebug);
-
-                    updateButton();
-                }
-
-                @Override
-                public void onError(int i, String s) {
-                    hideDialogTip();
-                    mViewHolder.eV(R.id.codeEdit).setError(s);
+                    if (e == null) {
+                        showToast("恭喜注册成功");
+                        Hawk.put(KEY_OBJID, list.get(0).objectId);
+                        Hawk.put(KEY_CODE, list.get(0).code);
+                        Hawk.put(KEY_DEBUG, list.get(0).isDebug);
+                        updateButton();
+                    } else {
+                        mViewHolder.eV(R.id.codeEdit).setError(e.getMessage());
+                    }
                 }
             });
         }

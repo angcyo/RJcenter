@@ -41,7 +41,6 @@ android {
 
 dependencies {
     compile project(':rlib')
-    testCompile 'junit:junit:4.12'
 }
 
 task myJavadocs(type: Javadoc) {

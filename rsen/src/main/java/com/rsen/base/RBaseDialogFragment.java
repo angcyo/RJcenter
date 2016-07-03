@@ -123,9 +123,8 @@ public abstract class RBaseDialogFragment extends DialogFragment {
     /**
      * 返回动画样式
      */
-    protected
     @StyleRes
-    int getAnimStyles() {
+    protected int getAnimStyles() {
         return R.style.DialogWindowAnim;
     }
 

@@ -47,7 +47,7 @@
     <style name="WindowAnim" parent="@android:style/Animation.Translucent">
         <item name="android:windowEnterAnimation">@anim/default_window_enter_anim</item>
         <!--<item name="android:windowExitAnimation">@anim/default_window_exit_anim</item>-->
-        <item name="android:windowExitAnimation">@null</item>
+        <!--<item name="android:windowExitAnimation">@null</item>-->
     </style>
 
     <style name="DialogWindowAnim">
