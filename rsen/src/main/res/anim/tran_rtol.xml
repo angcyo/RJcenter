@@ -6,12 +6,12 @@
         android:fromXDelta="100%"
         android:toXDelta="0%" />
     <!--<translate-->
-        <!--android:duration="500"-->
-        <!--android:fromXDelta="-50%"-->
-        <!--android:startOffset="500"-->
-        <!--android:toXDelta="0" />-->
+    <!--android:duration="500"-->
+    <!--android:fromXDelta="-50%"-->
+    <!--android:startOffset="500"-->
+    <!--android:toXDelta="0" />-->
     <!--<alpha-->
-        <!--android:duration="300"-->
-        <!--android:fromAlpha="0"-->
-        <!--android:toAlpha="1" />-->
+    <!--android:duration="300"-->
+    <!--android:fromAlpha="0"-->
+    <!--android:toAlpha="1" />-->
 </set>

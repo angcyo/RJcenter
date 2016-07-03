@@ -1,6 +1,5 @@
 package com.rsen.base;
 
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +21,7 @@ public abstract class RBaseRecyclerFragment extends RBaseFragment {
     }
 
     @Override
-    protected void initViewData(Bundle arg) {
+    protected void initViewData() {
 
     }
 

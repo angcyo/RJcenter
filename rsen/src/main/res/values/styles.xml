@@ -28,11 +28,11 @@
 
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">?attr/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">?attr/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">?attr/colorAccent</item>-->
-        <!--&lt;!&ndash;<item name="android:listPreferredItemHeight"></item>&ndash;&gt;-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">?attr/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">?attr/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">?attr/colorAccent</item>-->
+    <!--&lt;!&ndash;<item name="android:listPreferredItemHeight"></item>&ndash;&gt;-->
     <!--</style>-->
 
     <style name="SlidrTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -46,7 +46,7 @@
 
     <style name="WindowAnim" parent="@android:style/Animation.Translucent">
         <item name="android:windowEnterAnimation">@anim/default_window_enter_anim</item>
-        <!--<item name="android:windowExitAnimation">@anim/default_window_exit_anim</item>-->
+        <item name="android:windowExitAnimation">@anim/default_window_exit_anim</item>
         <!--<item name="android:windowExitAnimation">@null</item>-->
     </style>
 
@@ -56,8 +56,8 @@
     </style>
 
     <!--<style name="AppTheme.NoActionBar">-->
-        <!--<item name="windowActionBar">false</item>-->
-        <!--<item name="windowNoTitle">true</item>-->
+    <!--<item name="windowActionBar">false</item>-->
+    <!--<item name="windowNoTitle">true</item>-->
     <!--</style>-->
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -104,6 +104,7 @@
         <item name="android:padding">5dp</item>
         <item name="lovePathColor">?attr/colorAccent</item>
     </style>
+
     <style name="PathButtonStyleBase">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

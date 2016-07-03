@@ -172,7 +172,7 @@ public class FragmentLifeCycleActivity extends RBaseActivity {
         }
 
         @Override
-        protected void initViewData(Bundle arg) {
+        protected void initViewData() {
             final Bundle arguments = getArguments();
             if (arguments != null) {
                 mViewHolder.tV(R.id.textView).setText(arguments.getString("text"));

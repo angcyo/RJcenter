@@ -19,7 +19,7 @@ public class RegisterFragment extends RBaseFragment {
     }
 
     @Override
-    protected void initViewData(Bundle arg) {
+    protected void loadData(Bundle savedInstanceState, Bundle arg) {
         if (arg != null) {
             pos = arg.getInt("pos");
         }

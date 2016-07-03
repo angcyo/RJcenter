@@ -42,7 +42,7 @@ public abstract class RBaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadData(savedInstanceState);
+        loadData(savedInstanceState, getArguments());
     }
 
     @Nullable
@@ -68,7 +68,7 @@ public abstract class RBaseFragment extends Fragment {
         initView(rootView);
         initAfter();
         isCreate = true;
-        initViewData(getArguments());
+        initViewData();
         return rootView;
     }
 
@@ -158,9 +158,10 @@ public abstract class RBaseFragment extends Fragment {
     @LayoutRes
     protected abstract int getContentView();
 
-    protected abstract void initViewData(Bundle arg);
+    protected void initViewData() {
+    }
 
-    protected void loadData(Bundle savedInstanceState) {
+    protected void loadData(Bundle savedInstanceState, Bundle arg) {
 
     }
 

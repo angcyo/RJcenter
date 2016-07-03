@@ -1,6 +1,5 @@
 package com.angcyo.demo.qq;
 
-import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
@@ -15,11 +14,6 @@ public class LoginFragment extends RBaseFragment {
     @Override
     protected int getContentView() {
         return R.layout.fragment_login;
-    }
-
-    @Override
-    protected void initViewData(Bundle arg) {
-
     }
 
     @Override
