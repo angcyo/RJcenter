@@ -543,6 +543,16 @@ public abstract class RBaseActivity extends AppCompatActivity {
         PopupTipWindow.showTip(this, "请检查网络连接.");
     }
 
+    protected void start(Class<?> cls) {
+        start(cls, null);
+    }
+
+    protected void start(Class<?> cls, Bundle arg) {
+        final Intent intent = new Intent(this, cls);
+        intent.putExtras(arg);
+        startActivity(intent);
+    }
+
     private interface OnChangeFragment {
         void onChangeFragment(FragmentTransaction fragmentTransaction, @IdRes int viewId, Fragment fragment, boolean toBack);
     }

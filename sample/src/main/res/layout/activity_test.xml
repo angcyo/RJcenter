@@ -8,18 +8,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.angcyo.demo.test.CrashActivity">
+    tools:context="com.angcyo.sample.service.TestActivity">
 
-    <ScrollView
+    <TextView
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2016-7-4 测试界面"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_height="wrap_content">
+        android:text="button"
+        android:textAllCaps="false"/>
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="当你看到此界面,程序猿又要加班了 ^_^"/>
-
-    </ScrollView>
 </RelativeLayout>

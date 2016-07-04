@@ -28,4 +28,5 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_service">ServiceActivity</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>

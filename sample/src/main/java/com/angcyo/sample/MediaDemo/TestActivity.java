@@ -33,6 +33,7 @@ public class TestActivity extends Activity {
     }
 
     public void button(View view) {
-        show(this);
+        final Intent intent = new Intent(this, com.angcyo.sample.service.TestActivity.class);
+        startActivity(intent);
     }
 }
