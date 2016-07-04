@@ -44,10 +44,15 @@
 
     <style name="AppBarStyle" parent="Theme.AppCompat.Light.DarkActionBar" />
 
-    <style name="WindowAnim" parent="@android:style/Animation.Translucent">
-        <item name="android:windowEnterAnimation">@anim/default_window_enter_anim</item>
-        <item name="android:windowExitAnimation">@anim/default_window_exit_anim</item>
+    <style name="WindowTranAnim" parent="@android:style/Animation.Translucent">
+        <item name="android:windowEnterAnimation">@anim/default_window_tran_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/default_window_tran_exit_anim</item>
         <!--<item name="android:windowExitAnimation">@null</item>-->
+    </style>
+
+    <style name="WindowScaleAnim" parent="@android:style/Animation.Translucent">
+        <item name="android:windowEnterAnimation">@anim/default_window_scale_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/default_window_scale_exit_anim</item>
     </style>
 
     <style name="DialogWindowAnim">

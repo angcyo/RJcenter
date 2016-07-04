@@ -1,23 +1,32 @@
 package com.angcyo.sample.service;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
 import com.angcyo.sample.R;
+import com.rsen.base.RBaseActivity;
 import com.rsen.github.common.L;
 
-public class ServiceActivity extends Activity {
+public class ServiceActivity extends RBaseActivity {
 
 
     Intent service;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getContentView() {
+        return R.layout.activity_service;
+    }
+
+    @Override
+    protected void initBefore() {
         service = new Intent(this, ServiceTest.class);
-        setContentView(R.layout.activity_service);
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        hideToolbar();
     }
 
     public void startService(View view) {
@@ -28,5 +37,30 @@ public class ServiceActivity extends Activity {
     public void stopService(View view) {
         L.i("停止服务.");
         stopService(service);
+    }
+
+    @Override
+    protected boolean enableStatusColor() {
+        return true;
+    }
+
+    @Override
+    protected boolean enableWindowAnim() {
+        return false;
+    }
+
+    @Override
+    protected boolean moveToBack() {
+        return true;
+    }
+
+    @Override
+    protected boolean enableStatusTranslucent() {
+        return super.enableStatusTranslucent();
+    }
+
+    @Override
+    protected int getStateBarColor() {
+        return Color.RED;
     }
 }

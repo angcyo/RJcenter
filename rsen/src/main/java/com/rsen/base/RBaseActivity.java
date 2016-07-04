@@ -271,7 +271,8 @@ public abstract class RBaseActivity extends AppCompatActivity {
      */
     @StyleRes
     protected int getWindowAnimStyle() {
-        return R.style.WindowAnim;
+//        return R.style.WindowTranAnim;
+        return R.style.WindowScaleAnim;
     }
 
     //初始化
