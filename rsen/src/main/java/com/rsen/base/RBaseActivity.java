@@ -212,10 +212,10 @@ public abstract class RBaseActivity extends AppCompatActivity {
         /*滑动删除*/
         if (enableSlidr()) {
             Slidr.attach(this);
-        }
-        Drawable background = mActivityLayout.getBackground();
-        if (background == null) {
-            mActivityLayout.setBackgroundColor(getBackgroundColor());
+            Drawable background = mActivityLayout.getBackground();
+            if (background == null) {
+                mActivityLayout.setBackgroundColor(getBackgroundColor());
+            }
         }
     }
 
