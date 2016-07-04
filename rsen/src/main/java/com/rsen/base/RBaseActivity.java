@@ -263,7 +263,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
      * 启动窗口动画
      */
     protected boolean enableWindowAnim() {
-        return true;
+        return false;
     }
 
     /**
