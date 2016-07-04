@@ -7,6 +7,26 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <!--Activity默认动画主题-->
+    <style name="ActivityDefaultAnim" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/DefaultActivityAnimStyle</item>
+        <!--<item name="android:windowEnterAnimation">@anim/default_window_scale_enter_anim</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/default_window_scale_exit_anim</item>-->
+        <!--<item name="android:windowEnterAnimation">@null</item>-->
+        <!--<item name="android:windowExitAnimation">@null</item>-->
+    </style>
+
+    <!--动画样式-->
+    <style name="DefaultActivityAnimStyle" parent="@android:style/Animation.Activity">
+        <!--<item name="android:activityCloseEnterAnimation">@anim/default_window_scale_exit_anim</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@null</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@null</item>-->
+        <item name="android:activityCloseExitAnimation">@anim/default_window_scale_exit_anim</item>
+        <!--<item name="android:activityOpenExitAnimation">@anim/default_window_scale_enter_anim</item>-->
+        <item name="android:activityOpenEnterAnimation">@anim/default_window_scale_enter_anim</item>
+        <!--<item name="android:activityOpenExitAnimation">@null</item>-->
+    </style>
+
     <style name="ActivityNoAnim" parent="@android:style/Animation.Activity">
         <item name="android:activityCloseEnterAnimation">@null</item>
         <item name="android:activityOpenEnterAnimation">@null</item>
@@ -23,7 +43,7 @@
     </style>
 
     <declare-styleable name="RsenRadioGroup">
-        <attr name="radioButton" format="reference" />
+        <attr name="radioButton" format="reference"/>
     </declare-styleable>
 
     <!-- Base application theme. -->
@@ -40,21 +60,24 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="Test1" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="Test1" parent="Theme.AppCompat.Light.NoActionBar"/>
 
-    <style name="AppBarStyle" parent="Theme.AppCompat.Light.DarkActionBar" />
+    <style name="AppBarStyle" parent="Theme.AppCompat.Light.DarkActionBar"/>
 
+    <!--窗口平移动画-->
     <style name="WindowTranAnim" parent="@android:style/Animation.Translucent">
         <item name="android:windowEnterAnimation">@anim/default_window_tran_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/default_window_tran_exit_anim</item>
         <!--<item name="android:windowExitAnimation">@null</item>-->
     </style>
 
+    <!--窗口缩放动画-->
     <style name="WindowScaleAnim" parent="@android:style/Animation.Translucent">
         <item name="android:windowEnterAnimation">@anim/default_window_scale_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/default_window_scale_exit_anim</item>
     </style>
 
+    <!--对话框默认动画-->
     <style name="DialogWindowAnim">
         <item name="android:windowEnterAnimation">@anim/dialog_fragment_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/dialog_fragment_exit_anim</item>
@@ -65,9 +88,9 @@
     <!--<item name="windowNoTitle">true</item>-->
     <!--</style>-->
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="PopupTipWindowAnim">
         <item name="android:windowEnterAnimation">@anim/tran_rtol</item>

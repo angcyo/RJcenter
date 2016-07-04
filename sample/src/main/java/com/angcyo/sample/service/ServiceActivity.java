@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import com.angcyo.sample.MediaDemo.TestActivity;
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
 import com.rsen.github.common.L;
@@ -37,6 +38,15 @@ public class ServiceActivity extends RBaseActivity {
     public void stopService(View view) {
         L.i("停止服务.");
         stopService(service);
+    }
+
+    public void startActivity(View view) {
+        L.i("startActivity.");
+        Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);
+//        overridePendingTransition(com.angcyo.rsen.R.anim.default_window_scale_enter_anim, com.angcyo.rsen.R.anim.default_window_scale_exit_anim);
+//        overridePendingTransition(com.angcyo.rsen.R.anim.default_window_scale_enter_anim, com.angcyo.rsen.R.anim.default_window_scale_exit_anim);
+//        overridePendingTransition(com.angcyo.rsen.R.anim.default_window_scale_enter_anim, R.anim.anim_fix_bug);
     }
 
     @Override
