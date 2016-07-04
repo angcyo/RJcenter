@@ -44,6 +44,9 @@ def oh = { msg ->
     println(buildTime() + "--> " + msg)
 }
 
+/*是否激活滑动删除主题*/
+def slider = false
+
 android {
     compileSdkVersion Integer.parseInt(rootProject.R_COMPILE_SDK_VERSION)
     buildToolsVersion rootProject.R_BUILD_TOOLS_VERSION
@@ -61,6 +64,14 @@ android {
         resValue "string", "os_name", osName()
 
         multiDexEnabled true
+
+        buildConfigField "boolean", "slider", String.valueOf(slider)
+
+        if (slider) {
+            manifestPlaceholders = [app_theme: "@style/AppTheme"]
+        } else {
+            manifestPlaceholders = [app_theme: "@style/AppThemeNoSlidr"]
+        }
     }
     signingConfigs {
         config {

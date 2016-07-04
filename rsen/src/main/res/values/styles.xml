@@ -7,7 +7,7 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="ActivityNoAnim">
+    <style name="ActivityNoAnim" parent="@android:style/Animation.Activity">
         <item name="android:activityCloseEnterAnimation">@null</item>
         <item name="android:activityOpenEnterAnimation">@null</item>
         <item name="android:activityCloseExitAnimation">@null</item>

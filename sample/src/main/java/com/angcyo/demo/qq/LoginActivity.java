@@ -68,6 +68,11 @@ public class LoginActivity extends RBaseActivity implements IRegisterListener {
         });
     }
 
+    @Override
+    protected boolean enableWindowAnim() {
+        return false;
+    }
+
     private void showRegister() {
         replaceFragment(R.id.container, registerFragment);
     }
