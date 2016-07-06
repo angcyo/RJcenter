@@ -58,6 +58,7 @@
     <style name="SlidrTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
     </style>
 
     <style name="Test1" parent="Theme.AppCompat.Light.NoActionBar"/>
@@ -87,6 +88,13 @@
     <!--<item name="windowActionBar">false</item>-->
     <!--<item name="windowNoTitle">true</item>-->
     <!--</style>-->
+
+    <!--Activity半透明主题-->
+    <style name="ActivityTranslucent">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

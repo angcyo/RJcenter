@@ -100,7 +100,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
         initViewData();
     }
 
-    private void initBaseView() {
+    protected void initBaseView() {
         setContentView(R.layout.rsen_base_activity_layout);
         mActivityLayout = (ViewGroup) findViewById(R.id.base_activity_layout);
         mFragmentLayout = (ViewGroup) findViewById(R.id.base_fragment_layout);
@@ -238,7 +238,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
      * 激活滑动删除
      */
     protected boolean enableSlidr() {
-        return true;
+        return false;
     }
 
     /**
