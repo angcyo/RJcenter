@@ -10,10 +10,51 @@ import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
 import com.rsen.github.common.L;
 
+import java.io.File;
+import java.io.IOException;
+
 public class ServiceActivity extends RBaseActivity {
 
+    private static final int a = 1;
+    private static final int e = 1;
+    public static int c = 3;
+    public static int f = 3;
+
+    static {
+        int g = 4;
+        System.out.print("");
+    }
+
+    static {
+        int b = 2;
+        System.out.print("");
+    }
+
+    static {
+        int d = 4;
+        System.out.print("");
+    }
 
     Intent service;
+
+    @Override
+    protected void initAfter() {
+        L.i(this.getDir("", MODE_PRIVATE).getAbsolutePath());
+        L.i(this.getDir("test", MODE_PRIVATE).getAbsolutePath());
+        L.i(this.getPackageCodePath());
+        L.i(this.getCacheDir().getAbsolutePath());
+        L.i(this.getDatabasePath("db_name").getAbsolutePath());
+        L.i(this.getExternalCacheDir().getAbsolutePath());
+        L.i(this.getFilesDir().getAbsolutePath());
+        L.i(this.getObbDir().getAbsolutePath());
+        L.i(this.getPackageResourcePath());
+
+        try {
+            new File(getFilesDir(), "2016-7-7.zip").createNewFile();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
 
     @Override
     protected int getContentView() {
