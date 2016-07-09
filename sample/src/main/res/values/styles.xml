@@ -4,8 +4,14 @@
     <style name="AppTheme" parent="SlidrTheme">
         <!-- Customize your theme here. -->
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+
+        <!-- ActionBar的颜色 -->
         <item name="colorPrimary">@color/colorAccent</item>
+
+        <!--状态栏的颜色-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <!--字体颜色-->
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@style/DefaultActivityAnimStyle</item>
 
