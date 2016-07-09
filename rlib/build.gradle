@@ -82,4 +82,8 @@ dependencies {
 
     /*Rx 形式的权限检查 https://github.com/tbruyelle/RxPermissions */
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+
+    /*动画回弹库,可以在listener中添加改变view的属性,达到动画效果 https://github.com/facebook/rebound*/
+    compile 'com.facebook.rebound:rebound:0.3.8'
+
 }
