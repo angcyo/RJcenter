@@ -2,12 +2,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 
+def keyFilePath =isMacOs() ? '/Users/angcyo/Project/y2angcyo.jks' : 'F:/angcyo/angcyo.jks'
+
 android {
     signingConfigs {
         config {
             keyAlias 'angcyo'
             keyPassword 'angcyo'
-            storeFile file('F:/angcyo/angcyo.jks')
+            storeFile file(keyFilePath)
             storePassword 'angcyo'
         }
     }
@@ -24,9 +26,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
         debug {
             pseudoLocalesEnabled false
+            signingConfig signingConfigs.config
         }
     }
     lintOptions {

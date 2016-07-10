@@ -27,3 +27,61 @@ task clean(type: Delete) {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+//def hi = { msg ->
+//    println(buildTime() + "--> " + msg)
+//}
+
+def hi(msg){
+    println(buildTime() + "--> " + msg)
+}
+
+def getTime() {
+//    return new Date().format("yyyy-MM-dd")
+    return new Date().format("HHmmss")
+}
+
+def buildTime() {
+    return new Date().format("yyyy-MM-dd HH:mm:ss.sss")
+}
+
+def hostName() {
+    return System.getProperty("user.home").replaceAll("\\\\", "\\\\\\\\") + " @ " + System.getProperty("user.name") + " @ " + InetAddress.localHost.hostName
+}
+
+def osName() {
+    return System.getProperty("os.name") + " @ " + System.getProperty("os.version") + " @ " + System.getProperty("sun.cpu.isalist")
+}
+
+def javaVersion() {
+    return System.getProperty("java.home").replaceAll("\\\\", "\\\\\\\\") + " @ " + System.getProperty("java.version")
+}
+
+def winGitVersion() {
+    def code = new ByteArrayOutputStream()
+    exec {
+        // 需要配置git.exe 的系统环境变量
+        commandLine 'D:\\Git\\bin\\git.exe', '--version'
+//        commandLine 'cmd'
+        standardOutput = code
+    }
+    return code.toString()
+}
+
+def macGitVersion() {
+    def code = new ByteArrayOutputStream()
+    exec {
+        // 需要配置git.exe 的系统环境变量
+        commandLine 'git', '--version'
+//        commandLine 'cmd'
+        standardOutput = code
+    }
+    return code.toString()
+}
+
+def isMacOs() {
+    if (osName().toString().contains("Mac")) {
+        return true
+    }
+    return false
+}
