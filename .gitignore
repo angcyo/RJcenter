@@ -89,3 +89,10 @@ proguard/
 # Android Studio Navigation editor temp files
 .navigation/
 
+sample/src/androidTest/java/com/angcyo/net/
+/bmob/bmob.iml
+/groovydemo/groovydemo.iml
+/javademo/javademo.iml
+/rlib/rlib.iml
+/rsen/rsen.iml
+/sample/sample.iml
