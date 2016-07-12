@@ -14,6 +14,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
+@SuppressWarnings("deprecation")
 public class ReflectActivity extends AppCompatActivity {
 
     /**

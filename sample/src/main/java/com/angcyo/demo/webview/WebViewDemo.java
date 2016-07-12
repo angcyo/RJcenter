@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 /**
  * Created by angcyo on 15-12-27-027.
  */
+@SuppressWarnings("deprecation")
 public class WebViewDemo extends AppCompatActivity {
     static final String URL = "http://kefu.easemob.com/webim/im.html?tenantId=10488";
     ValueCallback<Uri> uploadFile; //保存一个这样的成员变量

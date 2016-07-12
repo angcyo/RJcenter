@@ -1,7 +1,5 @@
 package com.angcyo.sample.rx;
 
-import android.util.Log;
-
 import rx.Observable;
 import rx.Subscriber;
 
@@ -16,8 +14,14 @@ public class RxDemo {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                if (!subscriber.isUnsubscribed()) {
-                    log(getMethodName());
+                try {
+                    if (!subscriber.isUnsubscribed()) {
+                        log(getMethodName());
+                        subscriber.onNext("create call");
+                    }
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    subscriber.onError(e);
                 }
             }
         }).subscribe(new Subscriber<String>() {
@@ -51,7 +55,8 @@ public class RxDemo {
      * @param log the log
      */
     public static void log(String log) {
-        Log.i("angcyo->" + getThreadName() + ":" + getThreadId(), log);
+        System.out.println(getThreadName() + ":" + getThreadId() + "->" + log);
+//        Log.i("angcyo->" + getThreadName() + ":" + getThreadId(), log);
     }
 
     /**
