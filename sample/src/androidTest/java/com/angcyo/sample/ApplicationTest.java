@@ -20,7 +20,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void testRxDemo() throws Exception {
-        RxDemo.createOperator();
+        RxDemo.createOperator();//测试
     }
 
     @Override
