@@ -12,6 +12,14 @@ import static org.junit.Assert.assertTrue;
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
 public class ExampleUnitTest {
+    public static void sleep() {
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
@@ -37,5 +45,7 @@ public class ExampleUnitTest {
     @Test
     public void rxTest() {
         RxDemo.createOperator();
+        sleep();
+//        CountDownLatch
     }
 }
