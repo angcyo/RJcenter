@@ -1,5 +1,6 @@
 package com.angcyo.sample;
 
+import com.angcyo.sample.rx.RxDemo;
 import com.rsen.net.RRetrofit;
 
 import org.junit.Test;
@@ -31,5 +32,10 @@ public class ExampleUnitTest {
 
         assertEquals(d, 4);
         assertTrue("mm", d == 4);
+    }
+
+    @Test
+    public void rxTest() {
+        RxDemo.createOperator();
     }
 }
