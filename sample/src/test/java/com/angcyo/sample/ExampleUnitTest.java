@@ -27,6 +27,7 @@ public class ExampleUnitTest {
         int b = 2;
         int c = a + b;
         int d = c;
+        int e = c;
 
         assertEquals(d, 4);
         assertTrue("mm", d == 4);
