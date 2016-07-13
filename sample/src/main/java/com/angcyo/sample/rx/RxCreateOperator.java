@@ -7,6 +7,7 @@ import java.util.concurrent.TimeoutException;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -14,7 +15,10 @@ import rx.schedulers.Schedulers;
  * Rx 创建操作符
  * Created by robi on 2016-07-13 18:08.
  */
+@SuppressWarnings("unchecked")
 public class RxCreateOperator {
+    static long count = 1;
+
     /**
      * create方法测试
      */
@@ -119,7 +123,9 @@ public class RxCreateOperator {
     }
 
     public static void repeatDemo() {
-        //重复多少次
+        //重复发射多少次数据
+        //当 .repeat() 接收到 .onCompleted() 事件后触发重订阅。
+        //当 .retry() 接收到 .onError() 事件后触发重订阅。
 //        Observable.just("a", "b", "c", "d").repeat(3, Schedulers.computation()).map(new Func1<String, String>() {
 //            @Override
 //            public String call(String s) {
@@ -128,14 +134,68 @@ public class RxCreateOperator {
 //            }
 //        }).subscribe(new Sub());
 
-        Observable.just("a", "b", "c", "d").repeatWhen(new Func1<Observable<? extends Void>, Observable<?>>() {
+        //在什么情况下重复发射数据
+        Observable.just("a", "b", "c", "d")
+                .repeatWhen(new Func1<Observable<? extends Void>, Observable<?>>() {
+                    @Override
+                    public Observable<?> call(Observable<? extends Void> observable) {
+                        RxDemo.log(RxDemo.getMethodName());
+                        return observable.filter(new Func1<Void, Boolean>() {
+                            @Override
+                            public Boolean call(Void aVoid) {
+                                RxDemo.log(RxDemo.getMethodName() + " " + count);
+                                count++;
+                                return count < 4;
+                            }
+                        });
+                    }
+                })
+                .subscribe(new Sub());
+    }
+
+    public static void deferDemo() {
+        //just操作符是在创建Observable就进行了赋值操作，而defer是在订阅者订阅时才创建Observable，此时才进行真正的赋值操作
+        //defer 操作符, 中的变量会在订阅的时候,才开始赋值
+        Observable.defer(new Func0<Observable<Object>>() {
             @Override
-            public Observable<?> call(Observable<? extends Void> observable) {
+            public Observable<Object> call() {
                 RxDemo.log(RxDemo.getMethodName());
-//                return observable;
-                return Observable.just("!");
+                return Observable.just("angcyo");
             }
         }).subscribe(new Sub());
+    }
+
+    public static void emptyDemo() {
+        //创建一个不发射任何数据但是正常终止的Observable
+        Observable.empty().map(new Func1<Object, String>() {
+            @Override
+            public String call(Object o) {
+                RxDemo.log(RxDemo.getMethodName());
+                return "--";
+            }
+        }).subscribe(new Sub());
+
+        //创建一个不发射数据也不终止的Observable
+//        Observable.never().subscribe(new Sub());
+
+        //创建一个不发射数据以一个错误终止的Observable
+//        Observable.error(new Throwable("err")).subscribe(new Sub());
+    }
+
+    public static void intervalDemo() {
+        //间隔2秒, 发射一次数据.  数据源是 次数0,1,2,3,4,...(一开始也会等待2秒,才开始)
+        RxDemo.log("-------------start");
+//        Observable.interval(2, TimeUnit.SECONDS).subscribe(new Sub());
+
+        //延迟3秒开始, 间隔2秒发射一次数据
+        Observable.interval(3, 2, TimeUnit.SECONDS, Schedulers.newThread()).subscribe(new Sub());
+    }
+
+    public static void rangeDemo() {
+        //从0开始, 发射10个数据
+        Observable.range(0, 10).subscribe(new Sub());
+
+        Observable.range(2, 2, Schedulers.newThread()).subscribe(new Sub());
     }
 
     /**

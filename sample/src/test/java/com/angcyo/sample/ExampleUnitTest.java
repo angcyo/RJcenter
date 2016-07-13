@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class ExampleUnitTest {
     public static void sleep() {
         try {
-            Thread.sleep(4000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -46,6 +46,7 @@ public class ExampleUnitTest {
     public void rxTest() {
         RxDemo.createOperator();
         sleep();
+        System.out.println("-------------------------------end");
 //        CountDownLatch
     }
 }

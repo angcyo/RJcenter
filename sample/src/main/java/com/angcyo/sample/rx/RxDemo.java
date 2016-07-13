@@ -1,5 +1,8 @@
 package com.angcyo.sample.rx;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by angcyo on 2016-07-13.
  */
@@ -11,7 +14,11 @@ public class RxDemo {
 //        RxCreateOperator.createDemo();
 //        RxCreateOperator.justDemo();
 //        RxCreateOperator.fromDemo();
-        RxCreateOperator.repeatDemo();
+//        RxCreateOperator.repeatDemo();
+//        RxCreateOperator.deferDemo();
+//        RxCreateOperator.emptyDemo();
+//        RxCreateOperator.intervalDemo();
+        RxCreateOperator.rangeDemo();
     }
 
     public static String getMethodName() {
@@ -26,7 +33,7 @@ public class RxDemo {
      * @param log the log
      */
     public static void log(String log) {
-        System.out.println(getThreadName() + ":" + getThreadId() + "->" + log);
+        System.out.println(new SimpleDateFormat("hh:mm:ss SSS").format(new Date()) + " " + getThreadName() + ":" + getThreadId() + "->" + log);
 //        Log.i("angcyo->" + getThreadName() + ":" + getThreadId(), log);
     }
 
