@@ -44,7 +44,10 @@ public class RxDemo {
 //        RxFilterOperator.firstDemo();
 //        RxFilterOperator.singleDemo();
 //        RxFilterOperator.ignoreElementsDemo();
-        RxFilterOperator.lastDemo();
+//        RxFilterOperator.lastDemo();
+//        RxFilterOperator.sampleDemo();
+//        RxFilterOperator.skipDemo();
+        RxFilterOperator.takeDemo();
     }
 
     public static String getMethodName() {

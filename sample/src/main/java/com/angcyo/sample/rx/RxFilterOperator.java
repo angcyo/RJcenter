@@ -90,6 +90,7 @@ public class RxFilterOperator {
     }
 
     public static void ignoreElementsDemo() {
+        //不会结束发射数据, 没有输出log
         Observable.interval(1, TimeUnit.SECONDS).ignoreElements().subscribe(new RxCreateOperator.Sub());
 
         //只允许 onError,  onCompleted通过, onNext 不会被调用.
@@ -97,6 +98,48 @@ public class RxFilterOperator {
     }
 
     public static void lastDemo() {
+        //不会结束发射数据, 没有输出log
         Observable.interval(1, TimeUnit.SECONDS).last().subscribe(new RxCreateOperator.Sub());
+
+        //只发射最后一个数据
+        Observable.just(1, 2, 3, 4).last().subscribe(new RxCreateOperator.Sub());
+
+        //没有最后一条数据,会抛出异常
+        Observable.empty().last().subscribe(new RxCreateOperator.Sub());
+
+        //没有最后一条数据,使用默认数据发射
+        Observable.empty().lastOrDefault(1000).subscribe(new RxCreateOperator.Sub());
+
+        //发射满足条件的最后一个数据
+        Observable.just(1, 2, 3, 4).last(new Func1<Integer, Boolean>() {
+            @Override
+            public Boolean call(Integer integer) {
+                return integer == 2;
+            }
+        }).subscribe(new RxCreateOperator.Sub());
+    }
+
+    public static void sampleDemo() {
+        RxDemo.log(RxDemo.getMethodName() + "-----start");
+        //3秒取样一次, 发射数据
+        Observable.interval(1, TimeUnit.SECONDS).sample(3, TimeUnit.SECONDS).subscribe(new RxCreateOperator.Sub());
+    }
+
+    public static void skipDemo() {
+        //跳过之前的2个数据
+//        Observable.interval(1, TimeUnit.SECONDS).skip(2).subscribe(new RxCreateOperator.Sub());
+
+        //跳过后面的2歌数据
+        Observable.just(1, 2, 3, 4, 5, 6).skipLast(2).subscribe(new RxCreateOperator.Sub());
+    }
+
+    public static void takeDemo() {
+        //取前面3个数据
+        Observable.interval(1, TimeUnit.SECONDS).take(3).subscribe(new RxCreateOperator.Sub());
+
+        Observable.empty().take(10).subscribe(new RxCreateOperator.Sub());
+
+        //取后面的2个数据
+        Observable.just(1, 2, 3, 4, 5).takeLast(2).subscribe(new RxCreateOperator.Sub());
     }
 }
