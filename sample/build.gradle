@@ -57,6 +57,16 @@ hi "密钥文件路径:" + keyFilePath
 /*是否激活滑动删除主题*/
 def slider = false
 
+Properties props = new Properties()
+if (project.hasProperty("dudu.properties")
+        && new File(project.property("dudu.properties")).exists()) {
+    props.load(new FileInputStream(file(project.property("dudu.properties"))))
+
+    println props['keystore']
+}
+
+
+
 android {
     compileSdkVersion Integer.parseInt(rootProject.R_COMPILE_SDK_VERSION)
     buildToolsVersion rootProject.R_BUILD_TOOLS_VERSION
