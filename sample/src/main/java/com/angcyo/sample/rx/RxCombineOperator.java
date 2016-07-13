@@ -76,7 +76,7 @@ public class RxCombineOperator {
 //        01:28:07 353 main:1->onNext 3
 //        01:28:07 395 main:1->onNext 4
 //        01:28:07 413 main:1->onCompleted
-        //将多个Observables的输出合并，就好像它们是一个单个的Observable一样。
+        //将多个Observables的输出合并，就好像它们是一个单个的Observable一样。..
         Observable.merge(Observable.just(1), Observable.just(2), Observable.just(3), Observable.just(4)).subscribe(new RxCreateOperator.Sub());
     }
 }
