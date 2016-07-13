@@ -33,6 +33,20 @@ public class RxDemo {
         RxFlatOperator.windowDemo();
     }
 
+    /**
+     * 过滤操作符
+     */
+    public static void filterOperator() {
+//        RxFilterOperator.debounceDemo();
+//        RxFilterOperator.distinctDemo();
+//        RxFilterOperator.elementAtDemo();
+//        RxFilterOperator.filterDemo();
+//        RxFilterOperator.firstDemo();
+//        RxFilterOperator.singleDemo();
+//        RxFilterOperator.ignoreElementsDemo();
+        RxFilterOperator.lastDemo();
+    }
+
     public static String getMethodName() {
         Exception exception = new Exception();
         StackTraceElement[] stackTrace = exception.getStackTrace();

@@ -45,7 +45,10 @@ public class ExampleUnitTest {
     @Test
     public void rxTest() {
 //        RxDemo.createOperator();
-        RxDemo.flatOperator();
+//        RxDemo.flatOperator();
+        RxDemo.filterOperator();
+
+
         sleep();
         System.out.println("-------------------------------end");
 //        CountDownLatch
