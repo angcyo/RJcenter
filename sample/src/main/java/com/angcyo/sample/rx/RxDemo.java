@@ -27,7 +27,8 @@ public class RxDemo {
     public static void flatOperator() {
 //        RxFlatOperator.mapDemo();
 //        RxFlatOperator.scanDemo();
-        RxFlatOperator.bufferDemo();
+//        RxFlatOperator.bufferDemo();
+        RxFlatOperator.flatMapDemo();
     }
 
     public static String getMethodName() {

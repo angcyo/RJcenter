@@ -60,4 +60,15 @@ public class RxFlatOperator {
             }
         }).subscribe(new RxCreateOperator.Sub());
     }
+
+    public static void flatMapDemo() {
+        //FlatMap将一个发射数据的Observable变换为多个Observables，然后将它们发射的数据合并后放进一个单独的Observable
+        Observable.just(1, 2, 3, 4, 5, 6, 7, 8, 9, 0).flatMap(new Func1<Integer, Observable<?>>() {
+            @Override
+            public Observable<?> call(Integer integer) {
+                RxDemo.log(RxDemo.getMethodName() + " " + integer);
+                return Observable.just(integer + 10, 100);
+            }
+        }).subscribe(new RxCreateOperator.Sub());
+    }
 }
