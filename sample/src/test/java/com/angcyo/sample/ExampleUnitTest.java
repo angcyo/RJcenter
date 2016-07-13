@@ -46,7 +46,8 @@ public class ExampleUnitTest {
     public void rxTest() {
 //        RxDemo.createOperator();
 //        RxDemo.flatOperator();
-        RxDemo.filterOperator();
+//        RxDemo.filterOperator();
+        RxDemo.combineOperator();
 
 
         sleep();

@@ -50,6 +50,16 @@ public class RxDemo {
         RxFilterOperator.takeDemo();
     }
 
+    /**
+     * 结合操作符
+     */
+    public static void combineOperator() {
+//        RxCombineOperator.combineDemo();
+//        RxCombineOperator.joinDemo();
+//        RxCombineOperator.startWithDemo();
+        RxCombineOperator.mergeDemo();
+    }
+
     public static String getMethodName() {
         Exception exception = new Exception();
         StackTraceElement[] stackTrace = exception.getStackTrace();
