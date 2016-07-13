@@ -21,6 +21,15 @@ public class RxDemo {
         RxCreateOperator.rangeDemo();
     }
 
+    /**
+     * 变换操作符
+     */
+    public static void flatOperator() {
+//        RxFlatOperator.mapDemo();
+//        RxFlatOperator.scanDemo();
+        RxFlatOperator.bufferDemo();
+    }
+
     public static String getMethodName() {
         Exception exception = new Exception();
         StackTraceElement[] stackTrace = exception.getStackTrace();
