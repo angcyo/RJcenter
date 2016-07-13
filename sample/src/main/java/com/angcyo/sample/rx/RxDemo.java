@@ -28,7 +28,9 @@ public class RxDemo {
 //        RxFlatOperator.mapDemo();
 //        RxFlatOperator.scanDemo();
 //        RxFlatOperator.bufferDemo();
-        RxFlatOperator.flatMapDemo();
+//        RxFlatOperator.flatMapDemo();
+//        RxFlatOperator.groupByDemo();
+        RxFlatOperator.windowDemo();
     }
 
     public static String getMethodName() {
