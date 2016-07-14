@@ -83,6 +83,15 @@ public class RxDemo {
         RxAssistOperator.toDemo();
     }
 
+    /**
+     * 条件操作符
+     */
+    public static void conditionalOperator() {
+//        RxConditionalOperator.allDemo();
+//        RxConditionalOperator.ambDemo();
+        RxConditionalOperator.containsDemo();
+    }
+
     public static String getMethodName() {
         Exception exception = new Exception();
         StackTraceElement[] stackTrace = exception.getStackTrace();

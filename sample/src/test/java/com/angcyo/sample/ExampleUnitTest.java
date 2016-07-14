@@ -50,7 +50,8 @@ public class ExampleUnitTest {
 //        RxDemo.filterOperator();
 //        RxDemo.combineOperator();
 //        RxDemo.errorOperator();
-        RxDemo.assistOperator();
+//        RxDemo.assistOperator();
+        RxDemo.conditionalOperator();
 
 
         sleep();
