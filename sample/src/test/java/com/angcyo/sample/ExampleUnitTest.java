@@ -1,5 +1,6 @@
 package com.angcyo.sample;
 
+import com.angcyo.sample.rx.RxCreateOperator;
 import com.angcyo.sample.rx.RxDemo;
 import com.rsen.net.RRetrofit;
 
@@ -54,5 +55,10 @@ public class ExampleUnitTest {
         sleep();
         System.out.println("-------------------------------end");
 //        CountDownLatch
+    }
+
+    @Test
+    public void methodTest() {
+        RxCreateOperator.repeatDemo();
     }
 }

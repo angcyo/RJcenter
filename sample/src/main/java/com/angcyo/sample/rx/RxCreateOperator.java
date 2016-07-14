@@ -13,11 +13,12 @@ import rx.schedulers.Schedulers;
 
 /**
  * Rx 创建操作符
+ * https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Creating-Observables.html
  * Created by robi on 2016-07-13 18:08.
  */
 @SuppressWarnings("unchecked")
 public class RxCreateOperator {
-    static long count = 1;
+    static long count = 0;
 
     /**
      * create方法测试
@@ -134,6 +135,12 @@ public class RxCreateOperator {
 //            }
 //        }).subscribe(new Sub());
 
+//        10:01:20 940 main:1->call
+//        10:01:20 947 main:1->onNext a
+//        10:01:20 948 main:1->onNext b
+//        10:01:20 948 main:1->onNext c
+//        10:01:20 948 main:1->onNext d
+//        10:01:20 950 main:1->call 0
         //在什么情况下重复发射数据
         Observable.just("a", "b", "c", "d")
                 .repeatWhen(new Func1<Observable<? extends Void>, Observable<?>>() {
@@ -145,7 +152,7 @@ public class RxCreateOperator {
                             public Boolean call(Void aVoid) {
                                 RxDemo.log(RxDemo.getMethodName() + " " + count);
                                 count++;
-                                return count < 4;
+                                return count < 1;
                             }
                         });
                     }

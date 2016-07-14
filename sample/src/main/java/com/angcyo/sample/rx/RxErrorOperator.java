@@ -5,7 +5,7 @@ import rx.functions.Func1;
 
 /**
  * Rx 错误操作符
- * <p>
+ * https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Error-Handling-Operators.html
  * Created by robi on 2016-07-14 15:11.
  */
 @SuppressWarnings("unchecked")
@@ -83,5 +83,46 @@ public class RxErrorOperator {
                 //暂时没发现不同
                 .onExceptionResumeNext(Observable.just(100)
                 ).subscribe(new RxCreateOperator.Sub());
+    }
+
+    public static void retryDemo() {
+        //如果出现错误, 就重新发射数据
+//        Observable.range(1, 10).map(new Func1<Integer, Integer>() {
+//            @Override
+//            public Integer call(Integer integer) {
+//                RxDemo.log(RxDemo.getMethodName() + " " + integer);
+//                return 4 / (2 - integer);
+//            }
+//        }).retry().subscribe(new RxCreateOperator.Sub());
+
+        //重复3次, 如果还是出现错误, 会调用onError
+//        Observable.range(1, 10).map(new Func1<Integer, Integer>() {
+//            @Override
+//            public Integer call(Integer integer) {
+//                RxDemo.log(RxDemo.getMethodName() + " " + integer);
+//                return 4 / (2 - integer);
+//            }
+//        }).retry(3).subscribe(new RxCreateOperator.Sub());
+
+        //当满足重试条件时, 则重试. 不会调用onError, onCompleted 方法.
+        final int[] count = {0};
+        Observable.range(1, 10).map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                RxDemo.log(RxDemo.getMethodName() + " " + integer);
+                return 4 / (2 - integer);
+            }
+        }).retryWhen(new Func1<Observable<? extends Throwable>, Observable<?>>() {
+            @Override
+            public Observable<?> call(Observable<? extends Throwable> observable) {
+                return observable.filter(new Func1<Throwable, Boolean>() {
+                    @Override
+                    public Boolean call(Throwable throwable) {
+                        count[0]++;
+                        return count[0] < 3;
+                    }
+                });
+            }
+        }).subscribe(new RxCreateOperator.Sub());
     }
 }

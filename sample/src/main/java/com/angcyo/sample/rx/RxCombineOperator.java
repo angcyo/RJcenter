@@ -9,7 +9,7 @@ import rx.functions.Func4;
 
 /**
  * Rx 结合操作符
- * <p>
+ * https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Combining-Observables.html
  * Created by angcyo on 2016-07-14.
  */
 @SuppressWarnings("unchecked")

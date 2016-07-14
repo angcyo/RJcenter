@@ -66,7 +66,8 @@ public class RxDemo {
      * 错误操作符
      */
     public static void errorOperator() {
-        RxErrorOperator.catchDemo();
+//        RxErrorOperator.catchDemo();
+        RxErrorOperator.retryDemo();
     }
 
     public static String getMethodName() {

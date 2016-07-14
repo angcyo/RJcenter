@@ -12,6 +12,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * Rx 变换操作符
+ * https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Transforming-Observables.html
  * Created by robi on 2016-07-13 20:46.
  */
 @SuppressWarnings("unchecked")
