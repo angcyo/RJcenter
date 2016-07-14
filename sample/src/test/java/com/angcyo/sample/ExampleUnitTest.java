@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class ExampleUnitTest {
     public static void sleep() {
         try {
-            Thread.sleep(10000);
+            Thread.sleep(20000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -47,7 +47,8 @@ public class ExampleUnitTest {
 //        RxDemo.createOperator();
 //        RxDemo.flatOperator();
 //        RxDemo.filterOperator();
-        RxDemo.combineOperator();
+//        RxDemo.combineOperator();
+        RxDemo.errorOperator();
 
 
         sleep();

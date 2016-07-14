@@ -62,6 +62,13 @@ public class RxDemo {
         RxCombineOperator.zipDemo();
     }
 
+    /**
+     * 错误操作符
+     */
+    public static void errorOperator() {
+        RxErrorOperator.catchDemo();
+    }
+
     public static String getMethodName() {
         Exception exception = new Exception();
         StackTraceElement[] stackTrace = exception.getStackTrace();
