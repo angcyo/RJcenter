@@ -79,4 +79,27 @@ public class RxCombineOperator {
         //将多个Observables的输出合并，就好像它们是一个单个的Observable一样。..
         Observable.merge(Observable.just(1), Observable.just(2), Observable.just(3), Observable.just(4)).subscribe(new RxCreateOperator.Sub());
     }
+
+    public static void switchDemo() {
+//        Observable.range(1, 10).map(new Func1<Integer, Integer>() {
+//            @Override
+//            public Integer call(Integer integer) {
+//                RxDemo.log(RxDemo.getMethodName() + " " + integer);
+//                return integer;
+//            }
+//        }).switchOnNext(Observable.just(Observable.just(1000))).subscribe(new RxCreateOperator.Sub());
+
+//        10:47:26 353 main:1->onNext 1
+//        10:47:26 353 main:1->onNext 2
+//        10:47:26 353 main:1->onNext 3
+//        10:47:26 354 main:1->onNext 4
+//        10:47:26 354 main:1->onNext 5
+//        10:47:26 354 main:1->onNext 6
+//        10:47:26 354 main:1->onNext 7
+//        10:47:26 354 main:1->onNext 8
+//        10:47:26 355 main:1->onNext 9
+//        10:47:26 355 main:1->onNext 10
+//        10:47:26 355 main:1->onCompleted
+        Observable.switchOnNext(Observable.just(Observable.range(1, 10))).subscribe(new RxCreateOperator.Sub());
+    }
 }

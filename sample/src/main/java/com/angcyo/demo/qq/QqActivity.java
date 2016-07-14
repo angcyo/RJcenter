@@ -28,7 +28,7 @@ public class QqActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aaaaaa);
+        setContentView(R.layout.activity_flow_layout);
         xcf_layout = (XCFlowLayout) findViewById(R.id.flowlayout);
         xcf_layout2 = (XCFlowLayout) findViewById(R.id.flowlayout2);
 
