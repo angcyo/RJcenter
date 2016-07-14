@@ -119,6 +119,18 @@ public class RxCombineOperator {
                 RxDemo.log(RxDemo.getMethodName() + " " + integer + " " + aLong);
                 return integer + aLong;
             }
-        }).subscribe(new RxCreateOperator.Sub());
+        })
+//        11:07:23 853 RxComputationScheduler-1:15->call 1 0
+//        11:07:23 853 RxComputationScheduler-1:15->call --> 1 1000000
+//        11:07:23 853 RxComputationScheduler-1:15->onNext 1000001
+//        11:07:23 853 RxComputationScheduler-1:15->onCompleted
+                .zipWith(Observable.just(1000000), new Func2<Long, Integer, Long>() {
+                    @Override
+                    public Long call(Long aLong, Integer integer) {
+                        RxDemo.log(RxDemo.getMethodName() + " --> " + aLong + " " + integer);
+                        return aLong + integer;
+                    }
+                })
+                .subscribe(new RxCreateOperator.Sub());
     }
 }
