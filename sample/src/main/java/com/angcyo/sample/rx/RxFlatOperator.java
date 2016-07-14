@@ -33,7 +33,7 @@ public class RxFlatOperator {
         Observable.just(1, 2, 3, 4).scan(new Func2<Integer, Integer, Integer>() {
             @Override
             public Integer call(Integer integer, Integer integer2) {
-                //第一个参数:第一次发射的第一个数据, 之后是此方法返回的数据
+                //第一个参数:第一次发射的第一个数据, 之后是此方法返回的数据.
                 RxDemo.log(RxDemo.getMethodName() + " " + integer + " " + integer2);
                 return 0;
             }
