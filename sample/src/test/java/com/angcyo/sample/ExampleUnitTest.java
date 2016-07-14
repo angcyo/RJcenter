@@ -52,7 +52,8 @@ public class ExampleUnitTest {
 //        RxDemo.errorOperator();
 //        RxDemo.assistOperator();
 //        RxDemo.conditionalOperator();
-        RxDemo.mathOperator();
+//        RxDemo.mathOperator();
+        RxDemo.connectOperator();
 
 
         sleep();

@@ -101,6 +101,15 @@ public class RxDemo {
         RxMathOperator.reduceDemo();
     }
 
+    /**
+     * 连接操作符
+     */
+    public static void connectOperator() {
+//        RxConnectOperator.publishDemo();
+//        RxConnectOperator.refCountDemo();
+        RxConnectOperator.replayDemo();
+    }
+
     public static String getMethodName() {
         Exception exception = new Exception();
         StackTraceElement[] stackTrace = exception.getStackTrace();
