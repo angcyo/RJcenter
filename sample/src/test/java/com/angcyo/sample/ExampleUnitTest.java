@@ -64,6 +64,10 @@ public class ExampleUnitTest {
     @Test
     public void methodTest() {
 //        RxCreateOperator.repeatDemo();
-        RxAssistOperator.timeIntervalDemo();
+//        RxAssistOperator.timeIntervalDemo();
+        RxAssistOperator.delayDemo();
+
+        sleep();
+        System.out.println("-------------------------------end");
     }
 }

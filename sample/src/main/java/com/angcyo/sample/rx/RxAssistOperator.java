@@ -61,7 +61,17 @@ public class RxAssistOperator {
 //        Observable.range(1, 10).delaySubscription(10, TimeUnit.SECONDS).subscribe(new RxCreateOperator.Sub());
 
         //没效果
-        Observable.range(1, 10).delaySubscription(Observable.just(1000)).subscribe(new RxCreateOperator.Sub());
+//        Observable.range(1, 10).delaySubscription(Observable.just(1000)).subscribe(new RxCreateOperator.Sub());
+
+        //每次延迟5秒发射数据, 并且重复3次这样的过程.
+        Observable.just(1).delay(5, TimeUnit.SECONDS).map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                RxDemo.log(RxDemo.getMethodName() + " " + integer);
+                return integer;
+            }
+        }).repeat(3).subscribe(new RxCreateOperator.Sub());
+
         num = 5;
     }
 
