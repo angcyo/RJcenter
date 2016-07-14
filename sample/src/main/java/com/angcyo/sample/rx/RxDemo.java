@@ -92,6 +92,15 @@ public class RxDemo {
         RxConditionalOperator.containsDemo();
     }
 
+    /**
+     * 算术操作符, 属于 Rx-Math 的内容
+     */
+    public static void mathOperator() {
+//        RxMathOperator.countDemo();
+//        RxMathOperator.concatDemo();
+        RxMathOperator.reduceDemo();
+    }
+
     public static String getMethodName() {
         Exception exception = new Exception();
         StackTraceElement[] stackTrace = exception.getStackTrace();

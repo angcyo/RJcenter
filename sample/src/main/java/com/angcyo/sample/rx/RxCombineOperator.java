@@ -80,6 +80,8 @@ public class RxCombineOperator {
 //        01:28:07 413 main:1->onCompleted
         //将多个Observables的输出合并，就好像它们是一个单个的Observable一样。..
         Observable.merge(Observable.just(1), Observable.just(2), Observable.just(3), Observable.just(4)).subscribe(new RxCreateOperator.Sub());
+
+        //Merge操作符也差不多，它结合两个或多个Observable的发射物，但是数据可能交错，而Concat不会让多个Observable的发射物交错。
     }
 
     public static void switchDemo() {
