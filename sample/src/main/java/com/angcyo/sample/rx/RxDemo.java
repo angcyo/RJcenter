@@ -70,6 +70,19 @@ public class RxDemo {
         RxErrorOperator.retryDemo();
     }
 
+    /**
+     * 辅助操作符
+     */
+    public static void assistOperator() {
+//        RxAssistOperator.delayDemo();
+//        RxAssistOperator.doDemo();
+//        RxAssistOperator.timeIntervalDemo();
+//        RxAssistOperator.timeoutDemo();
+//        RxAssistOperator.timestampDemo();
+//        RxAssistOperator.usingDemo();
+        RxAssistOperator.toDemo();
+    }
+
     public static String getMethodName() {
         Exception exception = new Exception();
         StackTraceElement[] stackTrace = exception.getStackTrace();

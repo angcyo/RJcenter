@@ -1,6 +1,6 @@
 package com.angcyo.sample;
 
-import com.angcyo.sample.rx.RxCreateOperator;
+import com.angcyo.sample.rx.RxAssistOperator;
 import com.angcyo.sample.rx.RxDemo;
 import com.rsen.net.RRetrofit;
 
@@ -49,7 +49,8 @@ public class ExampleUnitTest {
 //        RxDemo.flatOperator();
 //        RxDemo.filterOperator();
 //        RxDemo.combineOperator();
-        RxDemo.errorOperator();
+//        RxDemo.errorOperator();
+        RxDemo.assistOperator();
 
 
         sleep();
@@ -59,6 +60,7 @@ public class ExampleUnitTest {
 
     @Test
     public void methodTest() {
-        RxCreateOperator.repeatDemo();
+//        RxCreateOperator.repeatDemo();
+        RxAssistOperator.timeIntervalDemo();
     }
 }
