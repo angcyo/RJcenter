@@ -58,7 +58,8 @@ public class RxDemo {
 //        RxCombineOperator.joinDemo();
 //        RxCombineOperator.startWithDemo();
 //        RxCombineOperator.mergeDemo();
-        RxCombineOperator.switchDemo();
+//        RxCombineOperator.switchDemo();
+        RxCombineOperator.zipDemo();
     }
 
     public static String getMethodName() {

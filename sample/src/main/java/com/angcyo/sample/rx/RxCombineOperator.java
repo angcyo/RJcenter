@@ -1,5 +1,7 @@
 package com.angcyo.sample.rx;
 
+import java.util.concurrent.TimeUnit;
+
 import rx.Observable;
 import rx.functions.Func1;
 import rx.functions.Func2;
@@ -101,5 +103,22 @@ public class RxCombineOperator {
 //        10:47:26 355 main:1->onNext 10
 //        10:47:26 355 main:1->onCompleted
         Observable.switchOnNext(Observable.just(Observable.range(1, 10))).subscribe(new RxCreateOperator.Sub());
+    }
+
+    public static void zipDemo() {
+//        11:00:25 176 RxComputationScheduler-1:15->call 1 0
+//        11:00:25 176 RxComputationScheduler-1:15->onNext 1
+//        11:00:26 162 RxComputationScheduler-1:15->call 2 1
+//        11:00:26 162 RxComputationScheduler-1:15->onNext 3
+//        11:00:34 163 RxComputationScheduler-1:15->onCompleted
+
+        //它只发射与发射数据项最少的那个Observable一样多的数据。
+        Observable.zip(Observable.range(1, 10), Observable.interval(1, TimeUnit.SECONDS).take(2), new Func2<Integer, Long, Long>() {
+            @Override
+            public Long call(Integer integer, Long aLong) {
+                RxDemo.log(RxDemo.getMethodName() + " " + integer + " " + aLong);
+                return integer + aLong;
+            }
+        }).subscribe(new RxCreateOperator.Sub());
     }
 }
