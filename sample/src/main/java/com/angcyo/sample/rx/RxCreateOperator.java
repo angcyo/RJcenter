@@ -192,10 +192,10 @@ public class RxCreateOperator {
     public static void intervalDemo() {
         //间隔2秒, 发射一次数据.  数据源是 次数0,1,2,3,4,...(一开始也会等待2秒,才开始)
         RxDemo.log("-------------start");
-//        Observable.interval(2, TimeUnit.SECONDS).subscribe(new Sub());
+        Observable.interval(2, TimeUnit.SECONDS).subscribe(new Sub());
 
         //延迟3秒开始, 间隔2秒发射一次数据
-        Observable.interval(3, 2, TimeUnit.SECONDS, Schedulers.newThread()).subscribe(new Sub());
+//        Observable.interval(3, 2, TimeUnit.SECONDS, Schedulers.newThread()).subscribe(new Sub());
     }
 
     public static void rangeDemo() {
