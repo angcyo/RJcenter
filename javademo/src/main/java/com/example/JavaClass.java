@@ -1,7 +1,5 @@
 package com.example;
 
-import com.rsa.RsaClass;
-
 import java.io.PrintStream;
 
 public class JavaClass {
@@ -22,13 +20,22 @@ public class JavaClass {
 //        demo1();
 //
 
-        RsaClass.demo("15916015262");
-        RsaClass.demo("15916015262");
-        RsaClass.demo("15916015262");
-        RsaClass.demo("15916015262");
-        RsaClass.demo("15916015262");
+//        RsaClass.demo("15916015262");
+//        RsaClass.demo("15916015262");
+//        RsaClass.demo("15916015262");
+//        RsaClass.demo("15916015262");
+//        RsaClass.demo("15916015262");
 
-        end();
+//        end();
+
+        TestClass testClass = new TestClass();
+        Out.println(testClass.num);
+        testClass(testClass);
+        Out.println(testClass.num);
+    }
+
+    public static void testClass(final TestClass testClass) {
+        testClass.num = 100;
     }
 
     public static void demo1() {
@@ -44,5 +51,9 @@ public class JavaClass {
 
     public static void end() {
         Out.println("-----------------------------end----------------------------------");
+    }
+
+    public static class TestClass{
+        public int num;
     }
 }
