@@ -28,9 +28,29 @@ public class ThreadDemo {
 //            }
 //        }.start();
 
-        ThreadNew threadNew = new ThreadNew();
-        threadNew.start();
-        threadNew.start();
+//        ThreadNew threadNew = new ThreadNew();
+//        threadNew.start();
+//        threadNew.start();
+
+        p.println(getNum());
+    }
+
+    public static int getNum() {
+        try {
+            p.println("0--");
+            int a = 1 / 0;
+            p.println("1--");
+            return 1;
+        } catch (Exception e) {
+            p.println("2--");
+            return 2;
+        }
+        finally {
+            int b = 1 / 1;
+            p.println("3--");
+            return 3;
+        }
+
     }
 
 
