@@ -46,7 +46,7 @@ public class ThreadDemo {
             return 2;
         }
         finally {
-            int b = 1 / 1;
+            int b = 1 / 0;
             p.println("3--");
             return 3;
         }
