@@ -49,12 +49,17 @@
         </triggeringPolicy>
     </appender>
 
-    <!--指定logtest采用BASE_ROLL_FILE声明的RollingFileAppender输出日志-->
-    <logger name="logtest" level="DEBUG">
+    <!--指定log.test采用BASE_ROLL_FILE声明的RollingFileAppender输出日志-->
+    <logger name="log.test" level="DEBUG">
         <appender-ref ref="BASE_ROLL_FILE"/>
     </logger>
 
+    <!--<logger name="bluetooth" level="DEBUG">-->
+        <!--<appender-ref ref="LOGCAT"/>-->
+    <!--</logger>-->
+
     <!-- Write INFO (and higher-level) messages to the log file -->
+    <!--此标签必须要-->
     <root level="TRACE">
         <appender-ref ref="LOGCAT"/>
     </root>

@@ -14,14 +14,17 @@ import com.rsen.base.RBaseActivity;
 import com.rsen.base.RBaseAdapter;
 import com.rsen.base.RBaseViewHolder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Set;
 
 public class BluetoothDemoActivity extends RBaseActivity {
 
+    public static Logger log = LoggerFactory.getLogger("bluetooth.ui");
     BluetoothAdapter defaultAdapter;
     String msg;
     long scanMode = 0;
-
     BluetoothDeviceAdapter leftAdapter;
     BluetoothDeviceAdapter rightAdapter;
 
@@ -47,6 +50,8 @@ public class BluetoothDemoActivity extends RBaseActivity {
         for (BluetoothDevice device : bondedDevices) {
             rightAdapter.addLastItem(new BluetoothDeviceBean(device.getName(), device.getAddress()));
         }
+
+        log.info("initViewData");
     }
 
     public void supportBluetooth(View view) {

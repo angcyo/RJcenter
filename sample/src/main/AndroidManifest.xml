@@ -35,9 +35,9 @@
 
     <!--蓝牙权限-->
     <!--允许配对设备-->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
     <!--允许发现设备-->
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <!--无交互的进行操作, API>=19添加 -->
     <!--<uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/>-->
 
@@ -590,7 +590,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -666,13 +666,39 @@
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             </intent-filter>
         </activity>
+
+        <!--蓝牙Demo-->
         <activity android:name="com.angcyo.bluetooth.BluetoothDemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             </intent-filter>
         </activity>
+
+        <!--蓝牙广播-->
+        <receiver
+            android:name="com.angcyo.bluetooth.BluetoothReceiver"
+            android:exported="true">
+            <intent-filter android:priority="10000">
+                <!--蓝牙ACL链路连接成功-->
+                <action android:name="android.bluetooth.device.action.ACL_CONNECTED"/>
+                <!--蓝牙ACL链路断开-->
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED"/>
+                <!--ACL收到断开请求,并且马上就会断开-->
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECT_REQUESTED"/>
+                <!--远程设备的bond状态改变-->
+                <action android:name="android.bluetooth.device.action.BOND_STATE_CHANGED"/>
+                <!--蓝牙的类型发生了变化(电话,电脑,手机,耳机,蓝牙音箱等)-->
+                <action android:name="android.bluetooth.device.action.CLASS_CHANGED"/>
+                <!--扫描时,发现蓝牙设备-->
+                <action android:name="android.bluetooth.device.action.FOUND"/>
+                <!--蓝牙设备名称改变-->
+                <action android:name="android.bluetooth.device.action.NAME_CHANGED"/>
+                <!--API>=19 蓝牙配对请求的广播-->
+                <action android:name="android.bluetooth.device.action.PAIRING_REQUEST"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
