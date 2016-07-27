@@ -165,7 +165,7 @@ public class RDebugWindow {
         if (mBaseViewHolder != null) {
             RecyclerView recyclerView = mBaseViewHolder.reV(recyclerViewId);
             RBaseAdapter adapter = (RBaseAdapter) recyclerView.getAdapter();
-            adapter.addLatItem(new Bean(text, color));
+            adapter.addLastItem(new Bean(text, color));
             if (autoScroll) {
                 //滚动至列表末尾
                 recyclerView.smoothScrollToPosition(adapter.getItemCount());
@@ -259,13 +259,25 @@ public class RDebugWindow {
         heightView.setPadding(padding, padding, padding, padding);
         heightView.setClickable(true);
 
+        //清理数据
+        TextView cleanView = new TextView(context);
+        cleanView.setTextColor(Color.WHITE);
+        cleanView.setText("清");
+        cleanView.setGravity(Gravity.CENTER);
+        cleanView.setLayoutParams(new LinearLayoutCompat.LayoutParams(layoutParams));
+        cleanView.setBackground(generateCircleBgDrawable(DEFAULT_BUTTON_BG_WIDTH, Color.BLUE));
+        cleanView.setPadding(padding, padding, padding, padding);
+        cleanView.setClickable(true);
+
         layoutCompat.addView(posView);
         layoutCompat.addView(widthView);
         layoutCompat.addView(heightView);
+        layoutCompat.addView(cleanView);
 
         quitTouch(posView);
         widthTouch(widthView);
         heightTouch(heightView);
+        cleanTouch(cleanView);
         return layoutCompat;
     }
 
@@ -378,6 +390,20 @@ public class RDebugWindow {
         };
         final GestureDetectorCompat gestureDetectorCompat = new GestureDetectorCompat(view.getContext(), simpleOnGestureListener);
         view.setOnTouchListener((v, event) -> gestureDetectorCompat.onTouchEvent(event));
+    }
+
+    /**
+     * 处理清理事件
+     */
+    private void cleanTouch(View view) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecyclerView recyclerView = mBaseViewHolder.reV(recyclerViewId);
+                RAdapter adapter = (RAdapter) recyclerView.getAdapter();
+                adapter.resetData(new ArrayList<>());
+            }
+        });
     }
 
     private void removeLayout() {

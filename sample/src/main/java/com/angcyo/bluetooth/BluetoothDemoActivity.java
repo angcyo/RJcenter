@@ -1,6 +1,8 @@
 package com.angcyo.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -9,12 +11,19 @@ import android.view.View;
 
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
+import com.rsen.base.RBaseAdapter;
+import com.rsen.base.RBaseViewHolder;
+
+import java.util.Set;
 
 public class BluetoothDemoActivity extends RBaseActivity {
 
     BluetoothAdapter defaultAdapter;
     String msg;
     long scanMode = 0;
+
+    BluetoothDeviceAdapter leftAdapter;
+    BluetoothDeviceAdapter rightAdapter;
 
     @Override
     protected int getContentView() {
@@ -23,12 +32,21 @@ public class BluetoothDemoActivity extends RBaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        leftAdapter = new BluetoothDeviceAdapter(this);
+        rightAdapter = new BluetoothDeviceAdapter(this);
+        mViewHolder.r(R.id.leftRecyclerView).setAdapter(leftAdapter);
+        mViewHolder.r(R.id.rightRecyclerView).setAdapter(rightAdapter);
     }
 
     @Override
     protected void initViewData() {
         defaultAdapter = BluetoothHelper.getDefaultAdapter(this);
+
+        //已经匹配过的设备
+        final Set<BluetoothDevice> bondedDevices = defaultAdapter.getBondedDevices();
+        for (BluetoothDevice device : bondedDevices) {
+            rightAdapter.addLastItem(new BluetoothDeviceBean(device.getName(), device.getAddress()));
+        }
     }
 
     public void supportBluetooth(View view) {
@@ -101,5 +119,33 @@ public class BluetoothDemoActivity extends RBaseActivity {
 
     public void showMsg(View view) {
         Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    static class BluetoothDeviceBean {
+        public String name;
+        public String address;
+
+        public BluetoothDeviceBean(String name, String address) {
+            this.name = name;
+            this.address = address;
+        }
+    }
+
+    class BluetoothDeviceAdapter extends RBaseAdapter<BluetoothDeviceBean> {
+
+        public BluetoothDeviceAdapter(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected int getItemLayoutId(int viewType) {
+            return R.layout.activity_bluetooth_adapter_item;
+        }
+
+        @Override
+        protected void onBindView(RBaseViewHolder holder, int position, BluetoothDeviceBean bean) {
+            holder.tV(R.id.nameView).setText(bean.name);
+            holder.tV(R.id.addressView).setText(bean.address);
+        }
     }
 }

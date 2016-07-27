@@ -89,7 +89,7 @@ public class RBaseRecyclerFragmentActivity extends RBaseActivity {
                 @Override
                 public void onClick(View v) {
                     System.out.println(v.getId() + "  " + v.toString() + "  " + v.hashCode());
-//                    addLatItem(new DemoBean());
+//                    addLastItem(new DemoBean());
 //                    removeLastItem();
                     addFirstItem(new DemoBean());
                 }

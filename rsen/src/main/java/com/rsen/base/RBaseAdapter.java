@@ -69,7 +69,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     /**
      * 在最后的位置插入数据
      */
-    public void addLatItem(T bean) {
+    public void addLastItem(T bean) {
         mAllDatas.add(bean);
         notifyItemInserted(mAllDatas.size() - 1);
     }
