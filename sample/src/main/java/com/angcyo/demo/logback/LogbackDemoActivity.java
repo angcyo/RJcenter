@@ -1,10 +1,14 @@
 package com.angcyo.demo.logback;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.angcyo.sample.R;
 import com.lib.common.RLog;
 import com.rsen.base.RBaseActivity;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hugo.weaving.DebugLog;
 
@@ -19,7 +23,12 @@ public class LogbackDemoActivity extends RBaseActivity {
     @DebugLog
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        mViewHolder.v("textView").setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logger logger = LoggerFactory.getLogger("");
+            }
+        });
     }
 
     @DebugLog
