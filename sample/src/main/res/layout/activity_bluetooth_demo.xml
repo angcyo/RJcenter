@@ -13,15 +13,13 @@
 
         <com.rsen.viewgroup.RRecyclerView
             android:id="@+id/leftRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
 
         <com.rsen.viewgroup.RRecyclerView
             android:id="@+id/rightRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
@@ -59,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="startDiscovery"
-            android:text="开始扫描"/>
+            android:text="开始/关闭扫描"/>
 
         <Button
             android:layout_width="wrap_content"

@@ -4,10 +4,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
@@ -17,9 +20,10 @@ import com.rsen.base.RBaseViewHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Set;
 
-public class BluetoothDemoActivity extends RBaseActivity {
+public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDiscover.IBluetoothDiscoverListener {
 
     public static Logger log = LoggerFactory.getLogger("bluetooth.ui");
     BluetoothAdapter defaultAdapter;
@@ -39,6 +43,20 @@ public class BluetoothDemoActivity extends RBaseActivity {
         rightAdapter = new BluetoothDeviceAdapter(this);
         mViewHolder.r(R.id.leftRecyclerView).setAdapter(leftAdapter);
         mViewHolder.r(R.id.rightRecyclerView).setAdapter(rightAdapter);
+
+        fixRecyclerViewWidth(mViewHolder.r(R.id.leftRecyclerView));
+        fixRecyclerViewWidth(mViewHolder.r(R.id.rightRecyclerView));
+    }
+
+    private int getScreenWidth() {
+        int width = getResources().getDisplayMetrics().widthPixels;
+        return width;
+    }
+
+    private void fixRecyclerViewWidth(RecyclerView recyclerView) {
+        final ViewGroup.LayoutParams layoutParams = recyclerView.getLayoutParams();
+        layoutParams.width = getScreenWidth() / 2;
+        recyclerView.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -48,10 +66,18 @@ public class BluetoothDemoActivity extends RBaseActivity {
         //已经匹配过的设备
         final Set<BluetoothDevice> bondedDevices = defaultAdapter.getBondedDevices();
         for (BluetoothDevice device : bondedDevices) {
-            rightAdapter.addLastItem(new BluetoothDeviceBean(device.getName(), device.getAddress()));
+            rightAdapter.addLastItem(new BluetoothDeviceBean(device.getName(), device.getAddress(), device.getBluetoothClass().getDeviceClass()));
         }
 
         log.info("initViewData");
+
+        BluetoothDiscover.instance().addDiscoverListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BluetoothDiscover.instance().removeDiscoverListener(this);
     }
 
     public void supportBluetooth(View view) {
@@ -103,9 +129,14 @@ public class BluetoothDemoActivity extends RBaseActivity {
     }
 
     public void startDiscovery(View view) {
-        defaultAdapter.startDiscovery();
-        //defaultAdapter.cancelDiscovery();
-        msg = "开始扫描...";
+        if (defaultAdapter.isDiscovering()) {
+            defaultAdapter.cancelDiscovery();
+            msg = "取消扫描...";
+        } else {
+            leftAdapter.resetData(new ArrayList<>());
+            defaultAdapter.startDiscovery();
+            msg = "开始扫描...";
+        }
         showMsg(view);
     }
 
@@ -126,13 +157,20 @@ public class BluetoothDemoActivity extends RBaseActivity {
         Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onDeviceDiscover(BluetoothDevice device) {
+        leftAdapter.addLastItem(new BluetoothDeviceBean(device.getName(), device.getAddress(), device.getBluetoothClass().getDeviceClass()));
+    }
+
     static class BluetoothDeviceBean {
         public String name;
         public String address;
+        public int cls;
 
-        public BluetoothDeviceBean(String name, String address) {
+        public BluetoothDeviceBean(String name, String address, int cls) {
             this.name = name;
             this.address = address;
+            this.cls = cls;
         }
     }
 
@@ -149,8 +187,14 @@ public class BluetoothDemoActivity extends RBaseActivity {
 
         @Override
         protected void onBindView(RBaseViewHolder holder, int position, BluetoothDeviceBean bean) {
+            if (position % 2 == 0) {
+                holder.v(R.id.rootLayout).setBackgroundColor(Color.WHITE);
+            } else {
+                holder.v(R.id.rootLayout).setBackgroundColor(Color.GREEN);
+            }
             holder.tV(R.id.nameView).setText(bean.name);
             holder.tV(R.id.addressView).setText(bean.address);
+            holder.tV(R.id.clsView).setText(String.valueOf(bean.cls));
         }
     }
 }

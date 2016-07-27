@@ -693,7 +693,7 @@
                 <action android:name="android.bluetooth.device.action.CLASS_CHANGED"/>
                 <!--扫描时,发现蓝牙设备-->
                 <action android:name="android.bluetooth.device.action.FOUND"/>
-                <!--蓝牙设备名称改变-->
+                <!--蓝牙设备名称改变(并不是本地设备的名称改变)-->
                 <action android:name="android.bluetooth.device.action.NAME_CHANGED"/>
                 <!--API>=19 蓝牙配对请求的广播-->
                 <action android:name="android.bluetooth.device.action.PAIRING_REQUEST"/>
