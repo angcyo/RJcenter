@@ -1,7 +1,7 @@
 <configuration debug='false'>
 
     <!--声明一个属性,用来指定log文件存放的路径-->
-    <property name="LOG_DIR" value="/sdcard/rlog"/>
+    <property name="LOG_DIR" value="/sdcard/_log"/>
 
     <!--声明一个时间戳-->
     <timestamp datePattern="yyyyMMdd" key="today"/>
@@ -9,7 +9,7 @@
     <!--用于在控制台输出的Appender-->
     <appender name="LOGCAT" class="ch.qos.logback.classic.android.LogcatAppender">
         <encoder>
-            <pattern>%-5relative [%thread][%file:%M:%line] - %msg%n</pattern>
+            <pattern>%-5relative [%thread][%file:%line:%M] - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -33,7 +33,7 @@
         <file>${LOG_DIR}/base.roll.${today}.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%date %-5relative [%thread] %-5level %logger{36} [%file:%M:%line] - %msg%n
+            <pattern>%date %-5relative [%thread] %-5level %logger{36} [%file:%line:%M] - %msg%n
             </pattern>
         </encoder>
 
