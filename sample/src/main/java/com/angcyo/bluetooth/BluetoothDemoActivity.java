@@ -44,7 +44,6 @@ public class BluetoothDemoActivity extends RBaseActivity {
             msg = "蓝牙已关闭";
         }
         showMsg(view);
-
     }
 
     public void openBluetooth(View view) {
