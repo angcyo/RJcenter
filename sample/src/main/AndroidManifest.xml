@@ -32,6 +32,15 @@
 
     <!-- <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/> -->
     <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
+
+    <!--蓝牙权限-->
+    <!--允许配对设备-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!--允许发现设备-->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!--无交互的进行操作, API>=19添加 -->
+    <!--<uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/>-->
+
     <!-- tools:replace="icon, label" -->
     <application
         android:name="com.rsen.RApplication"
@@ -635,7 +644,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
 
@@ -651,6 +660,13 @@
             android:theme="@style/SlidrTheme">
         </activity>
         <activity android:name=".rx.RxActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            </intent-filter>
+        </activity>
+        <activity android:name="com.angcyo.bluetooth.BluetoothDemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
