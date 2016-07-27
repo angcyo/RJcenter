@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -66,7 +65,7 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         //已经匹配过的设备
         final Set<BluetoothDevice> bondedDevices = defaultAdapter.getBondedDevices();
         for (BluetoothDevice device : bondedDevices) {
-            rightAdapter.addLastItem(new BluetoothDeviceBean(device.getName(), device.getAddress(), device.getBluetoothClass().getDeviceClass()));
+            rightAdapter.addLastItem(new BluetoothDeviceBean(device));
         }
 
         log.info("initViewData");
@@ -159,18 +158,20 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
 
     @Override
     public void onDeviceDiscover(BluetoothDevice device) {
-        leftAdapter.addLastItem(new BluetoothDeviceBean(device.getName(), device.getAddress(), device.getBluetoothClass().getDeviceClass()));
+        leftAdapter.addLastItem(new BluetoothDeviceBean(device));
     }
 
     static class BluetoothDeviceBean {
+        public BluetoothDevice device;
         public String name;
         public String address;
         public int cls;
 
-        public BluetoothDeviceBean(String name, String address, int cls) {
-            this.name = name;
-            this.address = address;
-            this.cls = cls;
+        public BluetoothDeviceBean(BluetoothDevice device) {
+            this.device = device;
+            this.name = device.getName();
+            this.address = device.getAddress();
+            this.cls = device.getBluetoothClass().getDeviceClass();
         }
     }
 
@@ -188,13 +189,24 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         @Override
         protected void onBindView(RBaseViewHolder holder, int position, BluetoothDeviceBean bean) {
             if (position % 2 == 0) {
-                holder.v(R.id.rootLayout).setBackgroundColor(Color.WHITE);
+                holder.v(R.id.rootLayout).setBackgroundResource(R.drawable.v_btn_default_white_selector);
             } else {
-                holder.v(R.id.rootLayout).setBackgroundColor(Color.GREEN);
+                holder.v(R.id.rootLayout).setBackgroundResource(R.drawable.v_btn_default_blue_selector);
             }
             holder.tV(R.id.nameView).setText(bean.name);
             holder.tV(R.id.addressView).setText(bean.address);
             holder.tV(R.id.clsView).setText(String.valueOf(bean.cls));
+
+            holder.v(R.id.rootLayout).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (bean.device.createBond()) {
+                        log.info("连接至蓝牙:{} 开始.", bean.name);
+                    } else {
+                        log.info("连接至蓝牙:{} 失败.", bean.name);
+                    }
+                }
+            });
         }
     }
 }

@@ -590,7 +590,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             </intent-filter>
         </activity>
         <activity
@@ -687,7 +687,7 @@
                 <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED"/>
                 <!--ACL收到断开请求,并且马上就会断开-->
                 <action android:name="android.bluetooth.device.action.ACL_DISCONNECT_REQUESTED"/>
-                <!--远程设备的bond状态改变-->
+                <!--远程设备的配对状态改变-->
                 <action android:name="android.bluetooth.device.action.BOND_STATE_CHANGED"/>
                 <!--蓝牙的类型发生了变化(电话,电脑,手机,耳机,蓝牙音箱等)-->
                 <action android:name="android.bluetooth.device.action.CLASS_CHANGED"/>

@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/content"
-        android:background="@drawable/v_btn_default_selector"
+        android:background="@drawable/v_btn_default_blue_selector"
         android:gravity="center"
         android:padding="5dp"
         android:text="确定"

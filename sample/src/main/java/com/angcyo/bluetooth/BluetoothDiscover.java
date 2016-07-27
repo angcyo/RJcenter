@@ -27,7 +27,7 @@ public class BluetoothDiscover {
         mDiscoverListeners.remove(listener);
     }
 
-    public void onDevicoverDevice(BluetoothDevice device) {
+    public void onDiscoverDevice(BluetoothDevice device) {
         for (IBluetoothDiscoverListener listener : mDiscoverListeners) {
             listener.onDeviceDiscover(device);
         }

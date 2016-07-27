@@ -35,6 +35,6 @@ public class BluetoothReceiver extends BroadcastReceiver {
     private void actionFound(Intent intent) {
         BluetoothDevice bluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
         log.info("蓝牙名称:{} 地址:{} 类型:{}", bluetoothDevice.getName(), bluetoothDevice.getAddress(), bluetoothDevice.getBluetoothClass().getDeviceClass());
-        BluetoothDiscover.instance().onDevicoverDevice(bluetoothDevice);
+        BluetoothDiscover.instance().onDiscoverDevice(bluetoothDevice);
     }
 }

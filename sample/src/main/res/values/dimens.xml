@@ -5,4 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="ds_shape_bg">2dp</dimen>
     <dimen name="drag_button_size">65dp</dimen>
+    <dimen name="default_radius">2dp</dimen>
 </resources>

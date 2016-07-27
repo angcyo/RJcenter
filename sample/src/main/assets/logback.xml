@@ -60,7 +60,7 @@
 
     <!-- Write INFO (and higher-level) messages to the log file -->
     <!--此标签必须要-->
-    <root level="TRACE">
+    <root level="DEBUG">
         <appender-ref ref="LOGCAT"/>
     </root>
 

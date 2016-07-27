@@ -5,6 +5,7 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/v_btn_default_blue_selector"
     tools:context="com.angcyo.bluetooth.BluetoothDemoActivity">
 
     <TextView
