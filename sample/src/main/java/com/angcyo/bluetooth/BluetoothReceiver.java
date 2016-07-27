@@ -96,7 +96,7 @@ public class BluetoothReceiver extends BroadcastReceiver {
     }
 
     private void showDeviceInfo(BluetoothDevice device, String msg) {
-        log.info("名:{} 配对状态:{} 设备类型:{} {}",
+        log.info("蓝牙名称:{} 配对状态:{} 设备类型:{} {}",
                 device.getName(), getBondStateString(device.getBondState()), getTypeString(device.getType()), msg);
     }
 
