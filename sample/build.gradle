@@ -65,8 +65,6 @@ if (project.hasProperty("dudu.properties")
     println props['keystore']
 }
 
-
-
 android {
     compileSdkVersion Integer.parseInt(rootProject.R_COMPILE_SDK_VERSION)
     buildToolsVersion rootProject.R_BUILD_TOOLS_VERSION
