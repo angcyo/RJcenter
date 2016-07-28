@@ -80,7 +80,7 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
     }
 
     public void supportBluetooth(View view) {
-        if (defaultAdapter != null) {
+        if (defaultAdapter != null && !defaultAdapter.getAddress().equals(null)) {
             msg = "支持蓝牙";
         } else {
             msg = "不支持蓝牙";
