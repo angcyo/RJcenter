@@ -121,7 +121,7 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         stringBuilder.append(defaultAdapter.getScanMode());//扫描模式
         stringBuilder.append(" State:");
         stringBuilder.append(defaultAdapter.getState());//当前状态
-        stringBuilder.append(" ");
+        stringBuilder.append(" Scan");
         stringBuilder.append(defaultAdapter.isDiscovering());//是否正在扫描
         msg = stringBuilder.toString();
         showMsg(view);

@@ -81,9 +81,10 @@ public class BluetoothReceiver extends BroadcastReceiver {
      */
     private void actionFound(Intent intent) {
         BluetoothDevice bluetoothDevice = getDeviceFromIntent(intent);
-        log.info("蓝牙名称:{} 地址:{} 设备归类:{} 设备类型:{}",
+        log.info("蓝牙名称:{} 地址:{} 设备归类:{} 设备类型:{} 配对状态:{}",
                 bluetoothDevice.getName(), bluetoothDevice.getAddress(),
-                bluetoothDevice.getBluetoothClass().getDeviceClass(), getTypeString(bluetoothDevice.getType()));
+                bluetoothDevice.getBluetoothClass().getDeviceClass(), getTypeString(bluetoothDevice.getType()),
+                getBondStateString(bluetoothDevice.getBondState()));
         BluetoothDiscover.instance().onDiscoverDevice(bluetoothDevice);
     }
 
@@ -92,7 +93,7 @@ public class BluetoothReceiver extends BroadcastReceiver {
      */
     private void bondStateChanged(Intent intent) {
         BluetoothDevice bluetoothDevice = getDeviceFromIntent(intent);
-        log.info("设备:{} 连接状态:{}", bluetoothDevice.getName(), getBondStateString(getBondStateFromIntent(intent)));
+        log.info("设备:{} 配对状态:{}", bluetoothDevice.getName(), getBondStateString(getBondStateFromIntent(intent)));
     }
 
     private void showDeviceInfo(BluetoothDevice device, String msg) {
