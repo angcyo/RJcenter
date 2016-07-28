@@ -121,7 +121,7 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         stringBuilder.append(defaultAdapter.getScanMode());//扫描模式
         stringBuilder.append(" State:");
         stringBuilder.append(defaultAdapter.getState());//当前状态
-        stringBuilder.append(" Scan");
+        stringBuilder.append(" Scan:");
         stringBuilder.append(defaultAdapter.isDiscovering());//是否正在扫描
         msg = stringBuilder.toString();
         showMsg(view);
@@ -193,6 +193,11 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
             } else {
                 holder.v(R.id.rootLayout).setBackgroundResource(R.drawable.v_btn_default_blue_selector);
             }
+
+            if (bean.device.getBondState() == BluetoothDevice.BOND_BONDED) {
+                holder.v(R.id.rootLayout).setBackgroundResource(R.drawable.v_btn_default_red_selector);
+            }
+
             holder.tV(R.id.nameView).setText(bean.name);
             holder.tV(R.id.addressView).setText(bean.address);
             holder.tV(R.id.clsView).setText(String.valueOf(bean.cls));

@@ -73,6 +73,10 @@ public class BluetoothReceiver extends BroadcastReceiver {
             actionFound(intent);
         } else if (TextUtils.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED, action)) {
             bondStateChanged(intent);
+        } else if (TextUtils.equals(BluetoothDevice.ACTION_PAIRING_REQUEST, action)) {
+            //配对请求
+            log.info("自动确认配对.");
+            bluetoothDevice.setPairingConfirmation(true);
         }
     }
 
