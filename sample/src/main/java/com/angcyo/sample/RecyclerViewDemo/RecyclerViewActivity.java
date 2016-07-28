@@ -1,6 +1,5 @@
 package com.angcyo.sample.RecyclerViewDemo;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
+import com.rsen.animation.recyclerview.adapters.SlideInRightAnimationAdapter;
+import com.rsen.animation.recyclerview.animators.FlipInRightYAnimator;
+import com.rsen.animation.recyclerview.animators.ScaleInAnimator;
 import com.rsen.base.RBaseActivity;
 import com.rsen.base.RBaseAdapter;
 import com.rsen.base.RBaseViewHolder;
@@ -30,10 +32,10 @@ public class RecyclerViewActivity extends RBaseActivity {
 //        getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#20ffff00")));
 
         final List<String> datas = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 7; i++) {
             datas.add(new String("" + i));
         }
-        mViewHolder.reV("recycler").setAdapter(new RBaseAdapter<String>(this, datas) {
+        ((RRecyclerView) mViewHolder.reV("recycler")).setItemAnimator(FlipInRightYAnimator.class).setAnimatorAdapter(SlideInRightAnimationAdapter.class, new RBaseAdapter<String>(this, datas) {
 
             @Override
             protected int getItemLayoutId(int viewType) {
@@ -50,7 +52,7 @@ public class RecyclerViewActivity extends RBaseActivity {
 
                 TextView textView = new TextView(mContext);
                 textView.setBackgroundColor(Color.BLUE);
-                textView.setLayoutParams(new ViewGroup.LayoutParams(-1, 100));
+                textView.setLayoutParams(new ViewGroup.LayoutParams(-1, 200));
                 return textView;
             }
 
@@ -65,7 +67,7 @@ public class RecyclerViewActivity extends RBaseActivity {
             @Override
             protected void onBindView(RBaseViewHolder holder, int position, String bean) {
                 if (position == 0) {
-                    ((RRecyclerView) holder.itemView).setAdapter(new RBaseAdapter<String>(mContext, datas) {
+                    ((RRecyclerView) holder.itemView).setItemAnimator(ScaleInAnimator.class).setAdapter(new RBaseAdapter<String>(mContext, datas) {
 
                         @Override
                         protected int getItemLayoutId(int viewType) {
@@ -76,7 +78,7 @@ public class RecyclerViewActivity extends RBaseActivity {
                         protected View createContentView(int viewType) {
                             TextView textView = new TextView(mContext);
                             textView.setBackgroundColor(Color.RED);
-                            textView.setLayoutParams(new ViewGroup.LayoutParams(-1, 300));
+                            textView.setLayoutParams(new ViewGroup.LayoutParams(-1, 200));
                             return textView;
                         }
 
@@ -95,8 +97,8 @@ public class RecyclerViewActivity extends RBaseActivity {
     @Override
     protected void initAfter() {
 //        Slidr.attach(this);
-        Intent intent = new Intent(this, RecyclerViewActivity2.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, RecyclerViewActivity2.class);
+//        startActivity(intent);
     }
 
     @Override
