@@ -83,6 +83,9 @@ public class RRecyclerView extends RecyclerView {
         super.setAdapter(getAnimationAdapter(adapter));
     }
 
+    /**
+     * 设置Item 动画类, 用于 添加 和 删除 Item时候的动画
+     */
     public RRecyclerView setItemAnimator(Class<? extends BaseItemAnimator> animator) {
         try {
             super.setItemAnimator(animator.newInstance());
@@ -92,6 +95,9 @@ public class RRecyclerView extends RecyclerView {
         return this;
     }
 
+    /**
+     * 设置Item滑动时的动画,用于滑动查看时的动画
+     */
     public void setAnimatorAdapter(Class<? extends AnimationAdapter> animatorAdapter, Adapter adapter) {
         setAnimatorAdapter(animatorAdapter);
         setAdapter(adapter);
