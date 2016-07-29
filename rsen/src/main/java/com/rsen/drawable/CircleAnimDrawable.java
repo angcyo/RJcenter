@@ -11,9 +11,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -25,7 +22,6 @@ public class CircleAnimDrawable extends Drawable {
     public static final int POS_LEFT = 1;//放置在左边
     public static final int POS_CENTER = 2;//放置在中间
     public static final int POS_RIGHT = 3;//放置在右边
-    public static Logger log = LoggerFactory.getLogger(CircleAnimDrawable.class);
     private int mCircleRadius;//圆的半径
     private int mCircleRadiusOut;//外圆的半径
     private int mCircleRadiusMax;//最大允许的半径(主要用来绘制左边和右边的布局)
@@ -93,12 +89,14 @@ public class CircleAnimDrawable extends Drawable {
         mPaint.setColor(mCircleColorOut);
         canvas.drawCircle(mCx, mCy, Math.min(curRadius, mCircleRadiusOut), mPaint);
 
-        if (drawLeft) {
-            mPaint.setColor(mCircleColor);
-            canvas.drawArc(getArcRecF(Math.min(curRadius, mCircleRadiusMax)), 90, 180, true, mPaint);
-        } else if (drawRight) {
-            mPaint.setColor(mCircleColor);
-            canvas.drawArc(getArcRecF(Math.min(curRadius, mCircleRadiusMax)), -90, 180, true, mPaint);
+        if (curRadius >= mCircleRadiusOut) {
+            if (drawLeft) {
+                mPaint.setColor(mCircleColor);
+                canvas.drawArc(getArcRecF(Math.min(curRadius, mCircleRadiusMax)), 90, 180, true, mPaint);
+            } else if (drawRight) {
+                mPaint.setColor(mCircleColor);
+                canvas.drawArc(getArcRecF(Math.min(curRadius, mCircleRadiusMax)), -90, 180, true, mPaint);
+            }
         }
 
         if (curRadius < maxRadius) {
