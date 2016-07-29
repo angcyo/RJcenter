@@ -43,10 +43,15 @@ public class CircleAnimDrawable extends Drawable {
         this(Color.BLUE);
     }
 
-    public CircleAnimDrawable(int circleColor) {
+    public CircleAnimDrawable(@ColorInt int circleColor) {
         mCircleColor = circleColor;
         mCircleColorOut = getColorWidthAlpha(mCircleColor, 100);//不透明度取值范围0-255 (越小越透明)
         initPaint();
+    }
+
+    public CircleAnimDrawable(@ColorInt int circleColor, @Position int position) {
+        this(circleColor);
+        mPosition = position;
     }
 
     /**
@@ -102,6 +107,8 @@ public class CircleAnimDrawable extends Drawable {
         if (curRadius < maxRadius) {
             curRadius += mRadiusDrawStep;
             invalidateSelf();
+        } else {
+            curRadius = getBeginDrawRadius();
         }
     }
 
@@ -126,11 +133,19 @@ public class CircleAnimDrawable extends Drawable {
         return this;
     }
 
+    private int getBeginDrawRadius() {
+        return getBeginDrawRadius(getBounds());
+    }
+
+    private int getBeginDrawRadius(Rect bounds) {
+        return Math.min(bounds.width(), bounds.height()) / 4;
+    }
+
     @Override
     protected void onBoundsChange(Rect bounds) {
         mCx = bounds.width() / 2;
         mCy = bounds.height() / 2;
-        curRadius = Math.min(bounds.width(), bounds.height()) / 4;
+        curRadius = getBeginDrawRadius(bounds);
         mCircleRadius = Math.min(bounds.width(), bounds.height()) / 2 + mRadiusOffset;
         mCircleRadiusOut = mCircleRadius + mRadiusOffsetOut;
 

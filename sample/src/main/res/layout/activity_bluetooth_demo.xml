@@ -31,6 +31,43 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/leftRadioView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:minWidth="80dp"
+                android:text="左边"/>
+
+            <RadioButton
+                android:id="@+id/centerRadioView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:minWidth="80dp"
+                android:text="中间"/>
+
+            <RadioButton
+                android:id="@+id/rightRadioView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:minWidth="80dp"
+                android:text="右边"/>
+
+        </RadioGroup>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

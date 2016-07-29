@@ -4,6 +4,9 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -68,6 +71,16 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
                 v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_RIGHT));
             }
         });
+
+        mViewHolder.v(R.id.leftRadioView).setBackground(createRadioBackground(CircleAnimDrawable.POS_LEFT));
+        mViewHolder.v(R.id.centerRadioView).setBackground(createRadioBackground(CircleAnimDrawable.POS_CENTER));
+        mViewHolder.v(R.id.rightRadioView).setBackground(createRadioBackground(CircleAnimDrawable.POS_RIGHT));
+    }
+
+    private Drawable createRadioBackground(int position) {
+        StateListDrawable listDrawable = new StateListDrawable();
+        listDrawable.addState(new int[]{android.R.attr.state_checked}, new CircleAnimDrawable(Color.GREEN, position));
+        return listDrawable;
     }
 
     private int getScreenWidth() {
