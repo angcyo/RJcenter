@@ -40,7 +40,7 @@ public class CircleAnimDrawable extends Drawable {
     private int mPosition = POS_CENTER;//布局存放在什么地方
 
     public CircleAnimDrawable() {
-        this(Color.BLUE);
+        this(Color.parseColor("#1EC2B6"));
     }
 
     public CircleAnimDrawable(@ColorInt int circleColor) {

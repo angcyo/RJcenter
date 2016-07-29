@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
     tools:context="com.angcyo.bluetooth.BluetoothDemoActivity">
 
     <LinearLayout
@@ -34,36 +33,32 @@
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/leftRadioView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/test_circle_radio_width"
+                android:layout_height="@dimen/test_circle_radio_height"
                 android:button="@null"
                 android:gravity="center"
-                android:minHeight="50dp"
-                android:minWidth="80dp"
                 android:text="左边"/>
 
             <RadioButton
                 android:id="@+id/centerRadioView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/test_circle_radio_width"
+                android:layout_height="@dimen/test_circle_radio_height"
                 android:button="@null"
+                android:drawableTop="@drawable/radio_upload_selector"
                 android:gravity="center"
-                android:minHeight="50dp"
-                android:minWidth="80dp"
                 android:text="中间"/>
 
             <RadioButton
                 android:id="@+id/rightRadioView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/test_circle_radio_width"
+                android:layout_height="@dimen/test_circle_radio_height"
                 android:button="@null"
                 android:gravity="center"
-                android:minHeight="50dp"
-                android:minWidth="80dp"
                 android:text="右边"/>
 
         </RadioGroup>

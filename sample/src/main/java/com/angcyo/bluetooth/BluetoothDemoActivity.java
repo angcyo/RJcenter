@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
@@ -79,7 +78,7 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
 
     private Drawable createRadioBackground(int position) {
         StateListDrawable listDrawable = new StateListDrawable();
-        listDrawable.addState(new int[]{android.R.attr.state_checked}, new CircleAnimDrawable(Color.GREEN, position));
+        listDrawable.addState(new int[]{android.R.attr.state_checked}, new CircleAnimDrawable().setPosition(position));
         return listDrawable;
     }
 
