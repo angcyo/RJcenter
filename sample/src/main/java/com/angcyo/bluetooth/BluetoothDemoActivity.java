@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,6 +16,7 @@ import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
 import com.rsen.base.RBaseAdapter;
 import com.rsen.base.RBaseViewHolder;
+import com.rsen.drawable.CircleAnimDrawable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +47,27 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
 
         fixRecyclerViewWidth(mViewHolder.r(R.id.leftRecyclerView));
         fixRecyclerViewWidth(mViewHolder.r(R.id.rightRecyclerView));
+
+        //test drawable
+//        mViewHolder.v(R.id.supportBluetoothView).setBackground(new CircleAnimDrawable());
+        mViewHolder.v(R.id.leftButtonView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_LEFT));
+            }
+        });
+        mViewHolder.v(R.id.centerButtonView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_CENTER));
+            }
+        });
+        mViewHolder.v(R.id.rightButtonView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_RIGHT));
+            }
+        });
     }
 
     private int getScreenWidth() {
@@ -80,7 +103,7 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
     }
 
     public void supportBluetooth(View view) {
-        if (defaultAdapter != null && !defaultAdapter.getAddress().equals(null)) {
+        if (defaultAdapter != null && !TextUtils.isEmpty(defaultAdapter.getAddress())) {
             msg = "支持蓝牙";
         } else {
             msg = "不支持蓝牙";

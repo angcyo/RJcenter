@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     tools:context="com.angcyo.bluetooth.BluetoothDemoActivity">
 
     <LinearLayout
@@ -29,7 +30,32 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/leftButtonView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="左边"/>
+
+            <Button
+                android:id="@+id/centerButtonView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="中间"/>
+
+            <Button
+                android:id="@+id/rightButtonView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="右边"/>
+        </LinearLayout>
+
         <Button
+            android:id="@+id/supportBluetoothView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="supportBluetooth"

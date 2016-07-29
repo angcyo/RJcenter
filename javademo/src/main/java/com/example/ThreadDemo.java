@@ -32,7 +32,13 @@ public class ThreadDemo {
 //        threadNew.start();
 //        threadNew.start();
 
-        p.println(getNum());
+//        p.println(getNum());
+
+        p.println(Math.ceil(1.1f));
+        p.println(Math.round(1.1f));
+        p.println(Math.ceil(-1.1f));
+        p.println(Math.round(-1.1f));
+        p.println(Math.sqrt(Math.exp(3) + Math.exp(4)));
     }
 
     public static int getNum() {
@@ -44,8 +50,7 @@ public class ThreadDemo {
         } catch (Exception e) {
             p.println("2--");
             return 2;
-        }
-        finally {
+        } finally {
             int b = 1 / 0;
             p.println("3--");
             return 3;
