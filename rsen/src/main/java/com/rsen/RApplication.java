@@ -56,13 +56,13 @@ public class RApplication extends Application {
         Hawk.init(this)
                 .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
                 .setLogLevel(LogLevel.NONE)
-                .setStorage(HawkBuilder.newSqliteStorage(this))
+                //.setStorage(HawkBuilder.newSqliteStorage(this))
+                .setStorage(HawkBuilder.newSharedPrefStorage(this))
                 .setPassword("angcyo")
                 .build();
 
-
         /*Realm数据库初始化*/
-        RRealm.init(this, "rjcenter.realm", true);
+        RRealm.init(this, "r_jcenter.realm", true);
 
         /*内存泄漏检查*/
         LeakCanary.install(this);

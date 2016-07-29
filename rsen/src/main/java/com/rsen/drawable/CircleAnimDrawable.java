@@ -10,9 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
+import android.util.Log;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by robi on 2016-07-29 14:27.
@@ -108,21 +111,32 @@ public class CircleAnimDrawable extends Drawable {
             curRadius += mRadiusDrawStep;
             invalidateSelf();
         } else {
-            curRadius = getBeginDrawRadius();
+//            curRadius = getBeginDrawRadius();
         }
     }
 
     @Override
     public void setAlpha(int alpha) {
+        Log.e("angcyo", "");
+
     }
 
     @Override
     public void setColorFilter(ColorFilter colorFilter) {
+        Log.e("angcyo", "");
     }
 
     @Override
     public int getOpacity() {
         return 0;
+    }
+
+    @Override
+    protected boolean onStateChange(int[] state) {
+        if (!convertToList(state).contains(android.R.attr.state_checked)) {
+            curRadius = getBeginDrawRadius();
+        }
+        return super.onStateChange(state);
     }
 
     /**
@@ -139,6 +153,14 @@ public class CircleAnimDrawable extends Drawable {
 
     private int getBeginDrawRadius(Rect bounds) {
         return Math.min(bounds.width(), bounds.height()) / 4;
+    }
+
+    private List<Integer> convertToList(int[] array) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i : array) {
+            list.add(i);
+        }
+        return list;
     }
 
     @Override

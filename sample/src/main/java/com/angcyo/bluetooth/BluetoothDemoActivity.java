@@ -58,12 +58,13 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
                 v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_LEFT));
             }
         });
-        mViewHolder.v(R.id.centerButtonView).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_CENTER));
-            }
-        });
+//        mViewHolder.v(R.id.centerButtonView).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_CENTER));
+//            }
+//        });
+        mViewHolder.v(R.id.centerButtonView).setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_CENTER));
         mViewHolder.v(R.id.rightButtonView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
