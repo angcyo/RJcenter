@@ -6,7 +6,7 @@ import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by robi on 2016-07-30 16:32.
  */
-public class ViewDragLayout extends RelativeLayout {
+public class ViewDragLayout extends FrameLayout {
 
     public static Logger log = LoggerFactory.getLogger(ViewDragLayout.class);
     private ViewDragHelper mViewDragHelper;
@@ -39,7 +39,7 @@ public class ViewDragLayout extends RelativeLayout {
         super.onAttachedToWindow();
         log.info(String.valueOf(getChildCount()));
 
-        mViewDragHelper = ViewDragHelper.create(this, 0.2f, new DragCallback());
+        mViewDragHelper = ViewDragHelper.create(this, 1f, new DragCallback());
     }
 
     @Override
@@ -118,38 +118,40 @@ public class ViewDragLayout extends RelativeLayout {
 
         @Override
         public int getOrderedChildIndex(int index) {
-            log.info(null);
+            log.info(String.valueOf(index));
             return super.getOrderedChildIndex(index);
         }
 
         @Override
         public int getViewHorizontalDragRange(View child) {
-            log.info(null);
-            return super.getViewHorizontalDragRange(child);
+            int range = child.getMeasuredWidth();
+            log.info("{} {}", child.getId(), range);
+            return range;
         }
 
         @Override
         public int getViewVerticalDragRange(View child) {
-            log.info(null);
-            return super.getViewVerticalDragRange(child);
+            int range = child.getMeasuredHeight();
+            log.info("{} {}", child.getId(), range);
+            return range;
         }
 
         @Override
         public int clampViewPositionHorizontal(View child, int left, int dx) {
-            log.info(null);
+            log.info("left:{} dx:{}", left, dx);
             return super.clampViewPositionHorizontal(child, left, dx);
         }
 
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
-            log.info(null);
+            log.info("top:{} dy:{}", top, dy);
             return super.clampViewPositionVertical(child, top, dy);
         }
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
-            log.info(null);
-            return false;
+            log.info("tryCaptureView {} {}", child.getId(), pointerId);
+            return true;
         }
     }
 
