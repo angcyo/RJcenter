@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
 
 import com.angcyo.rsen.R;
@@ -20,6 +21,8 @@ import java.util.Locale;
 public class RCrashActivity extends RBaseActivity {
 
     private int clickCount = 0;
+    private boolean isExpand = false;
+    private TextView mTextView;
 
     public static String getDataTime(String format) {
         SimpleDateFormat df = new SimpleDateFormat(format, Locale.CHINA);
@@ -33,18 +36,14 @@ public class RCrashActivity extends RBaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        final TextView textView = mViewHolder.textView(R.id.text);
-        textView.setOnClickListener(new View.OnClickListener() {
+        mTextView = mViewHolder.tV(R.id.crashTextView);
+        mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                playAlphaAnimation();
                 clickCount++;
-                Bundle extras = getIntent().getExtras();
-                if (extras != null) {
-                    String msg = extras.getString("msg");
-                    textView.setText(msg);
-                    copyErrorToClipboard(msg);
-                }
-                if (clickCount == 4) {
+                expandText();
+                if (clickCount == 6) {
                     restartApp();
                 }
             }
@@ -57,10 +56,46 @@ public class RCrashActivity extends RBaseActivity {
 //        Bundle extras = getIntent().getExtras();
 //        if (extras != null) {
 //            String msg = extras.getString("msg");
-//            mViewHolder.textView(R.id.text).setText(msg);
+//            mTextView.setText(msg);
 //            copyErrorToClipboard(msg);
 //        }
-        mViewHolder.textView(R.id.text).setText(getAppInfo());
+        mTextView.setText(getAppInfo());
+        playScaleAnimation();
+    }
+
+    private void playScaleAnimation() {
+        float scaleEnd = 1.2f;
+        float scaleStart = 0.2f;
+        mTextView.setScaleX(scaleStart);
+        mTextView.setScaleY(scaleStart);
+        mTextView.animate().scaleX(scaleEnd).scaleY(scaleEnd).setDuration(300)
+                .setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                mTextView.animate().scaleX(1f).scaleY(1f).setDuration(300).start();
+            }
+        }).start();
+    }
+
+    private void playAlphaAnimation() {
+        mTextView.setAlpha(0.6f);
+        mTextView.animate().alpha(1f).setDuration(300)
+                .setInterpolator(new AccelerateInterpolator()).start();
+    }
+
+    private void expandText() {
+        if (isExpand) {
+            return;
+        }
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String msg = extras.getString("msg");
+            mTextView.setText(msg);
+            isExpand = true;
+            copyErrorToClipboard(msg);
+            playScaleAnimation();
+        }
     }
 
     @Override
