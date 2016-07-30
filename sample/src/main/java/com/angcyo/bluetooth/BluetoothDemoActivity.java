@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.angcyo.sample.R;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.rsen.base.RBaseActivity;
 import com.rsen.base.RBaseAdapter;
 import com.rsen.base.RBaseViewHolder;
@@ -75,6 +77,8 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         mViewHolder.v(R.id.leftRadioView).setBackground(createRadioBackground(CircleAnimDrawable.POS_LEFT));
         mViewHolder.v(R.id.centerRadioView).setBackground(createRadioBackground(CircleAnimDrawable.POS_CENTER));
         mViewHolder.v(R.id.rightRadioView).setBackground(createRadioBackground(CircleAnimDrawable.POS_RIGHT));
+
+        YoYo.with(Techniques.Landing).delay(300).playOn(mViewHolder.v(R.id.centerButtonView));
     }
 
     private Drawable createRadioBackground(int position) {
