@@ -1,5 +1,6 @@
 package com.rsen.drawable;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -11,6 +12,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.util.Log;
+import android.util.TypedValue;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,8 +31,8 @@ public class CircleAnimDrawable extends Drawable {
     private int mCircleRadiusOut;//外圆的半径
     private int mCircleRadiusMax;//最大允许的半径(主要用来绘制左边和右边的布局)
 
-    private int mRadiusOffsetOut = 20;//外圆的偏移量(控制2个圆之间的距离)
-    private int mRadiusOffset = 6;//多偏移100个像素(让里面的圆有一种被切割的感觉)
+    private int mRadiusOffsetOut = 10;//外圆的偏移量(控制2个圆之间的距离)
+    private int mRadiusOffset = 1;//多偏移的像素(让里面的圆有一种被切割的感觉)
     private int mRadiusDrawStep = 6;//每次绘制添加的半径(控制动画持续的时间,越大越快结束)
     @ColorInt
     private int mCircleColor;//圆的颜色@ColorInt
@@ -42,18 +44,21 @@ public class CircleAnimDrawable extends Drawable {
 
     private int mPosition = POS_CENTER;//布局存放在什么地方
 
-    public CircleAnimDrawable() {
-        this(Color.parseColor("#1EC2B6"));
+    private Context mContext;
+
+    public CircleAnimDrawable(Context context) {
+        this(context, Color.parseColor("#1EC2B6"));
     }
 
-    public CircleAnimDrawable(@ColorInt int circleColor) {
+    public CircleAnimDrawable(Context context, @ColorInt int circleColor) {
+        mContext = context;
         mCircleColor = circleColor;
         mCircleColorOut = getColorWidthAlpha(mCircleColor, 100);//不透明度取值范围0-255 (越小越透明)
-        initPaint();
+        init();
     }
 
-    public CircleAnimDrawable(@ColorInt int circleColor, @Position int position) {
-        this(circleColor);
+    public CircleAnimDrawable(Context context, @ColorInt int circleColor, @Position int position) {
+        this(context, circleColor);
         mPosition = position;
     }
 
@@ -67,9 +72,12 @@ public class CircleAnimDrawable extends Drawable {
                 Color.blue(color));
     }
 
-    private void initPaint() {
+    private void init() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mRadiusOffset = dpToPx(mRadiusOffset);
+        mRadiusOffsetOut = dpToPx(mRadiusOffsetOut);
+        mRadiusDrawStep = dpToPx(mRadiusDrawStep);
     }
 
     @Override
@@ -134,9 +142,21 @@ public class CircleAnimDrawable extends Drawable {
     @Override
     protected boolean onStateChange(int[] state) {
         if (!convertToList(state).contains(android.R.attr.state_checked)) {
-            curRadius = getBeginDrawRadius();
+            resetBeginDrawRadius();
         }
         return super.onStateChange(state);
+    }
+
+    /**
+     * 重置开始绘制的位置,用于控制动画开始
+     */
+    public void resetBeginDrawRadius() {
+        curRadius = getBeginDrawRadius();
+    }
+
+    @Override
+    public boolean setState(int[] stateSet) {
+        return super.setState(stateSet);
     }
 
     /**
@@ -188,6 +208,10 @@ public class CircleAnimDrawable extends Drawable {
         float cx = bounds.width() / 2;
         float cy = bounds.height() / 2;
         return new RectF(cx - radius, cy - radius, cx + radius, cy + radius);
+    }
+
+    private int dpToPx(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, mContext.getResources().getDisplayMetrics());
     }
 
     @IntDef({POS_LEFT, POS_CENTER, POS_RIGHT})

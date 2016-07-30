@@ -20,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -188,7 +187,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
 
                 if (enableStatusColor()) {
-                    int statusBarHeight = (int) getStatusBarHeight(this);
+                    int statusBarHeight = (int) Math.ceil(getStatusBarHeight(this));
                     stateBarView = new View(this);
                     stateBarView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight));
 //                    stateBarView.setBackgroundResource(ResUtil.getThemeColorAccent(this));

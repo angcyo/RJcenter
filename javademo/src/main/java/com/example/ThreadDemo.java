@@ -34,10 +34,10 @@ public class ThreadDemo {
 
 //        p.println(getNum());
 
-        p.println(Math.ceil(1.1f));
-        p.println(Math.round(1.1f));
-        p.println(Math.ceil(-1.1f));
-        p.println(Math.round(-1.1f));
+        p.println(Math.ceil(1.1f));//2.0
+        p.println(Math.round(1.1f));//1
+        p.println(Math.ceil(-1.1f));//-1.0
+        p.println(Math.round(-1.1f));//1
         p.println(Math.sqrt(Math.exp(3) + Math.exp(4)));
     }
 

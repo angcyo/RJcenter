@@ -58,7 +58,7 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         mViewHolder.v(R.id.leftButtonView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_LEFT));
+                v.setBackground(new CircleAnimDrawable(BluetoothDemoActivity.this).setPosition(CircleAnimDrawable.POS_LEFT));
 
                 textTextClock();
             }
@@ -69,11 +69,11 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
 //                v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_CENTER));
 //            }
 //        });
-        mViewHolder.v(R.id.centerButtonView).setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_CENTER));
+        mViewHolder.v(R.id.centerButtonView).setBackground(new CircleAnimDrawable(this).setPosition(CircleAnimDrawable.POS_CENTER));
         mViewHolder.v(R.id.rightButtonView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_RIGHT));
+                v.setBackground(new CircleAnimDrawable(BluetoothDemoActivity.this).setPosition(CircleAnimDrawable.POS_RIGHT));
             }
         });
 
@@ -101,7 +101,7 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
 
     private Drawable createRadioBackground(int position) {
         StateListDrawable listDrawable = new StateListDrawable();
-        listDrawable.addState(new int[]{android.R.attr.state_checked}, new CircleAnimDrawable().setPosition(position));
+        listDrawable.addState(new int[]{android.R.attr.state_checked}, new CircleAnimDrawable(this).setPosition(position));
         return listDrawable;
     }
 
