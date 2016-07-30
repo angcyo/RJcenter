@@ -43,7 +43,7 @@ public class RCrashActivity extends RBaseActivity {
                 playAlphaAnimation();
                 clickCount++;
                 expandText();
-                if (clickCount == 6) {
+                if (clickCount == 4) {
                     restartApp();
                 }
             }
@@ -68,11 +68,11 @@ public class RCrashActivity extends RBaseActivity {
         float scaleStart = 0.2f;
         mTextView.setScaleX(scaleStart);
         mTextView.setScaleY(scaleStart);
-        mTextView.animate().scaleX(scaleEnd).scaleY(scaleEnd).setDuration(300)
+        mTextView.animate().scaleX(scaleEnd).scaleY(scaleEnd).setDuration(200)
                 .setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
             @Override
             public void run() {
-                mTextView.animate().scaleX(1f).scaleY(1f).setDuration(300).start();
+                mTextView.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
             }
         }).start();
     }
