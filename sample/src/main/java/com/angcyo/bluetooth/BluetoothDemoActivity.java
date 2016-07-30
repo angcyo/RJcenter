@@ -58,6 +58,8 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
             @Override
             public void onClick(View v) {
                 v.setBackground(new CircleAnimDrawable().setPosition(CircleAnimDrawable.POS_LEFT));
+
+                textTextClock();
             }
         });
 //        mViewHolder.v(R.id.centerButtonView).setOnClickListener(new View.OnClickListener() {
@@ -79,6 +81,21 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         mViewHolder.v(R.id.rightRadioView).setBackground(createRadioBackground(CircleAnimDrawable.POS_RIGHT));
 
         YoYo.with(Techniques.Landing).delay(300).playOn(mViewHolder.v(R.id.centerButtonView));
+
+        //TextClock测试
+        textTextClock();
+    }
+
+    private void textTextClock() {
+//        final TextClock textClock = (TextClock) mViewHolder.v(R.id.textClockView);
+//        try {
+//            final Method setShowCurrentUserTime = TextClock.class.getMethod("setShowCurrentUserTime", boolean.class);
+//            setShowCurrentUserTime.invoke(textClock, true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        textClock.setFormat24Hour("yyyy-MM-dd");
     }
 
     private Drawable createRadioBackground(int position) {
