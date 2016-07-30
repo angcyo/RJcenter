@@ -45,7 +45,7 @@ public class PackageManagerActivity extends AppCompatActivity {
     private void initView() {
         textView = (TextView) findViewById(R.id.text);
         String ac = "----------所有的Activitys";
-        SpannableStringBuilder acSpanBuilder = new SpannableStringBuilder(ac + getAllActivitys());
+        SpannableStringBuilder acSpanBuilder = new SpannableStringBuilder(ac + getAllActivities());
         acSpanBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, ac.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         String sr = "----------所有的Services";
         SpannableStringBuilder srSpanBuilder = new SpannableStringBuilder(sr + getAllServices());
@@ -96,7 +96,7 @@ public class PackageManagerActivity extends AppCompatActivity {
         return null;
     }
 
-    private String getAllActivitys() {
+    private String getAllActivities() {
         StringBuilder builder = new StringBuilder();
         ActivityInfo[] activities = getPackInfo(PackageManager.GET_ACTIVITIES).activities;
         for (ActivityInfo info : activities) {

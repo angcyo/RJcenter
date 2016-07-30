@@ -94,7 +94,7 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
      * @param intent   The Intent. Must not be null.
      */
     public static void restartApplicationWithIntent(Activity activity, Intent intent) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(getStartIntentFlags());
         activity.finish();
         activity.startActivity(intent);
         killCurrentProcess();
@@ -298,21 +298,23 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         return filePath;
     }
 
+    private static int getStartIntentFlags() {
+        return Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK;
+    }
+
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        boolean isShow = false;
+//        boolean isShow = false;
         try {
             Class<? extends Activity> restartClass = getRestartActivityClassWithIntentFilter(context);
             if (restartClass != null) {
                 Intent intent = new Intent(context, restartClass);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);//去掉动画效果
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(getStartIntentFlags());
                 Bundle args = new Bundle();
                 args.putString("msg", getMsgFromThrowable(ex));
                 intent.putExtras(args);
                 context.startActivity(intent);
-                isShow = true;
+//                isShow = true;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -320,14 +322,17 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
 
         ex.printStackTrace();
 
-        if (!isShow) {
+//        if (!isShow) {
             /*注意下面的代码, 不能少哦*/
-            if (defaultUncaughtExceptionHandler != null) {
-                defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
-            } else {
-                Process.killProcess(Process.myPid());
-            }
-        }
+//            if (defaultUncaughtExceptionHandler != null) {
+//                defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
+//            } else {
+//                Process.killProcess(Process.myPid());
+//            }
+//        }
+
+//        System.exit(0);
+        Process.killProcess(Process.myPid());
     }
 
     private String getMsgFromThrowable(Throwable ex) {

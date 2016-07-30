@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextClock;
 
 import com.angcyo.sample.R;
 import com.daimajia.androidanimations.library.Techniques;
@@ -83,11 +84,11 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         YoYo.with(Techniques.Landing).delay(300).playOn(mViewHolder.v(R.id.centerButtonView));
 
         //TextClock测试
-        textTextClock();
+//        textTextClock();
     }
 
     private void textTextClock() {
-//        final TextClock textClock = (TextClock) mViewHolder.v(R.id.textClockView);
+        final TextClock textClock = (TextClock) mViewHolder.v(R.id.textClockView);
 //        try {
 //            final Method setShowCurrentUserTime = TextClock.class.getMethod("setShowCurrentUserTime", boolean.class);
 //            setShowCurrentUserTime.invoke(textClock, true);
