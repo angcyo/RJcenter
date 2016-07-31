@@ -129,25 +129,27 @@ public class RCrashActivity extends RBaseActivity {
 
     private String getAppInfo() {
         PackageManager pm = getPackageManager();
-        StringBuilder stringBuilder = new StringBuilder(getDataTime("yyyy-MM-dd HH:mm:ss SSS")).append("\n");
+        StringBuilder stringBuilder = new StringBuilder("崩溃时间:").append(getDataTime("yyyy-MM-dd HH:mm:ss SSS")).append("\n");
         try {
             //程序名
-            stringBuilder.append(pm.getApplicationInfo(getPackageName(), 0).loadLabel(getPackageManager())).append(" ");
+            stringBuilder.append("程序名:").append(pm.getApplicationInfo(getPackageName(), 0).loadLabel(getPackageManager())).append(" ");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
             stringBuilder.append(pm.getPackageInfo(getPackageName(), 0).versionName)
-                    .append("--")
-                    .append(pm.getPackageInfo(getPackageName(), 0).versionCode)
+//                    .append("--")
+//                    .append(pm.getPackageInfo(getPackageName(), 0).versionCode)
                     .append("\n");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        stringBuilder.append(Build.VERSION.RELEASE).append(" ").append(Build.VERSION.SDK_INT)
-                .append(" ").append(Build.MANUFACTURER).append(" ").append(Build.MODEL).append(" ").append(Build.CPU_ABI);
+        stringBuilder.append("设备名:").append(Build.MODEL).append("\n");
+        stringBuilder.append("版本:").append(Build.VERSION.RELEASE).append("--").append(Build.VERSION.SDK_INT).append("\n");
+        stringBuilder.append("厂家:").append(Build.MANUFACTURER).append("\n");
+        stringBuilder.append("平台:").append(Build.CPU_ABI);
 
         return stringBuilder.toString();
     }

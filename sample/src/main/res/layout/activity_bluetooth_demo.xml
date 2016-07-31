@@ -146,6 +146,7 @@
     <com.angcyo.sample.viewdrag.ViewDragLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:visibility="gone"
         android:background="@android:color/holo_red_dark">
 
         <TextView
@@ -158,6 +159,7 @@
     <com.angcyo.sample.viewdrag.ViewDragTestLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:visibility="gone"
         android:layout_marginTop="200dp"
         android:background="@android:color/holo_blue_bright">
 
