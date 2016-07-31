@@ -27,11 +27,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     /*Android支持库*/
+    compile "com.android.support:support-v4:${R_SUPPORT_VERSION}"
     compile "com.android.support:appcompat-v7:${R_SUPPORT_VERSION}"
-    compile "com.android.support:recyclerview-v7:${R_SUPPORT_VERSION}"
     compile "com.android.support:design:${R_SUPPORT_VERSION}"
     compile "com.android.support:cardview-v7:${R_SUPPORT_VERSION}"
-    compile "com.android.support:support-v4:${R_SUPPORT_VERSION}"
+    compile "com.android.support:recyclerview-v7:${R_SUPPORT_VERSION}"
 
     /*支持API<8的动画库*/
     compile 'com.nineoldandroids:library:2.4.0'

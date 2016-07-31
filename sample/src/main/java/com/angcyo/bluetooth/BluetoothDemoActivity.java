@@ -119,13 +119,14 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
     @Override
     protected void initViewData() {
         defaultAdapter = BluetoothHelper.getDefaultAdapter(this);
+        if (defaultAdapter != null) {
+            //已经匹配过的设备
+            final Set<BluetoothDevice> bondedDevices = defaultAdapter.getBondedDevices();
+            for (BluetoothDevice device : bondedDevices) {
+                rightAdapter.addLastItem(new BluetoothDeviceBean(device));
+            }
 
-        //已经匹配过的设备
-        final Set<BluetoothDevice> bondedDevices = defaultAdapter.getBondedDevices();
-        for (BluetoothDevice device : bondedDevices) {
-            rightAdapter.addLastItem(new BluetoothDeviceBean(device));
         }
-
         log.info("initViewData");
 
         BluetoothDiscover.instance().addDiscoverListener(this);

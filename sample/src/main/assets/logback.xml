@@ -9,7 +9,7 @@
     <!--用于在控制台输出的Appender-->
     <appender name="LOGCAT" class="ch.qos.logback.classic.android.LogcatAppender">
         <encoder>
-            <pattern>%-5relative [%thread][%file:%line:%M] - %msg%n</pattern>
+            <pattern>%-5relative [%thread][%file:%line] %M - %msg%n</pattern>
         </encoder>
     </appender>
 

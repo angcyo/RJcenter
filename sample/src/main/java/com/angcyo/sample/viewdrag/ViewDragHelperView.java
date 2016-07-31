@@ -1,6 +1,7 @@
 package com.angcyo.sample.viewdrag;
 
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
@@ -13,7 +14,7 @@ import android.view.ViewGroup;
  */
 public class ViewDragHelperView extends ViewGroup {
 
-    private ViewDragHelper viewDragHelper;
+    private ViewDragHelper mViewDragHelper;
 
 
     public ViewDragHelperView(Context context) {
@@ -34,18 +35,18 @@ public class ViewDragHelperView extends ViewGroup {
     }
 
     private void initView() {
-        viewDragHelper = ViewDragHelper.create(this, new DragCallback());
+        mViewDragHelper = ViewDragHelper.create(this, new DragCallback());
         //0.5 是灵敏度, 比如: 实际滑动10像素, 但是只处理 10*0.5 像素, 未验证
-        //viewDragHelper = ViewDragHelper.create(this, 0.5f, new DragCallback());
+        //mViewDragHelper = ViewDragHelper.create(this, 0.5f, new DragCallback());
 
         //edge 边缘拖动
-        viewDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_ALL);
+        mViewDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_ALL);
     }
 
     @Override
     public void computeScroll() {
         //固定写法
-        if (viewDragHelper.continueSettling(true)) {
+        if (mViewDragHelper.continueSettling(true)) {
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
@@ -53,13 +54,18 @@ public class ViewDragHelperView extends ViewGroup {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         //固定写法
-        return viewDragHelper.shouldInterceptTouchEvent(ev);
+        final int action = MotionEventCompat.getActionMasked(ev);
+        if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
+            mViewDragHelper.cancel();
+            return false;
+        }
+        return mViewDragHelper.shouldInterceptTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //固定写法
-        viewDragHelper.processTouchEvent(event);
+        mViewDragHelper.processTouchEvent(event);
         return true;
     }
 
@@ -78,17 +84,17 @@ public class ViewDragHelperView extends ViewGroup {
 
             //方式1:
             //滑动child到目标300,300
-            //viewDragHelper.smoothSlideViewTo(releasedChild, 300, 300);
+            //mViewDragHelper.smoothSlideViewTo(releasedChild, 300, 300);
             //ViewCompat.postInvalidateOnAnimation(ViewDragHelperView.this);
 
             //方式2:
             //应该是和 fling 有关
-            //viewDragHelper.flingCapturedView(0,0,
-            //        viewDragHelper.getCapturedView().getMeasuredWidth(), viewDragHelper.getCapturedView().getMeasuredHeight());
+            //mViewDragHelper.flingCapturedView(0,0,
+            //        mViewDragHelper.getCapturedView().getMeasuredWidth(), mViewDragHelper.getCapturedView().getMeasuredHeight());
 
             //方式3:
             //直接设置Child在100,200的位置
-            //viewDragHelper.settleCapturedViewAt(100, 200);
+            //mViewDragHelper.settleCapturedViewAt(100, 200);
 
         }
 

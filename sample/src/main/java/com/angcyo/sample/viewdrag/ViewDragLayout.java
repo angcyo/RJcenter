@@ -40,6 +40,8 @@ public class ViewDragLayout extends FrameLayout {
         log.info(String.valueOf(getChildCount()));
 
         mViewDragHelper = ViewDragHelper.create(this, 1f, new DragCallback());
+        //激活4个方向的边缘触摸
+        mViewDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_ALL);
     }
 
     @Override
@@ -77,31 +79,41 @@ public class ViewDragLayout extends FrameLayout {
         @Override
         public void onViewDragStateChanged(int state) {
             super.onViewDragStateChanged(state);
-            log.info(null);
+            log.info("state:{}", state);
         }
 
         @Override
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
             super.onViewPositionChanged(changedView, left, top, dx, dy);
-            log.info(null);
+            log.debug("left:{} top:{} dx:{} dy:{}", left, top, dx, dy);
         }
 
         @Override
         public void onViewCaptured(View capturedChild, int activePointerId) {
             super.onViewCaptured(capturedChild, activePointerId);
             log.info(null);
+            capturedChild.setScaleX(1.2f);
+            capturedChild.setScaleY(1.2f);
         }
 
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             super.onViewReleased(releasedChild, xvel, yvel);
-            log.info(null);
+            log.info("xvel:{} yvel:{}", xvel, yvel);
+            releasedChild.setScaleX(1.f);
+            releasedChild.setScaleY(1.f);
+
+            mViewDragHelper.settleCapturedViewAt(0, 100);
+            ViewCompat.postInvalidateOnAnimation(ViewDragLayout.this);
+
+            mViewDragHelper.smoothSlideViewTo(getChildAt(1), 300, 200);
         }
 
         @Override
         public void onEdgeTouched(int edgeFlags, int pointerId) {
             super.onEdgeTouched(edgeFlags, pointerId);
-            log.info(null);
+            log.info("edgeFlags:{} pointerId:{}", edgeFlags, pointerId);
+            mViewDragHelper.captureChildView(getChildAt(1), pointerId);
         }
 
         @Override
@@ -118,7 +130,7 @@ public class ViewDragLayout extends FrameLayout {
 
         @Override
         public int getOrderedChildIndex(int index) {
-            log.info(String.valueOf(index));
+            log.debug(String.valueOf(index));
             return super.getOrderedChildIndex(index);
         }
 
@@ -133,25 +145,25 @@ public class ViewDragLayout extends FrameLayout {
         public int getViewVerticalDragRange(View child) {
             int range = child.getMeasuredHeight();
             log.info("{} {}", child.getId(), range);
-            return range;
+            return -range;
         }
 
         @Override
         public int clampViewPositionHorizontal(View child, int left, int dx) {
-            log.info("left:{} dx:{}", left, dx);
-            return super.clampViewPositionHorizontal(child, left, dx);
+            log.debug("left:{} dx:{}", left, dx);
+            return left;
         }
 
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
-            log.info("top:{} dy:{}", top, dy);
-            return super.clampViewPositionVertical(child, top, dy);
+            log.debug("top:{} dy:{}", top, dy);
+            return top;
         }
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
             log.info("tryCaptureView {} {}", child.getId(), pointerId);
-            return true;
+            return false;
         }
     }
 
