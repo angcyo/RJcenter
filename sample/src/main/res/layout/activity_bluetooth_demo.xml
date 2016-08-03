@@ -37,6 +37,7 @@
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="horizontal"
             android:padding="10dp">
 
@@ -70,6 +71,7 @@
         <com.angcyo.sample.viewdrag.ViewDragLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:background="@android:color/holo_blue_bright">
 
             <LinearLayout
