@@ -679,7 +679,7 @@
         <receiver
             android:name="com.angcyo.bluetooth.BluetoothReceiver"
             android:exported="true">
-            <intent-filter android:priority="10000">
+            <intent-filter android:priority="1000">
 
                 <!-- 蓝牙ACL链路连接成功 -->
                 <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />
