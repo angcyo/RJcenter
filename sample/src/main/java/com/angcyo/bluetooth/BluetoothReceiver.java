@@ -60,6 +60,8 @@ public class BluetoothReceiver extends BroadcastReceiver {
     /*收到广播:android.bluetooth.device.action.NAME_CHANGED
     收到广播:android.bluetooth.device.action.CLASS_CHANGED
     收到广播:android.bluetooth.device.action.FOUND*/
+
+    //蓝牙物理链路ACL(Asynchronous Connectionless), 另外的一种链路是SCO(Synchronous Connection Oriented)主要用来传输对时间要求很高的数据通信。
     @Override
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
