@@ -2,6 +2,11 @@ package com.angcyo.sample.rx;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by angcyo on 2016-07-13.
@@ -108,6 +113,54 @@ public class RxDemo {
 //        RxConnectOperator.publishDemo();
 //        RxConnectOperator.refCountDemo();
         RxConnectOperator.replayDemo();
+    }
+
+    public static void rxDelayTest() {
+        Observable.just(1).map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                log("----" + integer);
+                return 2;
+            }
+        }).delay(2, TimeUnit.SECONDS).observeOn(Schedulers.newThread()).map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                log("----" + integer);
+                return 3;
+            }
+        }).delay(2, TimeUnit.SECONDS).map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                log("----" + integer);
+                return 4;
+            }
+        }).subscribe();
+
+//        Observable.just(1111).map(new Func1<Integer, Integer>() {
+//            @Override
+//            public Integer call(Integer integer) {
+//                log("----" + integer);
+//                return 2222;
+//            }
+//        }).delay(2, TimeUnit.SECONDS, Schedulers.newThread()).map(new Func1<Integer, Integer>() {
+//            @Override
+//            public Integer call(Integer integer) {
+//                log("----" + integer);
+//                return 3333;
+//            }
+//        }).delay(2, TimeUnit.SECONDS, Schedulers.newThread()).map(new Func1<Integer, Integer>() {
+//            @Override
+//            public Integer call(Integer integer) {
+//                log("----" + integer);
+//                return 4444;
+//            }
+//        }).delay(2, TimeUnit.SECONDS, Schedulers.newThread()).map(new Func1<Integer, Integer>() {
+//            @Override
+//            public Integer call(Integer integer) {
+//                log("----" + integer);
+//                return 555;
+//            }
+//        }).subscribe();
     }
 
     public static String getMethodName() {

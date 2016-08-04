@@ -71,4 +71,12 @@ public class ExampleUnitTest {
         sleep();
         System.out.println("-------------------------------end");
     }
+
+    @Test
+    public void rxDelayTest() {
+        RxDemo.rxDelayTest();
+
+        sleep();
+        System.out.println("-------------------------------end");
+    }
 }
