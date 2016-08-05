@@ -77,7 +77,8 @@ public class BluetoothReceiver extends BroadcastReceiver {
             bondStateChanged(intent);
         } else if (TextUtils.equals(BluetoothDevice.ACTION_PAIRING_REQUEST, action)) {
             //配对请求
-            log.info("自动确认配对.");
+            int varient = intent.getIntExtra(BluetoothDevice.EXTRA_PAIRING_VARIANT, -1);//获取配对的验证方式.
+            log.info("自动确认配对,验证方式:{}", varient);
             bluetoothDevice.setPairingConfirmation(true);
         }
     }
