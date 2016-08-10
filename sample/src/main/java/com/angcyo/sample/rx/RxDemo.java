@@ -115,6 +115,20 @@ public class RxDemo {
         RxConnectOperator.replayDemo();
     }
 
+    public static void rxRetryTest() {
+        long timeMillis = System.currentTimeMillis();
+        Observable.just(timeMillis).map(new Func1<Long, Long>() {
+            @Override
+            public Long call(Long aLong) {
+                log("----" + aLong);
+                if (aLong > 1470813825443l) {
+                    throw new IllegalArgumentException("异常测试");
+                }
+                return aLong;
+            }
+        }).retry(5).subscribeOn(Schedulers.newThread()).subscribe(new RxCreateOperator.Sub());
+    }
+
     public static void rxDelayTest() {
         Observable.just(1).map(new Func1<Integer, Integer>() {
             @Override

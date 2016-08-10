@@ -79,4 +79,11 @@ public class ExampleUnitTest {
         sleep();
         System.out.println("-------------------------------end");
     }
+
+    @Test
+    public void rxRetryTest() {
+        RxDemo.rxRetryTest();
+        sleep();
+        System.out.println("-------------------------------end");
+    }
 }
