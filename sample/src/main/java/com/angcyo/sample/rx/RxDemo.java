@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -126,7 +127,17 @@ public class RxDemo {
                 }
                 return aLong;
             }
-        }).retry(5).subscribeOn(Schedulers.newThread()).subscribe(new RxCreateOperator.Sub());
+        }).retry(5).subscribeOn(Schedulers.newThread()).subscribe(new Action1<Long>() {
+            @Override
+            public void call(Long aLong) {
+                log("----2222" + aLong);
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                log("----3333");
+            }
+        });
     }
 
     public static void rxDelayTest() {
