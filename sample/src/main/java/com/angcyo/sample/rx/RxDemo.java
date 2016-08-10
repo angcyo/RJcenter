@@ -131,6 +131,7 @@ public class RxDemo {
             @Override
             public void call(Long aLong) {
                 log("----2222" + aLong);
+                //throw new IllegalArgumentException("异常测试2");
             }
         }, new Action1<Throwable>() {
             @Override
