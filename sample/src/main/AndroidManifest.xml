@@ -40,6 +40,10 @@
     <!-- 允许发现设备 -->
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+    <!--联系人权限-->
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
     <!-- 无交互的进行操作, API>=19添加 -->
     <!-- <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/> -->
     <!-- tools:replace="icon, label" -->
@@ -652,12 +656,12 @@
         <service
             android:name=".service.ServiceTest"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
 
         <activity
             android:name=".service.TestActivity"
             android:label="@string/title_activity_test"
-            android:theme="@style/SlidrTheme"></activity>
+            android:theme="@style/SlidrTheme"/>
         <activity android:name=".rx.RxActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

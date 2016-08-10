@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.angcyo.bluetooth.BluetoothDemoActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.angcyo.bluetooth.BluetoothDemoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,12 +13,12 @@
         <com.rsen.viewgroup.RRecyclerView
             android:id="@+id/leftRecyclerView"
             android:layout_width="1dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
         <com.rsen.viewgroup.RRecyclerView
             android:id="@+id/rightRecyclerView"
             android:layout_width="1dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
@@ -32,14 +32,14 @@
         <com.rsen.view.MyTextClock
             android:id="@+id/textClockView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="gone">
 
             <RadioButton
                 android:id="@+id/leftRadioView"
@@ -47,7 +47,7 @@
                 android:layout_height="@dimen/test_circle_radio_height"
                 android:button="@null"
                 android:gravity="center"
-                android:text="左边" />
+                android:text="左边"/>
 
             <RadioButton
                 android:id="@+id/centerRadioView"
@@ -56,7 +56,7 @@
                 android:button="@null"
                 android:drawableTop="@drawable/radio_upload_selector"
                 android:gravity="center"
-                android:text="中间" />
+                android:text="中间"/>
 
             <RadioButton
                 android:id="@+id/rightRadioView"
@@ -64,15 +64,15 @@
                 android:layout_height="@dimen/test_circle_radio_height"
                 android:button="@null"
                 android:gravity="center"
-                android:text="右边" />
+                android:text="右边"/>
 
         </RadioGroup>
 
         <com.angcyo.sample.viewdrag.ViewDragLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:background="@android:color/holo_blue_bright">
+            android:background="@android:color/holo_blue_bright"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -83,19 +83,19 @@
                     android:id="@+id/leftButtonView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="左边" />
+                    android:text="左边"/>
 
                 <Button
                     android:id="@+id/centerButtonView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="中间" />
+                    android:text="中间"/>
 
                 <Button
                     android:id="@+id/rightButtonView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="右边" />
+                    android:text="右边"/>
             </LinearLayout>
         </com.angcyo.sample.viewdrag.ViewDragLayout>
 
@@ -105,71 +105,77 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="supportBluetooth"
-            android:text="是否支持蓝牙" />
+            android:text="是否支持蓝牙"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="enableBluetooth"
-            android:text="是否开启蓝牙" />
+            android:text="是否开启蓝牙"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="openBluetooth"
-            android:text="打开/关闭蓝牙" />
+            android:text="打开/关闭蓝牙"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="addressBluetooth"
-            android:text="设备信息" />
+            android:text="设备信息"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="startDiscovery"
-            android:text="开始/关闭扫描" />
+            android:text="开始/关闭扫描"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="openBluetoothSettingActivity"
-            android:text="打开蓝牙界面" />
+            android:text="打开蓝牙界面"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="setScanMode"
-            android:text="设置扫描模式" />
+            android:text="设置扫描模式"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="queryContacts"
+            android:text="获取联系人"/>
 
     </LinearLayout>
 
     <com.angcyo.sample.viewdrag.ViewDragLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:visibility="gone"
-        android:background="@android:color/holo_red_dark">
+        android:background="@android:color/holo_red_dark"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@android:color/holo_green_dark"
-            android:text="TTTTSSSS" />
+            android:text="TTTTSSSS"/>
     </com.angcyo.sample.viewdrag.ViewDragLayout>
 
     <com.angcyo.sample.viewdrag.ViewDragTestLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:visibility="gone"
         android:layout_marginTop="200dp"
-        android:background="@android:color/holo_blue_bright">
+        android:background="@android:color/holo_blue_bright"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@android:color/holo_green_dark"
-            android:text="TTTTSSSS" />
+            android:text="TTTTSSSS"/>
     </com.angcyo.sample.viewdrag.ViewDragTestLayout>
 
 </RelativeLayout>

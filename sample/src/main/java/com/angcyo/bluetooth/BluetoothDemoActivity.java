@@ -2,11 +2,14 @@ package com.angcyo.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -209,6 +212,179 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         startActivity(intent);
 
         scanMode++;
+    }
+
+    /**
+     * 获取联系人的方法测试
+     */
+    public void queryContacts(View view) {
+//        method1();
+//        method2();
+        method3();
+    }
+
+    private void method1() {
+        new Thread() {
+            @Override
+            public void run() {
+                final ContentResolver contentResolver = getContentResolver();
+//        Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI,
+//                null, null, null, ContactsContract.Contacts._ID + " desc limit 100 offset " + 0);
+
+                Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[]{"_id"}, null, null, null);
+
+                if (cursor != null) {
+                    log.info("查询到联系人的数量:{}", cursor.getCount());
+                    int count = 0;
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int contactIdIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID);//获取 id 所在列的索引
+                            String contactId = cursor.getString(contactIdIndex);//联系人id
+
+                            /*联系人电话信息*/
+                            Cursor contactsCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                    null,
+                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId,
+                                    null, null);
+                            if (contactsCursor != null) {
+                                int phoneIndex = contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);//获取联系人 号码的索引
+                                int nameIndex = contactsCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);//获取 名字 所在列的索引
+                                if (contactsCursor.moveToFirst()) {
+                                    do {
+                                        final String phoneNumber = contactsCursor.getString(phoneIndex);//联系人的号码
+                                        final String name = contactsCursor.getString(nameIndex);//联系人名字
+                                        log.info("id:{} 名字:{} 号码:{}",
+                                                contactId, name, phoneNumber);
+                                    } while (contactsCursor.moveToNext());
+                                }
+                                contactsCursor.close();
+                            }
+
+                            /*联系人邮箱信息*/
+                            Cursor emailCursor = contentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI,
+                                    null,
+                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId,
+                                    null, null);
+
+                            if (emailCursor != null) {
+                                int emailIndex = emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
+                                if (emailCursor.moveToFirst()) {
+                                    do {
+                                        final String email = emailCursor.getString(emailIndex);//联系人名字
+                                        log.info("id:{} 邮箱:{} ", contactId, email);
+                                    } while (emailCursor.moveToNext());
+                                }
+                                emailCursor.close();
+                            }
+
+                            count++;
+                        } while (cursor.moveToNext());
+                        cursor.close();
+                        log.info("查询结束.{} 条", count);
+                    }
+                }
+            }
+        }.start();
+    }
+
+    private void method2() {
+        new Thread() {
+            @Override
+            public void run() {
+                final ContentResolver contentResolver = getContentResolver();
+                Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[]{"_id"}, null, null, null);
+
+                if (cursor != null) {
+                    log.info("查询到联系人的数量:{}", cursor.getCount());
+                    int count = 0;
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int contactIdIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID);//获取 id 所在列的索引
+                            String contactId = cursor.getString(contactIdIndex);//联系人id
+
+                            Cursor dataCursor = contentResolver.query(ContactsContract.Data.CONTENT_URI,
+                                    new String[]{ContactsContract.Data._ID,
+                                            ContactsContract.CommonDataKinds.Phone.NUMBER,
+                                            ContactsContract.CommonDataKinds.Phone.TYPE,
+                                            ContactsContract.CommonDataKinds.Phone.LABEL,
+                                            ContactsContract.Contacts.DISPLAY_NAME,
+                                            ContactsContract.CommonDataKinds.Organization.COMPANY
+                                    },
+                                    ContactsContract.Data.CONTACT_ID + "=?" + " AND "
+                                            + ContactsContract.Data.MIMETYPE + "='" + ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE + "'",
+                                    new String[]{String.valueOf(contactId)}, null);
+
+                            if (dataCursor != null && dataCursor.moveToFirst()) {
+                                int index1 = dataCursor.getColumnIndex(ContactsContract.Data._ID);
+                                int index2 = dataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                                int index3 = dataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE);
+                                int index4 = dataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.LABEL);
+                                int index5 = dataCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+                                int index6 = dataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Organization.COMPANY);
+                                do {
+                                    String str1 = dataCursor.getString(index1);
+                                    String str2 = dataCursor.getString(index2);
+                                    String str3 = dataCursor.getString(index3);
+                                    String str4 = dataCursor.getString(index4);
+                                    String str5 = dataCursor.getString(index5);
+                                    String str6 = dataCursor.getString(index6);
+                                    log.info("{} {} {} {} {} {}", str1, str2, str3, str4, str5, str6);
+                                } while (dataCursor.moveToNext());
+
+                                dataCursor.close();
+                            }
+
+                            count++;
+                        } while (cursor.moveToNext());
+                        cursor.close();
+                        log.info("查询结束.{} 条", count);
+                    }
+                }
+            }
+        }.start();
+    }
+
+    private void method3() {
+        new Thread() {
+            @Override
+            public void run() {
+                final ContentResolver contentResolver = getContentResolver();
+                Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[]{"_id"}, null, null, null);
+
+                if (cursor != null) {
+                    log.info("查询到联系人的数量:{}", cursor.getCount());
+                    int count = 0;
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int contactIdIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID);//获取 id 所在列的索引
+                            String contactId = cursor.getString(contactIdIndex);//联系人id
+
+                            /*获取联系人名字*/
+                            Cursor dataCursor = contentResolver.query(ContactsContract.Data.CONTENT_URI,
+                                    new String[]{ContactsContract.CommonDataKinds.Nickname.NAME},
+                                    ContactsContract.Data.CONTACT_ID + "=?" + " AND "
+                                            + ContactsContract.Data.MIMETYPE + "='" + ContactsContract.CommonDataKinds.Nickname.CONTENT_ITEM_TYPE + "'",
+                                    new String[]{String.valueOf(contactId)}, null);
+
+                            if (dataCursor != null) {
+                                if (dataCursor.moveToFirst()) {
+                                    int index = dataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Nickname.NAME);
+                                    do {
+                                        String str = dataCursor.getString(index);
+                                        log.info("{}", str);
+                                    } while (dataCursor.moveToNext());
+                                }
+                                dataCursor.close();
+                            }
+
+                            count++;
+                        } while (cursor.moveToNext());
+                        cursor.close();
+                        log.info("查询结束.{} 条", count);
+                    }
+                }
+            }
+        }.start();
     }
 
     public void showMsg(View view) {
