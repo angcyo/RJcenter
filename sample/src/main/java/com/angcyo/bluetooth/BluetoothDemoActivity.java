@@ -220,7 +220,13 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
     public void queryContacts(View view) {
 //        method1();
 //        method2();
-        method3();
+        //method3();
+        new Thread() {
+            @Override
+            public void run() {
+                test();
+            }
+        }.start();
     }
 
     private void method1() {
@@ -385,6 +391,92 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
                 }
             }
         }.start();
+    }
+
+    private void method4() {
+//        ContactsContract.DataColumns.Dta
+//        ContactsContract.DataCol
+//
+
+        final ContentResolver contentResolver = getContentResolver();
+        Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[]{"_id"}, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    int contactIdIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID);//获取 id 所在列的索引
+                    String contactId = cursor.getString(contactIdIndex);//联系人id
+
+                    //联系人的名字
+
+                } while (cursor.moveToNext());
+            }
+        }
+    }
+
+    /**
+     * 根据MIMETYPE类型, 返回对应联系人的data1字段的数据
+     */
+    private String getData1(final ContentResolver contentResolver, String contactId, final String mimeType) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        Cursor dataCursor = contentResolver.query(ContactsContract.Data.CONTENT_URI,
+                new String[]{ContactsContract.Data.DATA1},
+                ContactsContract.Data.CONTACT_ID + "=?" + " AND "
+                        + ContactsContract.Data.MIMETYPE + "='" + mimeType + "'",
+                new String[]{String.valueOf(contactId)}, null);
+        if (dataCursor != null) {
+            if (dataCursor.moveToFirst()) {
+                do {
+                    stringBuilder.append(dataCursor.getString(dataCursor.getColumnIndex(ContactsContract.Data.DATA1)));
+                    stringBuilder.append("_");
+                } while (dataCursor.moveToNext());
+            }
+            dataCursor.close();
+        }
+
+        return stringBuilder.toString();
+    }
+
+    private void test() {
+        String[] MIMETYPES = new String[]{
+                ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE,//联系人名称
+                ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE,//联系人电话(可能包含多个)
+                ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE,//邮箱(多个)
+                ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE,
+                ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE,//公司
+                ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE,
+                ContactsContract.CommonDataKinds.Nickname.CONTENT_ITEM_TYPE,
+                ContactsContract.CommonDataKinds.Note.CONTENT_ITEM_TYPE,//备注
+                ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE,//地址
+                ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE,
+                ContactsContract.CommonDataKinds.Website.CONTENT_ITEM_TYPE,//网站
+                ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE,
+                ContactsContract.CommonDataKinds.Relation.CONTENT_ITEM_TYPE,
+                ContactsContract.CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE
+        };
+
+        final ContentResolver contentResolver = getContentResolver();
+        Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[]{"_id"}, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int contactIdIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID);//获取 id 所在列的索引
+                String contactId = cursor.getString(contactIdIndex);//联系人id
+                log.error("{} {}", contactId, contactIdIndex);
+
+                for (String MIME : MIMETYPES) {
+//                    Cursor dataCursor = contentResolver.query(ContactsContract.Data.CONTENT_URI,
+//                            null,
+//                            ContactsContract.Data.CONTACT_ID + "=?" + " AND "
+//                                    + ContactsContract.Data.MIMETYPE + "='" + MIME + "'",
+//                            new String[]{String.valueOf(contactId)}, null);
+//                    log.info("{} {} {}", MIME, dataCursor.getCount(), dataCursor.getColumnCount());
+//                    dataCursor.close();
+
+                    log.info("{} {} {}", contactId, MIME, getData1(contentResolver, contactId, MIME));
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
     }
 
     public void showMsg(View view) {
