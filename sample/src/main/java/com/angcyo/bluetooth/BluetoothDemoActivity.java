@@ -218,15 +218,15 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
      * 获取联系人的方法测试
      */
     public void queryContacts(View view) {
-//        method1();
+        method1();
 //        method2();
         //method3();
-        new Thread() {
-            @Override
-            public void run() {
-                test();
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                test();
+//            }
+//        }.start();
     }
 
     private void method1() {
