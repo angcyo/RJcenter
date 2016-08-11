@@ -22,134 +22,141 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:scrollbarThumbVertical="@color/colorAccent"
+        android:scrollbarTrackVertical="@android:color/holo_red_dark">
 
-        <com.rsen.view.MyTextClock
-            android:id="@+id/textClockView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <RadioGroup
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:visibility="gone">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/leftRadioView"
-                android:layout_width="@dimen/test_circle_radio_width"
-                android:layout_height="@dimen/test_circle_radio_height"
-                android:button="@null"
-                android:gravity="center"
-                android:text="左边"/>
+            <com.rsen.view.MyTextClock
+                android:id="@+id/textClockView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <RadioButton
-                android:id="@+id/centerRadioView"
-                android:layout_width="@dimen/test_circle_radio_width"
-                android:layout_height="@dimen/test_circle_radio_height"
-                android:button="@null"
-                android:drawableTop="@drawable/radio_upload_selector"
-                android:gravity="center"
-                android:text="中间"/>
-
-            <RadioButton
-                android:id="@+id/rightRadioView"
-                android:layout_width="@dimen/test_circle_radio_width"
-                android:layout_height="@dimen/test_circle_radio_height"
-                android:button="@null"
-                android:gravity="center"
-                android:text="右边"/>
-
-        </RadioGroup>
-
-        <com.angcyo.sample.viewdrag.ViewDragLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_bright"
-            android:visibility="gone">
-
-            <LinearLayout
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:visibility="gone">
 
-                <Button
-                    android:id="@+id/leftButtonView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RadioButton
+                    android:id="@+id/leftRadioView"
+                    android:layout_width="@dimen/test_circle_radio_width"
+                    android:layout_height="@dimen/test_circle_radio_height"
+                    android:button="@null"
+                    android:gravity="center"
                     android:text="左边"/>
 
-                <Button
-                    android:id="@+id/centerButtonView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RadioButton
+                    android:id="@+id/centerRadioView"
+                    android:layout_width="@dimen/test_circle_radio_width"
+                    android:layout_height="@dimen/test_circle_radio_height"
+                    android:button="@null"
+                    android:drawableTop="@drawable/radio_upload_selector"
+                    android:gravity="center"
                     android:text="中间"/>
 
-                <Button
-                    android:id="@+id/rightButtonView"
+                <RadioButton
+                    android:id="@+id/rightRadioView"
+                    android:layout_width="@dimen/test_circle_radio_width"
+                    android:layout_height="@dimen/test_circle_radio_height"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="右边"/>
+
+            </RadioGroup>
+
+            <com.angcyo.sample.viewdrag.ViewDragLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_bright"
+                android:visibility="gone">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="右边"/>
-            </LinearLayout>
-        </com.angcyo.sample.viewdrag.ViewDragLayout>
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/leftButtonView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="左边"/>
+
+                    <Button
+                        android:id="@+id/centerButtonView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中间"/>
+
+                    <Button
+                        android:id="@+id/rightButtonView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="右边"/>
+                </LinearLayout>
+            </com.angcyo.sample.viewdrag.ViewDragLayout>
 
 
-        <Button
-            android:id="@+id/supportBluetoothView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="supportBluetooth"
-            android:text="是否支持蓝牙"/>
+            <Button
+                android:id="@+id/supportBluetoothView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="supportBluetooth"
+                android:text="是否支持蓝牙"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="enableBluetooth"
-            android:text="是否开启蓝牙"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="enableBluetooth"
+                android:text="是否开启蓝牙"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="openBluetooth"
-            android:text="打开/关闭蓝牙"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="openBluetooth"
+                android:text="打开/关闭蓝牙"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addressBluetooth"
-            android:text="设备信息"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="addressBluetooth"
+                android:text="设备信息"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="startDiscovery"
-            android:text="开始/关闭扫描"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="startDiscovery"
+                android:text="开始/关闭扫描"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="openBluetoothSettingActivity"
-            android:text="打开蓝牙界面"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="openBluetoothSettingActivity"
+                android:text="打开蓝牙界面"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="setScanMode"
-            android:text="设置扫描模式"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="setScanMode"
+                android:text="设置扫描模式"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="queryContacts"
-            android:text="获取联系人"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="queryContacts"
+                android:text="获取联系人"/>
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <com.angcyo.sample.viewdrag.ViewDragLayout
         android:layout_width="match_parent"
@@ -177,5 +184,47 @@
             android:background="@android:color/holo_green_dark"
             android:text="TTTTSSSS"/>
     </com.angcyo.sample.viewdrag.ViewDragTestLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        android:background="@android:color/holo_red_dark">
+
+        <ProgressBar
+            android:id="@+id/progressBar4"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:progressDrawable="@android:color/holo_blue_bright"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progressBar4"
+            android:layout_marginStart="85dp"
+            android:layout_toEndOf="@+id/progressBar4"
+            android:indeterminateDrawable="@android:color/holo_blue_bright"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar6"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar7"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/progressBar5"
+            android:layout_centerVertical="true"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"/>
+    </RelativeLayout>
 
 </RelativeLayout>
