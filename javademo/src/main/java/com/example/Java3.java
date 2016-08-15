@@ -14,7 +14,15 @@ public class Java3 {
 //        test2();
 
 
-        test3();
+//        test3();
+
+        test4();
+    }
+
+    private static void test4() {
+        final String raw = "1234567891234567";
+        StringBuilder result = new StringBuilder("**** **** **** ").append(raw.substring(raw.length() - 4));
+        p.println(result);
     }
 
     private static void test3() {
