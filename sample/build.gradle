@@ -127,7 +127,9 @@ android {
         }
     }
     lintOptions {
+        quiet true
         abortOnError false
+        ignoreWarnings true
         disable 'MissingTranslation'
         disable 'GoogleAppIndexingWarning'
     }
