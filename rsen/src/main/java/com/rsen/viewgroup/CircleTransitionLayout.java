@@ -1,5 +1,6 @@
 package com.rsen.viewgroup;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
@@ -12,15 +13,16 @@ import android.util.Log;
 import android.widget.RelativeLayout;
 
 /**
- * 波纹过渡效果
  * Created by angcyo on 2016-09-05.
  */
 public class CircleTransitionLayout extends RelativeLayout {
 
     Path clipPath = new Path();
     float clipStartX = 0f, clipStartY = 0f, clipStartRadius = 100f;
-    ValueAnimator mClipValueAnimator;
+    ValueAnimator mClipValueAnimator, mClipValueAnimatorExit;
     boolean enableClip = false;
+    OnExitListener mExitListener;
+
 
     public CircleTransitionLayout(Context context) {
         super(context);
@@ -62,6 +64,11 @@ public class CircleTransitionLayout extends RelativeLayout {
         startClip();
     }
 
+    public void exitClip(OnExitListener listener) {
+        mExitListener = listener;
+        mClipValueAnimatorExit.start();
+    }
+
     @Override
     public void draw(Canvas canvas) {
         if (enableClip) {
@@ -77,9 +84,11 @@ public class CircleTransitionLayout extends RelativeLayout {
         super.onDetachedFromWindow();
         mClipValueAnimator.cancel();
         mClipValueAnimator = null;
+        mClipValueAnimatorExit.cancel();
+        mClipValueAnimatorExit = null;
     }
 
-    private void startClip(){
+    private void startClip() {
         post(new Runnable() {
             @Override
             public void run() {
@@ -96,17 +105,51 @@ public class CircleTransitionLayout extends RelativeLayout {
     }
 
     private void initAnimator() {
+        final float endRadius = calcEndRadius();
         if (mClipValueAnimator == null) {
-            final float endRadius = calcEndRadius();
             mClipValueAnimator = ObjectAnimator.ofFloat(clipStartRadius, endRadius);
             mClipValueAnimator.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
-//            mClipValueAnimator.setDuration(5000);
             mClipValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator valueAnimator) {
                     float progress = (float) valueAnimator.getAnimatedValue();
                     Log.e("angcyo", "progress-->" + progress);
                     updateClipPath(clipStartRadius + progress);
+                }
+            });
+        }
+        if (mClipValueAnimatorExit == null) {
+            mClipValueAnimatorExit = ObjectAnimator.ofFloat(endRadius, clipStartRadius);
+            mClipValueAnimatorExit.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+            mClipValueAnimatorExit.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    float progress = (float) valueAnimator.getAnimatedValue();
+                    updateClipPath(progress);
+                }
+            });
+
+            mClipValueAnimatorExit.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    if (mExitListener != null) {
+                        mExitListener.onExit();
+                    }
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
                 }
             });
         }
@@ -127,5 +170,9 @@ public class CircleTransitionLayout extends RelativeLayout {
     //勾股定理
     private float c(float a, float b) {
         return (float) Math.sqrt(a * a + b * b);
+    }
+
+    public interface OnExitListener {
+        void onExit();
     }
 }
