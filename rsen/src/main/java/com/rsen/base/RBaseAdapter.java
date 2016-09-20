@@ -25,9 +25,9 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     public RBaseAdapter(Context context, List<T> datas) {
         this.mAllDatas = datas;
         this.mContext = context;
-
-//        new View(context).setSelected();
     }
+
+    //--------------标准的方法-------------//
 
     @Override
     public RBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,16 +42,27 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         return new RBaseViewHolder(item);
     }
 
+    @Override
+    public void onBindViewHolder(RBaseViewHolder holder, int position) {
+        onBindView(holder, position, mAllDatas.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mAllDatas == null ? 0 : mAllDatas.size();
+    }
+
+    //--------------需要实现的方法------------//
+
     protected View createContentView(int viewType) {
         return null;
     }
 
     protected abstract int getItemLayoutId(int viewType);
 
-    @Override
-    public void onBindViewHolder(RBaseViewHolder holder, int position) {
-        onBindView(holder, position, mAllDatas.get(position));
-    }
+    protected abstract void onBindView(RBaseViewHolder holder, int position, T bean);
+
+    //---------------滚动事件的处理--------------------//
 
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
     }
@@ -59,12 +70,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
     }
 
-    protected abstract void onBindView(RBaseViewHolder holder, int position, T bean);
-
-    @Override
-    public int getItemCount() {
-        return mAllDatas == null ? 0 : mAllDatas.size();
-    }
+    //----------------Item 数据的操作-----------------//
 
     /**
      * 在最后的位置插入数据
