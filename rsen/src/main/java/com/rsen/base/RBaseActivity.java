@@ -201,15 +201,19 @@ public abstract class RBaseActivity extends AppCompatActivity {
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
 
                 if (enableStatusColor()) {
-                    int statusBarHeight = (int) Math.ceil(getStatusBarHeight(this));
-                    stateBarView = new View(this);
-                    stateBarView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getWindow().setStatusBarColor(getStateBarColor());
+                    } else {
+                        int statusBarHeight = (int) Math.ceil(getStatusBarHeight(this));
+                        stateBarView = new View(this);
+                        stateBarView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight));
 //                    stateBarView.setBackgroundResource(ResUtil.getThemeColorAccent(this));
-                    stateBarView.setBackgroundColor(getStateBarColor());
-                    ViewGroup viewGroup = ((ViewGroup) findViewById(android.R.id.content));//Window.ID_ANDROID_CONTENT
-                    mActivityLayout.setFitsSystemWindows(true);
-                    viewGroup.addView(stateBarView);
-                    //  mActivityLayout.addView(stateBarView);
+                        stateBarView.setBackgroundColor(getStateBarColor());
+                        ViewGroup viewGroup = ((ViewGroup) findViewById(android.R.id.content));//Window.ID_ANDROID_CONTENT
+                        mActivityLayout.setFitsSystemWindows(true);
+                        viewGroup.addView(stateBarView);
+                        //  mActivityLayout.addView(stateBarView);
+                    }
                 }
             }
         }
@@ -219,7 +223,11 @@ public abstract class RBaseActivity extends AppCompatActivity {
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//导航栏
 
                 if (enableNavigationColor()) {
-
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getWindow().setNavigationBarColor(getNavigationBarColor());
+                    } else {
+                        //和状态栏一样, 添加一个View...
+                    }
                 }
             }
         }
@@ -238,6 +246,10 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     protected int getStateBarColor() {
+        return getResources().getColor(ResUtil.getThemeColorAccent(this));
+    }
+
+    protected int getNavigationBarColor() {
         return getResources().getColor(ResUtil.getThemeColorAccent(this));
     }
 
