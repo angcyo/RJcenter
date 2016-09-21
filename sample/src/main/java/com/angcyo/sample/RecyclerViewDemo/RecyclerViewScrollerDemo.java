@@ -32,7 +32,12 @@ public class RecyclerViewScrollerDemo extends RBaseActivity {
 
     @Override
     protected boolean enableStatusColor() {
-        return false;
+        return true;
+    }
+
+    @Override
+    protected int getStateBarColor() {
+        return Color.TRANSPARENT;
     }
 
     @Override

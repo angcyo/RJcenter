@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -190,19 +191,21 @@ public abstract class RBaseActivity extends AppCompatActivity {
     //设置窗口动画
     protected void initWindow() {
 
+        final Window window = getWindow();
+
         /*窗口动画*/
         if (enableWindowAnim()) {
-            getWindow().setWindowAnimations(getWindowAnimStyle());
+            window.setWindowAnimations(getWindowAnimStyle());
         }
 
         /*透明状态栏*/
         if (enableStatusTranslucent()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
-
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
                 if (enableStatusColor()) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        getWindow().setStatusBarColor(getStateBarColor());
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                        window.setStatusBarColor(getStateBarColor());
                     } else {
                         int statusBarHeight = (int) Math.ceil(getStatusBarHeight(this));
                         stateBarView = new View(this);
@@ -220,11 +223,12 @@ public abstract class RBaseActivity extends AppCompatActivity {
         /*透明导航栏*/
         if (enableNavigationTranslucent()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//导航栏
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//导航栏
 
                 if (enableNavigationColor()) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        getWindow().setNavigationBarColor(getNavigationBarColor());
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                        window.setNavigationBarColor(getNavigationBarColor());
                     } else {
                         //和状态栏一样, 添加一个View...
                     }

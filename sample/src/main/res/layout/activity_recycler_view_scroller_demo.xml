@@ -5,6 +5,7 @@
     android:id="@+id/activity_recycler_view_scroller_demo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     tools:context="com.angcyo.sample.RecyclerViewDemo.RecyclerViewScrollerDemo">
 
     <com.rsen.viewgroup.RRecyclerView
