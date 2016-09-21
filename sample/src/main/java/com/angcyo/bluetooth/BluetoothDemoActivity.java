@@ -108,11 +108,6 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         return listDrawable;
     }
 
-    private int getScreenWidth() {
-        int width = getResources().getDisplayMetrics().widthPixels;
-        return width;
-    }
-
     private void fixRecyclerViewWidth(RecyclerView recyclerView) {
         final ViewGroup.LayoutParams layoutParams = recyclerView.getLayoutParams();
         layoutParams.width = getScreenWidth() / 2;
