@@ -62,6 +62,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
         TypedArray actionbarSizeTypedArray = context.obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
         float h = actionbarSizeTypedArray.getDimension(0,
                 context.getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
+        actionbarSizeTypedArray.recycle();
         return h;
     }
 
@@ -76,6 +77,20 @@ public abstract class RBaseActivity extends AppCompatActivity {
 //            result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    /**
+     * 返回屏幕宽度(像素)
+     */
+    public int getScreenWidth() {
+        return getResources().getDisplayMetrics().widthPixels;
+    }
+
+    /**
+     * 返回屏幕高度(像素, 包含了状态栏的高度)
+     */
+    public int getScreenHeight() {
+        return getResources().getDisplayMetrics().heightPixels;
     }
 
     @Override
