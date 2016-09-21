@@ -16,7 +16,10 @@ public class Java3 {
 
 //        test3();
 
-        test4();
+//        test4();
+
+        p.println("SV313".substring(2));
+        p.println("SV313".substring(1,2));
     }
 
     private static void test4() {
