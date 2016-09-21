@@ -201,7 +201,7 @@ dependencies {
     compile project(':bmob')
 }
 
-task javadocs(type: Javadoc) {
+/*task javadocs(type: Javadoc) {
     hi "javadocs  --start"
 
     source = android.sourceSets.main.java.srcDirs
@@ -218,12 +218,12 @@ task javadocs(type: Javadoc) {
     }
 
     hi "javadocs  --end"
-}
+}*/
 
-tasks.withType(JavaCompile) {
+/*tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
     options.compilerArgs << "-Xlint:deprecation"
     options.compilerArgs << "-Xlint:unchecked"
-}
+}*/
 
 hi "------gradle build---------end"
