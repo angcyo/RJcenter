@@ -29,6 +29,8 @@ public class RRecyclerView extends RecyclerView {
     protected int spanCount = 2;
     protected int orientation = LinearLayout.VERTICAL;
     protected Class<? extends AnimationAdapter> animatorAdapter;
+    protected RBaseAdapter mAdapterRaw;
+    protected AnimationAdapter mAnimationAdapter;
 
     public RRecyclerView(Context context) {
         this(context, null);
@@ -84,7 +86,7 @@ public class RRecyclerView extends RecyclerView {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                Adapter adapter = getAdapter();
+                Adapter adapter = getAdapterRaw();
                 if (adapter != null && adapter instanceof RBaseAdapter) {
                     ((RBaseAdapter) adapter).onScrollStateChanged(recyclerView, newState);
                 }
@@ -93,7 +95,7 @@ public class RRecyclerView extends RecyclerView {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                Adapter adapter = getAdapter();
+                Adapter adapter = getAdapterRaw();
                 if (adapter != null && adapter instanceof RBaseAdapter) {
                     ((RBaseAdapter) adapter).onScrolled(recyclerView, dx, dy);
                 }
@@ -107,10 +109,26 @@ public class RRecyclerView extends RecyclerView {
         initView(getContext());
     }
 
+    //-----------获取 默认的adapter, 获取 RBaseAdapter, 获取 AnimationAdapter----------//
+
     @Override
     public void setAdapter(Adapter adapter) {
-        super.setAdapter(getAnimationAdapter(adapter));
+        if (adapter instanceof RBaseAdapter) {
+            mAdapterRaw = (RBaseAdapter) adapter;
+        }
+        mAnimationAdapter = getAnimationAdapter(adapter);
+        super.setAdapter(mAnimationAdapter);
     }
+
+    public RBaseAdapter getAdapterRaw() {
+        return mAdapterRaw;
+    }
+
+    public AnimationAdapter getAnimationAdapter() {
+        return mAnimationAdapter;
+    }
+
+    //----------------end--------------------//
 
     /**
      * 设置Item 动画类, 用于 添加 和 删除 Item时候的动画
@@ -137,6 +155,9 @@ public class RRecyclerView extends RecyclerView {
         return this;
     }
 
+    /**
+     * 将默认的adapter, 包裹一层动画adapter
+     */
     private AnimationAdapter getAnimationAdapter(RecyclerView.Adapter adapter) {
         AnimationAdapter animationAdapter = new ScaleInAnimationAdapter(adapter);
         if (animatorAdapter != null) {

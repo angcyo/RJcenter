@@ -16,7 +16,6 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     protected List<T> mAllDatas;
     protected Context mContext;
 
-
     public RBaseAdapter(Context context) {
         mAllDatas = new ArrayList<>();
         this.mContext = context;

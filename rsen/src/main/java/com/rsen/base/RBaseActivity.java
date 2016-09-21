@@ -53,7 +53,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     protected FloatingActionButton mFab;
     protected Toolbar mToolbar;
     protected RBaseViewHolder mViewHolder;
-    private View stateBarView;//状态栏背景View
+    protected View stateBarView;//状态栏背景View
 
     /**
      * 获取ActionBar的高度
@@ -180,10 +180,9 @@ public abstract class RBaseActivity extends AppCompatActivity {
         });
     }
 
-    protected void onOverlayRefresh(View v) {
+    protected void onOverlayRefresh(View view) {
 
     }
-
 
     @LayoutRes
     protected abstract int getContentView();
@@ -298,7 +297,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Init before _.
+     * Init before _.在onCreate之前执行
      */
     protected void initBefore() {
 
@@ -318,7 +317,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     protected abstract void initView(Bundle savedInstanceState);
 
     /**
-     * Init after.
+     * Init after. 在initView之后执行
      */
     protected void initAfter() {
 
@@ -328,6 +327,16 @@ public abstract class RBaseActivity extends AppCompatActivity {
 //        mAppbarLayout.setVisibility(View.GONE);
         mActivityLayout.removeView(mAppbarLayout);
 //        mActivityLayout.requestLayout();
+    }
+
+    protected void hideToolbar(boolean anim) {
+        if (anim) {
+            mAppbarLayout.animate().alpha(0).setDuration(
+                    getResources().getInteger(android.R.integer.config_shortAnimTime)
+            ).withEndAction(this::hideToolbar).start();
+        } else {
+            hideToolbar();
+        }
     }
 
     public void launchActivity(Class c) {
