@@ -169,7 +169,6 @@ android {
         }
     }
 
-//    useLibrary 'org.apache.http.legacy'
     allprojects {
         gradle.projectsEvaluated {
             tasks.withType(JavaCompile) {
@@ -177,6 +176,12 @@ android {
             }
         }
     }
+
+    packagingOptions{
+        exclude 'META-INF/LICENSE'
+    }
+
+//    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {

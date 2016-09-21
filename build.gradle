@@ -24,9 +24,9 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
+//tasks.withType(JavaCompile) {
+//    options.encoding = 'UTF-8'
+//}
 
 //def hi = { msg ->
 //    println(buildTime() + "--> " + msg)
