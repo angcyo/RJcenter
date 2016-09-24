@@ -79,4 +79,8 @@
         <item name="android:thumb">@drawable/seek_thumb</item>
         <item name="android:thumbOffset">10.0dip</item>
     </style>
+
+    <style name="AppThemeNoSlidr.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppThemeNoSlidr.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

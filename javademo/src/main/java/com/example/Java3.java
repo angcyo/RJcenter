@@ -20,6 +20,13 @@ public class Java3 {
 
         p.println("SV313".substring(2));
         p.println("SV313".substring(1,2));
+
+        String str = new String("我是Robi");
+        for (int i = 0; i < str.length(); i++) {
+            p.print(str.charAt(i));
+            p.print(" ");
+        }
+        p.print("\n");
     }
 
     private static void test4() {
