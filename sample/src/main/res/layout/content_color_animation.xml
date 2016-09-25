@@ -14,6 +14,33 @@
     tools:context="com.angcyo.sample.animation.ColorAnimationActivity"
     tools:showIn="@layout/activity_color_animation">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/testView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="--------test"
+                android:textColor="@android:color/holo_red_dark"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -24,8 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Start"
         android:onClick="startAnimation"
+        android:text="Start"
         android:textAllCaps="false"/>
 
 </RelativeLayout>

@@ -355,6 +355,22 @@ public abstract class RBaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void showToolbar() {
+        mActivityLayout.addView(mAppbarLayout);
+    }
+
+    protected void showToolbar(boolean anim) {
+        if (anim) {
+            mActivityLayout.addView(mAppbarLayout);
+            mAppbarLayout.setScaleY(0);
+            mAppbarLayout.animate().scaleY(1).setDuration(
+                    getResources().getInteger(android.R.integer.config_shortAnimTime)
+            ).withEndAction(this::hideToolbar).start();
+        } else {
+            showToolbar();
+        }
+    }
+
     public void launchActivity(Class c) {
         Intent intent = new Intent(this, c);
         startActivity(intent);

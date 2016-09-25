@@ -1,7 +1,5 @@
 package com.angcyo.sample.animation;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.app.WallpaperManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.angcyo.sample.R;
 import com.rsen.util.Rx;
@@ -23,6 +23,8 @@ import rx.schedulers.Schedulers;
 public class ColorAnimationActivity extends AppCompatActivity {
 
     static String TAG = "angcyo";
+
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,20 +69,38 @@ public class ColorAnimationActivity extends AppCompatActivity {
                 Log.i(TAG, "call 4: " + Thread.currentThread().getName() + " " + Thread.currentThread().getId());
             }
         });
+
+        mTextView = new TextView(this);
+        mTextView.setText("Test ... ");
+        mTextView.setTextColor(Color.WHITE);
+        mTextView.setTextSize(30);
+
+        ((ViewGroup) findViewById(R.id.top_layout)).addView(mTextView);
     }
 
     public void startAnimation(View view) {
-        View animationView = findViewById(R.id.view);
-        ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.RED, Color.BLUE);
-        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int color = (int) animation.getAnimatedValue();
-                animationView.setBackgroundColor(color);
-            }
-        });
-        colorAnimator.setDuration(700);
-        colorAnimator.start();
+//        View animationView = findViewById(R.id.view);
+//        ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.RED, Color.BLUE);
+//        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                int color = (int) animation.getAnimatedValue();
+//                animationView.setBackgroundColor(color);
+//            }
+//        });
+//        colorAnimator.setDuration(700);
+//        colorAnimator.start();
+        ViewGroup topLayout = ((ViewGroup) findViewById(R.id.top_layout));
+        ViewGroup bottomLayout = ((ViewGroup) findViewById(R.id.bottom_layout));
+        mTextView.setText("------>new text");
+
+
+        topLayout.removeView(mTextView);
+        bottomLayout.addView(mTextView);
+
+        View testView = findViewById(R.id.testView);
+        topLayout.removeView(testView);
+        bottomLayout.addView(testView);
     }
 
 }
