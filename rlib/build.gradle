@@ -48,9 +48,14 @@ dependencies {
     /*hawk 键值对库*/
     compile 'com.orhanobut:hawk:1.18'
 
-    /*Rx 相关依赖*/
-    compile 'io.reactivex:rxjava:1.1.6'
+    /*Rx 相关依赖, 最后更新2016-9-25*/
+    compile 'io.reactivex:rxjava:1.2.0'
     compile 'io.reactivex:rxandroid:1.2.1'
+
+/*    *//*Rx 2相关依赖*//*
+    compile 'io.reactivex.rxjava2:rxjava:2.0.0-RC3'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.0-RC1'*/
+
 
     /*retrofit2相关依赖*/
     compile "com.squareup.retrofit2:retrofit:${retrofit_version}"
