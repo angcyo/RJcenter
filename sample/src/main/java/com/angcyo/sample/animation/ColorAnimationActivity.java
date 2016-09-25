@@ -55,13 +55,13 @@ public class ColorAnimationActivity extends AppCompatActivity {
             }
         });
 
-        Observable.just(1).map(new Func1<Integer, Object>() {
+        Observable.just(1).observeOn(Schedulers.computation())/*.subscribeOn(Schedulers.newThread())*/.map(new Func1<Integer, Object>() {
             @Override
             public Object call(Integer integer) {
                 Log.i(TAG, "call 3: " + Thread.currentThread().getName() + " " + Thread.currentThread().getId());
                 return null;
             }
-        }).observeOn(Schedulers.computation()).subscribeOn(Schedulers.newThread()).subscribe(new Action1<Object>() {
+        }).subscribeOn(Schedulers.newThread()).subscribe(new Action1<Object>() {
             @Override
             public void call(Object o) {
                 Log.i(TAG, "call 4: " + Thread.currentThread().getName() + " " + Thread.currentThread().getId());
