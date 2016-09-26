@@ -5,15 +5,20 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
+import com.rsen.base.RBaseDialogFragment;
 import com.rsen.util.Rx;
+import com.rsen.viewgroup.RectTransitionLayout;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -101,6 +106,63 @@ public class ColorAnimationActivity extends AppCompatActivity {
         View testView = findViewById(R.id.testView);
         topLayout.removeView(testView);
         bottomLayout.addView(testView);
+    }
+
+
+    public void bottomDialog(View view) {
+        BottomDialog.show(getSupportFragmentManager());
+    }
+
+    public void topDialog(View view) {
+        TopDialog.show(getSupportFragmentManager());
+    }
+
+    public static class TopDialog extends RBaseDialogFragment {
+
+        public static void show(FragmentManager fragmentManager) {
+            DialogFragment dialogFragment = new TopDialog();
+            dialogFragment.show(fragmentManager, dialogFragment.getClass().getSimpleName());
+        }
+
+        @Override
+        protected int getContentView() {
+            return R.layout.content_color_dialog_fragment;
+        }
+
+        @Override
+        protected void initViewEvent() {
+            RectTransitionLayout transitionLayout = (RectTransitionLayout) mViewHolder.v(R.id.transitionLayout);
+            transitionLayout.startClip();
+        }
+
+        @Override
+        protected int getGravity() {
+            return Gravity.TOP;
+        }
+    }
+
+    public static class BottomDialog extends RBaseDialogFragment {
+
+        public static void show(FragmentManager fragmentManager) {
+            DialogFragment dialogFragment = new BottomDialog();
+            dialogFragment.show(fragmentManager, dialogFragment.getClass().getSimpleName());
+        }
+
+        @Override
+        protected int getContentView() {
+            return R.layout.content_color_dialog_fragment;
+        }
+
+        @Override
+        protected void initViewEvent() {
+            RectTransitionLayout transitionLayout = (RectTransitionLayout) mViewHolder.v(R.id.transitionLayout);
+            transitionLayout.startClip(100);
+        }
+
+        @Override
+        protected int getGravity() {
+            return Gravity.BOTTOM;
+        }
     }
 
 }

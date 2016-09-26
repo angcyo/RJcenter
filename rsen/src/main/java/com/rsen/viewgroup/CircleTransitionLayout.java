@@ -10,6 +10,7 @@ import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.RelativeLayout;
 
 /**
@@ -21,8 +22,7 @@ public class CircleTransitionLayout extends RelativeLayout {
     float clipStartX = 0f, clipStartY = 0f, clipStartRadius = 100f;
     ValueAnimator mClipValueAnimator, mClipValueAnimatorExit;
     boolean enableClip = false;
-    OnExitListener mExitListener;
-
+    OnEndListener mEndListener;
 
     public CircleTransitionLayout(Context context) {
         super(context);
@@ -64,8 +64,8 @@ public class CircleTransitionLayout extends RelativeLayout {
         startClip();
     }
 
-    public void exitClip(OnExitListener listener) {
-        mExitListener = listener;
+    public void exitClip(OnEndListener listener) {
+        mEndListener = listener;
         mClipValueAnimatorExit.start();
     }
 
@@ -108,6 +108,7 @@ public class CircleTransitionLayout extends RelativeLayout {
         final float endRadius = calcEndRadius();
         if (mClipValueAnimator == null) {
             mClipValueAnimator = ObjectAnimator.ofFloat(clipStartRadius, endRadius);
+            mClipValueAnimator.setInterpolator(new AccelerateInterpolator());
             mClipValueAnimator.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
             mClipValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
@@ -128,7 +129,7 @@ public class CircleTransitionLayout extends RelativeLayout {
                     updateClipPath(progress);
                 }
             });
-
+            mClipValueAnimatorExit.setInterpolator(new AccelerateInterpolator());
             mClipValueAnimatorExit.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animator) {
@@ -137,8 +138,8 @@ public class CircleTransitionLayout extends RelativeLayout {
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
-                    if (mExitListener != null) {
-                        mExitListener.onExit();
+                    if (mEndListener != null) {
+                        mEndListener.onEnd();
                     }
                 }
 
@@ -172,7 +173,7 @@ public class CircleTransitionLayout extends RelativeLayout {
         return (float) Math.sqrt(a * a + b * b);
     }
 
-    public interface OnExitListener {
-        void onExit();
+    public interface OnEndListener {
+        void onEnd();
     }
 }

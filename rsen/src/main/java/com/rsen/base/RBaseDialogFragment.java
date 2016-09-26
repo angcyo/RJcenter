@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,20 +31,31 @@ public abstract class RBaseDialogFragment extends DialogFragment {
     protected ViewGroup rootView;
     protected RBaseViewHolder mViewHolder;
     protected Window mWindow;
-    protected RBaseActivity mBaseActivity;
+    protected AppCompatActivity mBaseActivity;
     protected String mDialogTitle;
     protected String mDialogMsg;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mBaseActivity = (RBaseActivity) activity;
+        mBaseActivity = (AppCompatActivity) activity;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mBaseActivity = (RBaseActivity) context;
+        mBaseActivity = (AppCompatActivity) context;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return super.onCreateDialog(savedInstanceState);
     }
 
     @Nullable
@@ -87,9 +99,16 @@ public abstract class RBaseDialogFragment extends DialogFragment {
 
 //        mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView));
         initView(savedInstanceState);
-
+        initViewEvent();
         setShowsDialog(true);
         return rootView;
+    }
+
+    public RBaseActivity getBaseActivity() {
+        if (mBaseActivity instanceof RBaseActivity) {
+            return ((RBaseActivity) mBaseActivity);
+        }
+        return null;
     }
 
     protected void initArguments(Bundle arguments) {
@@ -109,6 +128,9 @@ public abstract class RBaseDialogFragment extends DialogFragment {
     }
 
     protected void initView(Bundle savedInstanceState) {
+    }
+
+    protected void initViewEvent() {
     }
 
     protected abstract int getContentView();
@@ -177,14 +199,4 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         return false;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
-    }
 }

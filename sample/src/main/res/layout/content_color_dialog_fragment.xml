@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.rsen.viewgroup.RectTransitionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/transitionLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_red_dark"
+    android:fitsSystemWindows="true">
+
+<!--    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:focusableInTouchMode="true">
+
+        &lt;!&ndash;<requestFocus/>&ndash;&gt;
+    </View>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/dialogButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button"/>
+
+    </LinearLayout>
+
+
+</com.rsen.viewgroup.RectTransitionLayout>

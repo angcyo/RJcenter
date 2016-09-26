@@ -77,6 +77,7 @@ import java.lang.annotation.RetentionPolicy;
  .BallGridBeat,
  .SemiCircleSpin
  *
+ * https://github.com/81813780/AVLoadingIndicatorView
  */
 public class AVLoadingIndicatorView extends View{
 
