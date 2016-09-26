@@ -15,31 +15,47 @@ import rx.schedulers.Schedulers;
  */
 public class Rx {
 
-    public static final Observable.Transformer<T, T> schedulersTransformer = new Observable.Transformer<T, T>() {
+    public static final Observable.Transformer<T, T> ioSchedulersTransformer = new Observable.Transformer<T, T>() {
         @Override
         public Observable<T> call(Observable<T> tObservable) {
             return tObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
         }
     };
+    public static final Observable.Transformer<T, T> newThreadSchedulersTransformer = new Observable.Transformer<T, T>() {
+        @Override
+        public Observable<T> call(Observable<T> tObservable) {
+            return tObservable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread());
+        }
+    };
 
-    public static final <T> Observable.Transformer<T, T> applySchedulers() {
-        return (Observable.Transformer<T, T>) schedulersTransformer;
+    public static final <T> Observable.Transformer<T, T> applyNewThreadSchedulers() {
+        return (Observable.Transformer<T, T>) newThreadSchedulersTransformer;
+    }
+
+    public static final <T> Observable.Transformer<T, T> applyIOSchedulers() {
+        return (Observable.Transformer<T, T>) ioSchedulersTransformer;
     }
 
     public static <T, R> Subscription base(T t, Func1<? super T, ? extends R> func, final Action1<? super R> onNext) {
-        return Observable.just(t).map(func).compose(applySchedulers()).subscribe(onNext, throwable -> Log.e("Rx", "base: ", throwable));
+        return Observable.just(t).map(func).compose(applyIOSchedulers()).subscribe(onNext, throwable -> Log.e("Rx", "base: ", throwable));
     }
 
     public static <T, R> Subscription base(T t, Func1<? super T, ? extends R> func, final Action1<? super R> onNext, Scheduler scheduler) {
-        return Observable.just(t).map(func).compose(applySchedulers()).subscribe(onNext, throwable -> Log.e("Rx", "base: ", throwable));
+        return scheduler == Schedulers.newThread() ?
+                Observable.just(t).map(func).compose(applyNewThreadSchedulers()).subscribe(onNext, throwable -> Log.e("Rx", "base: ", throwable))
+                :
+                Observable.just(t).map(func).compose(applyIOSchedulers()).subscribe(onNext, throwable -> Log.e("Rx", "base: ", throwable));
     }
 
     public static <T, R> Subscription base(T t, Func1<? super T, ? extends R> func) {
-        return Observable.just(t).map(func).compose(applySchedulers()).subscribe();
+        return Observable.just(t).map(func).compose(applyIOSchedulers()).subscribe();
     }
 
     public static <T, R> Subscription base(T t, Func1<? super T, ? extends R> func, Scheduler scheduler) {
-        return Observable.just(t).map(func).compose(applySchedulers()).subscribe();
+        return scheduler == Schedulers.newThread() ?
+                Observable.just(t).map(func).compose(applyNewThreadSchedulers()).subscribe()
+                :
+                Observable.just(t).map(func).compose(applyIOSchedulers()).subscribe();
     }
 
     public static <R> Subscription base(Func1<String, ? extends R> func, final Action1<? super R> onNext) {
