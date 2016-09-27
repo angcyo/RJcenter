@@ -272,7 +272,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 启动状态栏颜色, 默认使用 ColorAccent 颜色, rootView 添加padding
+     * 启动状态栏颜色, 默认使用 ColorAccent 颜色, mRootView 添加padding
      */
     protected boolean enableStatusColor() {
         return true;

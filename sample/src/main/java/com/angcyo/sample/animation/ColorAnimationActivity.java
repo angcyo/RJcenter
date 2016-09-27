@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.angcyo.sample.R;
@@ -81,6 +82,8 @@ public class ColorAnimationActivity extends AppCompatActivity {
         mTextView.setTextSize(30);
 
         ((ViewGroup) findViewById(R.id.top_layout)).addView(mTextView);
+
+        findViewById(Window.ID_ANDROID_CONTENT).setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
     public void startAnimation(View view) {
@@ -106,6 +109,18 @@ public class ColorAnimationActivity extends AppCompatActivity {
         View testView = findViewById(R.id.testView);
         topLayout.removeView(testView);
         bottomLayout.addView(testView);
+
+/*        mTextView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);*/
+
+        mTextView.setSystemUiVisibility(
+                 View.SYSTEM_UI_FLAG_FULLSCREEN
+                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+               );
     }
 
 
@@ -138,6 +153,11 @@ public class ColorAnimationActivity extends AppCompatActivity {
         @Override
         protected int getGravity() {
             return Gravity.TOP;
+        }
+
+        @Override
+        protected boolean isFullScreen() {
+            return true;
         }
     }
 

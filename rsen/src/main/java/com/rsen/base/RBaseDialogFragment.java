@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,8 @@ import com.angcyo.rsen.R;
 public abstract class RBaseDialogFragment extends DialogFragment {
     public static final String KEY_TITLE = "title";
     public static final String KEY_MSG = "msg";
-    protected ViewGroup rootView;
+    static final String TAG = "RBaseDialogFragment";
+    protected ViewGroup mRootView;
     protected RBaseViewHolder mViewHolder;
     protected Window mWindow;
     protected AppCompatActivity mBaseActivity;
@@ -49,27 +51,30 @@ public abstract class RBaseDialogFragment extends DialogFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateDialog: ");
         return super.onCreateDialog(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: ");
         initArguments(getArguments());
-
-        mWindow = getDialog().getWindow();
+        final Dialog dialog = getDialog();
+        mWindow = dialog.getWindow();
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (isNoTitle()) {
             mWindow.requestFeature(Window.FEATURE_NO_TITLE);//必须放在setContextView之前调用
         }
-        rootView = (ViewGroup) inflater.inflate(getContentView(), (ViewGroup) mWindow.findViewById(android.R.id.content), false);
-        mViewHolder = new RBaseViewHolder(rootView);
+        mRootView = (ViewGroup) inflater.inflate(getContentView(), (ViewGroup) mWindow.findViewById(android.R.id.content), false);
+        mViewHolder = new RBaseViewHolder(mRootView);
 
         //此段代码,会出现软键盘覆盖界面的BUG
         if (isStatusTranslucent() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && getGravity() != Gravity.BOTTOM) {
@@ -84,7 +89,7 @@ public abstract class RBaseDialogFragment extends DialogFragment {
             mWindow.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
 
-        getDialog().setCanceledOnTouchOutside(canCanceledOnOutside());
+        dialog.setCanceledOnTouchOutside(canCanceledOnOutside());
         setCancelable(canCancelable());
         if (canTouchOnOutside()) {
             mWindow.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
@@ -97,11 +102,11 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         mWindowAttributes.gravity = getGravity();
         mWindow.setAttributes(mWindowAttributes);
 
-//        mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), rootView));
+//        mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), mRootView));
         initView(savedInstanceState);
         initViewEvent();
         setShowsDialog(true);
-        return rootView;
+        return mRootView;
     }
 
     public RBaseActivity getBaseActivity() {
@@ -155,6 +160,13 @@ public abstract class RBaseDialogFragment extends DialogFragment {
      */
     protected boolean isNoTitle() {
         return true;
+    }
+
+    /**
+     * 是否全屏
+     */
+    protected boolean isFullScreen() {
+        return false;
     }
 
     /**

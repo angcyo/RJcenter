@@ -193,7 +193,7 @@ public class FragmentDemoActivity extends RBaseActivity {
 
 //            getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-//           .addView(rootView);
+//           .addView(mRootView);
             attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
             attributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
 //            attributes.XUtil = 200;

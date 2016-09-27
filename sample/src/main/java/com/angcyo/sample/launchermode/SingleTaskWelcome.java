@@ -89,7 +89,7 @@ public class SingleTaskWelcome extends AppCompatActivity {
         super.onResume();
         e("onResume");
 
-//        rootView.postDelayed(new Runnable() {
+//        mRootView.postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
 //                startActivity(new Intent(SingleTaskWelcome.this, SingleTaskActivity.class));
