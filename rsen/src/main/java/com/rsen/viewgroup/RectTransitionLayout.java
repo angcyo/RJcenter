@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
  */
 public class RectTransitionLayout extends RelativeLayout implements Runnable {
 
-    static final int animTime = 300;
+    static final int animTime = 500;
 
     /**
      * 是否激活剪切
