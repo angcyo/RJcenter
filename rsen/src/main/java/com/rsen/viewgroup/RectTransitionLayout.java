@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
  */
 public class RectTransitionLayout extends RelativeLayout implements Runnable {
 
+    static final int animTime = 300;
+
     /**
      * 是否激活剪切
      */
@@ -106,7 +108,7 @@ public class RectTransitionLayout extends RelativeLayout implements Runnable {
         if (clipAnimator == null) {
             clipAnimator = ValueAnimator.ofFloat(startWidth, getMeasuredWidth());
             clipAnimator.setInterpolator(new AccelerateInterpolator());
-            clipAnimator.setDuration(700);
+            clipAnimator.setDuration(animTime);
             clipAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
@@ -119,7 +121,7 @@ public class RectTransitionLayout extends RelativeLayout implements Runnable {
         if (clipExitAnimator == null) {
             clipExitAnimator = ValueAnimator.ofFloat(getMeasuredWidth(), startWidth);
             clipExitAnimator.setInterpolator(new AccelerateInterpolator());
-            clipExitAnimator.setDuration(700);
+            clipExitAnimator.setDuration(animTime);
             clipExitAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
