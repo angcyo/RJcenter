@@ -5,7 +5,9 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DrawFilter;
 import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.view.animation.LinearInterpolator;
 public class PointLoadView extends View {
     static final String TAG = "point_load_view";
     Paint mPaint;
+    DrawFilter mDrawFilter;
     ValueAnimator mValueAnimator;
     float mCurrentY;
     float mCurrentDegrees;
@@ -61,6 +64,8 @@ public class PointLoadView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        canvas.setDrawFilter(mDrawFilter);
+
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         boolean set = true;
         for (int i = 0; i < mPointCount; i++) {
@@ -158,6 +163,8 @@ public class PointLoadView extends View {
     }
 
     private void initView() {
+        mDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.GREEN);
         createAnimator();
