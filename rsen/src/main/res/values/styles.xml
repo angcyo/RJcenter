@@ -108,6 +108,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <!--Dialog全屏主题-->
+    <style name="DialogFullScreenTheme" parent="@android:style/Theme.Panel">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="PopupTipWindowAnim">
         <item name="android:windowEnterAnimation">@anim/tran_rtol</item>
         <item name="android:windowExitAnimation">@anim/alpha_1to0</item>
