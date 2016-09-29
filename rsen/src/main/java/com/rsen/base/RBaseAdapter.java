@@ -38,7 +38,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
             item = View.inflate(parent.getContext(), itemLayoutId, null);
         }
 
-        return new RBaseViewHolder(item);
+        return new RBaseViewHolder(item, viewType);
     }
 
     @Override

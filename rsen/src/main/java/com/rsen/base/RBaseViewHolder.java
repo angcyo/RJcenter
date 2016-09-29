@@ -22,10 +22,21 @@ import java.lang.reflect.Field;
  */
 public class RBaseViewHolder extends RecyclerView.ViewHolder {
     private SparseArray<View> sparseArray;
+    private int viewType;
 
     public RBaseViewHolder(View itemView) {
         super(itemView);
         sparseArray = new SparseArray();
+    }
+
+    public RBaseViewHolder(View itemView, int viewType) {
+        super(itemView);
+        sparseArray = new SparseArray();
+        this.viewType = viewType;
+    }
+
+    public int getViewType() {
+        return viewType;
     }
 
     public View v(@IdRes int resId) {
