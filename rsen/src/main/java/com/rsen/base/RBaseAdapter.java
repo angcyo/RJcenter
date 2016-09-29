@@ -2,6 +2,7 @@ package com.rsen.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -34,12 +35,16 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         View item;
         if (itemLayoutId == 0) {
             item = createContentView(viewType);
+            if (item == null) {
+                item = createContentView(parent, viewType);
+            }
         } else {
-            item = View.inflate(parent.getContext(), itemLayoutId, null);
+            item = LayoutInflater.from(mContext).inflate(itemLayoutId, parent, false);
         }
 
         return new RBaseViewHolder(item, viewType);
     }
+
 
     @Override
     public void onBindViewHolder(RBaseViewHolder holder, int position) {
@@ -53,7 +58,12 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     //--------------需要实现的方法------------//
 
+    @Deprecated
     protected View createContentView(int viewType) {
+        return null;
+    }
+
+    protected View createContentView(ViewGroup parent, int viewType) {
         return null;
     }
 
