@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.hawk.LogLevel;
@@ -66,6 +67,9 @@ public class RApplication extends Application {
 
         /*内存泄漏检查*/
         LeakCanary.install(this);
+
+        /*Facebook图片加载库, 必须*/
+        Fresco.initialize(this);
     }
 
     @Override
