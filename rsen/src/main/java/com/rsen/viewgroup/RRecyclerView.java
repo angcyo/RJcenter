@@ -2,6 +2,7 @@ package com.rsen.viewgroup;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class RRecyclerView extends RecyclerView {
     protected Class<? extends AnimationAdapter> animatorAdapter;
     protected RBaseAdapter mAdapterRaw;
     protected AnimationAdapter mAnimationAdapter;
+    protected boolean mItemAnim = true;
 
     public RRecyclerView(Context context) {
         this(context, null);
@@ -109,6 +111,15 @@ public class RRecyclerView extends RecyclerView {
         initView(getContext());
     }
 
+    public void setItemAnim(boolean itemAnim) {
+        mItemAnim = itemAnim;
+        if (mItemAnim) {
+            this.setItemAnimator(new FadeInDownAnimator());
+        } else {
+            this.setItemAnimator(new DefaultItemAnimator());
+        }
+    }
+
     //-----------获取 默认的adapter, 获取 RBaseAdapter, 获取 AnimationAdapter----------//
 
     @Override
@@ -117,7 +128,12 @@ public class RRecyclerView extends RecyclerView {
             mAdapterRaw = (RBaseAdapter) adapter;
         }
         mAnimationAdapter = getAnimationAdapter(adapter);
-        super.setAdapter(mAnimationAdapter);
+
+        if (mItemAnim) {
+            super.setAdapter(mAnimationAdapter);
+        } else {
+            super.setAdapter(adapter);
+        }
     }
 
     public RBaseAdapter getAdapterRaw() {
