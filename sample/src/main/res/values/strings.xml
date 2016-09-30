@@ -30,4 +30,5 @@
     <string name="title_activity_service">ServiceActivity</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_color_animation">ColorAnimationActivity</string>
+    <string name="title_activity_drawee_view">DraweeViewActivity</string>
 </resources>

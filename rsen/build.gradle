@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 
-def keyFilePath =isMacOs() ? '/Users/angcyo/Project/y2angcyo.jks' : 'F:/angcyo/angcyo.jks'
+def keyFilePath =isMacOs() ? '/Users/angcyo/Project/y2angcyo.jks' : 'F:/angcyo/y2angcyo.jks'
 
 android {
     signingConfigs {

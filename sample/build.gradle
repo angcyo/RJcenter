@@ -44,7 +44,7 @@ def java_version = javaVersion()
 def os_name = osName()
 def isMac = isMacOs()
 def build_revision = isMac ? macGitVersion() : winGitVersion()
-def keyFilePath = isMac ? '/Users/angcyo/Project/y2angcyo.jks' : 'F:/y2angcyo.jks'
+def keyFilePath = isMac ? '/Users/angcyo/Project/y2angcyo.jks' : 'F:/angcyo/y2angcyo.jks'
 
 hi build_time
 hi build_host
