@@ -13,4 +13,20 @@
     tools:context="com.angcyo.sample.viewdemo.DraweeViewActivity"
     tools:showIn="@layout/activity_drawee_view">
 
+    <!--
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/drawee_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:failureImage="@mipmap/fail_image"
+            app:placeholderImage="@mipmap/placeholder_image"
+            app:retryImage="@mipmap/retry_image"
+
+            />
+    -->
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
