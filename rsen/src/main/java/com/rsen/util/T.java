@@ -1,6 +1,12 @@
 package com.rsen.util;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -18,7 +24,6 @@ public class T {
      */
     public static void show(Context content, CharSequence text) {
         initToast(content, text);
-        toast.setText(text);
         toast.show();
     }
 
@@ -30,7 +35,6 @@ public class T {
      */
     public static void showL(Context content, CharSequence text) {
         initToast(content, text);
-        toast.setText(text);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
     }
@@ -47,9 +51,30 @@ public class T {
             synchronized (T.class) {
                 if (toast == null) {
                     toast = Toast.makeText(content, text, Toast.LENGTH_SHORT);
+                    toast.setView(createToastView(content));
                 }
             }
         }
+        ((TextView) toast.getView().findViewWithTag("text")).setText(text);
         return toast;
+    }
+
+    private static View createToastView(Context context) {
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setBackgroundResource(context.getResources().getIdentifier("colorAccent", "color", context.getPackageName()));
+        layout.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
+
+        ImageView imageView = new ImageView(context);
+        imageView.setTag("image");
+        imageView.setVisibility(View.GONE);
+
+        TextView textView = new TextView(context);
+        textView.setTag("text");
+        textView.setTextColor(Color.WHITE);
+
+        layout.addView(imageView, new LinearLayout.LayoutParams(-2, -2));
+        layout.addView(textView, new LinearLayout.LayoutParams(-2, -2));
+        return layout;
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
+import com.rsen.util.T;
 
 public class DraweeViewActivity extends RBaseActivity {
 
@@ -20,5 +21,7 @@ public class DraweeViewActivity extends RBaseActivity {
 //        simpleDraweeView.setImageURI(Uri.parse(url));
 //
 //        simpleDraweeView.getHierarchy().setProgressBarImage(R.mipmap.progress_bar);
+
+        T.show(this, "测试....");
     }
 }
