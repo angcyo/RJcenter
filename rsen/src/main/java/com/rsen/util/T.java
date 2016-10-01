@@ -2,12 +2,17 @@ package com.rsen.util;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by angcyo on 15-12-17 017 13:30 下午.
@@ -15,6 +20,7 @@ import android.widget.Toast;
 public class T {
 
     private static Toast toast;
+    public static int T_HEIGHT = 40;//dp
 
     /**
      * 短时间显示toast.
@@ -51,7 +57,9 @@ public class T {
             synchronized (T.class) {
                 if (toast == null) {
                     toast = Toast.makeText(content, text, Toast.LENGTH_SHORT);
+                    makeToastFullscreen(content, toast);
                     toast.setView(createToastView(content));
+                    toast.setGravity(Gravity.BOTTOM, 0, (int) dpToPx(content, T_HEIGHT));
                 }
             }
         }
@@ -63,7 +71,9 @@ public class T {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setBackgroundResource(context.getResources().getIdentifier("colorAccent", "color", context.getPackageName()));
-        layout.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
+//        layout.setBackgroundResource(android.R.color.holo_red_dark);
+//        layout.setVerticalGravity(Gravity.VERTICAL_GRAVITY_MASK);
+        layout.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
 
         ImageView imageView = new ImageView(context);
         imageView.setTag("image");
@@ -73,8 +83,32 @@ public class T {
         textView.setTag("text");
         textView.setTextColor(Color.WHITE);
 
-        layout.addView(imageView, new LinearLayout.LayoutParams(-2, -2));
-        layout.addView(textView, new LinearLayout.LayoutParams(-2, -2));
+        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -2);
+        layoutParams.setMargins((int) dpToPx(context, 10), 0, 0, 0);
+        layoutParams.gravity = Gravity.CENTER_VERTICAL;
+
+        layout.addView(imageView, layoutParams);
+        layout.addView(textView, layoutParams);
         return layout;
+    }
+
+    private static float dpToPx(Context context, float dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+    }
+
+    private static void makeToastFullscreen(Context context, Toast toast) {
+        try {
+            Field mTN = toast.getClass().getDeclaredField("mTN");
+            mTN.setAccessible(true);
+            Object mTNObj = mTN.get(toast);
+
+            Field mParams = mTNObj.getClass().getDeclaredField("mParams");
+            mParams.setAccessible(true);
+            WindowManager.LayoutParams params = (WindowManager.LayoutParams) mParams.get(mTNObj);
+            params.width = -1;
+            params.height = (int) dpToPx(context, T_HEIGHT);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

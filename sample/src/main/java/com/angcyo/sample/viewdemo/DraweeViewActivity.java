@@ -1,6 +1,7 @@
 package com.angcyo.sample.viewdemo;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.angcyo.sample.R;
 import com.rsen.base.RBaseActivity;
@@ -22,6 +23,13 @@ public class DraweeViewActivity extends RBaseActivity {
 //
 //        simpleDraweeView.getHierarchy().setProgressBarImage(R.mipmap.progress_bar);
 
-        T.show(this, "测试....");
+
+        mFab.setVisibility(View.VISIBLE);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                T.show(DraweeViewActivity.this, "测试....");
+            }
+        });
     }
 }
