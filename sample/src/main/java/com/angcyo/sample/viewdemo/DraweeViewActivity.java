@@ -1,5 +1,6 @@
 package com.angcyo.sample.viewdemo;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import com.angcyo.sample.R;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.rsen.base.RBaseActivity;
+import com.rsen.util.AnimUtil;
 import com.rsen.util.T;
 
 public class DraweeViewActivity extends RBaseActivity {
@@ -40,5 +42,7 @@ public class DraweeViewActivity extends RBaseActivity {
                 simpleDraweeView.setImageURI(Uri.parse(url + "123"));
             }
         });
+
+        AnimUtil.startArgb(mAppbarLayout, Color.WHITE, getResources().getColor(R.color.colorPrimary));
     }
 }
