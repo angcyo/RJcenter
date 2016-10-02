@@ -469,4 +469,14 @@ public class Utils {
         }
         return type;
     }
+
+    /**
+     * 跳转到应用市场
+     */
+    public static void jumpToMarket(Context context, String packageName) {
+        Uri uri = Uri.parse("market://details?id=" + packageName);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 }
