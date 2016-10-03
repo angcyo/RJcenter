@@ -38,11 +38,11 @@ public class DraweeViewActivity extends RBaseActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                T.show(DraweeViewActivity.this, "测试. ...");
+                T.show(DraweeViewActivity.this, "测试. .. .");
                 simpleDraweeView.setImageURI(Uri.parse(url + "123"));
             }
         });
 
-        AnimUtil.startArgb(mAppbarLayout, Color.WHITE, getResources().getColor(R.color.colorPrimary));
+        AnimUtil.startArgb(mAppbarLayout, Color.WHITE, getResources().getColor(R.color.colorAccent));
     }
 }
