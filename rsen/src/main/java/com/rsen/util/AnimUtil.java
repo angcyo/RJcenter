@@ -8,7 +8,7 @@ import android.view.View;
  * Created by angcyo on 2016-10-02 20:54.
  */
 public class AnimUtil {
-    public static void startArgb(View targetView, int startColor, int endColor) {
+    public static void startArgb(final View targetView, int startColor, int endColor) {
         ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor);
         colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
