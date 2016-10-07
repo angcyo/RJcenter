@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +20,10 @@ import java.lang.reflect.Field;
  */
 public class T {
 
+    public static int T_HEIGHT = 40;//dp 默认的高度
+    public static int T_OFFSET_Y = 40;//dp y轴偏移量
+    public static int T_GRAVITY = Gravity.BOTTOM;//默认的对齐方式
     private static Toast toast;
-    public static int T_HEIGHT = 40;//dp
 
     /**
      * 短时间显示toast.
@@ -59,7 +62,7 @@ public class T {
                     toast = Toast.makeText(content, text, Toast.LENGTH_SHORT);
                     makeToastFullscreen(content, toast);
                     toast.setView(createToastView(content));
-                    toast.setGravity(Gravity.BOTTOM, 0, (int) dpToPx(content, T_HEIGHT));
+                    toast.setGravity(T_GRAVITY, 0, (int) dpToPx(content, T_OFFSET_Y));
                 }
             }
         }
@@ -68,12 +71,18 @@ public class T {
     }
 
     private static View createToastView(Context context) {
+        RelativeLayout root = new RelativeLayout(context);
+        root.setBackgroundResource(context.getResources().getIdentifier("colorAccent", "color", context.getPackageName()));
+        root.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setBackgroundResource(context.getResources().getIdentifier("colorAccent", "color", context.getPackageName()));
 //        layout.setBackgroundResource(android.R.color.holo_red_dark);
 //        layout.setVerticalGravity(Gravity.VERTICAL_GRAVITY_MASK);
-        layout.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+        final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-2, -1);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        layout.setLayoutParams(params);
 
         ImageView imageView = new ImageView(context);
         imageView.setTag("image");
@@ -89,7 +98,8 @@ public class T {
 
         layout.addView(imageView, layoutParams);
         layout.addView(textView, layoutParams);
-        return layout;
+        root.addView(layout);
+        return root;
     }
 
     private static float dpToPx(Context context, float dp) {

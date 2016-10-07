@@ -23,6 +23,11 @@ public class DraweeViewActivity extends RBaseActivity {
     }
 
     @Override
+    protected int getStateBarColor() {
+        return Color.TRANSPARENT;
+    }
+
+    @Override
     protected void initView(Bundle savedInstanceState) {
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView) mViewHolder.v(R.id.drawee_view);
         url = "res://" + getPackageName() + "/" + R.mipmap.ic_launcher;
@@ -39,10 +44,15 @@ public class DraweeViewActivity extends RBaseActivity {
             @Override
             public void onClick(View v) {
                 T.show(DraweeViewActivity.this, "测试. .. .");
-                simpleDraweeView.setImageURI(Uri.parse(url + "123"));
+//                simpleDraweeView.setImageURI(Uri.parse(url + "123"));
             }
         });
 
         AnimUtil.startArgb(mAppbarLayout, Color.WHITE, getResources().getColor(R.color.colorAccent));
+    }
+
+    @Override
+    protected boolean enableNavigation() {
+        return false;
     }
 }

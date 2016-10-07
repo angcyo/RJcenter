@@ -13,8 +13,10 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -44,6 +46,8 @@ public abstract class RBaseActivity extends AppCompatActivity {
     public ProgressFragment progressFragment = null;
     public MaterialDialog mMaterialDialog;
     protected LayoutInflater mLayoutInflater;
+    protected DrawerLayout mBaseDrawerLayout;//滑动布局
+    protected NavigationView mBaseNavigationView;//滑动菜单布局
     protected ViewGroup mActivityLayout;//Activity的根布局
     protected ViewGroup mAppbarLayout;//toolbar 包裹布局
     protected ViewGroup mFragmentLayout;//重要的包裹布局,包含空布局,无网络布局,加载布局
@@ -118,6 +122,8 @@ public abstract class RBaseActivity extends AppCompatActivity {
 
     protected void initBaseView() {
         setContentView(R.layout.rsen_base_activity_layout);
+        mBaseDrawerLayout = (DrawerLayout) findViewById(R.id.base_drawer_layout);
+        mBaseNavigationView = (NavigationView) findViewById(R.id.base_navigation_view);
         mActivityLayout = (ViewGroup) findViewById(R.id.base_activity_layout);
         mFragmentLayout = (ViewGroup) findViewById(R.id.base_fragment_layout);
         mAppbarLayout = (ViewGroup) findViewById(R.id.base_appbar_layout);
@@ -140,6 +146,10 @@ public abstract class RBaseActivity extends AppCompatActivity {
             mViewHolder = new RBaseViewHolder(mFragmentLayout);
         } else {
             mViewHolder = new RBaseViewHolder(mLayoutInflater.inflate(contentView, mContainerLayout, true));
+        }
+
+        if (!enableNavigation()) {
+            mBaseDrawerLayout.removeView(mBaseNavigationView);
         }
     }
 
@@ -268,6 +278,13 @@ public abstract class RBaseActivity extends AppCompatActivity {
      * 激活滑动删除
      */
     protected boolean enableSlidr() {
+        return false;
+    }
+
+    /**
+     * 激活滑动菜单
+     */
+    protected boolean enableNavigation() {
         return false;
     }
 
