@@ -215,6 +215,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
                 if (enableStatusColor()) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);//全屏布局
                         window.setStatusBarColor(getStateBarColor());
                     } else {
                         int statusBarHeight = (int) Math.ceil(getStatusBarHeight(this));

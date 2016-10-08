@@ -82,10 +82,14 @@ public class CircleTransitionLayout extends RelativeLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mClipValueAnimator.cancel();
-        mClipValueAnimator = null;
-        mClipValueAnimatorExit.cancel();
-        mClipValueAnimatorExit = null;
+        if (mClipValueAnimator != null) {
+            mClipValueAnimator.cancel();
+            mClipValueAnimator = null;
+        }
+        if (mClipValueAnimatorExit != null) {
+            mClipValueAnimatorExit.cancel();
+            mClipValueAnimatorExit = null;
+        }
     }
 
     private void startClip() {
