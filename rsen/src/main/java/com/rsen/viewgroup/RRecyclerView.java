@@ -111,6 +111,9 @@ public class RRecyclerView extends RecyclerView {
         initView(getContext());
     }
 
+    /**
+     * 请在{@link RRecyclerView#setAdapter(Adapter)}方法之前调用
+     */
     public void setItemAnim(boolean itemAnim) {
         mItemAnim = itemAnim;
         if (mItemAnim) {
