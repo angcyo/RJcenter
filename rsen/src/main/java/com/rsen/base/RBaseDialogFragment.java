@@ -22,6 +22,7 @@ import android.view.WindowManager;
 
 import com.angcyo.rsen.R;
 
+
 /**
  * 对话框DialogFragment的基类
  * Created by angcyo on 2016-01-30.
@@ -30,7 +31,7 @@ public abstract class RBaseDialogFragment extends DialogFragment {
     public static final String KEY_TITLE = "title";
     public static final String KEY_MSG = "msg";
     static final String TAG = "RBaseDialogFragment";
-    protected ViewGroup mRootView;
+    protected View mRootView;
     protected RBaseViewHolder mViewHolder;
     protected Window mWindow;
     protected AppCompatActivity mBaseActivity;
@@ -73,7 +74,14 @@ public abstract class RBaseDialogFragment extends DialogFragment {
         if (isNoTitle()) {
             mWindow.requestFeature(Window.FEATURE_NO_TITLE);//必须放在setContextView之前调用
         }
-        mRootView = (ViewGroup) inflater.inflate(getContentView(), (ViewGroup) mWindow.findViewById(android.R.id.content), false);
+        int layoutId = getContentView();
+        if (layoutId == 0) {
+//            mRootView = (ViewGroup) mWindow.findViewById(android.R.id.content);
+//            mRootView.addView(createView());
+            mRootView = createView();
+        } else {
+            mRootView = inflater.inflate(getContentView(), (ViewGroup) mWindow.findViewById(android.R.id.content), false);
+        }
         mViewHolder = new RBaseViewHolder(mRootView);
 
         //此段代码,会出现软键盘覆盖界面的BUG
@@ -139,6 +147,10 @@ public abstract class RBaseDialogFragment extends DialogFragment {
     }
 
     protected abstract int getContentView();
+
+    protected View createView() {
+        return null;
+    }
 
     /**
      * 返回中心
