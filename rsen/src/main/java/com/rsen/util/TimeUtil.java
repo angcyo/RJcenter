@@ -507,6 +507,11 @@ public class TimeUtil {
         return jj;
     }
 
+    public static int getYear() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.YEAR);
+    }
+
     /**
      * 获取当前时间
      *
@@ -575,7 +580,7 @@ public class TimeUtil {
      *
      * @param starTime 开始时间
      * @param endTime  结束时间
-     * //@param type     返回类型 ==1----天，时，分。 ==2----时
+     *                 //@param type     返回类型 ==1----天，时，分。 ==2----时
      * @return 返回时间差
      */
     public String getTimeDifference(String starTime, String endTime) {
