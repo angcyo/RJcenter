@@ -57,9 +57,9 @@ public class ResUtil {
      * @param defaultColor the default color
      * @return the drawable
      */
-    public static Drawable generateRoundBorderDrawable(int pressColor, int defaultColor) {
+    public static Drawable generateRoundBorderDrawable(float radii, int pressColor, int defaultColor) {
         //按下状态
-        Shape roundRectShape = new RoundRectShape(null, null, null);//圆角背景
+        Shape roundRectShape = new RoundRectShape(new float[]{radii, radii, radii, radii, radii, radii, radii, radii}, null, null);//圆角背景
         ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
         shopDrawablePress.getPaint().setColor(pressColor);//设置颜色
 
@@ -313,5 +313,19 @@ public class ResUtil {
      */
     public static int getThemeIdentifier(Context context, String name, String type) {
         return context.getResources().getIdentifier(name, type, context.getPackageName());
+    }
+
+    /**
+     * 返回屏幕宽度(像素)
+     */
+    public static int getScreenWidth(Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
+
+    /**
+     * 返回屏幕高度(像素, 包含了状态栏的高度)
+     */
+    public static int getScreenHeight(Context context) {
+        return context.getResources().getDisplayMetrics().heightPixels;
     }
 }
