@@ -3,6 +3,7 @@ package com.rsen.facebook;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -105,8 +106,11 @@ public class SimpleImageAdapter extends RBaseAdapter<SimpleImageAdapter.Image> {
         View clickView = new View(mContext);
         clickView.setLayoutParams(new RelativeLayout.LayoutParams(-1, -1));
         Drawable drawable = ResUtil.generateRoundBorderDrawable(0, Color.parseColor("#80000000"), Color.TRANSPARENT);
-        //clickView.setBackgroundDrawable(drawable);
-        clickView.setBackground(drawable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            clickView.setBackground(drawable);
+        } else {
+            clickView.setBackgroundDrawable(drawable);
+        }
 
         layout.addView(imageView);
         layout.addView(clickView);
