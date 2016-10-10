@@ -96,6 +96,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         mAllDatas.clear();
         mAllDatas = tempBeans;
         notifyItemInserted(0);
+        notifyItemRangeChanged(0, mAllDatas.size());
     }
 
     /**
@@ -106,8 +107,9 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
             int indexOf = mAllDatas.indexOf(bean);
             if (indexOf > -1) {
                 if (onDeleteItem(bean)) {
-                    notifyItemRemoved(indexOf);
                     mAllDatas.remove(bean);
+                    notifyItemRemoved(indexOf);
+                    notifyItemRangeChanged(indexOf, mAllDatas.size());
                 }
             }
         }
@@ -120,6 +122,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     public void removeFirstItem() {
         mAllDatas.remove(0);
         notifyItemRemoved(0);
+        notifyItemRangeChanged(0, mAllDatas.size());
     }
 
     public void removeLastItem() {
