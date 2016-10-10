@@ -21,4 +21,9 @@ public class DraweeViewUtil {
         String url = "res://" + view.getContext().getPackageName() + "/" + res;
         view.setImageURI(Uri.parse(url));
     }
+
+    public static void setDraweeViewFile(SimpleDraweeView view, String filePath) {
+        String url = "file://" + filePath;
+        view.setImageURI(Uri.parse(url));
+    }
 }

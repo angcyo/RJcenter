@@ -259,6 +259,23 @@ public class FileUtil {
     }
 
     /**
+     * 返回一个安全的文件路径
+     */
+    public static String getPath(String name) {
+        File file = new File(getSDPath() + "/" + name);
+        if (!file.exists()) {
+            try {
+                file.mkdirs();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
+
+        return file.getAbsolutePath();
+    }
+
+    /**
      * The type On copy.
      */
     public static abstract class OnCopy {
@@ -267,6 +284,5 @@ public class FileUtil {
          */
         public abstract void onCopy();
     }
-
 }
 
