@@ -27,6 +27,7 @@
         <!--<item name="android:activityOpenExitAnimation">@null</item>-->
     </style>
 
+    <!--无动画-->
     <style name="ActivityNoAnim" parent="@android:style/Animation.Activity">
         <item name="android:activityCloseEnterAnimation">@null</item>
         <item name="android:activityOpenEnterAnimation">@null</item>
@@ -40,6 +41,11 @@
         <item name="android:taskToFrontExitAnimation">@null</item>
         <item name="android:taskToBackEnterAnimation">@null</item>
         <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+
+    <!--无动画-->
+    <style name="ActivityNoAnim2" parent="ActivityTheme">
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 
     <style name="TransparentTheme" parent="Theme.AppCompat.Light.DarkActionBar">
