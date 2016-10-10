@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * ViewPager 圆圈指示器
+ * ViewPager 圆圈指示器, 圆圈随着 滑动变大变小
  * <p/>
  * Created by angcyo on 2016-02-17.
  */
