@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -75,18 +76,12 @@ public class RBaseItemSelectorDialog extends RBaseDialogFragment {
     }
 
     @Override
-    protected int getWindowWidth() {
-        return 300;
-    }
-
-    @Override
-    protected int getWindowHeight() {
-        return 300;
-    }
-
-    @Override
-    protected int getGravity() {
-        return Gravity.CENTER;
+    protected void initWindowSize() {
+        super.initWindowSize();
+        View root = mWindow.findViewById(Window.ID_ANDROID_CONTENT);
+        ViewGroup.LayoutParams layoutParams = root.getLayoutParams();
+        layoutParams.width = ResUtil.getScreenWidth(mBaseActivity);
+        root.setLayoutParams(layoutParams);
     }
 
     @Override

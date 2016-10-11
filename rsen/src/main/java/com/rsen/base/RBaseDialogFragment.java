@@ -104,18 +104,22 @@ public abstract class RBaseDialogFragment extends DialogFragment {
             mWindow.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
         }
 
-        mWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams mWindowAttributes = mWindow.getAttributes();
-        mWindowAttributes.width = getWindowWidth();//这个属性需要配合透明背景颜色,才会真正的 MATCH_PARENT
-        mWindowAttributes.height = getWindowHeight();
-        mWindowAttributes.gravity = getGravity();
-        mWindow.setAttributes(mWindowAttributes);
+        initWindowSize();
 
 //        mViewHolder = new RBaseViewHolder(inflater.inflate(getContentView(), mRootView));
         initView(savedInstanceState);
         initViewEvent();
         setShowsDialog(true);
         return mRootView;
+    }
+
+    protected void initWindowSize() {
+        mWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams mWindowAttributes = mWindow.getAttributes();
+        mWindowAttributes.width = getWindowWidth();//这个属性需要配合透明背景颜色,才会真正的 MATCH_PARENT
+        mWindowAttributes.height = getWindowHeight();
+        mWindowAttributes.gravity = getGravity();
+        mWindow.setAttributes(mWindowAttributes);
     }
 
     public RBaseActivity getBaseActivity() {
