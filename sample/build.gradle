@@ -182,6 +182,13 @@ android {
     }
 
 //    useLibrary 'org.apache.http.legacy'
+
+/*        aaptOptions {
+        cruncherEnabled = false
+    }
+
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false*/
 }
 
 dependencies {
