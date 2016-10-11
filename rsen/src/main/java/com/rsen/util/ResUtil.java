@@ -33,7 +33,11 @@ public class ResUtil {
      */
     public static float dpToPx(Resources res, float dp) {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.getDisplayMetrics());
+        return px;
+    }
 
+    public static float spToPx(Resources res, float sp) {
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, res.getDisplayMetrics());
         return px;
     }
 
