@@ -31,15 +31,24 @@ import java.util.List;
  */
 public class SimpleImageAdapter extends RBaseAdapter<SimpleImageAdapter.Image> {
 
+    public static final int DEFAULT_SIZE = -100;
+
     protected Image mImage;
     /**
      * Item的大小
      */
-    int mItemSize = -1;
+    int mItemSize = DEFAULT_SIZE;
     /**
      * Item的空隙
      */
     int mItemSpaceSize = 6;
+
+    /**
+     * Item 的数量(横向排列的数量)
+     */
+    int mItemCount = 3;
+
+    boolean mBorder = false;
 
     OnItemClickListener mItemClickListener;
 
@@ -64,6 +73,11 @@ public class SimpleImageAdapter extends RBaseAdapter<SimpleImageAdapter.Image> {
         return this;
     }
 
+    public SimpleImageAdapter setBorder(boolean border) {
+        mBorder = border;
+        return this;
+    }
+
     @Override
     protected int getItemLayoutId(int viewType) {
         return 0;
@@ -81,6 +95,11 @@ public class SimpleImageAdapter extends RBaseAdapter<SimpleImageAdapter.Image> {
         }
     }
 
+    public SimpleImageAdapter setItemCount(int itemCount) {
+        mItemCount = itemCount;
+        return this;
+    }
+
     @Override
     protected View createContentView(ViewGroup parent, int viewType) {
         int screenWidth = ResUtil.getScreenWidth(mContext);
@@ -89,23 +108,35 @@ public class SimpleImageAdapter extends RBaseAdapter<SimpleImageAdapter.Image> {
 
         int itemSpace = (int) ResUtil.dpToPx(mContext.getResources(), mItemSpaceSize);
 //        int itemSize = (int) (screenWidth - paddLeft - paddRight - 3 * itemSpace) / 3;//计算Item的宽高
-        int itemSize = screenWidth / 3;
+        int itemSize = screenWidth / mItemCount;
 
-        if (mItemSize == -1) {
+        if (mItemSize == DEFAULT_SIZE) {
             mItemSize = itemSize;
         }
 
         RelativeLayout layout = new RelativeLayout(mContext);
         layout.setLayoutParams(new ViewGroup.LayoutParams(mItemSize, mItemSize));
         layout.setPadding(itemSpace, itemSpace / 2, itemSpace, itemSpace / 2);
+        if (mBorder) {
+            layout.setBackgroundDrawable(ResUtil.generateRoundBorderDrawable(0,
+                    ResUtil.dpToPx(mContext.getResources(), 0.5f), Color.parseColor("#efeff0")));
+        }
 //        layout.setBackgroundColor(Color.RED);
 
         SimpleDraweeView imageView = new SimpleDraweeView(mContext);
         imageView.setLayoutParams(new RelativeLayout.LayoutParams(-1, -1));
+//        imageView.setPadding(itemSpace, itemSpace / 2, itemSpace, itemSpace / 2);
+
+        if (mBorder) {
+            int px = (int) ResUtil.dpToPx(mContext.getResources(), 2);
+            imageView.setPadding(px, px, px, px);
+        }
 
         View clickView = new View(mContext);
         clickView.setLayoutParams(new RelativeLayout.LayoutParams(-1, -1));
-        Drawable drawable = ResUtil.generateRoundBorderDrawable(0, Color.parseColor("#80000000"), Color.TRANSPARENT);
+//        clickView.setBackgroundResource(R.drawable.default_bg_selector);
+
+        Drawable drawable = ResUtil.generateRoundBorderDrawable(0, Color.parseColor("#60000000"), Color.TRANSPARENT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             clickView.setBackground(drawable);
         } else {
@@ -113,6 +144,12 @@ public class SimpleImageAdapter extends RBaseAdapter<SimpleImageAdapter.Image> {
         }
 
         layout.addView(imageView);
+
+        if (mBorder) {
+            layout.setClickable(true);
+            layout.setBackgroundDrawable(drawable);
+        }
+
         layout.addView(clickView);
         return layout;
     }
@@ -129,17 +166,29 @@ public class SimpleImageAdapter extends RBaseAdapter<SimpleImageAdapter.Image> {
         if (isResData()) {
             DraweeViewUtil.setDraweeViewRes(draweeView, R.drawable.face800);
         } else {
-
+            DraweeViewUtil.setDraweeViewRes(draweeView, R.drawable.face800);
         }
-        clickView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                T.show(mContext, position + " ");
-                if (mItemClickListener != null) {
-                    mItemClickListener.onItemClick(v, position, bean);
+        if (mBorder) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    T.show(mContext, position + " ");
+                    if (mItemClickListener != null) {
+                        mItemClickListener.onItemClick(v, position, bean);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            clickView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    T.show(mContext, position + " ");
+                    if (mItemClickListener != null) {
+                        mItemClickListener.onItemClick(v, position, bean);
+                    }
+                }
+            });
+        }
     }
 
     protected Image getImage() {
@@ -171,7 +220,7 @@ public class SimpleImageAdapter extends RBaseAdapter<SimpleImageAdapter.Image> {
         void onItemClick(View view, int position, Image bean);
     }
 
-    static class Image {
+    public static class Image {
         public ArrayList<String> mListImageString = new ArrayList<>();
         public ArrayList<Integer> mListImageRes = new ArrayList<>();
     }
