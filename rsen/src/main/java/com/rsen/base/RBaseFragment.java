@@ -50,6 +50,8 @@ public abstract class RBaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mLayoutInflater = inflater;
         rootView = (ViewGroup) inflater.inflate(R.layout.rsen_base_fragment_layout, container, false);
+        initBaseView();
+        initBaseViewEvent();
 
         int contentView = getContentView();
         if (contentView == 0) {
@@ -63,8 +65,6 @@ public abstract class RBaseFragment extends Fragment {
             mViewHolder = new RBaseViewHolder(inflater.inflate(contentView, rootView, true));
         }
 
-        initBaseView();
-        initBaseViewEvent();
         initView(rootView);
         initAfter();
         isCreate = true;
