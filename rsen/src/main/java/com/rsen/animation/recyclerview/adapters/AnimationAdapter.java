@@ -27,11 +27,12 @@ import com.rsen.animation.recyclerview.internal.ViewHelper;
  */
 public abstract class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private long firstTime = 0;
+    private long loadTime = 0;
     private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
     private int mDuration = 300;
     private Interpolator mInterpolator = new LinearInterpolator();
     private int mLastPosition = -1;
-
     private boolean isFirstOnly = true;
 
     public AnimationAdapter(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter) {
@@ -58,17 +59,21 @@ public abstract class AnimationAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         mAdapter.onBindViewHolder(holder, position);
-
+        loadTime = System.currentTimeMillis();
         int adapterPosition = holder.getAdapterPosition();
         if (!isFirstOnly || adapterPosition > mLastPosition) {
             for (Animator anim : getAnimators(holder.itemView)) {
                 anim.setDuration(mDuration).start();
+                if ((loadTime - firstTime) < 10) {
+                    anim.setStartDelay(position * 20);
+                }
                 anim.setInterpolator(mInterpolator);
             }
             mLastPosition = adapterPosition;
         } else {
             ViewHelper.clear(holder.itemView);
         }
+        firstTime = loadTime;
     }
 
     @Override
