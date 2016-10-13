@@ -104,7 +104,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
             if (count < Math.min(mBuyMax, mInventory)) {
                 //正常添加
                 mCount.setText("" + (count + 1));
-                numberChange(count - 1);
+                numberChange(count + 1);
             } else if (mInventory < mBuyMax) {
                 //库存不足
                 warningForInventory();
