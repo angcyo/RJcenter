@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2016. SHENQINCI(沈钦赐)<946736079@qq.com>
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/nb_bg_number_button"
+              android:divider="@drawable/nb_divider_horizontal"
+              android:orientation="horizontal"
+              android:showDividers="middle"
+              android:weightSum="4"
+    >
+
+    <TextView
+        android:id="@+id/button_sub"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/nb_bg_button_left"
+        android:gravity="center"
+        android:minWidth="30dp"
+        android:text="-"
+        android:textColor="#000"
+        android:textSize="18sp"/>
+
+    <EditText
+        android:id="@+id/text_count"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@null"
+        android:cursorVisible="true"
+        android:digits="0123456789"
+        android:gravity="center"
+        android:inputType="number"
+        android:minWidth="65dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
+        android:singleLine="true"
+        android:text="555"
+        android:textColor="#000"
+        android:textCursorDrawable="@null"/>
+
+    <TextView
+        android:id="@+id/button_add"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/nb_bg_button_right"
+        android:gravity="center"
+        android:minWidth="30dp"
+        android:text="+"
+        android:textColor="#000"
+        android:textSize="18sp"/>
+</LinearLayout>
