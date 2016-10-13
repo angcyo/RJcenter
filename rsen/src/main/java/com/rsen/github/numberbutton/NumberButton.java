@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.angcyo.rsen.R;
 
+
 /**
  * 购物车商品数量、增加和减少控制按钮。
  * https://github.com/qinci/NumberButton
@@ -25,7 +26,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
     //最大购买数，默认无限制
     private int mBuyMax = Integer.MAX_VALUE;
     private EditText mCount;
-    private OnWarnListener mOnWarnListener;
+    private OnNumberChangeListener mOnNumberChangeListener;
 
     public NumberButton(Context context) {
         this(context, null);
@@ -97,12 +98,13 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
             if (count > 1) {
                 //正常减
                 mCount.setText("" + (count - 1));
+                numberChange(count - 1);
             }
-
         } else if (id == R.id.button_add) {
             if (count < Math.min(mBuyMax, mInventory)) {
                 //正常添加
                 mCount.setText("" + (count + 1));
+                numberChange(count - 1);
             } else if (mInventory < mBuyMax) {
                 //库存不足
                 warningForInventory();
@@ -145,7 +147,8 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
      * Warning for inventory.
      */
     private void warningForInventory() {
-        if (mOnWarnListener != null) mOnWarnListener.onWarningForInventory(mInventory);
+        if (mOnNumberChangeListener != null)
+            mOnNumberChangeListener.onWarningForInventory(mInventory);
     }
 
     /**
@@ -153,7 +156,11 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
      * Warning for buy max.
      */
     private void warningForBuyMax() {
-        if (mOnWarnListener != null) mOnWarnListener.onWarningForBuyMax(mBuyMax);
+        if (mOnNumberChangeListener != null) mOnNumberChangeListener.onWarningForBuyMax(mBuyMax);
+    }
+
+    private void numberChange(int value) {
+        if (mOnNumberChangeListener != null) mOnNumberChangeListener.onNumberChange(value);
     }
 
 
@@ -193,8 +200,8 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         return this;
     }
 
-    public NumberButton setOnWarnListener(OnWarnListener onWarnListener) {
-        mOnWarnListener = onWarnListener;
+    public NumberButton setOnNumberChangeListener(OnNumberChangeListener onNumberChangeListener) {
+        mOnNumberChangeListener = onNumberChangeListener;
         return this;
     }
 
@@ -213,9 +220,11 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
 
     }
 
-    public interface OnWarnListener {
+    public interface OnNumberChangeListener {
         void onWarningForInventory(int inventory);
 
         void onWarningForBuyMax(int max);
+
+        void onNumberChange(int value);
     }
 }
