@@ -1,19 +1,3 @@
-/*
- * Copyright 2016. SHENQINCI(沈钦赐)<946736079@qq.com>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.rsen.github.numberbutton;
 
 import android.content.Context;
@@ -70,7 +54,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
 
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NumberButton);
-        boolean editable = typedArray.getBoolean(R.styleable.NumberButton_nb_editable, true);
+        boolean editable = typedArray.getBoolean(R.styleable.NumberButton_nb_editable, false);
         int buttonWidth = typedArray.getDimensionPixelSize(R.styleable.NumberButton_nb_buttonWidth, -1);
         int textWidth = typedArray.getDimensionPixelSize(R.styleable.NumberButton_nb_textWidth, -1);
         int textSize = typedArray.getDimensionPixelSize(R.styleable.NumberButton_nb_textSize, -1);
@@ -176,16 +160,18 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
     private void setEditable(boolean editable) {
         if (editable) {
             mCount.setFocusable(true);
+            mCount.setFocusableInTouchMode(true);
             mCount.setKeyListener(new DigitsKeyListener());
         } else {
             mCount.setFocusable(false);
+            mCount.setFocusableInTouchMode(false);
             mCount.setKeyListener(null);
         }
     }
 
     public NumberButton setCurrentNumber(int currentNumber) {
         if (currentNumber < 1) mCount.setText("1");
-        mCount.setText(""+ Math.min(Math.min(mBuyMax, mInventory), currentNumber));
+        mCount.setText("" + Math.min(Math.min(mBuyMax, mInventory), currentNumber));
         return this;
     }
 
