@@ -17,10 +17,10 @@
 
 <resources>
     <declare-styleable name="NumberButton">
-        <attr name="editable" format="boolean"/>
-        <attr name="buttonWidth" format="dimension" />
-        <attr name="textWidth" format="dimension" />
-        <attr name="textSize" format="dimension"/>
-        <attr name="textColor" format="color"/>
+        <attr name="nb_editable" format="boolean"/>
+        <attr name="nb_buttonWidth" format="dimension" />
+        <attr name="nb_textWidth" format="dimension" />
+        <attr name="nb_textSize" format="dimension"/>
+        <attr name="nb_textColor" format="color"/>
     </declare-styleable>
 </resources>
