@@ -23,7 +23,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     public RBaseAdapter(Context context, List<T> datas) {
-        this.mAllDatas = datas;
+        this.mAllDatas = datas == null ? new ArrayList<T>() : datas;
         this.mContext = context;
     }
 
