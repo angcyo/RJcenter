@@ -25,7 +25,7 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
      * VERTICAL 方向: padding 的是top 和 bottom
      * HORIZONTAL 方向: padding 的是left 和 right
      */
-    int mPaddingStart = 0, mPaddingEnd = 0;
+    int mMarginStart = 0, mMarginEnd = 0;
 
 
     public RBaseItemDecoration() {
@@ -140,6 +140,35 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
             }
         }
     }
+
+    //------------------------------------------公共方法---------------------------------
+
+    public static void setDividerColor(int dividerColor) {
+        RBaseItemDecoration.dividerColor = dividerColor;
+    }
+
+    public void setDividerSize(float dividerSize) {
+        mDividerSize = dividerSize;
+    }
+
+    public void setDividerDrawableV(Drawable dividerDrawableV) {
+        mDividerDrawableV = dividerDrawableV;
+    }
+
+    public void setDividerDrawableH(Drawable dividerDrawableH) {
+        mDividerDrawableH = dividerDrawableH;
+    }
+
+    public void setMarginStart(int marginStart) {
+        mMarginStart = marginStart;
+    }
+
+    public void setMarginEnd(int marginEnd) {
+        mMarginEnd = marginEnd;
+    }
+
+
+    //------------------------------------------私有方法---------------------------------
 
     /**
      * GridLayoutManager 布局, 计算每个Item, 应该留出的空间(用来绘制分割线的空间)
@@ -259,9 +288,9 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
     private void drawDrawable(Canvas c, View view, Drawable drawable) {
         final RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) view.getLayoutParams();
         drawable.setBounds(
-                view.getLeft() + mPaddingStart,
+                view.getLeft() + mMarginStart,
                 view.getBottom() + p.bottomMargin,
-                view.getRight() - mPaddingEnd,
+                view.getRight() - mMarginEnd,
                 (int) (view.getBottom() + p.bottomMargin + mDividerSize));
         drawable.draw(c);
     }
