@@ -31,4 +31,7 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_color_animation">ColorAnimationActivity</string>
     <string name="title_activity_drawee_view">DraweeViewActivity</string>
+    <string name="title_activity_recycler_view_item_decoration_demo">
+        RecyclerViewItemDecorationDemo
+    </string>
 </resources>

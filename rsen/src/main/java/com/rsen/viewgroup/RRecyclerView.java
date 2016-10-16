@@ -48,6 +48,7 @@ public class RRecyclerView extends RecyclerView {
     }
 
     private void initView(Context context) {
+        setWillNotDraw(false);
         String tag = (String) this.getTag();
         if (TextUtils.isEmpty(tag) || "V".equalsIgnoreCase(tag)) {
             layoutManager = new LinearLayoutManager(context, orientation, false);

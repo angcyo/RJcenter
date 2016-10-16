@@ -9,11 +9,11 @@ import android.view.animation.LinearInterpolator;
  * Created by angcyo on 2016-10-02 20:54.
  */
 public class AnimUtil {
-    public static void startArgb(final View targetView, int startColor, int endColor) {
-        startArgb(targetView, startColor, endColor, 700);
+    public static ValueAnimator startArgb(final View targetView, int startColor, int endColor) {
+        return startArgb(targetView, startColor, endColor, 700);
     }
 
-    public static void startArgb(final View targetView, int startColor, int endColor, long duration) {
+    public static ValueAnimator startArgb(final View targetView, int startColor, int endColor, long duration) {
         ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor);
         colorAnimator.setInterpolator(new LinearInterpolator());
         colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -25,5 +25,6 @@ public class AnimUtil {
         });
         colorAnimator.setDuration(700);
         colorAnimator.start();
+        return colorAnimator;
     }
 }

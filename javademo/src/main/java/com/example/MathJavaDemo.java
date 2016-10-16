@@ -9,6 +9,12 @@ public class MathJavaDemo {
     static final PrintStream p = System.out;
 
     public static void main(String... args) {
+//        test1();
+        p.println(Math.ceil(3.1));
+        p.println(Math.floor(3.1));
+    }
+
+    private static void test1() {
         for (int i = 0; i < 360; i++) {
             p.print(Math.sin(Math.toRadians(i)));
             p.print(" ");
