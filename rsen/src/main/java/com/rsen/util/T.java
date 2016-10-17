@@ -32,7 +32,7 @@ public class T {
      * @param text    the text
      */
     public static void show(Context content, CharSequence text) {
-        initToast(content, text);
+        initToast(content.getApplicationContext(), text);
         toast.show();
     }
 
@@ -43,7 +43,7 @@ public class T {
      * @param text    the text
      */
     public static void showL(Context content, CharSequence text) {
-        initToast(content, text);
+        initToast(content.getApplicationContext(), text);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
     }
