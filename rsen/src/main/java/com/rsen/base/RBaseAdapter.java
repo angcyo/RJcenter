@@ -48,7 +48,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     @Override
     public void onBindViewHolder(RBaseViewHolder holder, int position) {
-        onBindView(holder, position, mAllDatas.get(position));
+        onBindView(holder, position, mAllDatas.size() > position ? mAllDatas.get(position) : null);
     }
 
     @Override
