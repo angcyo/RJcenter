@@ -76,10 +76,23 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      * 在最后的位置插入数据
      */
     public void addLastItem(T bean) {
+        int startPosition = mAllDatas.size();
         mAllDatas.add(bean);
-        int lastPosition = mAllDatas.size() - 1;
-        notifyItemInserted(lastPosition);
-        notifyItemRangeChanged(lastPosition, 1);
+        notifyItemInserted(startPosition);
+    }
+
+    /**
+     * 解决九宫格添加图片后,添加按钮消失的bug
+     */
+    public void addLastItemSafe(T bean) {
+        int startPosition = mAllDatas.size();
+        mAllDatas.add(bean);
+        int itemCount = getItemCount();
+        if (itemCount > startPosition + 1) {
+            notifyItemInserted(startPosition);
+        } else {
+            notifyDataSetChanged();
+        }
     }
 
     public void addFirstItem(T bean) {
