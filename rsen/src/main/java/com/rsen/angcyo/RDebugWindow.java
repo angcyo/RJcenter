@@ -538,7 +538,7 @@ public class RDebugWindow {
         }
 
         @Override
-        protected View createContentView(int viewType) {
+        protected View createContentView(ViewGroup parent, int viewType) {
             RelativeLayout layout = new RelativeLayout(mContext);
             layout.setId(this.itemViewId = View.generateViewId());
             layout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
