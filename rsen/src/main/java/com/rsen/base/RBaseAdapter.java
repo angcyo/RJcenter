@@ -77,7 +77,9 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      */
     public void addLastItem(T bean) {
         mAllDatas.add(bean);
-        notifyItemInserted(mAllDatas.size() - 1);
+        int lastPosition = mAllDatas.size() - 1;
+        notifyItemInserted(lastPosition);
+        notifyItemRangeChanged(lastPosition, 1);
     }
 
     public void addFirstItem(T bean) {
