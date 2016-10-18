@@ -34,17 +34,13 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         int itemLayoutId = getItemLayoutId(viewType);
         View item;
         if (itemLayoutId == 0) {
-            item = createContentView(viewType);
-            if (item == null) {
-                item = createContentView(parent, viewType);
-            }
+            item = createContentView(parent, viewType);
         } else {
             item = LayoutInflater.from(mContext).inflate(itemLayoutId, parent, false);
         }
 
         return new RBaseViewHolder(item, viewType);
     }
-
 
     @Override
     public void onBindViewHolder(RBaseViewHolder holder, int position) {
@@ -57,11 +53,6 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     //--------------需要实现的方法------------//
-
-    @Deprecated
-    protected View createContentView(int viewType) {
-        return null;
-    }
 
     protected View createContentView(ViewGroup parent, int viewType) {
         return null;
@@ -96,7 +87,6 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         mAllDatas.clear();
         mAllDatas = tempBeans;
         notifyItemInserted(0);
-        notifyItemRangeChanged(0, mAllDatas.size());
     }
 
     /**
@@ -104,13 +94,25 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      */
     public void deleteItem(T bean) {
         if (mAllDatas != null) {
+            int size = mAllDatas.size();
             int indexOf = mAllDatas.indexOf(bean);
             if (indexOf > -1) {
                 if (onDeleteItem(bean)) {
                     mAllDatas.remove(bean);
                     notifyItemRemoved(indexOf);
-                    notifyItemRangeChanged(indexOf, mAllDatas.size());
+                    notifyItemRangeChanged(indexOf, size - indexOf);
                 }
+            }
+        }
+    }
+
+    private void deleteItem(int position) {
+        if (mAllDatas != null) {
+            int size = mAllDatas.size();
+            if (size > position) {
+                mAllDatas.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, size - position);
             }
         }
     }
@@ -122,7 +124,6 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     public void removeFirstItem() {
         mAllDatas.remove(0);
         notifyItemRemoved(0);
-        notifyItemRangeChanged(0, mAllDatas.size());
     }
 
     public void removeLastItem() {
