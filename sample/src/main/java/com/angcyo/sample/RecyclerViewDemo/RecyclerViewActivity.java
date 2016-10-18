@@ -43,7 +43,7 @@ public class RecyclerViewActivity extends RBaseActivity {
             }
 
             @Override
-            protected View createContentView(int viewType) {
+            protected View createContentView(ViewGroup parent, int viewType) {
                 if (viewType == 1) {
                     RRecyclerView recyclerView = new RRecyclerView(mContext);
                     recyclerView.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));

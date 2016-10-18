@@ -30,7 +30,7 @@ public class HnPhotoSelectorDialog extends RBaseDialogFragment {
     }
 
     public static String createPhotoPath() {
-        String path = FileUtil.getPath("ZhenNn/Photo/");
+        String path = FileUtil.getPath("angcyo/Photo/");
         return path + UUID.randomUUID();
     }
 

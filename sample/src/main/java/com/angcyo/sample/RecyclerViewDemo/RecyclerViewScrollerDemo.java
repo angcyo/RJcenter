@@ -86,7 +86,7 @@ public class RecyclerViewScrollerDemo extends RBaseActivity {
         }
 
         @Override
-        protected View createContentView(int viewType) {
+        protected View createContentView(ViewGroup parent, int viewType) {
             View view = new TextView(mContext);
 
 /*            int visibleItem = layoutManager.findFirstVisibleItemPosition();

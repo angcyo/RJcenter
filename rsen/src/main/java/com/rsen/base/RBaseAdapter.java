@@ -115,7 +115,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
                 if (onDeleteItem(bean)) {
                     mAllDatas.remove(bean);
                     notifyItemRemoved(indexOf);
-                    notifyItemRangeChanged(indexOf, size - indexOf);
+//                    notifyItemRangeChanged(indexOf, size - indexOf);
                 }
             }
         }
@@ -127,7 +127,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
             if (size > position) {
                 mAllDatas.remove(position);
                 notifyItemRemoved(position);
-                notifyItemRangeChanged(position, size - position);
+//                notifyItemRangeChanged(position, size - position);
             }
         }
     }
