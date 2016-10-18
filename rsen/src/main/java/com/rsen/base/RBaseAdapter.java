@@ -106,7 +106,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         }
     }
 
-    private void deleteItem(int position) {
+    public void deleteItem(int position) {
         if (mAllDatas != null) {
             int size = mAllDatas.size();
             if (size > position) {
