@@ -24,4 +24,7 @@
     <!--<color name="colorPrimary_Dark">#90009688</color>-->
     <!--<color name="colorAccent">#009688</color>-->
 
+    <color name="main_bg_color_press">#20000000</color>
+    <color name="home_line">#efeff0</color>
+
 </resources>

@@ -4,4 +4,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="layout_margin">16dp</dimen>
 
+    <dimen name="main_round_radius">main_round_radius</dimen>
+
 </resources>
