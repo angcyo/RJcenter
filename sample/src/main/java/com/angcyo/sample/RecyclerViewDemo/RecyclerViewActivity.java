@@ -75,7 +75,7 @@ public class RecyclerViewActivity extends RBaseActivity {
                         }
 
                         @Override
-                        protected View createContentView(int viewType) {
+                        protected View createContentView(ViewGroup parent, int viewType) {
                             TextView textView = new TextView(mContext);
                             textView.setBackgroundColor(Color.RED);
                             textView.setLayoutParams(new ViewGroup.LayoutParams(-1, 200));
