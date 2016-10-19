@@ -28,8 +28,19 @@ public class DraweeViewUtil {
         view.setImageURI(Uri.parse(url));
     }
 
+    /**
+     * 设置圆形
+     */
     public static void setDraweeViewRound(SimpleDraweeView view) {
         RoundingParams roundingParams = RoundingParams.asCircle();
+        view.getHierarchy().setRoundingParams(roundingParams);
+    }
+
+    /**
+     * 设置圆角
+     */
+    public static void setDraweeViewRadius(SimpleDraweeView view, float radius) {
+        RoundingParams roundingParams = RoundingParams.fromCornersRadius(radius);//圆角图片
         view.getHierarchy().setRoundingParams(roundingParams);
     }
 }
