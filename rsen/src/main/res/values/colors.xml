@@ -28,6 +28,7 @@
     <color name="home_line">#efeff0</color>
     <color name="main_focus_color">#CACACA</color>
     <color name="main_text_color">#333333</color>
+    <color name="main_color">#FD596B</color>
 
 
 </resources>
