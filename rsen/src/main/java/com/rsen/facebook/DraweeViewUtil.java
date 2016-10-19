@@ -3,6 +3,7 @@ package com.rsen.facebook;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
@@ -25,5 +26,10 @@ public class DraweeViewUtil {
     public static void setDraweeViewFile(SimpleDraweeView view, String filePath) {
         String url = "file://" + filePath;
         view.setImageURI(Uri.parse(url));
+    }
+
+    public static void setDraweeViewRound(SimpleDraweeView view) {
+        RoundingParams roundingParams = RoundingParams.asCircle();
+        view.getHierarchy().setRoundingParams(roundingParams);
     }
 }
