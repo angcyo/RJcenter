@@ -123,6 +123,14 @@ public class SoftInputLayout extends LinearLayout {
         return false;
     }
 
+    public boolean isEmojiLayoutShow() {
+        return isEmojiLayoutShow;
+    }
+
+    public boolean isSoftInputShow() {
+        return isSoftInputShow;
+    }
+
     public void setOnSoftInputChangeListener(OnSoftInputChangeListener onSoftInputChangeListener) {
         mOnSoftInputChangeListener = onSoftInputChangeListener;
     }
