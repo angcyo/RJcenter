@@ -61,12 +61,6 @@ public class SoftInputLayout extends LinearLayout {
     }
 
     @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        logWH();
-    }
-
-    @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         int childCount = getChildCount();
@@ -93,7 +87,7 @@ public class SoftInputLayout extends LinearLayout {
         if (mOnSoftInputChangeListener != null) {
             mOnSoftInputChangeListener.onSoftInputChange(isSoftInputShow, mRawLayoutHeight, h);
         }
-        Log.i(TAG, "onSizeChanged: w:" + w + " h:" + h + " oldw:" + oldw + " oldh:" + oldh);
+//        Log.i(TAG, "onSizeChanged: w:" + w + " h:" + h + " oldw:" + oldw + " oldh:" + oldh);
     }
 
     public void showEmojiLayout() {
