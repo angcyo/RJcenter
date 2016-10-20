@@ -42,7 +42,7 @@ public abstract class RBaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadData(savedInstanceState, getArguments());
+        initArguments(savedInstanceState, getArguments());
     }
 
     @Nullable
@@ -161,7 +161,7 @@ public abstract class RBaseFragment extends Fragment {
     protected void initViewData() {
     }
 
-    protected void loadData(Bundle savedInstanceState, Bundle arg) {
+    protected void initArguments(Bundle savedInstanceState, Bundle arg) {
 
     }
 
