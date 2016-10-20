@@ -99,14 +99,14 @@ public class HnLevelProgress extends View {
 
     private void initView(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.HnLevelProgress);
-        mProgressColor = array.getColor(R.styleable.HnLevelProgress_progress_color, mProgressColor);
-        mBackgroundColor = array.getColor(R.styleable.HnLevelProgress_background_color, mBackgroundColor);
-        minHeight = (int) array.getDimension(R.styleable.HnLevelProgress_min_height, dp(minHeight));
-        minWidth = (int) array.getDimension(R.styleable.HnLevelProgress_min_width, dp(minWidth));
-        mBorderWidth = (int) array.getDimension(R.styleable.HnLevelProgress_border_width, dp(mBorderWidth));
-        mBorderSpaceWidth = (int) array.getDimension(R.styleable.HnLevelProgress_border_space_width, dp(mBorderSpaceWidth));
-        mRoundSize = (int) array.getDimension(R.styleable.HnLevelProgress_round_size, dp(mRoundSize));
-        mProgress = (int) array.getFloat(R.styleable.HnLevelProgress_progress, 0f);
+        mProgressColor = array.getColor(R.styleable.HnLevelProgress_level_progress_color, mProgressColor);
+        mBackgroundColor = array.getColor(R.styleable.HnLevelProgress_level_background_color, mBackgroundColor);
+        minHeight = (int) array.getDimension(R.styleable.HnLevelProgress_level_min_height, dp(minHeight));
+        minWidth = (int) array.getDimension(R.styleable.HnLevelProgress_level_min_width, dp(minWidth));
+        mBorderWidth = (int) array.getDimension(R.styleable.HnLevelProgress_level_border_width, dp(mBorderWidth));
+        mBorderSpaceWidth = (int) array.getDimension(R.styleable.HnLevelProgress_level_border_space_width, dp(mBorderSpaceWidth));
+        mRoundSize = (int) array.getDimension(R.styleable.HnLevelProgress_level_round_size, dp(mRoundSize));
+        mProgress = (int) array.getFloat(R.styleable.HnLevelProgress_level_progress, 0f);
         array.recycle();
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

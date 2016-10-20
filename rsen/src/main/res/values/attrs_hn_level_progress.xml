@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="HnLevelProgress">
-        <attr name="progress_color" format="color"/>
-        <attr name="background_color" format="color"/>
-        <attr name="min_height" format="dimension"/>
-        <attr name="min_width" format="dimension"/>
-        <attr name="border_width" format="dimension"/>
-        <attr name="border_space_width" format="dimension"/>
-        <attr name="round_size" format="dimension"/>
-        <attr name="progress" format="float"/>
+        <attr name="level_progress_color" format="color"/>
+        <attr name="level_background_color" format="color"/>
+        <attr name="level_min_height" format="dimension"/>
+        <attr name="level_min_width" format="dimension"/>
+        <attr name="level_border_width" format="dimension"/>
+        <attr name="level_border_space_width" format="dimension"/>
+        <attr name="level_round_size" format="dimension"/>
+        <attr name="level_progress" format="float"/>
     </declare-styleable>
 </resources>
