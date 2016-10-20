@@ -58,7 +58,7 @@ public class VerifyButton extends TextView implements View.OnClickListener, Runn
         postDelayed(this, 1000);
     }
 
-    private void endCountDown() {
+    public void endCountDown() {
         isCountDownStart = false;
         countDown = DEFAULT_COUNT;
         setEnabled(true);
