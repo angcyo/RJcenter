@@ -9,5 +9,6 @@
         <attr name="level_border_space_width" format="dimension"/>
         <attr name="level_round_size" format="dimension"/>
         <attr name="level_progress" format="float"/>
+        <attr name="level_auto_anim" format="boolean"/>
     </declare-styleable>
 </resources>

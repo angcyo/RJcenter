@@ -107,6 +107,7 @@ public class HnLevelProgress extends View {
         mBorderSpaceWidth = (int) array.getDimension(R.styleable.HnLevelProgress_level_border_space_width, dp(mBorderSpaceWidth));
         mRoundSize = (int) array.getDimension(R.styleable.HnLevelProgress_level_round_size, dp(mRoundSize));
         mProgress = (int) array.getFloat(R.styleable.HnLevelProgress_level_progress, 0f);
+        mAutoAnim =  array.getBoolean(R.styleable.HnLevelProgress_level_auto_anim, mAutoAnim);
         array.recycle();
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
