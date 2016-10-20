@@ -121,7 +121,6 @@ public class HnLevelProgress extends View {
         int widthMode, heightMode;
         widthMode = MeasureSpec.getMode(widthMeasureSpec);
         heightMode = MeasureSpec.getMode(heightMeasureSpec);
-
         widthSize = MeasureSpec.getSize(widthMeasureSpec);
         heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
@@ -131,7 +130,6 @@ public class HnLevelProgress extends View {
         if (heightMode == MeasureSpec.AT_MOST) {
             heightSize = minHeight;
         }
-
         setMeasuredDimension(widthSize, heightSize);
     }
 
