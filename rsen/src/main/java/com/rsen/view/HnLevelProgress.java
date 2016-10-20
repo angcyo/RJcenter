@@ -13,7 +13,6 @@ import android.view.View;
 
 import com.angcyo.rsen.R;
 
-
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -52,7 +51,7 @@ public class HnLevelProgress extends View {
     /**
      * 边框空隙的宽度
      */
-    int mBorderSpaceWidth = 2;
+    int mBorderSpaceWidth = 1;
 
     /**
      * 圆角的大小
@@ -106,8 +105,8 @@ public class HnLevelProgress extends View {
         mBorderWidth = (int) array.getDimension(R.styleable.HnLevelProgress_level_border_width, dp(mBorderWidth));
         mBorderSpaceWidth = (int) array.getDimension(R.styleable.HnLevelProgress_level_border_space_width, dp(mBorderSpaceWidth));
         mRoundSize = (int) array.getDimension(R.styleable.HnLevelProgress_level_round_size, dp(mRoundSize));
-        mProgress = (int) array.getFloat(R.styleable.HnLevelProgress_level_progress, 0f);
-        mAutoAnim =  array.getBoolean(R.styleable.HnLevelProgress_level_auto_anim, mAutoAnim);
+        mProgress = array.getFloat(R.styleable.HnLevelProgress_level_progress, mProgress);
+        mAutoAnim = array.getBoolean(R.styleable.HnLevelProgress_level_auto_anim, mAutoAnim);
         array.recycle();
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -126,12 +125,11 @@ public class HnLevelProgress extends View {
         widthSize = MeasureSpec.getSize(widthMeasureSpec);
         heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
-
         if (widthMode == MeasureSpec.AT_MOST) {
-            widthSize = dp(minWidth);
+            widthSize = minWidth;
         }
         if (heightMode == MeasureSpec.AT_MOST) {
-            heightSize = dp(minHeight);
+            heightSize = minHeight;
         }
 
         setMeasuredDimension(widthSize, heightSize);
@@ -147,9 +145,6 @@ public class HnLevelProgress extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
-
         //绘制外边框
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(mBorderWidth);
@@ -168,7 +163,6 @@ public class HnLevelProgress extends View {
             resetDrawRect();
         }
         canvas.drawRoundRect(drawRect, mRoundSize, mRoundSize, mPaint);
-
     }
 
     private void resetDrawRect() {
