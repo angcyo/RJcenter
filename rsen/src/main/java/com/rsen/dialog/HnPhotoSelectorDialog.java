@@ -23,8 +23,9 @@ public class HnPhotoSelectorDialog extends RBaseDialogFragment {
 
     public static final int CODE_CAMERA = 101;
     public static final int CODE_PHOTO = 102;
+    public static final int CODE_CROP = 103;
 
-    protected Uri mCameraImageUri;
+    private static Uri mCameraImageUri;
 
     public HnPhotoSelectorDialog() {
     }
@@ -32,6 +33,10 @@ public class HnPhotoSelectorDialog extends RBaseDialogFragment {
     public static String createPhotoPath() {
         String path = FileUtil.getPath("angcyo/Photo/");
         return path + UUID.randomUUID();
+    }
+
+    public static Uri getCameraImageUri() {
+        return mCameraImageUri;
     }
 
     @Override
@@ -70,10 +75,6 @@ public class HnPhotoSelectorDialog extends RBaseDialogFragment {
         });
     }
 
-    public Uri getCameraImageUri() {
-        return mCameraImageUri;
-    }
-
     public String getImagePath() {
         if (mCameraImageUri == null) {
             return "";
@@ -92,18 +93,18 @@ public class HnPhotoSelectorDialog extends RBaseDialogFragment {
 //        super.onActivityResult(requestCode, resultCode, data);
 //
 //        if (resultCode == RESULT_OK) {
-//            if (requestCode == CODE_PHOTO) {
+//            if (requestCode == HnPhotoSelectorDialog.CODE_PHOTO) {
 //                Uri data1 = data.getData();
-//                mCropImageUri = Uri.fromFile(new File(createPhotoPath()));
-//                BitmapHelper.cropImageByUri(this, CODE_CROP,
+//                mCropImageUri = Uri.fromFile(new File(HnPhotoSelectorDialog.createPhotoPath()));
+//                BitmapHelper.cropImageByUri(this, HnPhotoSelectorDialog.CODE_CROP,
 //                        Uri.fromFile(new File(BitmapHelper.getPath(this, data1))), mCropImageUri,
 //                        200, 200);
-//            } else if (requestCode == CODE_CAMERA) {
-//                mImageUri = mPhotoSelectorDialog.getCameraImageUri();
+//            } else if (requestCode == HnPhotoSelectorDialog.CODE_CAMERA) {
+//                mImageUri = HnPhotoSelectorDialog.getCameraImageUri();
 //                mCropImageUri = mImageUri;
-//                BitmapHelper.cropImageByUri(this, CODE_CROP, mImageUri, mCropImageUri, 200, 200);
-//            } else if (requestCode == CODE_CROP) {
-//                mUploadAdapter.addLastItemSafe(mCropImageUri.getPath());
+//                BitmapHelper.cropImageByUri(this, HnPhotoSelectorDialog.CODE_CROP, mImageUri, mCropImageUri, 200, 200);
+//            } else if (requestCode == HnPhotoSelectorDialog.CODE_CROP) {
+//                mLoveMarkDayViewMode.onSelectorPhoto(mCropImageUri.getPath());
 //            }
 //        }
 //    }
