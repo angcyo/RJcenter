@@ -52,6 +52,9 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
         mDividerDrawableH = drawable;
     }
 
+    public static void setDividerColor(int dividerColor) {
+        RBaseItemDecoration.dividerColor = dividerColor;
+    }
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
@@ -90,6 +93,8 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDrawOver(c, parent, state);
     }
+
+    //------------------------------------------公共方法---------------------------------
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -139,12 +144,6 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
                 }
             }
         }
-    }
-
-    //------------------------------------------公共方法---------------------------------
-
-    public static void setDividerColor(int dividerColor) {
-        RBaseItemDecoration.dividerColor = dividerColor;
     }
 
     public void setDividerSize(float dividerSize) {
@@ -275,23 +274,29 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
      * 绘制view对应垂直方向的分割线
      */
     private void drawDrawableV(Canvas c, View view) {
-        drawDrawable(c, view, mDividerDrawableV);
+        final RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) view.getLayoutParams();
+        mDividerDrawableV.setBounds(
+                view.getRight() + p.rightMargin,
+                view.getTop() + mMarginStart,
+                (int) (view.getRight() + p.rightMargin + mDividerSize),
+                view.getBottom() - mMarginEnd);
+        drawDrawable(c, mDividerDrawableV);
     }
 
     /**
      * 绘制view对应水平方向的分割线
      */
     private void drawDrawableH(Canvas c, View view) {
-        drawDrawable(c, view, mDividerDrawableH);
-    }
-
-    private void drawDrawable(Canvas c, View view, Drawable drawable) {
         final RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) view.getLayoutParams();
-        drawable.setBounds(
+        mDividerDrawableH.setBounds(
                 view.getLeft() + mMarginStart,
                 view.getBottom() + p.bottomMargin,
                 view.getRight() - mMarginEnd,
                 (int) (view.getBottom() + p.bottomMargin + mDividerSize));
+        drawDrawable(c, mDividerDrawableH);
+    }
+
+    private void drawDrawable(Canvas c, Drawable drawable) {
         drawable.draw(c);
     }
 }

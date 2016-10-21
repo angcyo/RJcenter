@@ -16,7 +16,7 @@
     tools:showIn="@layout/activity_recycler_view_item_decoration_demo">
 
     <com.rsen.viewgroup.RRecyclerView
-        android:tag="GV4"
+        android:tag="GV6"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
