@@ -15,7 +15,7 @@ import com.angcyo.rsen.R;
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
- * 类的描述：只是在EmojiView上面加了一个悬浮的删除按钮
+ * 类的描述：只是在EmojiView上面加了一个悬浮的删除按钮..
  * 创建人员：Robi
  * 创建时间：2016/10/23 17:48
  * 修改人员：Robi
