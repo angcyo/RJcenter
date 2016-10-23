@@ -173,7 +173,12 @@ public class SoftInputLayout extends LinearLayout {
      */
     public boolean handleBack() {
         if (isEmojiLayoutShow) {
+            int rawLayoutHeight = mRawLayoutHeight;
+            int height = mEmojiLayout.getMeasuredHeight();
             hideEmojiLayout();
+            if (mOnSoftInputChangeListener != null) {
+                mOnSoftInputChangeListener.onEmojiLayoutChange(true, rawLayoutHeight, height);
+            }
             return true;
         }
         return false;
@@ -204,5 +209,6 @@ public class SoftInputLayout extends LinearLayout {
 
     public interface OnSoftInputChangeListener {
         void onSoftInputChange(boolean show, int layoutHeight, int contentHeight);
+        void onEmojiLayoutChange(boolean show, int layoutHeight, int emojiHeight);
     }
 }
