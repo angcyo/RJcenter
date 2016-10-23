@@ -30,6 +30,7 @@ public abstract class AnimationAdapter extends RecyclerView.Adapter<RecyclerView
     long firstTime = 0;
     long loadTime = 0;
     long count = 0;
+    boolean enableDelay = false;
     private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
     private int mDuration = 300;
     private Interpolator mInterpolator = new LinearInterpolator();
@@ -73,7 +74,7 @@ public abstract class AnimationAdapter extends RecyclerView.Adapter<RecyclerView
             }
             for (Animator anim : getAnimators(holder.itemView)) {
                 anim.setDuration(mDuration).start();
-                if (delay) {
+                if (delay && enableDelay) {
                     anim.setStartDelay(count * 30);
                 }
                 anim.setInterpolator(mInterpolator);
