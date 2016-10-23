@@ -84,6 +84,7 @@ public class RRecyclerView extends RecyclerView {
         //this.setItemAnimator(new DefaultItemAnimator());
         this.setItemAnimator(new FadeInDownAnimator());
 
+        //clearOnScrollListeners();
         //添加滚动事件监听
         addOnScrollListener(new OnScrollListener() {
             @Override
