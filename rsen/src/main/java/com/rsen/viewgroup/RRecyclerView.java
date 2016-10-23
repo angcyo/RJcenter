@@ -34,6 +34,26 @@ public class RRecyclerView extends RecyclerView {
     protected AnimationAdapter mAnimationAdapter;
     protected boolean mItemAnim = true;
 
+    private OnScrollListener mScrollListener = new OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            Adapter adapter = getAdapterRaw();
+            if (adapter != null && adapter instanceof RBaseAdapter) {
+                ((RBaseAdapter) adapter).onScrollStateChanged(recyclerView, newState);
+            }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            Adapter adapter = getAdapterRaw();
+            if (adapter != null && adapter instanceof RBaseAdapter) {
+                ((RBaseAdapter) adapter).onScrolled(recyclerView, dx, dy);
+            }
+        }
+    };
+
     public RRecyclerView(Context context) {
         this(context, null);
     }
@@ -48,7 +68,6 @@ public class RRecyclerView extends RecyclerView {
     }
 
     private void initView(Context context) {
-        setWillNotDraw(false);
         String tag = (String) this.getTag();
         if (TextUtils.isEmpty(tag) || "V".equalsIgnoreCase(tag)) {
             layoutManager = new LinearLayoutManager(context, orientation, false);
@@ -85,27 +104,11 @@ public class RRecyclerView extends RecyclerView {
         this.setItemAnimator(new FadeInDownAnimator());
 
         //clearOnScrollListeners();
+        removeOnScrollListener(mScrollListener);
         //添加滚动事件监听
-        addOnScrollListener(new OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                Adapter adapter = getAdapterRaw();
-                if (adapter != null && adapter instanceof RBaseAdapter) {
-                    ((RBaseAdapter) adapter).onScrollStateChanged(recyclerView, newState);
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                Adapter adapter = getAdapterRaw();
-                if (adapter != null && adapter instanceof RBaseAdapter) {
-                    ((RBaseAdapter) adapter).onScrolled(recyclerView, dx, dy);
-                }
-            }
-        });
+        addOnScrollListener(mScrollListener);
     }
+
 
     @Override
     public void setTag(Object tag) {
