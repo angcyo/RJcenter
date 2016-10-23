@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rsen.viewgroup.RRecyclerView;
+
 import java.lang.reflect.Field;
 
 /**
@@ -56,12 +58,12 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         return v(resId);
     }
 
-    public RecyclerView reV(@IdRes int resId) {
-        return (RecyclerView) v(resId);
+    public RRecyclerView reV(@IdRes int resId) {
+        return (RRecyclerView) v(resId);
     }
 
-    public RecyclerView reV(String idName) {
-        return (RecyclerView) viewByName(idName);
+    public RRecyclerView reV(String idName) {
+        return (RRecyclerView) viewByName(idName);
     }
 
     /**
