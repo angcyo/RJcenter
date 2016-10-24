@@ -85,6 +85,8 @@ public class BluetoothDemoActivity extends RBaseActivity implements BluetoothDis
         mViewHolder.v(R.id.rightRadioView).setBackground(createRadioBackground(CircleAnimDrawable.POS_RIGHT));
 
         YoYo.with(Techniques.Landing).delay(300).playOn(mViewHolder.v(R.id.centerButtonView));
+        YoYo.with(Techniques.Shake).delay(300).playOn(mViewHolder.v(R.id.centerButtonView));//OK
+        YoYo.with(Techniques.RubberBand).delay(300).playOn(mViewHolder.v(R.id.centerButtonView));//OK
 
         //TextClock测试
 //        textTextClock();
