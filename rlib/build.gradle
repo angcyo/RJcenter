@@ -66,6 +66,10 @@ dependencies {
     /*网络log输出拦截器 http://tech.youzan.com/android_http/*/
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
+//    compile 'com.lzy.net:okgo:2.0.0'        //可以单独使用，不需要依赖下方的扩展包
+//    compile 'com.lzy.net:okrx:0.1.0'        //RxJava扩展支持，根据需要添加
+//    compile 'com.lzy.net:okserver:1.1.0'    //下载管理和上传管理扩展，根据需要添加
+
     /*logback 依赖*/
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'com.github.tony19:logback-android-core:1.1.1-5'
