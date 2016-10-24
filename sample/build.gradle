@@ -57,6 +57,8 @@ hi "密钥文件路径:" + keyFilePath
 /*是否激活滑动删除主题*/
 def slider = false
 
+def appName
+
 Properties props = new Properties()
 if (project.hasProperty("dudu.properties")
         && new File(project.property("dudu.properties")).exists()) {
@@ -148,8 +150,8 @@ android {
             } else {
                 time = ""
             }
-            output.outputFile = new File(output.outputFile.parent,
-                    "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}${time}.apk")
+            appName = "RJcenter-${variant?.productFlavors[0]?.name}-${variant.buildType.name}-${variant.versionName}${time}.apk"
+            output.outputFile = new File(output.outputFile.parent, appName)
         }
     }
     sourceSets {
@@ -236,3 +238,17 @@ dependencies {
 }*/
 
 hi "------gradle build---------end"
+
+task makeApk {
+    doLast {
+        def versionName = android.defaultConfig.versionName
+        hi appName
+        copy {
+            from "./build/outputs/apk/${appName}"
+            into "../"
+            rename {
+                appName
+            }
+        }
+    }
+}
