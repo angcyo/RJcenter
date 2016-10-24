@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rlib">
+    package="com.rlib">
 
     <application
         android:allowBackup="true"
