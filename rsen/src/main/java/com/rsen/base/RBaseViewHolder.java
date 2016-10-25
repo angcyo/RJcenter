@@ -37,6 +37,29 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         this.viewType = viewType;
     }
 
+    /**
+     * 填充两个字段相同的数据对象
+     */
+    public static void fill(Object from, Object to) {
+        Field[] fromFields = from.getClass().getDeclaredFields();
+        Field[] toFields = to.getClass().getDeclaredFields();
+        for (Field f : fromFields) {
+            String name = f.getName();
+            for (Field t : toFields) {
+                String tName = t.getName();
+                if (name.equalsIgnoreCase(tName)) {
+                    try {
+                        t.set(to, f.get(from));
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+
+        }
+    }
+
     public int getViewType() {
         return viewType;
     }
