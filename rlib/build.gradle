@@ -27,7 +27,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     /*Android支持库*/
-//    compile "com.android.support:support-v4:${R_SUPPORT_VERSION}"
+    //compile "com.android.support:support-v4:${R_SUPPORT_VERSION}"
     compile "com.android.support:appcompat-v7:${R_SUPPORT_VERSION}"
     compile "com.android.support:design:${R_SUPPORT_VERSION}"
     compile "com.android.support:cardview-v7:${R_SUPPORT_VERSION}"
@@ -61,7 +61,7 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
     /*https://github.com/trello/RxLifecycle*/
-    compile 'com.trello:rxlifecycle-components:0.8.0'
+    //compile 'com.trello:rxlifecycle-components:0.8.0'
 
 /*    *//*Rx 2相关依赖*//*
     compile 'io.reactivex.rxjava2:rxjava:2.0.0-RC3'
