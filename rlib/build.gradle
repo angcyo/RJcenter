@@ -33,7 +33,7 @@ dependencies {
     compile "com.android.support:cardview-v7:${R_SUPPORT_VERSION}"
     compile "com.android.support:recyclerview-v7:${R_SUPPORT_VERSION}"
 
-    /*支持API<8的动画库*/
+    /*支持API<8 的动画库*/
     compile 'com.nineoldandroids:library:2.4.0'
     /*缓动函数曲线 https://github.com/daimajia/AnimationEasingFunctions*/
     compile 'com.daimajia.easing:library:1.0.1@aar'
