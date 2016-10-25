@@ -43,7 +43,7 @@ dependencies {
     compile 'com.facebook.rebound:rebound:0.3.8'
 
     /*动画库 https://github.com/2359media/EasyAndroidAnimations*/
-    compile 'com.github.2359media:EasyAndroidAnimations:0.8'
+    // compile 'com.github.2359media:EasyAndroidAnimations:0.8'
 
     /*事件转发EventBus*/
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
