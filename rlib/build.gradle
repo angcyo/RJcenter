@@ -54,6 +54,8 @@ dependencies {
     /*Rx 相关依赖, 最后更新2016-9-25*/
     compile 'io.reactivex:rxjava:1.2.0'
     compile 'io.reactivex:rxandroid:1.2.1'
+    /*https://github.com/JakeWharton/RxBinding*/
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
 /*    *//*Rx 2相关依赖*//*
     compile 'io.reactivex.rxjava2:rxjava:2.0.0-RC3'
