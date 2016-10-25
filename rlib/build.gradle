@@ -56,6 +56,10 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     /*https://github.com/JakeWharton/RxBinding*/
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.4.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
     /*https://github.com/trello/RxLifecycle*/
     compile 'com.trello:rxlifecycle-components:0.8.0'
 
