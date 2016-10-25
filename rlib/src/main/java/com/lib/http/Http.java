@@ -1,5 +1,9 @@
 package com.lib.http;
 
+import android.content.Context;
+
+import com.lib.http.cookie.CookieJarImpl;
+import com.lib.http.cookie.store.PersistentCookieStore;
 import com.rlib.BuildConfig;
 
 import okhttp3.OkHttpClient;
@@ -22,6 +26,12 @@ public class Http {
     private static final String BASE_URL = "http://192.168.1.66:8007/";
     static Retrofit retrofit;
 
+    public static Context context;
+
+    public static void init(Context context) {
+        Http.context = context.getApplicationContext();
+    }
+
     private static OkHttpClient getClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
@@ -31,6 +41,7 @@ public class Http {
         }
         return new OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .cookieJar(new CookieJarImpl(new PersistentCookieStore(context)))
                 .build();
     }
 
