@@ -49,6 +49,8 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
                 String tName = t.getName();
                 if (name.equalsIgnoreCase(tName)) {
                     try {
+                        f.setAccessible(true);
+                        t.setAccessible(true);
                         t.set(to, f.get(from));
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
