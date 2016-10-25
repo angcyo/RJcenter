@@ -38,8 +38,6 @@ import javax.xml.transform.stream.StreamSource;
  * https://github.com/ZhaoKaiQiang/KLog
  */
 public class L {
-    public static String TAG = "angcyo";
-    public static boolean LOG_DEBUG = true;
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
     private static final int VERBOSE = 2;
     private static final int DEBUG = 3;
@@ -49,8 +47,9 @@ public class L {
     private static final int ASSERT = 7;
     private static final int JSON = 8;
     private static final int XML = 9;
-
     private static final int JSON_INDENT = 4;
+    public static String TAG = "angcyo";
+    public static boolean LOG_DEBUG = true;
 
     public static void init(boolean isDebug, String tag) {
         TAG = tag;
@@ -78,7 +77,7 @@ public class L {
         for (Object obj : msg) {
             sb.append(obj + ",");
         }
-        log(INFO, null, String.valueOf(sb));
+        log(INFO, null, sb.substring(0, sb.length() - 1));
     }
 
     public static void w(String msg) {
@@ -279,7 +278,7 @@ public class L {
         String methodNameShort = methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
         String msg = (objects == null) ? "Log with null object" : getObjectsString(objects);
 //        String headString = "[(" + className + ":" + lineNumber + ")#" + methodNameShort + " ] ";
-        String headString = "[(" + fileName + ":" + lineNumber + ")#" + methodNameShort + " ] ";
+        String headString = "[(" + fileName + ":" + lineNumber + ")#" + Thread.currentThread().getName() + "#" + methodNameShort + " ] ";
         return new String[]{tag, msg, headString};
     }
 
