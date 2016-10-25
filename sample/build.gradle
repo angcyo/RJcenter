@@ -19,7 +19,7 @@ println version
 println ant
 println "------------------------------"
 
-//------------------------------
+//--------------------------------
 //        project ':sample'
 //sample
 //:sample
@@ -29,7 +29,7 @@ println "------------------------------"
 //RJcenter
 //1.1.0
 //org.gradle.api.internal.project.DefaultAntBuilder@6a256fc
-//------------------------------
+//--------------------------------
 
 repositories {
     println "in a closure 1"
