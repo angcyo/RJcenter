@@ -54,6 +54,12 @@ public class ResUtil {
         return stateList;
     }
 
+    public static ColorStateList generateTextColor(int pressColor, int checkColor,int defaultColor) {
+        ColorStateList stateList = new ColorStateList(new int[][]{{android.R.attr.state_pressed}, {android.R.attr.state_checked}, {}},
+                new int[]{pressColor, checkColor, defaultColor});
+        return stateList;
+    }
+
     /**
      * Generate bg drawable drawable.
      *
