@@ -131,6 +131,30 @@ public class CircleTransitionLayout extends RelativeLayout {
                     updateClipPath(clipStartRadius + progress);
                 }
             });
+            mClipValueAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    isClipEnd = true;
+                    if (mEndListener != null) {
+                        mEndListener.onEnd();
+                    }
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
         }
         if (mClipValueAnimatorExit == null) {
             mClipValueAnimatorExit = ObjectAnimator.ofFloat(endRadius, clipStartRadius);
