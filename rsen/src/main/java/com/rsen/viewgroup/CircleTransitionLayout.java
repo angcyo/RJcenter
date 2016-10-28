@@ -9,8 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 
 /**
@@ -23,6 +22,7 @@ public class CircleTransitionLayout extends RelativeLayout {
     ValueAnimator mClipValueAnimator, mClipValueAnimatorExit;
     boolean enableClip = false;
     OnEndListener mEndListener;
+    boolean isClipEnd = false;
 
     public CircleTransitionLayout(Context context) {
         super(context);
@@ -69,6 +69,14 @@ public class CircleTransitionLayout extends RelativeLayout {
         mClipValueAnimatorExit.start();
     }
 
+    public boolean isClipEnd() {
+        return isClipEnd;
+    }
+
+    public void setEndListener(OnEndListener endListener) {
+        mEndListener = endListener;
+    }
+
     @Override
     public void draw(Canvas canvas) {
         if (enableClip) {
@@ -97,6 +105,7 @@ public class CircleTransitionLayout extends RelativeLayout {
             @Override
             public void run() {
                 initAnimator();
+                isClipEnd = false;
                 mClipValueAnimator.start();
             }
         });
@@ -112,13 +121,13 @@ public class CircleTransitionLayout extends RelativeLayout {
         final float endRadius = calcEndRadius();
         if (mClipValueAnimator == null) {
             mClipValueAnimator = ObjectAnimator.ofFloat(clipStartRadius, endRadius);
-            mClipValueAnimator.setInterpolator(new AccelerateInterpolator());
+            mClipValueAnimator.setInterpolator(new DecelerateInterpolator());
             mClipValueAnimator.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
             mClipValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator valueAnimator) {
                     float progress = (float) valueAnimator.getAnimatedValue();
-                    Log.e("angcyo", "progress-->" + progress);
+//                    Log.d("angcyo", "progress-->" + progress);
                     updateClipPath(clipStartRadius + progress);
                 }
             });
@@ -133,7 +142,7 @@ public class CircleTransitionLayout extends RelativeLayout {
                     updateClipPath(progress);
                 }
             });
-            mClipValueAnimatorExit.setInterpolator(new AccelerateInterpolator());
+            mClipValueAnimatorExit.setInterpolator(new DecelerateInterpolator());
             mClipValueAnimatorExit.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animator) {
@@ -142,6 +151,7 @@ public class CircleTransitionLayout extends RelativeLayout {
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
+                    isClipEnd = true;
                     if (mEndListener != null) {
                         mEndListener.onEnd();
                     }
