@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.easyandroidanimations.library.FoldLayout.Orientation;
 
 /**
  * This animation folds out the view for a customizable number of folds,
@@ -24,7 +23,7 @@ public class FoldAnimation extends Animation {
 	private final int ANTIALIAS_PADDING = 1;
 
 	int numOfFolds;
-	Orientation orientation;
+	FoldLayout.Orientation orientation;
 	float anchorFactor;
 	TimeInterpolator interpolator;
 	long duration;
@@ -42,7 +41,7 @@ public class FoldAnimation extends Animation {
 	public FoldAnimation(View view) {
 		this.view = view;
 		numOfFolds = 1;
-		orientation = Orientation.HORIZONTAL;
+		orientation = FoldLayout.Orientation.HORIZONTAL;
 		anchorFactor = 0f;
 		interpolator = new AccelerateDecelerateInterpolator();
 		duration = DURATION_LONG;
@@ -112,7 +111,7 @@ public class FoldAnimation extends Animation {
 	 * 
 	 * @return The orientation of the fold.
 	 */
-	public Orientation getOrientation() {
+	public FoldLayout.Orientation getOrientation() {
 		return orientation;
 	}
 
@@ -125,7 +124,7 @@ public class FoldAnimation extends Animation {
 	 * @return This object, allowing calls to methods in this class to be
 	 *         chained.
 	 */
-	public FoldAnimation setOrientation(Orientation orientation) {
+	public FoldAnimation setOrientation(FoldLayout.Orientation orientation) {
 		this.orientation = orientation;
 		return this;
 	}

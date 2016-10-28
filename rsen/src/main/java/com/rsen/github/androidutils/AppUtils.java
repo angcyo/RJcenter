@@ -35,7 +35,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.worthed.BuildConfig;
+import com.angcyo.rsen.BuildConfig;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;

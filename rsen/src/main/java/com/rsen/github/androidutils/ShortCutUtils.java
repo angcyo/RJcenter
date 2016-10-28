@@ -19,11 +19,11 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.Intent.ShortcutIconResource;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.worthed.R;
+import com.angcyo.rsen.R;
+
 
 /**
  * 创建删除快捷图标
@@ -79,9 +79,9 @@ public final class ShortCutUtils {
         shortcutIntent.setClassName(activity, activity.getClass().getName());
         shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         // 快捷方式的图标
-        ShortcutIconResource iconRes = ShortcutIconResource.fromContext(
-                activity, R.drawable.ic_launcher);
-        shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);
+//        ShortcutIconResource iconRes = ShortcutIconResource.fromContext(
+//                activity, R.drawable.ic_launcher);
+//        shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);
 
         activity.sendBroadcast(shortcut);
     }

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.easyandroidanimations.library.FoldLayout.Orientation;
+import com.rsen.github.easyandroidanimations.FoldLayout.Orientation;
 
 /**
  * This animation folds in the view for a customizable number of folds,

@@ -30,8 +30,6 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.ihongqiqu.util.ShellUtils.CommandResult;
-
 import java.io.File;
 import java.util.List;
 
@@ -70,7 +68,6 @@ public final class PackageUtils {
 
     public static final String TAG = "PackageUtils";
     /**
-     * App installation location settings values, same to {@link #PackageHelper}
      */
     public static final int APP_INSTALL_AUTO = 0;
     public static final int APP_INSTALL_INTERNAL = 1;
@@ -185,7 +182,7 @@ public final class PackageUtils {
                 .append("LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install ")
                 .append(pmParams == null ? "" : pmParams).append(" ")
                 .append(filePath.replace(" ", "\\ "));
-        CommandResult commandResult = ShellUtils.execCommand(
+        ShellUtils.CommandResult commandResult = ShellUtils.execCommand(
                 command.toString(), !isSystemApplication(context), true);
         if (commandResult.successMsg != null
                 && (commandResult.successMsg.contains("Success") || commandResult.successMsg
@@ -416,7 +413,7 @@ public final class PackageUtils {
                 .append("LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall")
                 .append(isKeepData ? " -k " : " ")
                 .append(packageName.replace(" ", "\\ "));
-        CommandResult commandResult = ShellUtils.execCommand(
+        ShellUtils.CommandResult commandResult = ShellUtils.execCommand(
                 command.toString(), !isSystemApplication(context), true);
         if (commandResult.successMsg != null
                 && (commandResult.successMsg.contains("Success") || commandResult.successMsg
@@ -562,7 +559,7 @@ public final class PackageUtils {
      * @see {@link IPackageManager#getInstallLocation()}
      */
     public static int getInstallLocation() {
-        CommandResult commandResult = ShellUtils
+        ShellUtils.CommandResult commandResult = ShellUtils
                 .execCommand(
                         "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm get-install-location",
                         false, true);
@@ -726,7 +723,7 @@ public final class PackageUtils {
     /**
      * Installation return code<br/>
      * the new package failed because it has specified that it is a test-only
-     * package and the caller has not supplied the {@link #INSTALL_ALLOW_TEST}
+     * package and the caller has not supplied the
      * flag.
      */
     public static final int INSTALL_FAILED_TEST_ONLY = -15;

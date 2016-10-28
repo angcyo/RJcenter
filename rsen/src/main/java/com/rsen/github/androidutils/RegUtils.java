@@ -15,10 +15,11 @@
  */
 package com.rsen.github.androidutils;
 
+import android.text.TextUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.ihongqiqu.util.StringUtils.isEmpty;
 
 /**
  * 数据校验
@@ -121,7 +122,7 @@ public final class RegUtils {
      */
     public static boolean isContainChinese(String data) {
         String chinese = "[\u0391-\uFFE5]";
-        if (isEmpty(data)) {
+        if (!TextUtils.isEmpty(data)) {
             for (int i = 0; i < data.length(); i++) {
                 String temp = data.substring(i, i + 1);
                 boolean flag = temp.matches(chinese);
