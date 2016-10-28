@@ -45,6 +45,8 @@ dependencies {
     /*动画库 https://github.com/2359media/EasyAndroidAnimations*/
     // compile 'com.github.2359media:EasyAndroidAnimations:0.8'
 
+    /*布局加载动画 https://github.com/dkmeteor/SmoothTransition*/
+
     /*事件转发EventBus*/
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
 
