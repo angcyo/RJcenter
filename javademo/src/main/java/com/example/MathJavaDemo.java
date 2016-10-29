@@ -9,9 +9,13 @@ public class MathJavaDemo {
     static final PrintStream p = System.out;
 
     public static void main(String... args) {
+        final double atan2 = Math.atan2(0, -1);
+        p.println(atan2);
+        p.println(Math.toDegrees(atan2));
+
 //        test1();
-        p.println(Math.ceil(3.1));
-        p.println(Math.floor(3.1));
+//        p.println(Math.ceil(3.1));
+//        p.println(Math.floor(3.1));
     }
 
     private static void test1() {
