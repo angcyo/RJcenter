@@ -92,11 +92,10 @@ android {
         } else {
             manifestPlaceholders = [app_theme: "@style/AppThemeNoSlidr"]
         }
-
-        sourceSets {
-            main {
-                jniLibs.srcDirs = ['libs']
-            }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
     signingConfigs {
