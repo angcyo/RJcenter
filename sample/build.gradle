@@ -92,6 +92,10 @@ android {
         } else {
             manifestPlaceholders = [app_theme: "@style/AppThemeNoSlidr"]
         }
+
+//        ndk {
+//            abiFilters "armeabi-v7a"
+//        }
     }
     sourceSets {
         main {
