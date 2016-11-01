@@ -65,6 +65,7 @@ dependencies {
     /*https://github.com/trello/RxLifecycle*/
     // compile 'com.trello:rxlifecycle-components:0.8.0'
     compile 'com.google.code.findbugs:jsr305:3.0.1'
+    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
 
 
 /*    *//*Rx 2相关依赖*//*
