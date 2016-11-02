@@ -34,7 +34,7 @@ import java.util.zip.ZipFile;
 public class RCrashHandler implements Thread.UncaughtExceptionHandler {
 
     public static final String INTENT_ACTION_RESTART_ACTIVITY = "com.angcyo.crash";
-    private static final String DEFAULT_LOG_DIR = "log";
+    private static final String DEFAULT_LOG_DIR = "crash";
     // log文件的后缀名
     private static final String FILE_NAME_SUFFIX = ".log";
     private final Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler;
