@@ -170,8 +170,8 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
     public void fillView(Object bean) {
         Field[] fields = bean.getClass().getDeclaredFields();
         for (Field f : fields) {
+            f.setAccessible(true);
             String name = f.getName();
-
             try {
                 View view = viewByName(name);
                 if (view instanceof TextView) {
