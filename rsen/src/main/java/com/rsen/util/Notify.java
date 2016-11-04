@@ -22,29 +22,30 @@ import android.support.v4.app.NotificationCompat;
  * Version: 1.0.0
  */
 public class Notify {
-    public static Notification show(Context context, String title, String content, String ticker, @DrawableRes int icon, Intent pendingIntent) {
+    public static Notification show(Context context, int id, String title, String content, String ticker, @DrawableRes int icon, Intent pendingIntent) {
 
-        //如果描述的PendingIntent已经存在，则在产生新的Intent之前会先取消掉当前的
-        PendingIntent hangPendingIntent = PendingIntent.getActivity(context, 0, pendingIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        Notification notification = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setDefaults(Notification.DEFAULT_SOUND)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setSmallIcon(icon)
+//                .setSmallIcon(R.drawable.set_password)
                 .setColor(Color.parseColor("#FD596B"))
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), icon))
                 .setAutoCancel(true)
-                .setContentIntent(hangPendingIntent)
-                .setFullScreenIntent(hangPendingIntent, true)
-                .setVisibility(Notification.VISIBILITY_PRIVATE)
-                .setTicker(ticker)
-                .setWhen(System.currentTimeMillis())
-                .build();
+                .setWhen(System.currentTimeMillis());
+
+
+        //如果描述的PendingIntent已经存在，则在产生新的Intent之前会先取消掉当前的
+        if (pendingIntent != null) {
+            PendingIntent hangPendingIntent = PendingIntent.getActivity(context, 0, pendingIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            builder.setContentIntent(hangPendingIntent);
+        }
+
+        Notification notification = builder.build();
 
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify("notify", 10099, notification);
+        mNotificationManager.notify("notify", id, notification);
 
         return notification;
 
