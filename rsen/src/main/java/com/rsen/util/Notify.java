@@ -30,10 +30,10 @@ public class Notify {
                 .setContentText(content)
 //                .setSmallIcon(R.drawable.set_password)
                 .setColor(Color.parseColor("#FD596B"))
+                .setTicker(ticker)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), icon))
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
-
 
         //如果描述的PendingIntent已经存在，则在产生新的Intent之前会先取消掉当前的
         if (pendingIntent != null) {
@@ -48,7 +48,5 @@ public class Notify {
         mNotificationManager.notify("notify", id, notification);
 
         return notification;
-
-//        PendingIntent.getActivity(context, 0,,0,)
     }
 }
