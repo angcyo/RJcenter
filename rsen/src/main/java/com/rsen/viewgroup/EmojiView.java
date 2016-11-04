@@ -153,7 +153,11 @@ public class EmojiView extends RRecyclerView {
                 holder.itemView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        insertEmoji(position);
+                        if (position > mDeletePosition) {
+                            insertEmoji(position - 1);
+                        } else {
+                            insertEmoji(position);
+                        }
                     }
                 });
                 if (position > mDeletePosition) {
