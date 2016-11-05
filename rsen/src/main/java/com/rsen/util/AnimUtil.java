@@ -23,7 +23,7 @@ public class AnimUtil {
                 targetView.setBackgroundColor(color);//设置一下, 就可以看到效果..
             }
         });
-        colorAnimator.setDuration(700);
+        colorAnimator.setDuration(duration);
         colorAnimator.start();
         return colorAnimator;
     }
