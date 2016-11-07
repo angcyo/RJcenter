@@ -2,6 +2,7 @@ package com.rsen.util;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -25,6 +26,7 @@ public class T {
     public static int T_OFFSET_Y = 65;//dp y轴偏移量
     public static int T_GRAVITY = Gravity.TOP;//默认的对齐方式
     private static Toast toast;
+    public static Handler mainHandler = new Handler(Looper.getMainLooper());
 
     /**
      * 短时间显示toast.
@@ -33,11 +35,17 @@ public class T {
      * @param text    the text
      */
     public static void show(Context content, CharSequence text) {
-        if (!checkMainThread()) {
-            return;
+        if (checkMainThread()) {
+            initToast(content.getApplicationContext(), text);
+            toast.show();
+        } else {
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    show(content, text);
+                }
+            });
         }
-        initToast(content.getApplicationContext(), text);
-        toast.show();
     }
 
     /**
@@ -47,12 +55,18 @@ public class T {
      * @param text    the text
      */
     public static void showL(Context content, CharSequence text) {
-        if (!checkMainThread()) {
-            return;
+        if (checkMainThread()) {
+            initToast(content.getApplicationContext(), text);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    showL(content, text);
+                }
+            });
         }
-        initToast(content.getApplicationContext(), text);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.show();
     }
 
     /**
