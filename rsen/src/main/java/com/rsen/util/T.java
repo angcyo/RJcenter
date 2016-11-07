@@ -2,6 +2,7 @@ package com.rsen.util;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Looper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -21,8 +22,8 @@ import java.lang.reflect.Field;
 public class T {
 
     public static int T_HEIGHT = 40;//dp 默认的高度
-    public static int T_OFFSET_Y = 40;//dp y轴偏移量
-    public static int T_GRAVITY = Gravity.BOTTOM;//默认的对齐方式
+    public static int T_OFFSET_Y = 65;//dp y轴偏移量
+    public static int T_GRAVITY = Gravity.TOP;//默认的对齐方式
     private static Toast toast;
 
     /**
@@ -32,6 +33,9 @@ public class T {
      * @param text    the text
      */
     public static void show(Context content, CharSequence text) {
+        if (!checkMainThread()) {
+            return;
+        }
         initToast(content.getApplicationContext(), text);
         toast.show();
     }
@@ -43,6 +47,9 @@ public class T {
      * @param text    the text
      */
     public static void showL(Context content, CharSequence text) {
+        if (!checkMainThread()) {
+            return;
+        }
         initToast(content.getApplicationContext(), text);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
@@ -55,7 +62,7 @@ public class T {
      * @param text    the text
      * @return the toast
      */
-    public static Toast initToast(Context content, CharSequence text) {
+    private static Toast initToast(Context content, CharSequence text) {
         if (toast == null) {
             synchronized (T.class) {
                 if (toast == null) {
@@ -117,8 +124,12 @@ public class T {
             WindowManager.LayoutParams params = (WindowManager.LayoutParams) mParams.get(mTNObj);
             params.width = -1;
             params.height = (int) dpToPx(context, T_HEIGHT);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean checkMainThread() {
+        return Looper.getMainLooper().getThread() == Thread.currentThread();
     }
 }
