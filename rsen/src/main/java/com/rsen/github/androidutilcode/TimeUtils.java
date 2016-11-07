@@ -6,12 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.blankj.utilcode.utils.ConstUtils.DAY;
-import static com.blankj.utilcode.utils.ConstUtils.HOUR;
-import static com.blankj.utilcode.utils.ConstUtils.MIN;
-import static com.blankj.utilcode.utils.ConstUtils.MSEC;
-import static com.blankj.utilcode.utils.ConstUtils.SEC;
-import static com.blankj.utilcode.utils.ConstUtils.TimeUnit;
+import static com.rsen.github.androidutilcode.ConstUtils.DAY;
+import static com.rsen.github.androidutilcode.ConstUtils.HOUR;
+import static com.rsen.github.androidutilcode.ConstUtils.MIN;
+import static com.rsen.github.androidutilcode.ConstUtils.MSEC;
+import static com.rsen.github.androidutilcode.ConstUtils.SEC;
+import static com.rsen.github.androidutilcode.ConstUtils.TimeUnit;
 
 
 /**
@@ -23,10 +23,6 @@ import static com.blankj.utilcode.utils.ConstUtils.TimeUnit;
  * </pre>
  */
 public class TimeUtils {
-
-    private TimeUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
 
     /**
      * <p>在工具类中经常使用到工具类的格式化描述，这个主要是一个日期的操作类，所以日志格式主要使用 SimpleDateFormat的定义格式.</p>
@@ -187,6 +183,9 @@ public class TimeUtils {
      */
     public static final SimpleDateFormat DEFAULT_SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
+    private TimeUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
 
     /**
      * 将时间戳转为时间字符串
@@ -318,7 +317,7 @@ public class TimeUtils {
      *                     </ul>
      * @return unit时间戳
      */
-    private static long milliseconds2Unit(long milliseconds, TimeUnit unit) {
+    private static long milliseconds2Unit(long milliseconds, ConstUtils.TimeUnit unit) {
         switch (unit) {
             case MSEC:
                 return milliseconds / MSEC;
@@ -349,7 +348,7 @@ public class TimeUtils {
      *              </ul>
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time0, String time1, TimeUnit unit) {
+    public static long getIntervalTime(String time0, String time1, ConstUtils.TimeUnit unit) {
         return getIntervalTime(time0, time1, unit, DEFAULT_SDF);
     }
 
@@ -369,7 +368,7 @@ public class TimeUtils {
      * @param format 时间格式
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time0, String time1, TimeUnit unit, SimpleDateFormat format) {
+    public static long getIntervalTime(String time0, String time1, ConstUtils.TimeUnit unit, SimpleDateFormat format) {
         return milliseconds2Unit(Math.abs(string2Milliseconds(time0, format)
                 - string2Milliseconds(time1, format)), unit);
     }
