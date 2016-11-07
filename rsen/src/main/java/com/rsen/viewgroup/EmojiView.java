@@ -143,12 +143,6 @@ public class EmojiView extends RRecyclerView {
         protected void onBindView(RBaseViewHolder holder, int position, EmojiBean bean) {
             if (position == mDeletePosition) {
                 holder.itemView.setClickable(false);
-//                ((ViewGroup) holder.itemView).getChildAt(0).setOnClickListener(new OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        onDelete();
-//                    }
-//                });
             } else {
                 holder.itemView.setOnClickListener(new OnClickListener() {
                     @Override

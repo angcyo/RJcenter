@@ -21,6 +21,8 @@ import java.util.regex.Pattern;
 
 
 public class EmojiUtil {
+
+    public static final int EMOJI_SIZE = 14;
     public static final int[] EmojiResArray = {
             R.drawable.f_000,
             R.drawable.f_001,
@@ -384,7 +386,7 @@ public class EmojiUtil {
                 if (tempText.equals(emoji.getContent())) {
                     //转换为Span并设置Span的大小
                     sb.setSpan(new ImageSpan(context, decodeSampledBitmapFromResource(context.getResources(), emoji.getImageUri()
-                            , dip2px(context, 18), dip2px(context, 18))),
+                            , dip2px(context, EMOJI_SIZE), dip2px(context, EMOJI_SIZE))),
                             m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     break;
                 }
@@ -413,7 +415,7 @@ public class EmojiUtil {
                 if (tempText.equals(emoji.getContent())) {
                     //转换为Span并设置Span的大小
                     sb.setSpan(new ImageSpan(context, decodeSampledBitmapFromResource(context.getResources(), emoji.getImageUri()
-                            , dip2px(context, 18), dip2px(context, 18))),
+                            , dip2px(context, EMOJI_SIZE), dip2px(context, EMOJI_SIZE))),
                             m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     break;
                 }
@@ -421,7 +423,6 @@ public class EmojiUtil {
         }
         comment.setText(sb);
     }
-
 
     public static class Emoji implements Serializable {
         int imageUri;
@@ -444,5 +445,4 @@ public class EmojiUtil {
         }
 
     }
-
 }
