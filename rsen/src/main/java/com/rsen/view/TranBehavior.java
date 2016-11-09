@@ -65,6 +65,11 @@ public class TranBehavior extends CoordinatorLayout.Behavior {
 
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
+        if (!ViewCompat.canScrollVertically(target, 1) //1 表示 视图下滚, 相当于手指 上滑
+                && !ViewCompat.canScrollVertically(target, -1)) {
+            return;
+        }
+
         int top = mTargetView.getTop();
         int offset = 0;
         if (dy > 0) {
