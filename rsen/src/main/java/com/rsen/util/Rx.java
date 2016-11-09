@@ -36,6 +36,16 @@ public class Rx {
         return (Observable.Transformer<T, T>) ioSchedulersTransformer;
     }
 
+    public static <T> Observable.Transformer<T, T> normalSchedulers() {
+        return new Observable.Transformer<T, T>() {
+            @Override
+            public Observable<T> call(Observable<T> source) {
+                return source.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
     public static <T, R> Subscription base(T t, Func1<? super T, ? extends R> func, final Action1<? super R> onNext) {
         return Observable.just(t).map(func).compose(applyIOSchedulers()).subscribe(onNext, throwable -> Log.e("Rx", "base: ", throwable));
     }
