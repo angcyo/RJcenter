@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
- * 类的描述：折叠头部
+ * 类的描述：
  * 创建人员：Robi
- * 创建时间：2016/11/07 20:19
+ * 创建时间：2016/10/25 12:37
  * 修改人员：Robi
- * 修改时间：2016/11/07 20:19
+ * 修改时间：2016/10/25 12:37
  * 修改备注：
  * Version: 1.0.0
  */
@@ -46,7 +46,7 @@ public class TranBehavior extends CoordinatorLayout.Behavior {
             mTranOffset = ((ViewGroup) mTargetView).getChildAt(0).getMeasuredHeight();
             return true;
         }
-        return super.layoutDependsOn(parent, child, dependency);
+        return false;
     }
 
     @Override
@@ -59,15 +59,25 @@ public class TranBehavior extends CoordinatorLayout.Behavior {
     }
 
     @Override
+    public boolean onMeasureChild(CoordinatorLayout parent, View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
+        if (mTargetView == null) {
+            return false;
+        }
+
+        child.measure(View.MeasureSpec.makeMeasureSpec(parent.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(parent.getMeasuredHeight() - mTargetView.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
+        return true;
+    }
+
+    @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
         return true;
     }
 
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
-        if (!ViewCompat.canScrollVertically(target, 1) //1 表示 视图下滚, 相当于手指 上滑
-                && !ViewCompat.canScrollVertically(target, -1)) {
-            return;
+        if (!ViewCompat.canScrollVertically(target, 1) && !ViewCompat.canScrollVertically(target, -1)) {
+            return;////1 表示 视图下滚, 相当于手指 上滑
         }
 
         int top = mTargetView.getTop();
