@@ -118,4 +118,6 @@ dependencies {
     /*Rx 形式的权限检查 https://github.com/tbruyelle/RxPermissions */
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
 
+    //模糊 https://github.com/wasabeef/Blurry
+    //compile 'jp.wasabeef:blurry:2.0.3'
 }
