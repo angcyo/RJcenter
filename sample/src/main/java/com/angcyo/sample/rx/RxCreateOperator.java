@@ -7,7 +7,6 @@ import java.util.concurrent.TimeoutException;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -60,7 +59,7 @@ public class RxCreateOperator {
                 })
                 .observeOn(Schedulers.newThread())//决定之后的观察在什么线程执行
                 .subscribeOn(Schedulers.newThread())//决定create方法在什么线程执行
-                .observeOn(AndroidSchedulers.mainThread())//决定后面的线程在哪执行
+                //.observeOn(AndroidSchedulers.mainThread())//决定后面的线程在哪执行
                 .subscribe(new Sub());
     }
 
