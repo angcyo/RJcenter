@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
@@ -75,8 +76,9 @@ public class BlurPostprocessor extends BasePostprocessor {
                         mImageView.setImageBitmap(bitmap);
 
                         if (mSimpleDraweeView != null) {
-                            mSimpleDraweeView.getHierarchy()
-                                    .setPlaceholderImage(new BitmapDrawable(bitmap));
+                            GenericDraweeHierarchy hierarchy = mSimpleDraweeView.getHierarchy();
+                            hierarchy.setPlaceholderImage(new BitmapDrawable(bitmap));
+                            hierarchy.setFadeDuration(0);
                         }
                     }
                 });
