@@ -47,6 +47,14 @@
     <!-- 无交互的进行操作, API>=19添加 -->
     <!-- <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/> -->
     <!-- tools:replace="icon, label" -->
+
+    <!--<supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />-->
+
     <application
         android:name="com.rsen.RApplication"
         android:allowBackup="true"
