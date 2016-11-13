@@ -54,7 +54,7 @@ dependencies {
     compile 'com.orhanobut:hawk:1.18'
 
     /*Rx 相关依赖, 最后更新2016-9-25*/
-    compile 'io.reactivex:rxjava:1.2.0'
+    compile 'io.reactivex:rxjava:1.2.2'
     compile 'io.reactivex:rxandroid:1.2.1'
     /*https://github.com/JakeWharton/RxBinding*/
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
