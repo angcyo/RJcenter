@@ -53,7 +53,7 @@ dependencies {
     /*hawk 键值对库*/
     compile 'com.orhanobut:hawk:1.18'
 
-    /*Rx 相关依赖, 最后更新2016-9-25*/
+    /*Rx 相关依赖, 最后更新2016-11-13*/
     compile 'io.reactivex:rxjava:1.2.2'
     compile 'io.reactivex:rxandroid:1.2.1'
     /*https://github.com/JakeWharton/RxBinding*/
