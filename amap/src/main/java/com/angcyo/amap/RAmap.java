@@ -67,7 +67,11 @@ public class RAmap {
         return amap;
     }
 
-    //------------------------------------无关内容---------------------------------------
+    public static void stopLocation() {
+        if (amap != null) {
+            amap.stopLocationInternal();
+        }
+    }
 
     /**
      * 获取SHA1值
@@ -97,6 +101,8 @@ public class RAmap {
         }
         return null;
     }
+
+    //------------------------------------无关内容---------------------------------------
 
     /**
      * 根据定位结果返回定位信息的字符串
@@ -168,7 +174,6 @@ public class RAmap {
 
     //---------------------------------------------------------------------------
 
-
     /**
      * 开始定位
      *
@@ -188,7 +193,7 @@ public class RAmap {
      * @author hongming.wang
      * @since 2.8.0
      */
-    public void stopLocation() {
+    public void stopLocationInternal() {
         // 停止定位
         locationClient.stopLocation();
     }
