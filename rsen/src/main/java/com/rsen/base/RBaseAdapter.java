@@ -91,7 +91,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         if (itemCount > startPosition + 1) {
             notifyItemInserted(startPosition);
         } else {
-            notifyItemChanged(itemCount - 1);
+            notifyItemChanged(itemCount - 1);//
         }
     }
 
