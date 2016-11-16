@@ -77,7 +77,7 @@ public class L {
         for (Object obj : msg) {
             sb.append(obj + ",");
         }
-        log(INFO, null, sb.substring(0, sb.length() - 1));
+        log(INFO, null, sb.substring(0, Math.max(0, sb.length() - 1)));
     }
 
     public static void w(String msg) {
