@@ -224,8 +224,20 @@ public class MultiTouchImageView extends View {
             final int maxH = (int) (mMaxBounds.height() / 2);
             final int realW = mDrawable.getIntrinsicWidth() / 2;
             final int realH = mDrawable.getIntrinsicHeight() / 2;
-            mRealBounds.set(maxW - realW, maxH - realH, maxW + realW, maxH + realH);
+            mRealBounds.set(max(maxW - realW), max(maxH - realH), minW(maxW + realW), minH(maxH + realH));
 //            mRealBounds.set(0, 0, (int) mMaxBounds.width(), (int) mMaxBounds.height());
+        }
+
+        private int max(int value) {
+            return Math.max(0, value);
+        }
+
+        private int minW(int value) {
+            return (int) Math.min(mMaxBounds.width(), value);
+        }
+
+        private int minH(int value) {
+            return (int) Math.min(mMaxBounds.height(), value);
         }
 
         /**
