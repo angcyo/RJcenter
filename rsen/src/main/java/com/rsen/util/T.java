@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -25,8 +26,8 @@ public class T {
     public static int T_HEIGHT = 40;//dp 默认的高度
     public static int T_OFFSET_Y = 65;//dp y轴偏移量
     public static int T_GRAVITY = Gravity.TOP;//默认的对齐方式
-    private static Toast toast;
     public static Handler mainHandler = new Handler(Looper.getMainLooper());
+    private static Toast toast;
 
     /**
      * 短时间显示toast.
