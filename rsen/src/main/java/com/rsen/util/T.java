@@ -35,14 +35,21 @@ public class T {
      * @param text    the text
      */
     public static void show(Context content, CharSequence text) {
+        String safeText;
+        if (TextUtils.isEmpty(text) || text.toString().contains("son")) {
+            safeText = "服务器异常,请稍后重试!";
+        } else {
+            safeText = text.toString();
+        }
+
         if (checkMainThread()) {
-            initToast(content.getApplicationContext(), text);
+            initToast(content.getApplicationContext(), safeText);
             toast.show();
         } else {
             mainHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    show(content, text);
+                    show(content, safeText);
                 }
             });
         }
