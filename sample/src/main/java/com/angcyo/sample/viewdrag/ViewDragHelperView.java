@@ -100,14 +100,16 @@ public class ViewDragHelperView extends ViewGroup {
 
         @Override
         public int clampViewPositionHorizontal(View child, int left, int dx) {
-            //水平方向 child 视图滚动到 left 位置, 距离上一次的距离 dx
+            //水平方向 child 视图请求滚动到 left的位置, 距离上一次的距离 dx
+            //可以对left值做边界判断, 返回一个在范围内, 新的left
 
             return super.clampViewPositionHorizontal(child, left, dx);
         }
 
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
-            //竖直方向 child 视图滚动到 top 位置, 距离上一次的距离 dy
+            //竖直方向 child 视图 请求 滚动到 top的位置, 距离上一次的距离 dy
+            //可以对top值做边界判断, 返回一个在范围内, 新的top
 
             return super.clampViewPositionVertical(child, top, dy);
         }
