@@ -68,23 +68,25 @@ class WebViewTest extends RBaseActivity {
 
     private WebView initWebView(WebView webView) {
 //        WebView webView = new WebView(this);
-        webView.getSettings().setDefaultTextEncodingName("gbk");
-        webView.getSettings().setJavaScriptEnabled(true);//注意此处
-        webView.getSettings().setAllowFileAccess(true);
-        webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-        webView.getSettings().setPluginState(WebSettings.PluginState.ON);
+        final WebSettings settings = webView.getSettings();
+        settings.setDefaultTextEncodingName("gbk");
+        settings.setJavaScriptEnabled(true);//注意此处
+        settings.setAllowFileAccess(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setPluginState(WebSettings.PluginState.ON);
 
-        webView.getSettings().setBuiltInZoomControls(true);//支持缩放手势
-        webView.getSettings().setSupportZoom(true);
-        webView.getSettings().setDisplayZoomControls(false);//不显示缩放控件
+        settings.setBuiltInZoomControls(true);//支持缩放手势
+        settings.setSupportZoom(true);
+        settings.setDomStorageEnabled(true);//?
+        settings.setDisplayZoomControls(false);//不显示缩放控件
 //        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         //缩放网页,以便显示整个网页
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setUseWideViewPort(true);
 //        webView.setInitialScale(1);
 
-        webView.getSettings().setUserAgentString("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_4; zh-tw) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16");
+        settings.setUserAgentString("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_4; zh-tw) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16");
 
         webView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
