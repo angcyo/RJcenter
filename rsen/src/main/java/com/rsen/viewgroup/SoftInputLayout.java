@@ -150,6 +150,11 @@ public class SoftInputLayout extends LinearLayout {
         emojiParams.weight = 0;
         mEmojiLayout.setVisibility(VISIBLE);
         requestLayout();
+        if (!isEmojiLayoutShow) {
+            if (mOnSoftInputChangeListener != null) {
+                mOnSoftInputChangeListener.onEmojiLayoutChange(isSoftInputShow, mRawLayoutHeight, keyboardHeight);
+            }
+        }
         isEmojiLayoutShow = true;
     }
 
