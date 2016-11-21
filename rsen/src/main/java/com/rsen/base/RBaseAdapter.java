@@ -151,7 +151,11 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      * 重置数据
      */
     public void resetData(List<T> datas) {
-        this.mAllDatas = datas;
+        if (datas == null) {
+            this.mAllDatas = new ArrayList<>();
+        } else {
+            this.mAllDatas = datas;
+        }
         notifyDataSetChanged();
     }
 
