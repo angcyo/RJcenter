@@ -148,7 +148,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     /**
-     * 重置数据..
+     * 重置数据
      */
     public void resetData(List<T> datas) {
         if (datas == null) {
