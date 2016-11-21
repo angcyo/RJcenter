@@ -78,9 +78,11 @@ public class DragLayout extends ViewGroup {
 
     private void changeOtherViewPos(View changedView, int top) {
         if (changedView == mTopChild) {
-            mBottomChild.layout(0, mTopChild.getMeasuredHeight() + top, mBottomChild.getMeasuredWidth(), mTopChild.getMeasuredHeight() + top + mBottomChild.getMeasuredHeight());
+            mBottomChild.layout(0, mTopChild.getMeasuredHeight() + top, mBottomChild.getMeasuredWidth(),
+                    mTopChild.getMeasuredHeight() + top + mBottomChild.getMeasuredHeight());
         } else if (changedView == mBottomChild) {
-            mTopChild.layout(0, top - mTopChild.getMeasuredHeight(), mTopChild.getMeasuredWidth(), top);
+            mTopChild.layout(0, top - mTopChild.getMeasuredHeight(),
+                    mTopChild.getMeasuredWidth(), top);
         }
     }
 
@@ -148,6 +150,4 @@ public class DragLayout extends ViewGroup {
         }
         return true;
     }
-
-
 }
