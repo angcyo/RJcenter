@@ -169,6 +169,11 @@ public class SoftInputLayout extends LinearLayout {
         params2.height = 0;
         params2.weight = 0;
         mEmojiLayout.setVisibility(GONE);
+        if (isEmojiLayoutShow) {
+            if (mOnSoftInputChangeListener != null) {
+                mOnSoftInputChangeListener.onEmojiLayoutChange(false, mRawLayoutHeight, 0);
+            }
+        }
         isEmojiLayoutShow = false;
         requestLayout();
     }
