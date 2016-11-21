@@ -1,6 +1,7 @@
 package com.rsen.github;
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -18,9 +19,9 @@ public class DragLayout extends ViewGroup {
 
     //child的移动超过此速率就正向移动，否则反向
     private final float BOUND_VALOCITY = 1500f;
+    OnViewChangedListener mOnViewChangedListener;
     //child的移动超过此距离就正向移动，否则反向
     private int BOUND_DISTANCE = (int) ResUtil.dpToPx(getContext().getResources(), 120);
-
     private View mTopChild, mBottomChild;
     private ViewDragHelper mDragHelper;
 
@@ -44,7 +45,15 @@ public class DragLayout extends ViewGroup {
         mDragHelper = ViewDragHelper.create(this, 1f, new ViewDragHelper.Callback() {
             @Override
             public boolean tryCaptureView(View child, int pointerId) {
-                return child == mTopChild || child == mBottomChild;
+                if (child == mTopChild && !innerCanChildScrollVertically(child, 1)) {
+                    //如果是top view, 并且 不能向上滑动
+                    return true;
+                }
+                if (child == mBottomChild && !innerCanChildScrollVertically(child, -1)) {
+                    //如果是bottom view, 并且 不能向下滑动
+                    return true;
+                }
+                return false;
             }
 
             @Override
@@ -76,6 +85,28 @@ public class DragLayout extends ViewGroup {
 //        mDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_BOTTOM);
     }
 
+    private boolean innerCanChildScrollVertically(View view, int direction) {
+        if (view instanceof ViewGroup) {
+            final ViewGroup vGroup = (ViewGroup) view;
+            View child;
+            boolean result;
+            for (int i = 0; i < vGroup.getChildCount(); i++) {
+                child = vGroup.getChildAt(i);
+                if (child instanceof View) {
+                    result = ViewCompat.canScrollVertically(child, direction);
+                } else {
+                    result = innerCanChildScrollVertically(child, direction);
+                }
+
+                if (result) {
+                    return true;
+                }
+            }
+        }
+
+        return ViewCompat.canScrollVertically(view, direction);
+    }
+
     private void changeOtherViewPos(View changedView, int top) {
         if (changedView == mTopChild) {
             mBottomChild.layout(0, mTopChild.getMeasuredHeight() + top, mBottomChild.getMeasuredWidth(),
@@ -91,25 +122,35 @@ public class DragLayout extends ViewGroup {
         if (child == mTopChild) {
             if (-yvel > BOUND_VALOCITY || -mTopChild.getTop() > BOUND_DISTANCE) {
                 mDragHelper.smoothSlideViewTo(child, 0, -mTopChild.getMeasuredHeight());
+                onViewChanged(false);
             } else {
                 mDragHelper.smoothSlideViewTo(child, 0, 0);
+                onViewChanged(true);
             }
 
         } else if (child == mBottomChild) {
             if (yvel > BOUND_VALOCITY || mBottomChild.getTop() > BOUND_DISTANCE) {
                 mDragHelper.smoothSlideViewTo(child, 0, mTopChild.getMeasuredHeight());
+                onViewChanged(true);
             } else {
                 mDragHelper.smoothSlideViewTo(child, 0, 0);
+                onViewChanged(false);
             }
 
         }
         postInvalidate();
     }
 
+    private void onViewChanged(boolean showTop) {
+        if (mOnViewChangedListener != null) {
+            mOnViewChangedListener.onViewChanged(showTop);
+        }
+    }
+
     @Override
     public void computeScroll() {
         if (mDragHelper.continueSettling(true)) {
-            postInvalidateOnAnimation();
+            postInvalidate();
         }
     }
 
@@ -135,7 +176,6 @@ public class DragLayout extends ViewGroup {
         mBottomChild.layout(0, mTopChild.getMeasuredHeight(), mBottomChild.getMeasuredWidth(), mTopChild.getMeasuredHeight() + mBottomChild.getMeasuredHeight());
     }
 
-
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean isIntercept = mDragHelper.shouldInterceptTouchEvent(ev);
@@ -150,4 +190,14 @@ public class DragLayout extends ViewGroup {
         }
         return true;
     }
+
+    public DragLayout setOnViewChangedListener(OnViewChangedListener listener) {
+        this.mOnViewChangedListener = listener;
+        return this;
+    }
+
+    public interface OnViewChangedListener {
+        void onViewChanged(boolean showTop);
+    }
+
 }
