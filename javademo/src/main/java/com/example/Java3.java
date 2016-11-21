@@ -1,6 +1,7 @@
 package com.example;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 /**
  * Created by robi on 2016-04-13 11:33.
@@ -27,6 +28,9 @@ public class Java3 {
             p.print(" ");
         }
         p.print("\n");
+
+        ArrayList list = new ArrayList();
+        p.print(list.get(0));
     }
 
     private static void test4() {
