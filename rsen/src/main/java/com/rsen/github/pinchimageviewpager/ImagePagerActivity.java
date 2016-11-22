@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -65,6 +66,21 @@ public class ImagePagerActivity extends AppCompatActivity {
         args.putStringArrayList(KEY_PHOTO_LIST, values);
         intent.putExtras(args);
         activity.startActivity(intent);
+    }
+
+    public static void launcher(Activity activity, View view, int position, String value) {
+        if (TextUtils.isEmpty(value)) {
+            return;
+        }
+
+        ArrayList<String> values = new ArrayList<>();
+        if (value.startsWith("http")) {
+            values.add(value);
+        } else {
+            values.add("http://" + value);
+        }
+
+        launcher(activity, view, position, values);
     }
 
     /**
