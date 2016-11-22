@@ -18,6 +18,7 @@ import com.rsen.base.RBaseActivity;
 import com.rsen.base.RBaseAdapter;
 import com.rsen.base.RBaseItemDecoration;
 import com.rsen.base.RBaseViewHolder;
+import com.rsen.util.ClipBoardUtil;
 import com.rsen.util.T;
 
 import java.util.ArrayList;
@@ -46,6 +47,8 @@ public class RecyclerViewItemDecorationDemo extends RBaseActivity {
         final LayoutAnimationController layoutAnimationController = new LayoutAnimationController(translateAnimation);
         recyclerView.setLayoutAnimation(layoutAnimationController);
 //        recyclerView.startLayoutAnimation();
+
+        ClipBoardUtil.openApp(this, "com.angcyo.angcyo.angcyo");
     }
 
     private List<String> getDatas() {

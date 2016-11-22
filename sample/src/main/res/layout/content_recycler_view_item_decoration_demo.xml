@@ -19,7 +19,6 @@
         android:tag="GV6"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:animateLayoutChanges="true"
         android:layout_height="match_parent"/>
 
 </RelativeLayout>

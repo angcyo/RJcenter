@@ -82,6 +82,10 @@ public class ClipBoardUtil {
         PackageManager packageManager = context.getPackageManager();
         Intent launchIntentForPackage = packageManager.getLaunchIntentForPackage(packageName);
         launchIntentForPackage.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(launchIntentForPackage);
+        try {
+            context.startActivity(launchIntentForPackage);
+        } catch (Exception e) {
+            T.show(context, "亲, 你安装了这个程序吗?");
+        }
     }
 }
