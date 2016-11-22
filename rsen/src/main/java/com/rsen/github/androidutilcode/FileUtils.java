@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.blankj.utilcode.utils.ConstUtils.*;
+import static com.rsen.github.androidutilcode.ConstUtils.KB;
+
 
 /**
  * <pre>
