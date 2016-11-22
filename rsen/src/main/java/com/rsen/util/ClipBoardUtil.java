@@ -35,10 +35,13 @@ public class ClipBoardUtil {
      * @return the char sequence
      */
     public static CharSequence from(Context context) {
-        CharSequence clip;
+        CharSequence clip = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-            clip = clipboard.getPrimaryClip().getItemAt(0).getText();
+            ClipData primaryClip = clipboard.getPrimaryClip();
+            if (primaryClip != null && primaryClip.getItemCount() > 0) {
+                clip = primaryClip.getItemAt(0).getText();
+            }
         } else {
             android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             clip = clipboard.getText();
