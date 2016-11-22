@@ -37,8 +37,8 @@ public class T {
      * @param content the content
      * @param text    the text
      */
-    public static void show(Context content, CharSequence text) {
-        String safeText;
+    public static void show(final Context content, final CharSequence text) {
+        final String safeText;
         if (TextUtils.isEmpty(text) || text.toString().contains("son")) {
             safeText = "服务器异常,请稍后重试!";
         } else {
@@ -64,7 +64,7 @@ public class T {
      * @param content the content
      * @param text    the text
      */
-    public static void showL(Context content, CharSequence text) {
+    public static void showL(final Context content, final CharSequence text) {
         if (checkMainThread()) {
             initToast(content.getApplicationContext(), text);
             toast.setDuration(Toast.LENGTH_LONG);
@@ -97,15 +97,17 @@ public class T {
                 }
             }
         }
-        View rootView = toast.getView().findViewWithTag("root");
+        final View rootView = toast.getView().findViewWithTag("root");
         TextView textView = (TextView) toast.getView().findViewWithTag("text");
         textView.setText(text);
         textView.post(new Runnable() {
             @Override
             public void run() {
 //                ViewCompat.setScaleY(rootView, 0);
-                ViewCompat.setTranslationY(rootView, rootView.getMeasuredHeight());
-                ViewCompat.animate(rootView).setInterpolator(new DecelerateInterpolator()).translationY(0)/*.scaleY(1)*/.setDuration(300).start();
+                if (rootView != null) {
+                    ViewCompat.setTranslationY(rootView, rootView.getMeasuredHeight());
+                    ViewCompat.animate(rootView).setInterpolator(new DecelerateInterpolator()).translationY(0)/*.scaleY(1)*/.setDuration(300).start();
+                }
             }
         });
         return toast;
