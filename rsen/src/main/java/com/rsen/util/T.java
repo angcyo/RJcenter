@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -95,7 +97,17 @@ public class T {
                 }
             }
         }
-        ((TextView) toast.getView().findViewWithTag("text")).setText(text);
+        View rootView = toast.getView().findViewWithTag("root");
+        TextView textView = (TextView) toast.getView().findViewWithTag("text");
+        textView.setText(text);
+        textView.post(new Runnable() {
+            @Override
+            public void run() {
+//                ViewCompat.setScaleY(rootView, 0);
+                ViewCompat.setTranslationY(rootView, rootView.getMeasuredHeight());
+                ViewCompat.animate(rootView).setInterpolator(new DecelerateInterpolator()).translationY(0)/*.scaleY(1)*/.setDuration(300).start();
+            }
+        });
         return toast;
     }
 
