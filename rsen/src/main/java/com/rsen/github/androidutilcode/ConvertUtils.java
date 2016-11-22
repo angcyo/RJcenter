@@ -18,10 +18,11 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
-import static com.blankj.utilcode.utils.ConstUtils.BYTE;
-import static com.blankj.utilcode.utils.ConstUtils.GB;
-import static com.blankj.utilcode.utils.ConstUtils.KB;
-import static com.blankj.utilcode.utils.ConstUtils.MB;
+import static com.rsen.github.androidutilcode.ConstUtils.BYTE;
+import static com.rsen.github.androidutilcode.ConstUtils.GB;
+import static com.rsen.github.androidutilcode.ConstUtils.KB;
+import static com.rsen.github.androidutilcode.ConstUtils.MB;
+
 
 /**
  * <pre>
