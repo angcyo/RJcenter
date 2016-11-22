@@ -16,6 +16,7 @@ import com.rsen.animation.recyclerview.adapters.ScaleInAnimationAdapter;
 import com.rsen.animation.recyclerview.animators.BaseItemAnimator;
 import com.rsen.animation.recyclerview.animators.FadeInDownAnimator;
 import com.rsen.base.RBaseAdapter;
+import com.rsen.util.AnimUtil;
 
 import java.lang.reflect.Constructor;
 
@@ -71,6 +72,7 @@ public class RRecyclerView extends RecyclerView {
         String tag = (String) this.getTag();
         if (TextUtils.isEmpty(tag) || "V".equalsIgnoreCase(tag)) {
             layoutManager = new LinearLayoutManager(context, orientation, false);
+            AnimUtil.applyLayoutAnimation(this);
         } else {
             //线性布局管理器
             if ("H".equalsIgnoreCase(tag)) {
