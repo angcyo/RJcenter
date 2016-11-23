@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -54,6 +55,7 @@ public class AnimUtil {
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1f,
                 Animation.RELATIVE_TO_PARENT, 0f,
                 Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
+        translateAnimation.setInterpolator(new DecelerateInterpolator());
         translateAnimation.setDuration(300);
         final LayoutAnimationController layoutAnimationController = new LayoutAnimationController(translateAnimation);
         viewGroup.setLayoutAnimation(layoutAnimationController);
