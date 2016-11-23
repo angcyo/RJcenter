@@ -35,6 +35,7 @@ public class RRecyclerView extends RecyclerView {
     protected AnimationAdapter mAnimationAdapter;
     protected boolean mItemAnim = true;
     protected boolean isFirstAnim = true;//布局动画只执行一次
+    protected boolean layoutAnim = false;//是否使用布局动画
 
     private OnScrollListener mScrollListener = new OnScrollListener() {
         @Override
@@ -73,7 +74,6 @@ public class RRecyclerView extends RecyclerView {
         String tag = (String) this.getTag();
         if (TextUtils.isEmpty(tag) || "V".equalsIgnoreCase(tag)) {
             layoutManager = new LinearLayoutManager(context, orientation, false);
-            AnimUtil.applyLayoutAnimation(this);
         } else {
             //线性布局管理器
             if ("H".equalsIgnoreCase(tag)) {
@@ -125,6 +125,18 @@ public class RRecyclerView extends RecyclerView {
             super.startLayoutAnimation();
         }
         isFirstAnim = false;
+    }
+
+    /**
+     * 是否设置布局动画
+     */
+    public void setLayoutAnim(boolean layoutAnim) {
+        this.layoutAnim = layoutAnim;
+        if (layoutAnim) {
+            AnimUtil.applyLayoutAnimation(this);
+        } else {
+            setLayoutAnimation(null);
+        }
     }
 
     /**
