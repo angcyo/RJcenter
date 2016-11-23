@@ -34,6 +34,7 @@ public class RRecyclerView extends RecyclerView {
     protected RBaseAdapter mAdapterRaw;
     protected AnimationAdapter mAnimationAdapter;
     protected boolean mItemAnim = true;
+    protected boolean isFirstAnim = true;//布局动画只执行一次
 
     private OnScrollListener mScrollListener = new OnScrollListener() {
         @Override
@@ -116,6 +117,14 @@ public class RRecyclerView extends RecyclerView {
     public void setTag(Object tag) {
         super.setTag(tag);
         initView(getContext());
+    }
+
+    @Override
+    public void startLayoutAnimation() {
+        if (isFirstAnim) {
+            super.startLayoutAnimation();
+        }
+        isFirstAnim = false;
     }
 
     /**
