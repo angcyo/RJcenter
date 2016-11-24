@@ -7,10 +7,12 @@ import android.text.TextUtils;
 
 import com.angcyo.rsen.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
@@ -69,6 +71,20 @@ public class DraweeViewUtil {
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setImageRequest(request)
                 .setOldController(view.getController())
+                .build();
+        view.setController(controller);
+    }
+
+    /**
+     * 重置加载的图片大小,不修改原图, 效果很好
+     */
+    public static void resize(SimpleDraweeView view, Uri uri, int width, int height) {
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setResizeOptions(new ResizeOptions(width, height))
+                .build();
+        PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+                .setOldController(view.getController())
+                .setImageRequest(request)
                 .build();
         view.setController(controller);
     }
