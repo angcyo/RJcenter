@@ -1,5 +1,6 @@
 package com.rsen.facebook;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
@@ -15,6 +16,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.rsen.util.ResUtil;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -87,6 +89,26 @@ public class DraweeViewUtil {
                 .setImageRequest(request)
                 .build();
         view.setController(controller);
+    }
+
+    public static void resize(SimpleDraweeView view, String url, int width, int height) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        if (url.startsWith("http")) {
+            view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
+            view.setBackgroundColor(Color.TRANSPARENT);
+            resize(view, Uri.parse(url), width, height);
+        } else {
+            resize(view, Uri.parse("" + url), width, height);
+        }
+    }
+
+    public static int getItemSize(Context context, int itemCount) {
+        int screenWidth = ResUtil.getScreenWidth(context);
+        int itemSize = screenWidth / itemCount;
+
+        return itemSize;
     }
 
     /**
