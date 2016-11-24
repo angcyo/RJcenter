@@ -9,7 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
 
 /**
@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
  */
 public class CircleTransitionLayout extends RelativeLayout {
 
+    private static final long ANIM_TIME = 700;
     Path clipPath = new Path();
     float clipStartX = 0f, clipStartY = 0f, clipStartRadius = 100f;
     ValueAnimator mClipValueAnimator, mClipValueAnimatorExit;
@@ -85,6 +86,12 @@ public class CircleTransitionLayout extends RelativeLayout {
         super.draw(canvas);
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        initAnimator();
+    }
+
     //------------------------------
 
     @Override
@@ -101,10 +108,12 @@ public class CircleTransitionLayout extends RelativeLayout {
     }
 
     private void startClip() {
+        setVisibility(INVISIBLE);
         post(new Runnable() {
             @Override
             public void run() {
-                initAnimator();
+                //initAnimator();
+                setVisibility(VISIBLE);
                 isClipEnd = false;
                 mClipValueAnimator.start();
             }
@@ -119,79 +128,81 @@ public class CircleTransitionLayout extends RelativeLayout {
 
     private void initAnimator() {
         final float endRadius = calcEndRadius();
-        if (mClipValueAnimator == null) {
-            mClipValueAnimator = ObjectAnimator.ofFloat(clipStartRadius, endRadius);
-            mClipValueAnimator.setInterpolator(new DecelerateInterpolator());
-            mClipValueAnimator.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
-            mClipValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    float progress = (float) valueAnimator.getAnimatedValue();
+//        if (mClipValueAnimator == null) {
+        mClipValueAnimator = ObjectAnimator.ofFloat(clipStartRadius, endRadius);
+        mClipValueAnimator.setInterpolator(new LinearInterpolator());
+//            mClipValueAnimator.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+        mClipValueAnimator.setDuration(ANIM_TIME);
+        mClipValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float progress = (float) valueAnimator.getAnimatedValue();
 //                    Log.d("angcyo", "progress-->" + progress);
-                    updateClipPath(clipStartRadius + progress);
+                updateClipPath(clipStartRadius + progress);
+            }
+        });
+        mClipValueAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                isClipEnd = true;
+                if (mEndListener != null) {
+                    mEndListener.onEnd();
                 }
-            });
-            mClipValueAnimator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animator) {
+            }
 
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+//        }
+//        if (mClipValueAnimatorExit == null) {
+        mClipValueAnimatorExit = ObjectAnimator.ofFloat(endRadius, clipStartRadius);
+//            mClipValueAnimatorExit.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+        mClipValueAnimatorExit.setDuration(ANIM_TIME);
+        mClipValueAnimatorExit.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float progress = (float) valueAnimator.getAnimatedValue();
+                updateClipPath(progress);
+            }
+        });
+        mClipValueAnimatorExit.setInterpolator(new LinearInterpolator());
+        mClipValueAnimatorExit.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                isClipEnd = true;
+                if (mEndListener != null) {
+                    mEndListener.onEnd();
                 }
+            }
 
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    isClipEnd = true;
-                    if (mEndListener != null) {
-                        mEndListener.onEnd();
-                    }
-                }
+            @Override
+            public void onAnimationCancel(Animator animator) {
 
-                @Override
-                public void onAnimationCancel(Animator animator) {
+            }
 
-                }
+            @Override
+            public void onAnimationRepeat(Animator animator) {
 
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
-                }
-            });
-        }
-        if (mClipValueAnimatorExit == null) {
-            mClipValueAnimatorExit = ObjectAnimator.ofFloat(endRadius, clipStartRadius);
-            mClipValueAnimatorExit.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
-            mClipValueAnimatorExit.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    float progress = (float) valueAnimator.getAnimatedValue();
-                    updateClipPath(progress);
-                }
-            });
-            mClipValueAnimatorExit.setInterpolator(new DecelerateInterpolator());
-            mClipValueAnimatorExit.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    isClipEnd = true;
-                    if (mEndListener != null) {
-                        mEndListener.onEnd();
-                    }
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
-                }
-            });
-        }
+            }
+        });
+//        }
     }
 
     private float calcEndRadius() {
