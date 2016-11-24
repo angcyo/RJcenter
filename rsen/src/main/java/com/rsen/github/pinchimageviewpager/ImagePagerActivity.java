@@ -235,6 +235,10 @@ public class ImagePagerActivity extends AppCompatActivity {
                 .withEndAction(new Runnable() {
                     @Override
                     public void run() {
+                        Window window = getWindow();
+                        WindowManager.LayoutParams attributes = window.getAttributes();
+                        attributes.alpha = 0;
+                        window.setAttributes(attributes);
                         isToFinish = false;
                         finish();
                     }
