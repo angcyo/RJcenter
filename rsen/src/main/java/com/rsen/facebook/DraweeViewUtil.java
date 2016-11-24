@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 
+import com.angcyo.rsen.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -42,6 +44,7 @@ public class DraweeViewUtil {
         }
         if (url.startsWith("http")) {
             view.setBackgroundColor(Color.TRANSPARENT);
+            view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
             view.setImageURI(Uri.parse(url));
         } else {
             setDraweeViewHttp2(view, url);
@@ -51,6 +54,7 @@ public class DraweeViewUtil {
     public static void setDraweeViewHttp2(SimpleDraweeView view, String url) {
         Uri uri = Uri.parse(/*Http.BASE_IMAGE_URL +*/ url);
         view.setBackgroundColor(Color.TRANSPARENT);
+        view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
         view.setImageURI(uri);
     }
 
@@ -67,6 +71,13 @@ public class DraweeViewUtil {
                 .setOldController(view.getController())
                 .build();
         view.setController(controller);
+    }
+
+    /**
+     * 设置占位图以及缩放类型
+     */
+    public static void setPlaceholderImage(SimpleDraweeView view) {
+        view.getHierarchy().setPlaceholderImage(R.drawable.abc_ic_clear_material, ScalingUtils.ScaleType.CENTER_INSIDE);
     }
 
     /**

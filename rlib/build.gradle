@@ -121,4 +121,7 @@ dependencies {
 
     //模糊 https://github.com/wasabeef/Blurry
     //compile 'jp.wasabeef:blurry:2.0.3'
+
+    //手势图片 https://github.com/chrisbanes/PhotoView
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
 }

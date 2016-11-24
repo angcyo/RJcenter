@@ -11,7 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -106,7 +106,7 @@ public class T {
 //                ViewCompat.setScaleY(rootView, 0);
                 if (rootView != null) {
                     ViewCompat.setTranslationY(rootView, rootView.getMeasuredHeight());
-                    ViewCompat.animate(rootView).setInterpolator(new DecelerateInterpolator()).translationY(0)/*.scaleY(1)*/.setDuration(300).start();
+                    ViewCompat.animate(rootView).setInterpolator(new LinearInterpolator()).translationY(0)/*.scaleY(1)*/.setDuration(300).start();
                 }
             }
         });
