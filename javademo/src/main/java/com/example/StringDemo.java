@@ -1,5 +1,7 @@
 package com.example;
 
+import java.io.PrintStream;
+
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -12,6 +14,9 @@ package com.example;
  * Version: 1.0.0
  */
 public class StringDemo {
+
+    static final PrintStream p = System.out;
+
     public static String convert(String utfString) {
         StringBuilder sb = new StringBuilder();
         String lastString = "";
@@ -28,5 +33,15 @@ public class StringDemo {
         sb.append(lastString);
 
         return sb.toString();
+    }
+
+    public static void main(String... args) {
+        String string = "";
+        String[] strings = string.split(",");
+
+        string = ",";
+        strings = string.split(",");
+
+        p.print("");
     }
 }
