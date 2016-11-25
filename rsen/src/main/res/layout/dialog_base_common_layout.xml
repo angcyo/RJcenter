@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/root_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/main_rount_bg"
+              android:orientation="vertical">
+
+    <!--内容布局-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:minHeight="40dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ico_view"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="#f0f0f0"
+            android:visibility="gone"
+            app:placeholderImage="@drawable/abc_btn_check_material"
+            app:placeholderImageScaleType="centerInside"
+            app:roundAsCircle="true"/>
+
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLength="10"
+            android:textColor="@color/main_text_color"
+            android:textSize="16sp"
+            tools:text="标题"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ico_bottom_view"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="#f0f0f0"
+            android:visibility="gone"
+            app:placeholderImage="@drawable/abc_btn_check_material"
+            app:placeholderImageScaleType="centerInside"
+            app:roundAsCircle="false"/>
+
+        <TextView
+            android:id="@+id/content_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#666666"
+            tools:text="内容"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F0F0F0"/>
+
+    <!--按钮布局-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cancel_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/default_bg_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="取消"/>
+
+        <View
+            android:id="@+id/bottom_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#F0F0F0"/>
+
+        <TextView
+            android:id="@+id/ok_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/default_bg_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/main_color"/>
+
+    </LinearLayout>
+</LinearLayout>

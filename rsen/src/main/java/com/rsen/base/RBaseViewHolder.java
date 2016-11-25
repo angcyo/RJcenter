@@ -98,6 +98,10 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         return (TextView) v(resId);
     }
 
+    public TextView tv(@IdRes int resId) {
+        return (TextView) v(resId);
+    }
+
     public TextView tV(String idName) {
         return (TextView) v(idName);
     }
