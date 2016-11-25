@@ -29,6 +29,7 @@ public class T {
     public static int T_OFFSET_Y = 65;//dp y轴偏移量
     public static int T_GRAVITY = Gravity.TOP;//默认的对齐方式
     public static Handler mainHandler = new Handler(Looper.getMainLooper());
+    static long lastTime = 0;
     private static Toast toast;
 
     /**
@@ -100,16 +101,20 @@ public class T {
         final View rootView = toast.getView().findViewWithTag("root");
         TextView textView = (TextView) toast.getView().findViewWithTag("text");
         textView.setText(text);
-        textView.post(new Runnable() {
-            @Override
-            public void run() {
+        long currentTimeMillis = System.currentTimeMillis();
+        if (currentTimeMillis - lastTime < 2000) {
+            textView.post(new Runnable() {
+                @Override
+                public void run() {
 //                ViewCompat.setScaleY(rootView, 0);
-                if (rootView != null) {
-                    ViewCompat.setTranslationY(rootView, rootView.getMeasuredHeight());
-                    ViewCompat.animate(rootView).setInterpolator(new LinearInterpolator()).translationY(0)/*.scaleY(1)*/.setDuration(300).start();
+                    if (rootView != null) {
+                        ViewCompat.setTranslationY(rootView, rootView.getMeasuredHeight());
+                        ViewCompat.animate(rootView).setInterpolator(new LinearInterpolator()).translationY(0)/*.scaleY(1)*/.setDuration(300).start();
+                    }
                 }
-            }
-        });
+            });
+        }
+        lastTime = currentTimeMillis;
         return toast;
     }
 
