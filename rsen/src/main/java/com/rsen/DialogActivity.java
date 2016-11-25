@@ -25,6 +25,35 @@ import com.rsen.facebook.DraweeViewUtil;
  * 修改备注：
  * Version: 1.0.0
  */
+
+/*
+* <style name="MyDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+* */
+
+    /*
+    *
+    *     <!--对话框样式的Activity-->
+    <style name="DialogActivity" parent="AppTheme">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/DialogWindowAnim</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+    * */
 public class DialogActivity extends AppCompatActivity {
 
     public static final String TITLE = "title";
