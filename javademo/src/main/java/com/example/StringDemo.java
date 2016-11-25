@@ -1,6 +1,8 @@
 package com.example;
 
 import java.io.PrintStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -36,6 +38,42 @@ public class StringDemo {
     }
 
     public static void main(String... args) {
+//        test1();
+        //test2();
+        double num = 1_999.99999999;
+        String result = "";
+        result = BigDecimal.valueOf(num).setScale(2, BigDecimal.ROUND_DOWN).toString();
+        if (result.length() >= 9) {
+            p(result.substring(0, result.length() - 8) + "万");
+        } else {
+            p(result);
+        }
+    }
+
+    private static void test2() {
+        double num = 1230000000.99999999;
+        String result = "";
+        result = String.format("%.2f", num);
+        p.println(result);
+
+        if (num > 100_000) {
+            //result = String.valueOf(num / 100_000);
+            result = BigDecimal.valueOf(num).setScale(2, BigDecimal.ROUND_DOWN).toString();
+            p.println(result);
+        }
+
+        result = BigDecimal.valueOf(2).setScale(2, BigDecimal.ROUND_DOWN).toString();//小数点后2位, 不四舍五入
+        p(result);
+        //BigDecimal.setScale();
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        p(decimalFormat.format(num));
+    }
+
+    public static void p(Object object) {
+        p.println(object);
+    }
+
+    private static void test1() {
         String string = "";
         String[] strings = string.split(",");
 
