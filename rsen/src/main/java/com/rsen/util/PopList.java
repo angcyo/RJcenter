@@ -39,6 +39,7 @@ public class PopList {
     public static void hide() {
         if (popList != null) {
             popList.dismiss();
+            popList = null;
         }
     }
 }

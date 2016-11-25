@@ -47,6 +47,7 @@ public class StringDemo {
 
         string = "1,2,3";
         strings = string.split(",");
+
         p.print("");
     }
 }
