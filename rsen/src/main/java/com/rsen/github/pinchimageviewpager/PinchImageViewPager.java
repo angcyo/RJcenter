@@ -96,7 +96,6 @@ import java.util.Comparator;
  * <p>
  * <p>
  * https://github.com/boycy815/PinchImageView
- *
  */
 /*        mViewPager.setCurrentItem(mStartPosition);
 
@@ -775,6 +774,11 @@ public class PinchImageViewPager extends ViewGroup {
     public ItemInfo getCurItemInfo() {
         if (mCurItem >= mItems.size()) {
             return null;
+        }
+        for (ItemInfo info : mItems) {
+            if (info.position == mCurItem) {
+                return info;//2016-11-27
+            }
         }
         return mItems.get(mCurItem);
     }
