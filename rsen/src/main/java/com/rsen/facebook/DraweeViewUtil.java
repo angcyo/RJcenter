@@ -127,6 +127,15 @@ public class DraweeViewUtil {
     }
 
     /**
+     * 设置圆形
+     */
+    public static void setDraweeViewRound(SimpleDraweeView view, boolean circle) {
+        RoundingParams roundingParams = RoundingParams.asCircle();
+        roundingParams.setRoundAsCircle(circle);
+        view.getHierarchy().setRoundingParams(roundingParams);
+    }
+
+    /**
      * 设置圆角
      */
     public static void setDraweeViewRadius(SimpleDraweeView view, float radius) {
