@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -49,7 +50,8 @@ public class SimpleProgressBar extends View {
 
     public void setProgress(int progress) {
         if (progress >= 100 || progress <= 0) {
-            setVisibility(GONE);
+//            setVisibility(GONE);
+            ViewCompat.animate(this).translationY(-getMeasuredHeight()).setDuration(300).start();
         } else {
             mProgress = progress;
             postInvalidate();
