@@ -58,6 +58,14 @@ public class ExEditText extends AppCompatEditText {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+        if (isFocused()) {
+            checkEdit(hasWindowFocus);
+        }
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         clearRect.set(w - getPaddingRight() - clearDrawable.getIntrinsicWidth(), getPaddingTop(), w - getPaddingRight(), Math.min(w, h) - getPaddingBottom());
