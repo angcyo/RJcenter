@@ -120,6 +120,7 @@ public class T {
 
     private static View createToastView(Context context) {
         RelativeLayout root = new RelativeLayout(context);
+        root.setTag("root");
         root.setBackgroundResource(context.getResources().getIdentifier("colorAccent", "color", context.getPackageName()));
         root.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
 
