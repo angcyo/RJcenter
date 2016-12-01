@@ -25,6 +25,9 @@ public class DragLayout extends ViewGroup {
     private View mTopChild, mBottomChild;
     private ViewDragHelper mDragHelper;
 
+    private boolean isShowTop = true;
+
+
     public DragLayout(Context context) {
         super(context);
         init();
@@ -142,6 +145,7 @@ public class DragLayout extends ViewGroup {
     }
 
     private void onViewChanged(boolean showTop) {
+        isShowTop = showTop;
         if (mOnViewChangedListener != null) {
             mOnViewChangedListener.onViewChanged(showTop);
         }
@@ -172,8 +176,13 @@ public class DragLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        mTopChild.layout(0, 0, mTopChild.getMeasuredWidth(), mTopChild.getMeasuredHeight());
-        mBottomChild.layout(0, mTopChild.getMeasuredHeight(), mBottomChild.getMeasuredWidth(), mTopChild.getMeasuredHeight() + mBottomChild.getMeasuredHeight());
+        if (isShowTop) {
+            mTopChild.layout(0, 0, mTopChild.getMeasuredWidth(), mTopChild.getMeasuredHeight());
+            mBottomChild.layout(0, mTopChild.getMeasuredHeight(), mBottomChild.getMeasuredWidth(), mTopChild.getMeasuredHeight() + mBottomChild.getMeasuredHeight());
+        } else {
+            mTopChild.layout(0, -mTopChild.getMeasuredHeight(), mTopChild.getMeasuredWidth(), 0);
+            mBottomChild.layout(0, 0, mBottomChild.getMeasuredWidth(), mBottomChild.getMeasuredHeight());
+        }
     }
 
     @Override
