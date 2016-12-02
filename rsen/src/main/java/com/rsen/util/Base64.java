@@ -28,7 +28,7 @@ public class Base64 {
         try {
             byte[] encode = str.getBytes("UTF-8");
             // base64 加密
-            return new String(android.util.Base64.encode(encode, 0, encode.length, android.util.Base64.DEFAULT), "UTF-8");
+            return new String(android.util.Base64.encode(encode, 0, encode.length, android.util.Base64.DEFAULT), "UTF-8").trim();
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
