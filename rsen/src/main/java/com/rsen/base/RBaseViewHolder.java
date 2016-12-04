@@ -66,17 +66,17 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         return viewType;
     }
 
-    public View v(@IdRes int resId) {
+    public <T extends View> T v(@IdRes int resId) {
         View view = sparseArray.get(resId);
         if (view == null) {
             view = itemView.findViewById(resId);
             sparseArray.put(resId, view);
         }
-        return view;
+        return (T) view;
     }
 
-    public View v(String idName) {
-        return viewByName(idName);
+    public <T extends View> T v(String idName) {
+        return (T) viewByName(idName);
     }
 
     public View view(@IdRes int resId) {
