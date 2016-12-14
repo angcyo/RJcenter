@@ -417,7 +417,7 @@ public class Utils {
             return;
         }
 
-        if (!url.toLowerCase().startsWith("http:") || !url.toLowerCase().startsWith("https:")) {
+        if (!url.toLowerCase().startsWith("http:") && !url.toLowerCase().startsWith("https:")) {
             url = "http:".concat(url);
         }
 
