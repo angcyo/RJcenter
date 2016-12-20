@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
+import com.orhanobut.hawk.Hawk;
+
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -21,6 +23,7 @@ import android.widget.LinearLayout;
  */
 public class SoftInputLayout extends LinearLayout {
     private static final String TAG = SoftInputLayout.class.getSimpleName();
+    private static final String KEY_KEYBOARD_HEIGHT = "keyboard_height";
 
     /**
      * 内容+键盘的实际最大允许的高度
@@ -59,6 +62,11 @@ public class SoftInputLayout extends LinearLayout {
     public static void hideSoftInput(Context context, View editText) {
         ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
                 .hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    public static void showSoftInput(Context context, View editText) {
+        ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
+                .showSoftInput(editText, 0);
     }
 
     @Override
@@ -102,6 +110,7 @@ public class SoftInputLayout extends LinearLayout {
      * 修改第一次打开表情之前, 键盘没有弹出之前的BUG.
      */
     private void fixContentLayoutHeight(final int oldH, final int newH) {
+        Hawk.put(KEY_KEYBOARD_HEIGHT, mRawLayoutHeight - newH);
         postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -139,11 +148,11 @@ public class SoftInputLayout extends LinearLayout {
             keyboardHeight = getDefaultEmojiHeight();
             mCurrentContentHeight = mRawLayoutHeight - keyboardHeight;
         } else {
-            keyboardHeight = mRawLayoutHeight - mCurrentContentHeight;
+            keyboardHeight = Math.max(getDefaultEmojiHeight(), mRawLayoutHeight - mCurrentContentHeight);
         }
 
         LayoutParams contentParams = (LayoutParams) mContentLayout.getLayoutParams();
-        contentParams.height = mCurrentContentHeight;
+        contentParams.height = mRawLayoutHeight - keyboardHeight;
         contentParams.weight = 0;
         LayoutParams emojiParams = (LayoutParams) mEmojiLayout.getLayoutParams();
         emojiParams.height = keyboardHeight;
@@ -152,7 +161,7 @@ public class SoftInputLayout extends LinearLayout {
         requestLayout();
         if (!isEmojiLayoutShow) {
             if (mOnSoftInputChangeListener != null) {
-                mOnSoftInputChangeListener.onEmojiLayoutChange(isSoftInputShow, mRawLayoutHeight, keyboardHeight);
+                mOnSoftInputChangeListener.onEmojiLayoutChange(true, mRawLayoutHeight, keyboardHeight);
             }
         }
         isEmojiLayoutShow = true;
@@ -187,7 +196,7 @@ public class SoftInputLayout extends LinearLayout {
             int height = mEmojiLayout.getMeasuredHeight();
             hideEmojiLayout();
             if (mOnSoftInputChangeListener != null) {
-                mOnSoftInputChangeListener.onEmojiLayoutChange(true, rawLayoutHeight, height);
+                mOnSoftInputChangeListener.onEmojiLayoutChange(false, rawLayoutHeight, height);
             }
             return true;
         }
@@ -214,11 +223,16 @@ public class SoftInputLayout extends LinearLayout {
      * 默认的表情布局高度
      */
     private int getDefaultEmojiHeight() {
+        int height = Hawk.get(KEY_KEYBOARD_HEIGHT, -1);
+        if (height > 50) {
+            return height;
+        }
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
     }
 
     public interface OnSoftInputChangeListener {
         void onSoftInputChange(boolean show, int layoutHeight, int contentHeight);
+
         void onEmojiLayoutChange(boolean show, int layoutHeight, int emojiHeight);
     }
 }
