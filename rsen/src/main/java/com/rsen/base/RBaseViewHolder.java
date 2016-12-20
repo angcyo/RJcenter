@@ -179,7 +179,7 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
             try {
                 View view = viewByName(name);
                 if (view instanceof TextView) {
-                    ((TextView) view).setText((String) f.get(bean));
+                    ((TextView) view).setText(f.get(bean).toString());
                 } else if (view instanceof ImageView) {
 
                 }
