@@ -34,6 +34,8 @@ public class RxFlatOperator {
             @Override
             public Integer call(Integer integer, Integer integer2) {
                 //第一个参数:第一次发射的第一个数据, 之后是此方法返回的数据.
+                //第一次调用的时候, 第一个参数是第一个值, 第二个参数是第二个值
+                //之后调用, 第一个参数是返回值,第二个参数是序列中的值
                 RxDemo.log(RxDemo.getMethodName() + " " + integer + " " + integer2);
                 return 0;
             }

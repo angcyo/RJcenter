@@ -32,11 +32,11 @@ public class RxDemo {
      */
     public static void flatOperator() {
 //        RxFlatOperator.mapDemo();
-//        RxFlatOperator.scanDemo();
+        RxFlatOperator.scanDemo();
 //        RxFlatOperator.bufferDemo();
 //        RxFlatOperator.flatMapDemo();
 //        RxFlatOperator.groupByDemo();
-        RxFlatOperator.windowDemo();
+//        RxFlatOperator.windowDemo();
     }
 
     /**

@@ -46,14 +46,14 @@ public class ExampleUnitTest {
     @Test
     public void rxTest() {
 //        RxDemo.createOperator();
-//        RxDemo.flatOperator();
+        RxDemo.flatOperator();
 //        RxDemo.filterOperator();
 //        RxDemo.combineOperator();
 //        RxDemo.errorOperator();
 //        RxDemo.assistOperator();
 //        RxDemo.conditionalOperator();
 //        RxDemo.mathOperator();
-        RxDemo.connectOperator();
+//        RxDemo.connectOperator();
 
 
         sleep();
