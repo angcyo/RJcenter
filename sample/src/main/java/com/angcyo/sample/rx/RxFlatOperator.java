@@ -1,5 +1,6 @@
 package com.angcyo.sample.rx;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -30,16 +31,54 @@ public class RxFlatOperator {
 
     public static void scanDemo() {
         //连续地对数据序列的每一项应用一个函数，然后连续发射结果
-        Observable.just(1, 2, 3, 4).scan(new Func2<Integer, Integer, Integer>() {
-            @Override
-            public Integer call(Integer integer, Integer integer2) {
-                //第一个参数:第一次发射的第一个数据, 之后是此方法返回的数据.
-                //第一次调用的时候, 第一个参数是第一个值, 第二个参数是第二个值
-                //之后调用, 第一个参数是返回值,第二个参数是序列中的值
-                RxDemo.log(RxDemo.getMethodName() + " " + integer + " " + integer2);
-                return 0;
-            }
-        }).subscribe(new RxCreateOperator.Sub());
+
+        //1:
+/*        Observable.just(1, 2, 3, 4)
+                .scan(new Func2<Integer, Integer, Integer>() {
+                    @Override
+                    public Integer call(Integer integer, Integer integer2) {
+                        //第一个参数:第一次发射的第一个数据, 之后是此方法返回的数据.
+                        //第一次调用的时候, 第一个参数是第一个值, 第二个参数是第二个值
+                        //之后调用, 第一个参数是返回值,第二个参数是序列中的值
+                        RxDemo.log(RxDemo.getMethodName() + " " + integer + " " + integer2);
+                        return integer + integer2;
+                    }
+                })
+                .takeLast(1)
+//                .last()
+//                .filter(new Func1<Integer, Boolean>() {
+//                    @Override
+//                    public Boolean call(Integer integer) {
+//                        return integer == 10;
+//                    }
+//                })
+                .subscribe(new RxCreateOperator.Sub());*/
+
+        //2:
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            strings.add(String.valueOf(i));
+        }
+        Observable.from(strings)
+                .scan(new Func2<String, String, String>() {
+                    @Override
+                    public String call(String s, String s2) {
+                        return s + ":" + s2;
+                    }
+                })
+                .last()
+                .map(new Func1<String, ArrayList<String>>() {
+                    @Override
+                    public ArrayList<String> call(String s) {
+                        ArrayList<String> list = new ArrayList<String>();
+                        String[] split = s.split(":");
+                        for (int i = 0; i < split.length; i++) {
+                            list.add(split[i]);
+                        }
+                        return list;
+                    }
+                })
+                .subscribe(new RxCreateOperator.Sub());
     }
 
     public static void bufferDemo() {
