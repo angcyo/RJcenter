@@ -27,6 +27,10 @@ public class TimeDemo {
         p.println(4 % 3);
         p.println(4 % 3 + 1);
         p.println(4 % (3 + 1));
+
+        p.println(4 / 3);
+        p.println(4 / 3 + 1);
+        p.println(4 / (3 + 1));
     }
 
     public static String getSimpleDate(long time) {
