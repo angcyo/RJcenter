@@ -19,11 +19,14 @@ public class TimeDemo {
     static final PrintStream p = System.out;
 
     public static void main(String... args) {
-        p.println(getSimpleDate(1_477_622_968));
-        p.println(getSimpleDate(1_477_622_968l * 1000));
-        p.println(1477622968 / 1000);
-        p.println(System.currentTimeMillis());
-        p.println(1477622968);
+//        p.println(getSimpleDate(1_477_622_968));
+//        p.println(getSimpleDate(1_477_622_968l * 1000));
+//        p.println(1477622968 / 1000);
+//        p.println(System.currentTimeMillis());
+//        p.println(1477622968);
+        p.println(4 % 3);
+        p.println(4 % 3 + 1);
+        p.println(4 % (3 + 1));
     }
 
     public static String getSimpleDate(long time) {
