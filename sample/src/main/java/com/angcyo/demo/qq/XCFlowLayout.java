@@ -16,28 +16,24 @@ import java.util.List;
 public class XCFlowLayout extends ViewGroup {
 
     //存储所有子View
-    private List<List<View>> mAllChildViews = new ArrayList<List<View>>();
+    private List<List<View>> mAllChildViews = new ArrayList<>();
     //每一行的高度
-    private List<Integer> mLineHeight = new ArrayList<Integer>();
+    private List<Integer> mLineHeight = new ArrayList<>();
 
     public XCFlowLayout(Context context) {
         this(context, null);
-        // TODO Auto-generated constructor stub
     }
 
     public XCFlowLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        // TODO Auto-generated constructor stub
     }
 
     public XCFlowLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // TODO Auto-generated method stub
         //父控件传进来的宽度和高度以及对应的测量模式
         int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
         int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
@@ -94,7 +90,6 @@ public class XCFlowLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        // TODO Auto-generated method stub
         mAllChildViews.clear();
         mLineHeight.clear();
         //获取当前ViewGroup的宽度
@@ -103,7 +98,7 @@ public class XCFlowLayout extends ViewGroup {
         int lineWidth = 0;
         int lineHeight = 0;
         //记录当前行的view
-        List<View> lineViews = new ArrayList<View>();
+        List<View> lineViews = new ArrayList<>();
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
@@ -166,8 +161,6 @@ public class XCFlowLayout extends ViewGroup {
      */
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        // TODO Auto-generated method stub
-
         return new MarginLayoutParams(getContext(), attrs);
     }
 }
