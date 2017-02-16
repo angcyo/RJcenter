@@ -37,7 +37,7 @@ public class TimeDemo {
 //        p.println(Math.ceil(4f / 4 + 1));
 //        p.println(Math.ceil(4f / (4 + 1)));
 
-        //main2("aaa", "bbb", "ccc");
+        //main2("aaa", "bbb", "ccc");//test
 
         int[] origin = new int[]{1, 1, 2, 3, 1, 4, 8, 2, 7, 5, 4, 10, 6, 5, 9};
         List<Integer> originList = new ArrayList<>();
