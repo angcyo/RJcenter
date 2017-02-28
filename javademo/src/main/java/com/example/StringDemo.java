@@ -40,6 +40,17 @@ public class StringDemo {
     public static void main(String... args) {
 //        test1();
         //test2();
+        //test3();
+        test4();
+    }
+
+    private static void test4() {
+        String src = "720.0x1000.0";
+        String[] xes = src.split("x");
+        p(xes[0]);
+    }
+
+    private static void test3() {
         double num = 1_999.99999999;
         String result = "";
         result = BigDecimal.valueOf(num).setScale(2, BigDecimal.ROUND_DOWN).toString();
