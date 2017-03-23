@@ -41,7 +41,12 @@ public class StringDemo {
 //        test1();
         //test2();
         //test3();
-        test4();
+        //test4();
+
+        String signString = "angcyo/angcyo+angcyo=angcyo";
+        p.println(signString);
+        signString = signString.replaceAll("/", "_a").replaceAll("\\+", "_b").replaceAll("=", "_c");
+        p.println(signString);
     }
 
     private static void test4() {
