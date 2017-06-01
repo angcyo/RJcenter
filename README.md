@@ -6,7 +6,7 @@
 
 RSen常用公共类,发布到Jcenter
 
-##使用方法
+## 使用方法
 ```groovy
 //2015-12-15 17:20:54 
 compile 'com.rsen:rsen:0.0.2'
@@ -19,11 +19,11 @@ compile 'com.rsen:rsen:1.1.0'
 ```
 
 
-##使用介绍
+## 使用介绍
 暂无
 
-##项目推荐
-###[常用工具类](https://github.com/h4de5ing/AndroidCommon)
+## 项目推荐
+### [常用工具类](https://github.com/h4de5ing/AndroidCommon)
 - 每一个Android开发者在日常开发中都会积累一些自己的代码片段
 - 目的：
        * 1.将常用功能模块做成工具类
@@ -353,7 +353,7 @@ AppUtils.getAppName(MainActivity.this,com.code19.androidcommon);
 ```
 
 ----------
-###[《Android应用开发》](https://github.com/Jhuster/Android)
+### [《Android应用开发》](https://github.com/Jhuster/Android)
 Code List
 ----------
 
@@ -404,7 +404,7 @@ Code List
 Thanks
 
 ---
-###[Android 开源项目分类汇总](https://github.com/Trinea/android-open-project)
+### [Android 开源项目分类汇总](https://github.com/Trinea/android-open-project)
 **目前包括：**
 >[Android 开源项目第一篇——个性化控件(View)篇](https://github.com/Trinea/android-open-project#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A7%E4%BB%B6view)  
 *&nbsp;&nbsp;包括[ListView](https://github.com/Trinea/android-open-project#%E4%B8%80listview)、[ActionBar](https://github.com/Trinea/android-open-project#%E4%BA%8Cactionbar)、[Menu](https://github.com/Trinea/android-open-project#%E4%B8%89menu)、[ViewPager](https://github.com/Trinea/android-open-project#%E5%9B%9Bviewpager-gallery)、[Gallery](https://github.com/Trinea/android-open-project#%E5%9B%9Bviewpager-gallery)、[GridView](https://github.com/Trinea/android-open-project#%E4%BA%94gridview)、[ImageView](https://github.com/Trinea/android-open-project#%E5%85%ADimageview)、[ProgressBar](https://github.com/Trinea/android-open-project#%E4%B8%83progressbar)、[TextView](https://github.com/Trinea/android-open-project#%E5%85%ABtextview)、[ScrollView](https://github.com/Trinea/android-open-project#%E4%B9%9Dscrollview)、[TimeView](https://github.com/Trinea/android-open-project#%E5%8D%81timeview)、[TipView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%B8%80tipview)、[FlipView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%BA%8Cflipview)、[ColorPickView](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%B8%89colorpickview)、[GraphView](https://github.com/Trinea/android-open-project#%E5%8D%81%E5%9B%9Bgraphview)、[UI Style](https://github.com/Trinea/android-open-project#%E5%8D%81%E4%BA%94ui-style)、[其他](https://github.com/Trinea/android-open-project#十六其他)*  
@@ -418,7 +418,7 @@ Thanks
 *&nbsp;&nbsp;乐于分享并且有一些很不错的开源项目的[个人](https://github.com/Trinea/android-open-project#一个人)和[组织](https://github.com/Trinea/android-open-project#二组织)，包括 JakeWharton、Chris Banes、Koushik Dutta 等大牛* 
 
 ---
-###[awesome-android, android libs from github](https://github.com/snowdream/awesome-android)
+### [awesome-android, android libs from github](https://github.com/snowdream/awesome-android)
 ### Table of contents
 * [Framework](#Framework)
 * [EventBus](#EventBus)
@@ -496,7 +496,7 @@ Thanks
 * [Other](#Other1)
 
 ---
-###[Android-Next 公共组件库](https://github.com/angcyo/Android-Next)
+### [Android-Next 公共组件库](https://github.com/angcyo/Android-Next)
 这个库是我在日常开发过程中积累下来的一些可复用组件，大部分都在我的工作项目和个人项目中有使用。
 
 最新版本: [![Maven Central](http://img.shields.io/badge/2015.08.04-com.mcxiaoke.next:1.2.0-brightgreen.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mcxiaoke.next%22)
@@ -528,7 +528,7 @@ Thanks
 **使用前请阅读对应模块的文档和示例，如果有不清楚的地方，可以看源码，或者向我提问。**
 
 ---
-###[开源框架封装](https://github.com/huangwm1984/AndroidBase)
+### [开源框架封装](https://github.com/huangwm1984/AndroidBase)
 自己整理的项目中常用到开发框架和相关Test例子、开发中遇到的问题总结，持续更新中...
 
 1.BaseApplication、BaseActivity、BaseFragment等基类、activity堆栈式管理类以及全局网络通知
@@ -564,7 +564,7 @@ Thanks
 最后感谢github上大神的开源框架和开源精神 (●'◡'●)ﾉ♥
 
 ---
-###[AndroidLife](https://github.com/CaMnter/AndroidLife)
+### [AndroidLife](https://github.com/CaMnter/AndroidLife)
 ### 1. ImageScaleTypesActivity
 Introduce the ImageView scale properties      
 介绍ImageView scale属性  
@@ -873,7 +873,7 @@ Show the effect of various Span
  **Screenshot:**    
 ![SpanActivity](https://github.com/CaMnter/AndroidLife/raw/master/readme/33.SpanActivity.png)   
 
-##牛人推荐
+## 牛人推荐
 **国内:[https://github.com/android-cn/android-dev-cn](https://github.com/android-cn/android-dev-cn)**
 
 昵称 | GitHub | 博客 | 介绍
